@@ -5,7 +5,7 @@ Dove-Nest 지식 베이스의 시작점입니다.
 ## 영역
 
 - [[Dev/index|Dev — 개발 / 프로그래밍]]
-- [[Work/index|Work — 업무 / 프로젝트]]
+- [[Work/index|Work — 토이 프로젝트]]
 - [[Learning/index|Learning — 개인 학습 / 독서]]
 
 ## 최근 캡처
