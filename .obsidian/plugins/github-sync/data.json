@@ -1,0 +1,9 @@
+{
+  "remoteURL": "https://github.com/EvoDmiK/Minerva.git",
+  "gitLocation": "",
+  "syncinterval": 5,
+  "isSyncOnLoad": true,
+  "checkStatusOnLoad": true,
+  "noticeLevel": "ALL",
+  "showSyncSuccessNotice": false
+}

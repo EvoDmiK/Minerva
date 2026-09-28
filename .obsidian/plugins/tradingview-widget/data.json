@@ -1,0 +1,5 @@
+{
+  "defaultWidget": "stock-heatmap",
+  "defaultSymbol": "NASDAQ:AAPL",
+  "defaultTheme": "dark"
+}
