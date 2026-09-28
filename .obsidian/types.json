@@ -1,0 +1,12 @@
+{
+  "types": {
+    "aliases": "aliases",
+    "cssclasses": "multitext",
+    "tags": "tags",
+    "여행 일자": "text",
+    "created_at": "date",
+    "started": "date",
+    "status": "multitext",
+    "finished": "date"
+  }
+}

@@ -1,0 +1,163 @@
+/* ── Root ──────────────────────────────────────────────────────────────────── */
+
+.stock-view-root {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+/* ── Chart area (fills the entire view) ───────────────────────────────────── */
+
+.stock-view-chart-area {
+	position: absolute;
+	inset: 0;
+}
+
+.stock-view-chart-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.stock-view-iframe {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+/* ── Settings panel (right-side overlay) ─────────── */
+
+.stock-view-settings-panel {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 284px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	background: var(--background-secondary);
+	border-left: 1px solid var(--background-modifier-border);
+	box-shadow: -4px 0 16px rgba(0, 0, 0, 0.18);
+	z-index: 20;
+	overflow: hidden;
+}
+
+.stock-view-settings-panel.is-hidden {
+	display: none;
+}
+
+/* Panel header */
+.stock-view-panel-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 12px;
+	border-bottom: 1px solid var(--background-modifier-border);
+	flex-shrink: 0;
+}
+
+.stock-view-panel-title {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--text-normal);
+}
+
+.stock-view-panel-header-btns {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+/* Panel scrollable body */
+.stock-view-panel-body {
+	flex: 1;
+	overflow-y: auto;
+	padding-bottom: 16px;
+}
+
+/* Section */
+.stock-view-panel-section {
+	padding-top: 14px;
+	padding-bottom: 14px;
+}
+
+.stock-view-panel-section + .stock-view-panel-section {
+	border-top: 1px solid var(--background-modifier-border);
+}
+
+.stock-view-panel-section-title {
+	padding: 0 14px 8px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	color: var(--text-muted);
+}
+
+.stock-view-panel-section-content {
+	padding: 0 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+/* Row (label + control) */
+.stock-view-panel-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.stock-view-row-label {
+	font-size: 12px;
+	color: var(--text-muted);
+	flex-shrink: 0;
+	min-width: 48px;
+}
+
+/* ── Status messages (loading / error) ────────────────────────────────────── */
+
+.stock-view-status-msg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 14px 20px;
+	font-size: 13px;
+	color: var(--text-muted);
+	text-align: center;
+	max-width: 400px;
+	pointer-events: none;
+}
+
+.stock-view-status-error {
+	color: var(--text-error, var(--color-red, #e03e3e));
+}
+
+.stock-view-chart-toolbar {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	z-index: 10;
+}
+
+.stock-view-icon-btn {
+	padding: 0;
+	width: 30px;
+	height: 25px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.stock-view-icon-btn-ghost {
+	background-color: transparent;
+	box-shadow: none;
+}
