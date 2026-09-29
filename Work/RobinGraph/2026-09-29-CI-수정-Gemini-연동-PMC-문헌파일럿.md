@@ -126,6 +126,56 @@ uv run --locked robingraph verify-neo4j-fixture
 
 결과: HTTP 200, `disposition: answer`, Neo4j 검색 근거 3개, 생성 답변에 검색된 청크 ID 인용. 이 검증에서는 전문 검색만 사용했고 Jina 벡터 검색이나 운영 배포 서버는 시험하지 않았다.
 
+## PMC 실제 문헌 파일럿
+
+### 수집 대상과 선택 이유
+
+- 논문: *Concordant and opposing effects of climate and land-use change on avian assemblages in California’s most transformed landscapes* (PMC9946348, DOI `10.1126/sciadv.abn0250`).
+- [PMC 원문](https://pmc.ncbi.nlm.nih.gov/articles/PMC9946348/)의 CC BY 4.0 문헌 한 편만 `config/source-registry.json`에 허용 대상으로 등록했다. PMC 전체를 일괄 수집하는 설정은 아니다.
+- 처음 시도한 BioC 요청은 실제 적재 전에 HTTP 429를 받아, 논문 메타데이터와 본문을 한 번에 받는 [PMC OAI-PMH GetRecord](https://pmc.ncbi.nlm.nih.gov/tools/oai/) JATS XML 경로로 바꿨다.
+
+### 구현
+
+- `scripts/load_pmc_pilot.py`는 기본 실행 시 파싱 결과만 출력하는 dry run이다. `--apply`를 붙이면 TEST Neo4j에 기록한다. 새 패키지 없이 Python 표준 라이브러리와 기존 Neo4j 드라이버를 사용했다.
+- XML의 `article-meta`에서 PMCID, DOI, 제목, CC BY 4.0 표시를 확인한 뒤 초록과 본문의 문단을 청크로 만든다. 그림·표·보충자료·참고문헌은 제외한다. OAI 응답 시각을 제외한 논문 XML에 SHA-256을 계산해 같은 원문인지 확인한다.
+- Document → Chunk → EvidenceUnit와 SourceRecord/SourceDataset/License 출처 관계를 생성했다. 노드에 `PmcPilot`·`Fixture` 라벨을 붙여 파일럿을 구별하고, 청크에는 `HybridSearchChunk`를 붙여 기존 전문 검색에 연결했다. 임베딩은 생성하지 않았다.
+- 다시 실행하면 이전 `PmcPilot` 노드만 교체한다. `load-neo4j-fixture`를 다시 실행하면 이 실험 데이터도 지워질 수 있다.
+
+라이선스와 논문 ID 확인, 문단 제외 규칙의 핵심 부분:
+
+```python
+if not any(LICENSE_URI in statement for statement in license_statements):
+    raise ValueError("PMC article does not declare the expected CC BY 4.0 license")
+if ids.get("pmcid") != PMCID:
+    raise ValueError("PMC OAI record did not match the requested PMCID")
+if tag in {"fig", "table-wrap", "supplementary-material", "ref-list", "boxed-text"}:
+    return
+```
+
+실행 명령:
+
+```sh
+uv run --locked python scripts/load_pmc_pilot.py
+uv run --locked python scripts/load_pmc_pilot.py --apply
+```
+
+### TEST DB 검증 결과
+
+- 실제 논문 **1편, 문단 청크 55개** 적재. 반복 `--apply` 후에도 문서 1개·청크 55개로 유지됐다.
+- `climate land use Los Angeles birds` 검색에서 파일럿 청크 5개가 나왔고, `source_id=pmc-oa-ccby-pilot-9946348`, `license_name=CC BY 4.0`을 확인했다.
+- 실제 TEST Neo4j 검색기와 실제 Gemini 생성기를 연결한 FastAPI `TestClient` 요청이 HTTP 200, `disposition=answer`를 반환했다. 검색 근거 3개를 받았고 생성 답변의 인용 ID가 그 안에 있었다.
+
+```json
+{
+  "question": "How did climate and land use change affect birds in Los Angeles?",
+  "intent": "evidence",
+  "filters": {"kind": "evidence", "limit": 3}
+}
+```
+
+- Python 전체 테스트 415개 통과(31개 건너뜀), fixture 검증 통과. 추가한 3개 테스트는 문단 추출과 그림 제외, 잘못된 라이선스 거부, OAI 응답 시각 변화에도 같은 원문 해시 유지 여부를 확인한다.
+- TEST/fixture 검색 경로를 사용했으므로 API의 `fixture_only: true`는 정상이다. 운영 DB 적재나 배포 서버 검증은 아직 하지 않았다. 구현 범위는 `docs/pmc-literature-pilot.md`에 기록했다.
+
 ## 범위와 다음 작업
 
 - 합성 문서에 이어 실제 PMC 문헌 1편으로 검색과 답변을 시험했다. 운영 수집기로 확대하려면 여러 문헌의 선별·증분 갱신·오류 처리·저작권 정책을 별도로 설계해야 한다.
