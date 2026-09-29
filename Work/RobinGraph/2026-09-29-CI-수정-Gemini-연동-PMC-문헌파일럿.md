@@ -5,10 +5,11 @@ tags:
   - project/robingraph
   - dev
   - gemini
+  - literature
 status: in-progress
 ---
 
-# RobinGraph — CI 테스트 수정과 Gemini 근거 답변 연동 (2026-09-29)
+# RobinGraph — CI 테스트 수정, Gemini 근거 답변 연동, PMC 문헌 파일럿 (2026-09-29)
 
 ## 오늘 한 일
 
@@ -17,6 +18,7 @@ status: in-progress
 - `GEMINI_API_KEY`가 있을 때만 `serve-neo4j`의 문헌 근거 경로에서 Gemini 답변을 생성하도록 연결했다. 모델 기본값은 `gemini-3.8-flash`이며 `ROBINGRAPH_GEMINI_MODEL`로 바꿀 수 있다.
 - 생성 응답의 근거 ID가 실제 검색 청크에 있는지 확인한다. 근거가 없거나 생성·검증이 실패하면 근거 없는 답변을 표시하지 않고 기존 검색 결과를 유지한다.
 - CI의 기존 ingest/Windows 계약 테스트를 현재 구현에 맞게 정리했다.
+- TEST Neo4j에 CC BY 4.0 PMC 논문 1편을 실험용으로 적재하고, 실제 검색과 Gemini 답변까지 확인했다.
 
 ## CI 테스트 수정
 
@@ -97,7 +99,7 @@ return f"{answer_text} [{', '.join(evidence_ids)}]"
 
 ## 검증
 
-- Python 전체 테스트: **412개 실행, 통과** (환경 의존 테스트 31개 건너뜀). 프런트엔드 테스트: **37개 통과**.
+- Python 전체 테스트: **415개 실행, 통과** (환경 의존 테스트 31개 건너뜀). 프런트엔드 테스트: **37개 통과**.
 - 실제 Gemini API 호출에서 JSON 답변과 요청에 포함한 근거 ID를 받았다. 이 과정에서 `responseFormat` 요청이 HTTP 400을 반환하는 것을 확인하고, 실제로 동작하는 `responseMimeType`/`responseSchema` 형식으로 수정했다.
 - TEST Neo4j에 합성 fixture **분류군 10개, 관찰 100건, 문서 2개, 청크 4개**를 적재하고 전문 검색 인덱스를 생성했다. fixture 검증에서 비공개 좌표와 제한 관찰 노출은 모두 0건이었다.
 - 실제 Neo4j 검색 + Gemini를 잇는 `POST /v1/chat` 요청이 **HTTP 200**을 반환했다. 검색 근거 3개를 받았고, 생성 답변의 근거 ID가 검색 결과에 포함됐다.
@@ -126,7 +128,8 @@ uv run --locked robingraph verify-neo4j-fixture
 
 ## 범위와 다음 작업
 
-- 이번 답변 검증은 **합성 문서** 기준이다. 실제 문헌으로 답하려면 허용된 문헌을 수집·적재하고 검색 인덱스를 준비해야 한다.
+- 합성 문서에 이어 실제 PMC 문헌 1편으로 검색과 답변을 시험했다. 운영 수집기로 확대하려면 여러 문헌의 선별·증분 갱신·오류 처리·저작권 정책을 별도로 설계해야 한다.
+- 이번 문헌은 TEST fixture 영역에 둔 실험 데이터다. fixture 재적재 시 제거되며 운영 데이터로 배포하지 않았다.
 - API 키와 DB 자격 증명은 로컬 `.env`에만 두며 노트나 Git에는 기록하지 않는다.
 
 ## 관련 커밋
@@ -134,6 +137,7 @@ uv run --locked robingraph verify-neo4j-fixture
 - `b1b002c` — CI 테스트 계약 정리
 - `6d19cce` — Gemini 근거 답변 연결
 - `4f84e89` — 실제 호출로 확인한 구조화 출력 형식 적용
+- `27bc23b` — 일회용 PMC 문헌 검색 파일럿 추가
 
 ## 관련
 
