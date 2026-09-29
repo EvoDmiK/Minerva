@@ -4,7 +4,7 @@
 
 ## 노트
 
-- [[Work/RobinGraph/2026-09-29|RobinGraph — 2026-09-29 작업 기록]]
+- [[2026-09-29-CI-테스트수정-Gemini-근거답변-연동|RobinGraph — CI 테스트 수정·Gemini 근거 답변 연동]]
 
 ## 관련
 
