@@ -4,7 +4,7 @@
 
 ## 노트
 
-- [[2026-09-29-CI-수정-Gemini-연동-PMC-문헌파일럿|RobinGraph — CI 테스트 수정·Gemini 근거 답변 연동]]
+- [[2026-09-29-CI-수정-Gemini-연동-PMC-문헌파일럿|RobinGraph — CI 수정·Gemini 연동·PMC 문헌 파일럿]]
 
 ## 관련
 
