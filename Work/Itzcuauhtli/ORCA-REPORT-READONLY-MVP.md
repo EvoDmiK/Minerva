@@ -10,7 +10,7 @@ status: PASS_WITH_ISSUES
 repository_path: /Users/kimdove/orca/workspaces/Itzcuauhtli/https-github.com-EvoDmiK-Itzcuauhtli
 base_sha: 2b5fdb1408beceb3b27416a40b122a61840d59ae
 final_sha: 5c45bdea8f9eddb2a48fb258e7638bc0e0453b1a
-branch: EvoDmiK/https-github.com-EvoDmiK-Itzcuauhtli
+branch: dev
 ```
 
 ## 구현 결과
