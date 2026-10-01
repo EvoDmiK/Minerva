@@ -203,6 +203,9 @@ Prometheus 이력을 확인한 결과 Claude의 `ai_subscription_collector_up`�
 | Birds-Nest | `dev-nas` | `e67a95d` | Discord Webhook 환경변수 전달 |
 | Birds-Nest | `dev-nas` | `92bc329` | Claude의 마지막 유효 사용량 캐시 보존 |
 | Birds-Nest | `dev-mac` | `ab78629` | Mac mini 수집기에 캐시 보존 수정 배포 |
+| Birds-Nest | `dev-nas` | `b766c33` | Grafana 외부 URL과 Source·Silence 링크 기준 설정 |
+| Birds-Nest | `dev-mac` | `68153bc` | AI 구독 알람 운영 문서 추가 |
+| Gullinkambi | `main` | `59a51d5` | Grafana 알람·Discord·외부 URL README 문서화 |
 
 두 브랜치는 GitHub 원격과 동기화했다. Birds-Nest의 다른 homelab 미커밋 변경은 이 커밋과 push에 포함하지 않았다.
 
