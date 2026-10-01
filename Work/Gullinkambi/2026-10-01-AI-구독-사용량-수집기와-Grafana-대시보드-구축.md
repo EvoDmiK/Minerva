@@ -31,8 +31,8 @@ Codex와 Claude의 개인 구독 사용량을 Mac mini에서 수집하고, Prome
 | Prometheus 연결 | Mac mini scrape와 NAS federation 구성 |
 | Grafana 표시 | 통합 대시보드에 `Codex · Claude 구독` 탭 추가 |
 | 기존 설정 보존 | Claude의 기존 status line 명령을 multiplexer로 유지 |
-| 수집 안정성 | Codex 제한 구간을 응답 순서가 아닌 기간으로 판별 |
-| 자동 검증 | exporter 단위 테스트 5개 통과 |
+| 수집 안정성 | Codex 제한 구간을 기간으로 판별하고 Claude의 마지막 유효 캐시를 보존 |
+| 자동 검증 | exporter 단위 테스트 6개 통과 |
 
 ## 데이터 흐름
 
@@ -62,6 +62,8 @@ Claude status line┘                  │
 ### Claude
 
 Claude Code status line 입력의 `rate_limits.five_hour`와 `rate_limits.seven_day`를 사용한다. 전체 status line 입력 중 사용률과 모델명만 별도 캐시에 저장한다.
+
+Claude는 모든 status line 입력에 `rate_limits`를 포함하지 않는다. 새 입력에 유효한 제한 정보가 없으면 기존 정상 캐시를 덮어쓰지 않고 유지하며, 마지막 정상 캐시가 `CLAUDE_MAX_AGE_SECONDS`의 기본값인 24시간을 초과했을 때만 수집 실패로 처리한다.
 
 기존 status line 명령이 있으면 installer가 원래 명령을 보관하고 multiplexer로 연결한다. multiplexer는 동일한 JSON을 사용량 수집기와 기존 표시 명령 양쪽에 전달한다. 제거할 때는 원래 설정을 복구한다.
 
@@ -115,22 +117,29 @@ Codex가 반환하는 제한 구간의 배열 순서가 달라질 수 있으므�
 
 사용량 수집 설정이 기존 Claude status line 표시를 대체하던 문제를 수정했다. multiplexer를 추가해 수집과 기존 표시를 함께 실행하고, 원래 설정을 복구할 수 있게 했다.
 
+### Claude 빈 사용량 입력으로 인한 오탐 방지
+
+2026-10-01 15:59~16:10 KST에 Claude의 `ai_subscription_collector_up`이 약 12분간 `0`이 되어 Discord 알람이 발생했다. 확인 결과 로그인 만료나 24시간 캐시 만료가 아니라, `rate_limits`가 없는 status line 입력이 마지막 정상 캐시를 빈 값으로 덮어쓴 것이 원인이었다.
+
+`claude_statusline_capture.py`가 유효한 `rate_limits`를 받은 경우에만 캐시를 교체하도록 수정했다. 빈 입력이 오면 마지막 정상 스냅샷을 보존하고, 실제 캐시 만료는 exporter의 24시간 제한으로 계속 감지한다. 수정 후 NAS와 Mac mini에서 회귀 테스트를 통과했고, Mac mini의 현재 상태가 `ai_subscription_collector_up{provider="claude"} 1`임을 확인했다.
+
 ### 민감정보 최소화
 
 수집기는 로그인 토큰이나 설정 파일 자체를 노출하지 않는다. Claude status line 캐시에도 사용률과 모델명만 저장한다.
 
 ## 검증
 
-2026-10-01에 exporter 단위 테스트를 다시 실행해 5개 모두 통과했다.
+2026-10-01에 exporter 단위 테스트를 다시 실행해 6개 모두 통과했다.
 
 ```text
 test_capture_strips_sensitive_status_fields ... ok
+test_capture_preserves_last_valid_status_when_limits_are_missing ... ok
 test_claude_status ... ok
 test_codex_primary_window_uses_duration ... ok
 test_codex_rate_limits ... ok
 test_codex_tokens_deduplicates_nested_totals ... ok
 
-Ran 5 tests — OK
+Ran 6 tests — OK
 ```
 
 ## 주요 파일
@@ -152,11 +161,14 @@ Ran 5 tests — OK
 | Birds-Nest | `8798911` | AI 구독 exporter와 Prometheus 연결 구현 |
 | Birds-Nest | `df84574` | Claude status line 보존 |
 | Birds-Nest | `9ce7a29` | Codex 제한 구간을 기간 기준으로 매핑 |
+| Birds-Nest `dev-nas` | `92bc329` | 유효한 Claude 사용량 캐시 보존 |
+| Birds-Nest `dev-mac` | `ab78629` | Mac mini에 동일한 캐시 보존 수정 배포 |
 | Gullinkambi | `18a8a25` | AI 구독 대시보드 추가 |
 
 ## 운영 메모
 
 - Claude Code에서 메시지를 한 번 전송해야 status line에 구독 제한 값이 들어온다.
+- `rate_limits`가 없는 status line 입력은 정상 캐시를 지우지 않는다. 마지막 정상 캐시가 24시간을 초과하면 수집 실패로 전환된다.
 - exporter의 기본 endpoint는 `0.0.0.0:9819/metrics`다.
 - 9819 포트는 신뢰할 수 있는 모니터링 네트워크에서만 접근시킨다.
 - 로그인 자격 증명은 Grafana나 Prometheus 레이블에 포함하지 않는다.
