@@ -4,6 +4,7 @@
 
 ## 노트
 
+- [[Work/RobinGraph/2026-10-01-조류도감카드-대화버그수정-멸종위기등급-NAS배포|RobinGraph — 조류 도감 카드·대화 버그 수정·멸종위기 등급·NAS 배포]]
 - [[Work/RobinGraph/2026-09-30-NAS-Git이력분기-구형이미지-Gemini검색복구-525진단|RobinGraph — NAS 이력 분기·구형 이미지 교체·Gemini 검색 복구]]
 - [[Work/RobinGraph/2026-09-30-한국어검색-Gemini-PostgreSQL-연결수정-NAS배포준비|RobinGraph — 한국어 검색·PostgreSQL 연결 수정·NAS 배포 준비]]
 - [[2026-09-29-CI-수정-Gemini-연동-PMC-문헌파일럿|RobinGraph — CI 수정·Gemini 연동·PMC 문헌 파일럿]]
