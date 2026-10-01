@@ -115,6 +115,19 @@ GF_DISCORD_WEBHOOK_URL=<Discord Webhook URL>
 
 실제 값은 Birds-Nest monitoring `.env`에만 있으며 `.env.example`에는 비밀값이 없는 예시 URL만 기록했다.
 
+### Source·Silence 외부 링크
+
+Grafana가 Discord 알림의 `Source`와 `Silence` 링크를 `localhost`로 만들지 않도록 외부 기준 URL을 명시했다.
+
+```dotenv
+GF_SERVER_DOMAIN=monitoring.dove-nest.com
+GF_SERVER_ROOT_URL=https://monitoring.dove-nest.com/
+```
+
+Birds-Nest monitoring Compose가 두 값을 Grafana 컨테이너에 전달한다. `GF_SERVER_ROOT_URL`을 변경한 뒤에는 Grafana 컨테이너를 재생성해야 하며, 외부 health endpoint `https://monitoring.dove-nest.com/api/health`가 HTTP 200으로 응답하는 것을 확인했다.
+
+정정된 주소로 `Source`와 `Silence` 링크를 넣은 Discord 테스트 메시지도 다시 보내 Webhook HTTP 204 응답을 확인했다.
+
 ## 배포와 검증
 
 ### 정적 검증
@@ -152,6 +165,21 @@ Prometheus와 PostgreSQL 원본 쿼리도 직접 실행해 데이터 반환을 �
 
 Discord Webhook 자체도 테스트 메시지를 전송해 HTTP 204 응답을 확인했다.
 
+### 실제 Claude 수집 알람과 후속 수정
+
+테스트와 별개로 다음 실제 warning 알람이 발생했다.
+
+```ini
+description = Mac mini exporter와 Codex·Claude 로그인 상태를 확인하세요.
+summary = claude 구독 사용량 수집에 실패했습니다.
+```
+
+Prometheus 이력을 확인한 결과 Claude의 `ai_subscription_collector_up`이 2026-10-01 15:59~16:10 KST에 약 12분 동안 `0`이었다. `AI subscription collector down` 규칙의 5분 지속 조건을 충족했으므로 Discord 전송 자체는 정상 동작이었다.
+
+원인은 로그인 만료나 24시간 캐시 만료가 아니었다. Claude가 `rate_limits`를 포함하지 않은 status line 입력을 보냈을 때 마지막 정상 캐시를 빈 값으로 교체해 수집 실패가 발생했다. `claude_statusline_capture.py`를 유효한 제한 정보가 있을 때만 캐시를 교체하도록 수정하고 회귀 테스트를 추가했다.
+
+수정은 Birds-Nest `dev-nas`의 `92bc329`와 Mac mini `dev-mac`의 `ab78629`로 배포했다. NAS와 Mac mini에서 단위 테스트 6개를 통과했고, 배포 후 `ai_subscription_collector_up{provider="claude"} 1`을 확인했다. 이제 일시적인 빈 status line 입력은 마지막 정상 캐시를 보존하며, 기본 24시간을 실제로 초과한 경우에만 Claude 수집 실패로 전환된다.
+
 ## 주요 파일
 
 | 저장소 | 파일 | 역할 |
@@ -173,6 +201,8 @@ Discord Webhook 자체도 테스트 메시지를 전송해 HTTP 204 응답을 �
 | Gullinkambi | `main` | `7f1ef56` | Discord contact point·policy 추가 |
 | Birds-Nest | `dev-nas` | `c4b6f3f` | Grafana alerting provisioning 마운트 |
 | Birds-Nest | `dev-nas` | `e67a95d` | Discord Webhook 환경변수 전달 |
+| Birds-Nest | `dev-nas` | `92bc329` | Claude의 마지막 유효 사용량 캐시 보존 |
+| Birds-Nest | `dev-mac` | `ab78629` | Mac mini 수집기에 캐시 보존 수정 배포 |
 
 두 브랜치는 GitHub 원격과 동기화했다. Birds-Nest의 다른 homelab 미커밋 변경은 이 커밋과 push에 포함하지 않았다.
 
