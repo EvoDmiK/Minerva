@@ -42,7 +42,7 @@ tags:
   - 추적 테스트 40개·Python 전체 484개(31개 skip)·프런트엔드 71개 통과. graphify AST 갱신 완료.
   - TEST 벡터 인덱스가 아직 없어 hybrid 요청은 기존 전문 검색 fallback 유지. 이는 별도 데이터 준비 범위이며 DB 쓰기·인덱스 생성은 하지 않음.
   - 남은 확인: [MLflow TEST Traces](https://mlflow.dove-nest.com/#/experiments/33/traces) 화면 시각 확인. 저장 trace는 실제 MLflow API로 확인했으나 GUI 접근이 `cgWindowNotFound`로 실패하여 최종 완료 체크는 남겨둠.
-  - 설정·메타데이터 제한·실제 검증 기록: 저장소 `docs/mlflow-tracing.md`, 재검증기 `scripts/verify_mlflow_trace.py`. 커밋·push는 하지 않음.
+  - 설정·메타데이터 제한·실제 검증 기록: 저장소 `docs/mlflow-tracing.md`, 재검증기 `scripts/verify_mlflow_trace.py`. Git 커밋 `da69664`로 정리. push는 하지 않음.
 
 ## 추후 검토
 
