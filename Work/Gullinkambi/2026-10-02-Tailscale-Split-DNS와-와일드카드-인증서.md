@@ -186,10 +186,12 @@ Cloudflare 경로만 쓰는 구조에서는 Origin 인증서가 관리 부담과
 
 - [x] Birds-Nest 변경 커밋·push
 - [x] Tailscale 경로 제거
-- [ ] Cloudflare API 토큰 교체
-- [ ] 인증서 최종 선택 (Let's Encrypt 유지 또는 Origin으로 전환), 쓰지 않는 쪽 삭제
+- [x] 인증서 최종 선택: Cloudflare Origin으로 통일, Let's Encrypt 와일드카드와 NAS 토큰 파일 삭제
+- [ ] Cloudflare에서 와일드카드 발급용 API 토큰 삭제
 - [ ] Cloudflare SSL 모드 Full (strict) 적용 여부 확인
 - [ ] 원본 443을 Cloudflare IP 대역만 허용하도록 제한 검토
+
+후속 정리는 [[Work/Gullinkambi/2026-10-02-ORCA-쓰레드-이름-복구와-Birds-Nest-브랜치-정리|ORCA 쓰레드 이름 복구와 Birds-Nest 브랜치 정리]]에 이어서 기록했다.
 
 ## 관련
 
