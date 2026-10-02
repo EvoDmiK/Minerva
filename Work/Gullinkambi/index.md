@@ -14,6 +14,7 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량�
 
 ## 작업 기록
 
+- [[Work/Gullinkambi/2026-10-02-NPM-모니터링-수집기와-Cloudflare-Origin-인증서|2026-10-02 — NPM 모니터링 수집기와 Cloudflare Origin 인증서]]
 - [[Work/Gullinkambi/2026-10-02-Grafana-Discord-알림-단일-카드-개선|2026-10-02 — Grafana Discord 알림 단일 카드 개선]]
 - [[Work/Gullinkambi/2026-10-01-ORCA-Antigravity-사용량-집계와-Hermes-인증-복구|2026-10-01 — ORCA Antigravity 사용량 집계와 Hermes 인증 복구]]
 - [[Work/Gullinkambi/2026-10-01-Grafana-알람과-Discord-연결|2026-10-01 — Grafana 알람과 Discord 연결]]
