@@ -16,7 +16,7 @@ tags:
 
 ### RG-001 — MLflow 자동 로깅 연동
 
-- [ ] 진행 및 완료
+- [ ] 최종 완료 — 구현·NAS TEST 추적 데이터 검증 완료, Traces 화면 시각 확인 대기 (2026-10-02)
 - **목적**: 질문부터 검색·모델 호출·답변까지의 실행 과정, 단계별 지연과 오류를 MLflow에서 확인한다.
 - **범위**:
   - NAS MLflow 서버의 버전·접속 주소·인증과 현재 패키지의 호환성을 확인한다.
@@ -32,6 +32,17 @@ tags:
   - 제공되는 모델·토큰 정보를 확인하고, 기록되지 않는 항목은 구분해 문서화한다.
   - 기존 종 조회·근거 답변 동작을 테스트하고 설정 방법을 기록한다.
 - **지시 예시**: “Obsidian의 RobinGraph 백로그에서 RG-001 MLflow 작업을 진행해줘.”
+
+- **결과 기록 (2026-10-02)**:
+  - 담당: Claude 구현, agy(Antigravity) 호환성 검토·독립 검증. Gemini CLI는 사용자 지시에 따라 agy로 교체.
+  - MLflow 서버 3.14.0 확인. 앱 시작 시 LangChain·공식 google-genai SDK 자동 로깅을 활성화하고 요청 전체에 검색·모델 하위 span 연결. 수동 계측은 Jina·Neo4j 및 REST fallback의 누락 구간에 적용.
+  - 로컬·NAS TEST 환경 설정 연결 및 TEST 이미지 `robingraph-api:test-rg001-20261002` 배포 완료. NAS 환경 파일 백업 후 PROD 설정은 비활성 상태로 준비했고 PROD 컨테이너는 유지.
+  - 실제 근거 답변: 단일 trace `tr-3fc48d6096760f545b6f18b134ff7602`, 9개 연결 span, 2,763.8ms. 모델 `gemini-3.5-flash-lite`, 입력 1,436 / 출력 131 / 총 1,567 tokens.
+  - Jina `retrieval.query`·`retrieval.passage` 출력 모두 512차원 확인. 없는 종 조회의 HTTP 404 및 ERROR trace 확인. 청둥오리 형질 18개·사진 2개와 API 계약 검증 통과.
+  - 추적 테스트 40개·Python 전체 484개(31개 skip)·프런트엔드 71개 통과. graphify AST 갱신 완료.
+  - TEST 벡터 인덱스가 아직 없어 hybrid 요청은 기존 전문 검색 fallback 유지. 이는 별도 데이터 준비 범위이며 DB 쓰기·인덱스 생성은 하지 않음.
+  - 남은 확인: [MLflow TEST Traces](https://mlflow.dove-nest.com/#/experiments/33/traces) 화면 시각 확인. 저장 trace는 실제 MLflow API로 확인했으나 GUI 접근이 `cgWindowNotFound`로 실패하여 최종 완료 체크는 남겨둠.
+  - 설정·메타데이터 제한·실제 검증 기록: 저장소 `docs/mlflow-tracing.md`, 재검증기 `scripts/verify_mlflow_trace.py`. 커밋·push는 하지 않음.
 
 ## 추후 검토
 
