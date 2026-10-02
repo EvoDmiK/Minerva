@@ -26,6 +26,9 @@ Cloudflare Origin 인증서로 교체한 뒤 n8n 접속이 느리다는 문제�
 | Tailscale 직접 | 0.016~0.028초 |
 | Cloudflare 경유 | 0.46~1.32초 |
 
+> [!warning] 같은 날 Tailscale 경로는 되돌림
+> `split-dns`가 멈추면 Tailscale 기기에서 `*.dove-nest.com`이 아예 열리지 않는 위험을 질 만큼 필요하지 않다고 판단해 Tailscale 경로를 제거했다. 지금은 모든 기기가 Cloudflare 경로만 쓴다. Let's Encrypt 와일드카드 인증서는 Cloudflare 경로에서도 유효하고 자동 갱신되므로 유지했다. 자세한 내용은 아래 [[#되돌림]] 참고.
+
 ## n8n이 느렸던 이유
 
 - NAS 원본에 직접 요청하면 n8n API 하나가 약 0.017초, Cloudflare를 거치면 0.35~0.46초였다.
@@ -154,14 +157,39 @@ docker exec -it nginx-proxy-manager sh -c 'read -rsp "Cloudflare token: " T; ech
 | Birds-Nest | `docker-compose/npm/.env.example` | Split DNS 환경변수 |
 | Birds-Nest | `docker-compose/monitoring/npm-exporter/exporter.py` | 인증서 레이블 수정 |
 
+## 되돌림
+
+| 항목 | 처리 |
+| --- | --- |
+| Tailscale 관리 화면 Split DNS | 삭제 |
+| `tailscale-gateway` 443 전달 | `tailscale serve --tcp=443 off` |
+| `split-dns` 컨테이너·이미지 | 중지 후 삭제, NAS LAN 53번 포트 닫힘 확인 |
+| Birds-Nest 저장소 | `061d514`를 되돌리는 `58f0b98` 커밋을 `feat/npm-exporter`에 push |
+| 인증서 | Let's Encrypt 와일드카드 유지 |
+
+Split DNS 등록을 먼저 지운 뒤 DNS 서버를 껐다. 순서를 반대로 하면 Tailscale 기기에서 `*.dove-nest.com`을 찾지 못해 접속이 끊긴다.
+
+되돌린 뒤 12개 호스트 모두 Cloudflare 경로에서 정상 응답(0.40~0.55초)하고, DNS도 Cloudflare 주소를 돌려주는 것을 확인했다.
+
+### 인증서를 유지한 이유
+
+| | Let's Encrypt (유지) | Cloudflare Origin |
+| --- | --- | --- |
+| 갱신 | 90일 자동, dry-run 확인 | 필요 없음 |
+| NAS 비밀값 | DNS 편집 토큰 | 없음 |
+| 지금 추가 작업 | 없음 | 12개 호스트 재교체 |
+| 구조 변경 여지 | Tailscale·직접 접속에도 사용 가능 | Cloudflare 프록시에 묶임 |
+
+Cloudflare 경로만 쓰는 구조에서는 Origin 인증서가 관리 부담과 비밀값이 더 적다. 다만 이미 동작하는 Let's Encrypt를 다시 바꿀 이점이 크지 않아 우선 유지했다.
+
 ## 남은 일
 
-- [ ] Birds-Nest의 split-dns와 수집기 수정 커밋·push
+- [x] Birds-Nest 변경 커밋·push
+- [x] Tailscale 경로 제거
 - [ ] Cloudflare API 토큰 교체
-- [ ] 사용하지 않는 Cloudflare Origin 인증서 삭제 여부 결정
+- [ ] 인증서 최종 선택 (Let's Encrypt 유지 또는 Origin으로 전환), 쓰지 않는 쪽 삭제
 - [ ] Cloudflare SSL 모드 Full (strict) 적용 여부 확인
-- [ ] 원본 443을 Cloudflare IP 대역과 Tailscale 경로만 허용하도록 제한 검토
-- [ ] 사용하는 PC·휴대폰에서 `Resolve-DnsName`으로 Split DNS 적용 확인
+- [ ] 원본 443을 Cloudflare IP 대역만 허용하도록 제한 검토
 
 ## 관련
 
