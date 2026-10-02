@@ -3,7 +3,7 @@ created: 2026-10-02
 date: 2026-10-02
 project: Gullinkambi
 type: worklog
-status: in-progress
+status: completed
 tags:
   - gullinkambi
   - grafana
@@ -94,11 +94,13 @@ NPM database.sqlite ─────────┘
 
 ### 해결 방향: Cloudflare Origin 인증서
 
-1. Cloudflare → SSL/TLS → Origin Server에서 `*.dove-nest.com`, `dove-nest.com` 인증서 발급 (15년) — **완료**
-2. NPM → Certificates → Add Certificate → Custom Certificate로 등록 — 진행 중
-3. 각 Proxy Host의 SSL 인증서를 새 인증서로 교체
-4. Cloudflare SSL 모드를 Full (strict)로 전환
-5. 사용하지 않는 기존 Let's Encrypt 인증서 삭제
+1. Cloudflare → SSL/TLS → Origin Server에서 `*.dove-nest.com`, `dove-nest.com` 인증서 발급 (15년) — 완료
+2. NPM → Certificates → Add Certificate → Custom Certificate로 등록 — 완료
+3. 각 Proxy Host의 SSL 인증서를 새 인증서로 교체 — 완료
+4. 사용하지 않는 기존 Let's Encrypt 인증서 삭제 — 완료
+
+> [!note] 이후 변경
+> 같은 날 Tailscale 직접 경로를 추가하면서 브라우저가 신뢰하는 Let's Encrypt 와일드카드 인증서로 다시 교체했다. 자세한 내용은 [[Work/Gullinkambi/2026-10-02-Tailscale-Split-DNS와-와일드카드-인증서|Tailscale Split DNS와 와일드카드 인증서]]에 정리했다.
 
 - Origin 인증서는 Cloudflare만 신뢰한다. Cloudflare를 거치지 않고 도메인으로 직접 접속하면 브라우저 경고가 뜬다.
 - NPM이 Custom 인증서의 만료일을 DB에 기록하므로 수집기와 대시보드는 별도 수정 없이 따라온다.
@@ -166,13 +168,16 @@ Birds-Nest의 NAS 체크아웃(`dev-nas`)은 원격보다 커밋 약 90개 뒤�
 
 ## 남은 일
 
-- [ ] NPM에 Cloudflare Origin 인증서 등록
-- [ ] 모든 Proxy Host의 SSL 인증서 교체
-- [ ] Cloudflare SSL 모드를 Full (strict)로 전환하고 전체 호스트 응답 확인
-- [ ] 사용하지 않는 Let's Encrypt 인증서 삭제
+- [x] NPM에 Cloudflare Origin 인증서 등록
+- [x] 모든 Proxy Host의 SSL 인증서 교체
+- [x] 사용하지 않는 Let's Encrypt 인증서 삭제
 - [ ] NAS Birds-Nest 체크아웃을 원격 `dev-nas`와 정리하고 `feat/npm-exporter` 병합
 
+인증서와 접속 경로 관련 후속 작업은 [[Work/Gullinkambi/2026-10-02-Tailscale-Split-DNS와-와일드카드-인증서|Tailscale Split DNS와 와일드카드 인증서]]에서 이어서 관리한다.
+
 ## 관련
+
+- [[Work/Gullinkambi/2026-10-02-Tailscale-Split-DNS와-와일드카드-인증서|Tailscale Split DNS와 와일드카드 인증서]]
 
 - [[Work/Gullinkambi/2026-10-02-Grafana-Discord-알림-단일-카드-개선|Grafana Discord 알림 단일 카드 개선]]
 - [[Work/Gullinkambi/2026-10-01-AI-구독-사용량-수집기와-Grafana-대시보드-구축|AI 구독 사용량 수집기·Grafana 대시보드 구축]]
