@@ -8,6 +8,8 @@
 
 ## 노트
 
+- [[Work/Birds-Nest/index|Birds-Nest — 인프라·에이전트·자동화]]
+- [[Work/Birds-Nest/2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축|Birds-Nest — Jev AI carrier pigeon 개편·n8n 테스트베드]]
 - [[Work/Gullinkambi/index|Gullinkambi — 모니터링 프로젝트]]
 - [[Work/RobinGraph/2026-10-01-조류도감카드-대화버그수정-멸종위기등급-NAS배포|RobinGraph — 조류 도감 카드·대화 버그 수정·멸종위기 등급·NAS 배포]]
 - [[Work/RobinGraph/2026-09-30-NAS-Git이력분기-구형이미지-Gemini검색복구-525진단|RobinGraph — NAS 이력 분기·구형 이미지 교체·Gemini 검색 복구]]
