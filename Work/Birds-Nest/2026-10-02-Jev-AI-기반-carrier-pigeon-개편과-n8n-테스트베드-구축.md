@@ -35,7 +35,7 @@ Gmail 수신 알림 및 메일 처리 자동화 워크플로우인 `[mail alarm]
 | **메일 파싱 버그 수정** | 발신자 & 본문 정상화 | • 발신자: `$json.from.text` 파싱으로 `[object Object]` 해결<br>• 본문: Gmail 트리거의 `text` 필드를 정상 참조하여 `(본문 없음)` 해결 |
 | **카테고리 체계 확장** | 5대 정밀 분류 프롬프트 적용 | • `job-offer`: 실제 1:1 채용/면접 메일만 해당 (`(광고)`는 철저 배제)<br>• `authorization`: 2FA 보안 인증 코드<br>• `billing`: 결제 실패, 정기 결제, 영수증 (신규 추가)<br>• `spam`: 광고, 뉴스레터 (자동 읽음 처리)<br>• `misc`: 기타 중요 알림 |
 | **캘린더 연동 고도화** | Gemini 기반 일시 추출 | 정규식 대신 Gemini가 메일 본문에서 면접 일시(ISO 8601)를 직접 추출하여 Google Calendar 등록 및 Discord 알림 발송 |
-| **PyTorch Korea 통합** | Gemini 3.5 Flash 요약 및 논문 추출 | RSS 피드 수집 후 Gemini 3.5 Flash로 분류 및 요약(300자 내외 핵심 및 시사점)과 주간 논문 목록을 추출해 Discord `뉴스-다이제스트` 전송 |
+| **PyTorch Korea 통합** | Gemini 3.5 Flash 요약 및 논문 추출 | RSS 피드 수집 후 Gemini 3.5 Flash로 분류 및 요약(300자 내외 핵심 및 시사점)과 주간 논문 목록을 추출해 Discord `기술-뉴스` 전송 |
 | **프로덕션 배포** | NAS n8n 프로덕션 적용 | `workflow.dove-nest.com` 프로덕션 DB에 워크플로우 임포트 및 활성화(`Active: True`, 총 26개 노드) 완료 |
 | **테스트 스택 정리** | 로컬 localhost 원복 | `workflow-test.dove-nest.com` 제거에 맞춰 `n8n-test`를 `127.0.0.1:5678` 로컬 환경으로 원복 및 재기동 |
 | **문서 및 지식 그래프** | README & Graphify 갱신 | `README.md` 워크플로우 및 테스트베드 설명 반영, 지식 그래프 동기화 완료 |
@@ -65,7 +65,7 @@ flowchart TD
         P3 --> P4["Parse PyTorch Result<br/>(JSON 병합)"]
         P4 --> P5{"Route PyTorch Category<br/>(Switch 노드)"}
         
-        P5 -- "Agent / Robotics" --> P6["PyTorch Tech News Discord<br/>(NestControl 뉴스-다이제스트)"]
+        P5 -- "Agent / Robotics" --> P6["PyTorch Tech News Discord<br/>(NestControl 기술-뉴스)"]
         P5 -- "WeeklyPaper" --> P7["PyTorch Weekly Papers Discord<br/>(주간 논문 브리핑)"]
         P5 -- "misc" --> P8["No Operation<br/>(미처리)"]
     end
