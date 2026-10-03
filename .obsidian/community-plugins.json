@@ -5,6 +5,5 @@
   "templater-obsidian",
   "tradingview-widget",
   "github-sync",
-  "semantic-vault-mcp",
-  "obsidian-local-rest-api"
+  "semantic-vault-mcp"
 ]
