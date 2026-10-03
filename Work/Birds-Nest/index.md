@@ -15,6 +15,7 @@ Birds-Nest는 개인 AI 에이전트(Hermes/Dovie), 자동화 워크플로우(n8
 
 ## 작업 기록
 
+- [[Work/Birds-Nest/2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축|2026-10-03 — Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축]]
 - [[Work/Birds-Nest/2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축|2026-10-03 — OpenAI Codex 사용량 리셋 모니터링 워크플로우 (Kestrel) 구축]]
 - [[Work/Birds-Nest/2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축|2026-10-02 — Jev AI 기반 carrier pigeon 워크플로우 개편과 n8n 테스트베드 구축]]
 
