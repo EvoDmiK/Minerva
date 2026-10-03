@@ -14,6 +14,9 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량�
 
 ## 작업 기록
 
+- [[Work/Gullinkambi/2026-10-03-AI-subscription-exporter-README|2026-10-03 — AI subscription exporter README]]
+
+
 - [[Work/Gullinkambi/2026-10-02-ORCA-쓰레드-이름-복구와-Birds-Nest-브랜치-정리|2026-10-02 — ORCA 쓰레드 이름 복구와 Birds-Nest 브랜치 정리]]
 - [[Work/Gullinkambi/2026-10-02-Tailscale-Split-DNS와-와일드카드-인증서|2026-10-02 — Tailscale Split DNS와 와일드카드 인증서]]
 - [[Work/Gullinkambi/2026-10-02-NPM-모니터링-수집기와-Cloudflare-Origin-인증서|2026-10-02 — NPM 모니터링 수집기와 Cloudflare Origin 인증서]]
