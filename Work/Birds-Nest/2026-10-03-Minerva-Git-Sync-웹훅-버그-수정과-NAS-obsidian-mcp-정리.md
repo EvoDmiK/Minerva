@@ -58,3 +58,16 @@ tags:
 - [ ] `Test/동기화 테스트 2026-10-03.md` 정리
 - [ ] semantic-vault-mcp 바인딩을 loopback으로 제한할지 결정
 - [ ] `~/.ssh/config` `Host NAS`에 `IdentityFile ~/.ssh/nas_codex_ed25519` 추가
+
+
+## 8. 후속: n8n 점검과 Magpie·Birds Nest 수정 (오후)
+- **Magpie의 Obsidian 저장을 Semantic Vault MCP로 전환** (커밋 `f05a876`)
+  - 원인: Local REST API 플러그인이 볼트 이전(9/28) 이후 설치돼 있지 않았고, `wiki-api.dove-nest.com`은 Cloudflare 525를 반환. Drive 트리거 실행이 없어 드러나지 않았음.
+  - `obsidian api 호출` → `MCP Client` 노드 (`vault` 도구, `action: create`, `overwrite: true`)
+  - `write_obsidian_note` → `MCP Client Tool` (`vault` 도구만 노출). Hermes `write_weekly_report`에서 도구 이름이 `vault`로 바뀜.
+  - 연결: n8n 내부 `http://obsidian:3443/mcp`, 새 credential `Obsidian MCP` (Header Auth). 기존 `Obsidian 키`는 미사용.
+  - 검증: 임시 워크플로로 McpClient 저장 성공, n8n MCP `write_weekly_report`에서 `vault.create` 성공 (테스트 노트는 삭제).
+  - 중간에 REST 플러그인을 재설치했다가 MCP로 방향을 바꾸며 제거. 플러그인 파일이 Minerva에 한 번 push됐다가(키 파일 제외) 삭제 커밋으로 되돌아감.
+- **Birds Nest 백업 수정**: `Get a file`에 `Reference: dev` 추가. `main`에 없는 워크플로(Kestrel) 수정 시 422 `sha wasn't supplied` 실패하던 문제 해결. 재실행으로 dev의 Kestrel 백업 최신화 (`8e91271`).
+- **운영 반영 방식**: `n8n export:workflow` → 수정 → `import:workflow`(가져오면 비활성화됨) → `publish:workflow` → n8n 재시작. CLI 실행은 `N8N_RUNNERS_BROKER_PORT=5699 N8N_RUNNERS_MODE=internal`로 포트 충돌 회피.
+- **github-sync 이중 커밋**: 볼트의 `github-sync` 플러그인(5분 주기 + 시작 시 sync)이 두 번째 커밋 주체. 설정 파일이 git으로 Mac 볼트와 공유돼 있어, NAS에서만 끄는 방법 결정 필요.
