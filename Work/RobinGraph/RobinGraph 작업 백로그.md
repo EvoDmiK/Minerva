@@ -16,7 +16,7 @@ tags:
 
 ### RG-001 — MLflow 자동 로깅 연동
 
-- [ ] 최종 완료 — 구현·NAS TEST 추적 데이터 검증 완료, Traces 화면 시각 확인 대기 (2026-10-02)
+- [x] 구현·NAS TEST 배포·실제 추적 데이터 검증 완료 (2026-10-02; 상태 표시 정정 2026-10-03)
 - **목적**: 질문부터 검색·모델 호출·답변까지의 실행 과정, 단계별 지연과 오류를 MLflow에서 확인한다.
 - **범위**:
   - NAS MLflow 서버의 버전·접속 주소·인증과 현재 패키지의 호환성을 확인한다.
@@ -41,7 +41,7 @@ tags:
   - Jina `retrieval.query`·`retrieval.passage` 출력 모두 512차원 확인. 없는 종 조회의 HTTP 404 및 ERROR trace 확인. 청둥오리 형질 18개·사진 2개와 API 계약 검증 통과.
   - 추적 테스트 40개·Python 전체 484개(31개 skip)·프런트엔드 71개 통과. graphify AST 갱신 완료.
   - TEST 벡터 인덱스가 아직 없어 hybrid 요청은 기존 전문 검색 fallback 유지. 이는 별도 데이터 준비 범위이며 DB 쓰기·인덱스 생성은 하지 않음.
-  - 남은 확인: [MLflow TEST Traces](https://mlflow.dove-nest.com/#/experiments/33/traces) 화면 시각 확인. 저장 trace는 실제 MLflow API로 확인했으나 GUI 접근이 `cgWindowNotFound`로 실패하여 최종 완료 체크는 남겨둠.
+  - 별도 검증 메모: 저장 trace와 연결된 span·모델·토큰 정보는 실제 MLflow API로 확인했다. [MLflow TEST Traces](https://mlflow.dove-nest.com/#/experiments/33/traces) 화면 자체의 시각 확인은 당시 `cgWindowNotFound`로 수행하지 못했다. 이를 전체 구현 미완료로 표시했던 상태를 정정하며, 화면을 직접 확인했다는 뜻은 아니다.
   - 설정·메타데이터 제한·실제 검증 기록: 저장소 `docs/mlflow-tracing.md`, 재검증기 `scripts/verify_mlflow_trace.py`. Git 커밋 `da69664`로 정리하고 원격 변경을 병합한 `876c947`까지 `origin/dev`에 push 완료.
 
 ## 추후 검토
@@ -197,6 +197,8 @@ tags:
 
 ## 완료
 
+- [x] RG-001 — MLflow 자동 로깅 연동·NAS TEST 배포·실제 추적 데이터 검증
+
 - [x] RG-004 — 통칭·가축형 조사·그래프 연결 및 아종·통칭 카드
 - [x] RG-005 — 비교 결과 별도 말풍선
 - [x] RG-006 — 해오라기 활동 시간 오류 수정
@@ -204,7 +206,7 @@ tags:
 - [x] RG-008 — 먹이 생태 다중 아이콘
 - [x] RG-009 — 사진 없는 조류와 사진 실패 처리
 
-위 항목은 2026-10-03 구현·NAS TEST 배포·검증 기록에 따라 완료 표시했다. RG-001은 Traces 화면 확인 대기, RG-002는 PROD 데이터 준비 대기, RG-003은 별도 범위·완료 기준 확인이 남아 있어 미완료로 유지한다.
+RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따라 완료 표시했다. Traces 화면 자체의 시각 확인 미실시는 별도 검증 메모로 남긴다. RG-004~RG-009는 2026-10-03 구현·NAS TEST 배포·검증 기록에 따라 완료 표시했다. RG-002는 PROD 데이터 준비 대기, RG-003은 별도 범위·완료 기준 확인이 남아 있어 미완료로 유지한다.
 
 - [x] 카드 3D 뒤집기 효과 — 2026-10-01
   - 전체 카드의 입체 회전, 빛 반사, 작은 반동과 반대 방향 전환.
