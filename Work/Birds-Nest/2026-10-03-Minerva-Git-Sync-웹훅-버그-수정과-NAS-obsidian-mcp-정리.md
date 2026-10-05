@@ -54,7 +54,7 @@ tags:
 - NAS SSH는 `~/.ssh/config`의 `Host NAS`에 키가 지정되지 않아 `-i ~/.ssh/nas_codex_ed25519`로 접속.
 
 ## 7. 후속 과제
-- [ ] Obsidian Git 플러그인 자동 커밋 끄기 (sidecar 단일 Writer)
+- [x] ~~Obsidian Git 플러그인 자동 커밋 끄기~~ → 유지하기로 결정 (Mac 볼트도 github-sync로 동기화, 설정이 git으로 공유됨)
 - [ ] `Test/동기화 테스트 2026-10-03.md` 정리
 - [ ] semantic-vault-mcp 바인딩을 loopback으로 제한할지 결정
 - [ ] `~/.ssh/config` `Host NAS`에 `IdentityFile ~/.ssh/nas_codex_ed25519` 추가
@@ -70,4 +70,4 @@ tags:
   - 중간에 REST 플러그인을 재설치했다가 MCP로 방향을 바꾸며 제거. 플러그인 파일이 Minerva에 한 번 push됐다가(키 파일 제외) 삭제 커밋으로 되돌아감.
 - **Birds Nest 백업 수정**: `Get a file`에 `Reference: dev` 추가. `main`에 없는 워크플로(Kestrel) 수정 시 422 `sha wasn't supplied` 실패하던 문제 해결. 재실행으로 dev의 Kestrel 백업 최신화 (`8e91271`).
 - **운영 반영 방식**: `n8n export:workflow` → 수정 → `import:workflow`(가져오면 비활성화됨) → `publish:workflow` → n8n 재시작. CLI 실행은 `N8N_RUNNERS_BROKER_PORT=5699 N8N_RUNNERS_MODE=internal`로 포트 충돌 회피.
-- **github-sync 이중 커밋**: 볼트의 `github-sync` 플러그인(5분 주기 + 시작 시 sync)이 두 번째 커밋 주체. 설정 파일이 git으로 Mac 볼트와 공유돼 있어, NAS에서만 끄는 방법 결정 필요.
+- **github-sync 이중 커밋**: 볼트의 `github-sync` 플러그인(5분 주기 + 시작 시 sync)이 두 번째 커밋 주체. 설정 파일이 git으로 Mac 볼트와 공유돼 있어, Mac 동기화에 영향을 주지 않도록 **그대로 유지하기로 결정**.
