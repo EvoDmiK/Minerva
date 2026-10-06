@@ -15,6 +15,8 @@ Birds-Nest는 개인 AI 에이전트(Hermes/Dovie), 자동화 워크플로우(n8
 
 ## 작업 기록
 
+- [[Work/Birds-Nest/2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업|2026-10-06 — Hermes Discord 설정·ORCA SSD 이전·NAS 백업]]
+
 - [[Work/Birds-Nest/2026-10-06-Hermes-모델-fallback-설정과-CLI-복구|2026-10-06 — Hermes 모델·fallback 설정과 CLI 복구]]
 
 
