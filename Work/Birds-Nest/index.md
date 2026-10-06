@@ -15,6 +15,9 @@ Birds-Nest는 개인 AI 에이전트(Hermes/Dovie), 자동화 워크플로우(n8
 
 ## 작업 기록
 
+- [[Work/Birds-Nest/2026-10-06-Hermes-모델-fallback-설정과-CLI-복구|2026-10-06 — Hermes 모델·fallback 설정과 CLI 복구]]
+
+
 - [[Work/Birds-Nest/2026-10-05-Kestrel-MCP-도구화와-Hermes-연결|2026-10-05 — Kestrel MCP 도구화와 Hermes 연결]]
 - [[Work/Birds-Nest/2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리|2026-10-03 — Minerva Git Sync 웹훅 버그 수정과 NAS obsidian-mcp 정리]]
 - [[Work/Birds-Nest/2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축|2026-10-03 — Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축]]
