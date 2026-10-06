@@ -50,3 +50,14 @@ source_url: https://www.langchain.com/blog/building-prod-with-jev-and-langgraph
 - `convert_article.py`: 일회성 변환·검증 스크립트
 
 원문 노트·이 검증 노트·Learning index는 저장 후 동일 경로 재조회로 확인한다.
+
+## 추가 ad-hoc 스크립트 검증
+
+- `/tmp`에 `tempfile.mkstemp(prefix="hermes-verify-")`로 만든 임시 검증 스크립트를 실제 실행했고 종료 코드 0 및 PASS 출력을 확인했다. 최초 파일 쓰기 도구의 `/tmp` 차단 시도는 검증 실행으로 인정하지 않았다.
+- 변환·검사 스크립트 두 개의 Python 구문 컴파일 통과.
+- 격리된 임시 작업 폴더에서 변환을 재실행해 기존 Markdown과 바이트 단위 동일함을 확인.
+- 원문 텍스트, 소제목 8개, 링크 35개, 이미지 4개, 영상 링크 2개 및 표·코드 블록 개수 검증 통과.
+- 검사 스크립트가 영상 두 개, 문서 제목과 게시일 메타데이터를 탐지함을 확인.
+- 기존 원문·수용된 근거 파일은 변경하지 않았으며 임시 스크립트·작업 폴더를 제거했다.
+- 이 결과는 **일회성 ad-hoc 검증**이다. canonical 프로젝트 test/lint/build 명령은 탐지되지 않았고 전체 테스트 스위트 통과를 의미하지 않는다.
+- 실제 실행 출력: `agent-artifacts/local/2026-10-06-jev-langgraph-markdown/ad-hoc-verification.txt`
