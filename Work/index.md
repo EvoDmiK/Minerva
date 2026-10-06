@@ -27,3 +27,5 @@
 - [[RobinGraph/2026-10-06-전체종-근연관계우선-계통근거-NAS배포]] — 9,518종 계통 근거 연결, 전체 종 근연 우선 비교와 NAS TEST 배포.
 
 - [[RobinGraph/2026-10-06-근연관계-가중합점수-NAS배포|RobinGraph 근연 관계 가중합 점수 · NAS TEST 배포]]
+
+- [[RobinGraph/2026-10-06-추가정보-한국어우선-NAS배포|RobinGraph 추가 정보 한국어 우선 · NAS TEST 배포]]
