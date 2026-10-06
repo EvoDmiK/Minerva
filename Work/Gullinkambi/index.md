@@ -14,6 +14,9 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량�
 
 ## 작업 기록
 
+- [[Work/Gullinkambi/2026-10-05-Claude-Antigravity-초기화-패널-5시간·주간-통합|2026-10-05 — Claude·Antigravity 초기화 패널 5시간·주간 통합]]
+
+
 <<<<<<< HEAD
 - [[Work/Gullinkambi/2026-10-03-Claude-사용량-계정-전체-수집과-서비스-모니터링-개편|2026-10-03 — Claude 사용량 계정 전체 수집과 서비스 모니터링 개편]]
 =======
