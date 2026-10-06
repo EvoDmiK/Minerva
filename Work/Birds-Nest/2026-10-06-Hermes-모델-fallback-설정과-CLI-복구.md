@@ -31,7 +31,7 @@ model = "gpt-6-sol"
 - `scripts/hermes-control-plane.py validate` → VALID, `render`로 `hermes/profiles/hybrid-v2/config.yaml` 반영 확인.
 - **리스트형 `fallback_providers`는 못 씀**: 렌더러 `dump_yaml`이 dict가 든 리스트를 지원하지 않음(`nested container lists are not supported`). 단일 매핑인 `fallback_model`을 사용. 여러 개 체인이 필요하면 렌더러 수정 필요.
 - `base.toml`은 공용 레이어라 이 레이어를 쓰는 다른 프로파일에도 적용됨(현재는 hybrid-v2뿐).
-- 게이트웨이는 **아직 재시작 안 함** → 재시작해야 새 모델이 적용됨.
+- 게이트웨이 재시작은 §7 참고(완료, 새 설정 적용 확인).
 
 ## 2. 로컬 hermes CLI 복구
 - 증상: `~/.local/bin/hermes` 런처만 남고 `~/.hermes/hermes-agent/venv`가 없어 실행 불가.
@@ -55,8 +55,26 @@ model = "gpt-6-sol"
 - fallback이 동작하면 주 프로바이더 실패는 게이트웨이 로그에서만 보이고 사용 기록에는 fallback 모델이 최종 모델로 나타남.
 
 ## 6. 후속 과제
-- [ ] hybrid-v2 게이트웨이 재시작 후 새 모델/fallback 적용 확인
-- [ ] 맥미니 원격 로그인 켜고 SSH 설정(`~/.ssh/config`), 메모리 16GB와 실제 IP(.97 vs .174) 확인
-- [ ] Hermes 쪽 obsidian_vault MCP 실제 연결 확인(환경변수 파일은 저장소에 없음)
+
+## 6. 커밋 / git 정리
+- `6c84c5d` feat(hermes): switch primary to gpt-6.1-sol with gpt-6-sol fallback → `dev-mac` push (변경은 `config/hermes/base.toml` 하나).
+- `dev-mac`은 Orca 워크트리(`~/orca/workspaces/Birds-Nest/dev-mac`)에서 사용 중이라 거기서 패치를 적용해 커밋. 워크트리에는 런타임 파일 `hermes/active_profile`이 없어 `validate`가 실패하므로, 검증은 메인 체크아웃에서 먼저 수행.
+- NAS의 `dev-nas`에도 머지·push(`3269dbf`)했으나 **불필요한 작업**이었음. Hermes는 NAS가 아니라 이 맥의 OrbStack에서 돈다(§7).
+- 메인 체크아웃 정리: 미커밋 변경 5개(`base.toml`, `integrations.toml`, exporter 3개)가 모두 `dev-mac`에 이미 커밋된 내용과 동일함을 확인한 뒤 폐기하고, detached HEAD를 `8a25a0e` → `6c84c5d`(dev-mac)로 이동. 이전 "메인 체크아웃을 dev-mac으로 정리" 과제 해소. `hermes/profiles/hybrid-v2/config.yaml`은 시작 시 재생성되는 런타임 파일이라 그대로 둠(`render --check` IN SYNC).
+
+## 7. Hermes 재시작
+- **Hermes(`hermes` 컨테이너)는 이 맥의 OrbStack에서 실행**됨(`docker-compose/agents/docker-compose.yml`의 `hermes-app`, 마운트가 전부 이 맥 경로). 컨테이너가 읽는 `config/hermes`는 이 맥의 메인 체크아웃.
+- README 절차대로 재시작 전 스냅샷: `python3 scripts/hermes-control-plane.py snapshot` → `hermes/agent-artifacts/local/2026-10-06-hermes-control-plane/20261006T015624Z`.
+- `docker restart hermes`가 멈춤 → 원인은 **OrbStack 엔진 먹통**(`docker ps`, `orbctl status`도 무응답). 앱을 종료(vmgr 프로세스는 SIGTERM)하고 다시 실행하자 약 14초 만에 Docker가 응답함. 같은 엔진의 다른 컨테이너(n8n-test, neo4j-test, openviking 등)도 함께 재기동됨.
+- 확인: `hermes` healthy, 렌더된 설정에 `gpt-6.1-sol` + `fallback_model gpt-6-sol`, 게이트웨이 로그에 `✓ discord connected`, 오류 없음.
+- 미확인: 새 모델로 실제 응답이 나오는지(Discord에서 Dovie 호출로 확인 필요).
+
+## 8. 후속 과제
+- [x] hybrid-v2 재시작 및 새 설정 적용 확인
+- [x] `base.toml` 변경 커밋·push (`6c84c5d`)
+- [x] 메인 체크아웃을 `dev-mac`으로 정리
+- [ ] Discord에서 Dovie에게 말을 걸어 `gpt-6.1-sol` 실제 응답 확인(로그의 모델명도 확인)
+- [ ] 맥미니(`dove-mini-16`) 원격 로그인 켜고 SSH 설정(`~/.ssh/config`), 메모리 16GB와 실제 IP(.97 vs .174) 확인
+- [ ] Hermes 쪽 obsidian_vault MCP 실제 연결 확인
 - [ ] 필요 시 렌더러가 dict 리스트(`fallback_providers`)를 지원하도록 개선
-- [ ] 변경 사항 커밋(`config/hermes/base.toml`)
+- [ ] `~/.ssh/config`의 `Host NAS`에 `IdentityFile` 추가(키: `nas_codex_ed25519`, 포트 99)
