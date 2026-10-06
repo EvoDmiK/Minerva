@@ -14,6 +14,9 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량�
 
 ## 작업 기록
 
+- [[Work/Gullinkambi/2026-10-06-OpenViking-탭-개선과-Hermes-Grafana-MCP-연결|2026-10-06 — OpenViking 탭 개선과 Hermes Grafana MCP 연결]]
+
+
 - [[Work/Gullinkambi/2026-10-05-Claude-Antigravity-초기화-패널-5시간·주간-통합|2026-10-05 — Claude·Antigravity 초기화 패널 5시간·주간 통합]]
 
 

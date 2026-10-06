@@ -8,6 +8,8 @@
 
 ## 노트
 
+- [[Work/RobinGraph/2026-10-06-비교후보-말풍선정리-추가정보토글-NAS배포|RobinGraph — 비교 후보·말풍선 정리·추가 정보 토글·NAS 배포]]
+
 - [[Work/Birds-Nest/index|Birds-Nest — 인프라·에이전트·자동화]]
 - [[Work/Birds-Nest/2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축|Birds-Nest — Jev AI carrier pigeon 개편·n8n 테스트베드]]
 - [[Work/Gullinkambi/index|Gullinkambi — 모니터링 프로젝트]]
@@ -19,3 +21,11 @@
 ## 관련
 
 - [[Home]]
+
+- [[RobinGraph/2026-10-06-한국조류학회-국명교정-미확인종-영어표시|2026-10-06 RobinGraph — 한국조류학회 국명 교정, 미확인 종 영어 표시]]
+
+- [[RobinGraph/2026-10-06-전체종-근연관계우선-계통근거-NAS배포]] — 9,518종 계통 근거 연결, 전체 종 근연 우선 비교와 NAS TEST 배포.
+
+- [[RobinGraph/2026-10-06-근연관계-가중합점수-NAS배포|RobinGraph 근연 관계 가중합 점수 · NAS TEST 배포]]
+
+- [[RobinGraph/2026-10-06-추가정보-한국어우선-NAS배포|RobinGraph 추가 정보 한국어 우선 · NAS TEST 배포]]
