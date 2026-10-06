@@ -8,6 +8,8 @@
 
 ## 노트
 
+- [[Work/RobinGraph/2026-10-06-비교후보-말풍선정리-추가정보토글-NAS배포|RobinGraph — 비교 후보·말풍선 정리·추가 정보 토글·NAS 배포]]
+
 - [[Work/Birds-Nest/index|Birds-Nest — 인프라·에이전트·자동화]]
 - [[Work/Birds-Nest/2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축|Birds-Nest — Jev AI carrier pigeon 개편·n8n 테스트베드]]
 - [[Work/Gullinkambi/index|Gullinkambi — 모니터링 프로젝트]]
