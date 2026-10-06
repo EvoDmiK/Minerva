@@ -29,3 +29,5 @@
 - [[RobinGraph/2026-10-06-근연관계-가중합점수-NAS배포|RobinGraph 근연 관계 가중합 점수 · NAS TEST 배포]]
 
 - [[RobinGraph/2026-10-06-추가정보-한국어우선-NAS배포|RobinGraph 추가 정보 한국어 우선 · NAS TEST 배포]]
+
+- [[RobinGraph/2026-10-06-아종목록-카드디자인-영어표시명-NAS배포|RobinGraph 아종 목록 카드 · 영어 표시명 · NAS TEST 배포]]
