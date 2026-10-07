@@ -52,3 +52,15 @@ ATE/RPE·p95 pipeline latency는 이 CSV에 없어 별도 8/14 문서 수치를 
 로컬 분석 코드 analyze_runs.py를 실제 실행해 exit code 0을 확인하고, 별도 csv.reader 집계로 trial·통과 수, RUNNING 상태, 선정 run 수치와 check 기록 범위를 재확인했다. 원본 경로·해시·run ID는 로컬 JSON에만 보존했다.
 
 산출물: agent-artifacts/local/2026-10-07-vision60-csv-metrics/ — analyze_runs.py, csv-analysis.json, metrics-and-resume.md.
+
+## 추가 ad-hoc verification
+
+분석 스크립트 `analyze_runs.py`를 대상으로 OS-safe tempfile의 `/tmp/hermes-verify-*.py`를 생성해 unittest를 실행했다. 출력 JSON은 별도 임시 디렉터리로 격리하여 원본 CSV와 기존 결과를 덮어쓰지 않았다.
+
+실제 실행 결과: **Ran 9 tests — OK, exit code 0**.
+
+확인한 범위: CSV 크기·고유 run ID, parent/trial 및 성공/실패 집계, 중복 열의 모든 셀 보존, FINISHED와 통과 판정의 차이, 선정 지표의 원본 일치, 결측·비유한 값 처리, 49개 check의 기록 범위, 기존 JSON 결과의 정확한 재현, 원본 CSV·분석 스크립트·저장 JSON 불변. 임시 검증 파일 및 출력 디렉터리는 정리했다.
+
+최초 임시 파일 작성은 도구의 /tmp 경로 제한으로 실패했다. 빈 파일 실행은 검증으로 인정하지 않았고 실제 코드를 생성한 재실행 결과로 정정했다.
+
+이는 **일회성 분석 코드의 ad-hoc verification**이며 정식 프로젝트 테스트 스위트·빌드나 로봇 실험의 재실행 성공을 의미하지 않는다. 실제 출력 보관: `agent-artifacts/local/2026-10-07-vision60-csv-metrics/adhoc-verification.md`.
