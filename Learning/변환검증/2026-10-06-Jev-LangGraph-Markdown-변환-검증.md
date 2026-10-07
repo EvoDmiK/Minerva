@@ -1,4 +1,6 @@
 ---
+document_role: verification
+source_note: "[[Learning/원문/2026-10-06-Jev-LangGraph-프로덕션-에이전트-원문]]"
 date: 2026-10-06
 type: verification
 tags:
@@ -18,7 +20,7 @@ source_url: https://www.langchain.com/blog/building-prod-with-jev-and-langgraph
 - 작성자: Sydney Runkle, Hunter Lovell
 - 게시일: 2026-09-25
 - 원문: https://www.langchain.com/blog/building-prod-with-jev-and-langgraph
-- 보관본: [[Learning/2026-10-06-Jev-LangGraph-프로덕션-에이전트-원문]]
+- 보관본: [[Learning/원문/2026-10-06-Jev-LangGraph-프로덕션-에이전트-원문]]
 - 저장 수단: `obsidian_vault` MCP
 - 작업일: 2026-10-06 (KST)
 

@@ -1,4 +1,6 @@
 ---
+document_role: verification
+source_note: "[[Learning/원문/2026-10-06-Jev-추천-재순위화-실증-연구-원문]]"
 date: 2026-10-06
 tags:
   - verification
@@ -28,7 +30,7 @@ source_url: https://discuss.pytorch.kr/t/jev-reranking-llm/12091
 
 ## Obsidian 원문 보관본 저장
 
-- `obsidian_vault` MCP로 [[Learning/2026-10-06-Jev-추천-재순위화-실증-연구-원문|Jev 추천 재순위화 실증 연구 — 게시글 원문 보관본]]을 생성했다.
+- `obsidian_vault` MCP로 [[Learning/원문/2026-10-06-Jev-추천-재순위화-실증-연구-원문|Jev 추천 재순위화 실증 연구 — 게시글 원문 보관본]]을 생성했다.
 - 현재 Vault의 `README.md`와 `Learning/index.md`를 확인하여 기존 개인 학습 영역에 저장했다. 과거의 `LLM Wiki/01_Sources/article/` 구조를 새로 만들지 않았다.
 - 변환 본문은 유지하고 출처·작성자·태그 frontmatter와 보관본 관련 링크를 추가했다.
 - 연결된 논문 원문은 포함하지 않으며 이미지도 외부 URL 참조로 유지한다.

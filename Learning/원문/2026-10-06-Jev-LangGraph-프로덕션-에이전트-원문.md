@@ -1,4 +1,6 @@
 ---
+document_role: source
+verification_note: "[[Learning/변환검증/2026-10-06-Jev-LangGraph-Markdown-변환-검증]]"
 title: "Building Prod with Jev and LangGraph"
 date: 2026-10-06
 published: 2026-09-25
