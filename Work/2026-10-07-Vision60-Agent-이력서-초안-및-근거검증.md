@@ -14,7 +14,7 @@ status: draft
 
 ## 이력서 삽입용
 
-### AI 코딩 에이전트 기반 로봇 실험·평가 하네스 구축
+### AI 코딩 에이전트를 활용한 SLAM 실험·평가 하네스 구축
 
 **기간:** 2026.08–2026.09 — 제공된 작업 문서 기준  
 **핵심 기술:** Claude Code, Codex, MLflow, MCP, Python, Shell  
