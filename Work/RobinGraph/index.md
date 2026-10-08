@@ -20,6 +20,8 @@ tags:
 
 ## 작업 기록
 
+- [[Work/RobinGraph/2026-10-08-국명우선-TOP3-점수기준-NAS-TEST배포|2026-10-08 — 국명 우선 TOP 3·점수 기준 화면 NAS TEST 배포]]
+
 - [[Work/RobinGraph/2026-10-08-근연종-한국어우선-NAS-TEST배포|2026-10-08 — 근연종 검증 국명 우선·NAS TEST 배포]]
 
 - [[Work/RobinGraph/2026-10-08-비교후보카드-분류계통-UI-NAS-TEST배포|2026-10-08 — 비교 후보 카드·분류 계통 UI 정리 NAS TEST 배포]]
