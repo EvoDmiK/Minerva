@@ -20,6 +20,8 @@ tags:
 
 ## 작업 기록
 
+- [[Work/RobinGraph/2026-10-08-RG015-뒷면압축-출처통합-NAS-TEST배포|2026-10-08 — RG-015 뒷면 압축·출처 통합·NAS TEST 배포]]
+
 - [[Work/RobinGraph/2026-10-08-RG015-드래그해제-팝업닫힘수정|2026-10-08 — RG-015 드래그 해제 팝업 닫힘 수정·NAS TEST 배포]]
 
 - [[Work/RobinGraph/2026-10-08-RG015-PC전체표면드래그-NAS-TEST배포|2026-10-08 — RG-015 PC 전체 표면 드래그·NAS TEST 배포]]
