@@ -1,6 +1,6 @@
 ---
 created: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-08
 project: RobinGraph
 type: project-index
 tags:
@@ -20,6 +20,7 @@ tags:
 
 ## 작업 기록
 
+- [[Work/RobinGraph/2026-10-08-RG013-Jev-의도분석-구현-NAS-TEST배포|2026-10-08 — RG013 Jev 의도 분석 구현·NAS TEST 배포]]
 - [[Work/RobinGraph/2026-10-07-RG010-아종분포-한국어화-NAS-TEST배포|2026-10-07 — RG010 아종분포 한국어화 NAS TEST배포]]
 - [[Work/RobinGraph/2026-10-06-한국조류학회-국명교정-미확인종-영어표시|2026-10-06 — 한국조류학회 국명교정 미확인종 영어표시]]
 - [[Work/RobinGraph/2026-10-06-추가정보-한국어우선-NAS배포|2026-10-06 — 추가정보 한국어우선 NAS배포]]
