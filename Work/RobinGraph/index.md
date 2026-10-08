@@ -20,6 +20,8 @@ tags:
 
 ## 작업 기록
 
+- [[Work/RobinGraph/2026-10-08-근연종-한국어우선-NAS-TEST배포|2026-10-08 — 근연종 검증 국명 우선·NAS TEST 배포]]
+
 - [[Work/RobinGraph/2026-10-08-비교후보카드-분류계통-UI-NAS-TEST배포|2026-10-08 — 비교 후보 카드·분류 계통 UI 정리 NAS TEST 배포]]
 
 - [[Work/RobinGraph/2026-10-08-RG013-말장난-질문분류-보완-NAS-TEST배포|2026-10-08 — RG013 말장난 포함 질문 분류 보완·NAS TEST 배포]]
