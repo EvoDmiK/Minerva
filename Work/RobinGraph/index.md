@@ -20,6 +20,8 @@ tags:
 
 ## 작업 기록
 
+- [[Work/RobinGraph/2026-10-08-RG015-회전연동-유광반사광|2026-10-08 — RG-015 회전 연동 유광 반사광 구현·검증 (NAS 배포 대기)]]
+
 - [[Work/RobinGraph/2026-10-08-RG015-모바일터치스와이프-NAS-TEST배포|2026-10-08 — RG-015 모바일 터치 스와이프·NAS TEST 배포]]
 
 - [[Work/RobinGraph/2026-10-08-RG015-RG016-MLflow태그-드래그카드-NAS-TEST배포|2026-10-08 — RG-016 MLflow 결과 태그·RG-015 마우스 드래그 카드·NAS TEST 배포]]
