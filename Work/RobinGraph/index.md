@@ -20,6 +20,8 @@ tags:
 
 ## 작업 기록
 
+- [[Work/RobinGraph/2026-10-08-RG013-말장난-질문분류-보완-NAS-TEST배포|2026-10-08 — RG013 말장난 포함 질문 분류 보완·NAS TEST 배포]]
+
 - [[Work/RobinGraph/2026-10-08-RG013-첫설명-전체표시-관계탐색-NAS-TEST배포|2026-10-08 — RG013 첫 설명 전체 표시·선택적 관계 탐색 NAS TEST 배포]]
 
 - [[Work/RobinGraph/2026-10-08-RG013-더알아보기-클릭조회-NAS-TEST배포|2026-10-08 — RG013 더 알아보기 클릭 조회·NAS TEST 배포]]
