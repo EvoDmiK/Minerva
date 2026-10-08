@@ -63,7 +63,7 @@ RG-015 후속 유광 반사광도 NAS TEST 배포·실제 서버 자산 검증�
 |---|---|---|---|
 | [[#RG-013 — Jev System One API를 이용한 질문 의도 분석\|RG-013]] | 완료 | — | Jev·첫 설명·국명 우선 TOP3·점수 기준 UI · 완료 이력은 상세 참조 |
 | [[#RG-016 — MLflow에서 답변 결과와 미응답 사유 구분\|RG-016]] | 완료 | — | MLflow 결과·미응답 사유 태그 및 필터 · NAS TEST 75377ca |
-| [[#RG-015 — 마우스 드래그로 조류 카드 뒤집기\|RG-015]] | 완료 | — | 마우스·모바일·유광 반사광 NAS TEST f8a3771 배포·검증 완료 |
+| [[#RG-015 — 마우스 드래그로 조류 카드 뒤집기\|RG-015]] | 완료 | — | 마우스·모바일·유광·글씨 선택 차단 NAS TEST 570fd3f 배포·검증 완료 |
 | [[#RG-014 — HippoRAG 스타일의 근거 검색 및 그래프 연관 검색 도입\|RG-014]] | 착수 대기 | 4 | HippoRAG 스타일 검색·기준선 비교 |
 | [[#RG-017 — 한국 서식 여부 토글과 범위별 이름 우선 정책\|RG-017]] | 후속 계획 | 5 | 한국 서식 여부 토글·국명/영어 우선 정책 |
 | [[#RG-002 — PROD 활성 종 데이터 준비\|RG-002]] | 보류 | 최후순위 | PROD 활성 종 데이터 준비 대기 |
@@ -304,6 +304,7 @@ RG-013·RG-016·RG-015는 완료 상세로 이동했다. 현재 신규 대기는
 - **유광 반사광 후속 구현·검증 완료 (2026-10-08)**: 회전 angle에 반사광 위치·강도를 연결하고 마우스/터치·짧은 복귀·버튼 두 단계·앞/뒷면에 적용했다. 밝은 중심과 부드러운 반사층, 정면 통과 시 정확한 0강도 keyframe, 취소/재열기/초기화 cleanup을 구현했다. overlay는 pointer-events none·aria-hidden이며 reduced-motion에서 숨긴다. 원래 구현 담당자의 강도 조정·0도 보간 수정과 독립 최종 검토를 거쳤다.
 - **유광 후속 실제 검증·협업**: Orca `run_0c10f54dd3b5`, Claude 구현/후속·Antigravity 최종 읽기 전용 검토 승인·Codex 브라우저/통합/패키지/문서/Git. 실제 워커 모델 미확인. frontend **203 통과/0 실패/0 건너뜀**(모의 DOM); 실제 NAS API/DB+로컬 JS/CSS 대체 Chrome 반사광 1280마우스/390touch/390reduced 3설정, native touch 회귀4설정, mouse2설정과 사진/긴누름미뒤집힘/초기화 통과. 21.6도에서 위치57.2/42.8%·강도0.404, 정면 통과50%·강도약1.63e-10, native scroll/pinch 유지. 물리 기기·Safari·native 선택 메뉴·FPS는 미검증. Python 전체 DB 회귀는 재실행하지 않았다.
 - **유광 후속 Git·NAS TEST 배포 완료**: 구현 `f8a3771e3fab1ff98dd0b22cf51629d534ba4ed6`는 `origin/dev` push 완료. 최초 SSH 연결 거부는 업로드 이전 실패였으며, 사용자가 SSH를 연 뒤 동일 패키지 SHA256·MANIFEST 확인 후 `robingraph-api:test-rg015gloss-f8a3771`을 배포했다. deploy/verify 통과·컨테이너 healthy·OCI revision 일치·공개 JS/CSS 바이트 일치를 확인했다. 실제 서버 API/DB/자산으로 반사광3설정·터치4설정·마우스2설정·사진/긴누름미뒤집힘/초기화가 통과했다. 스크롤0→20/50/89/50, pinch1→약1.50, pageerror0. 물리 기기·Safari·선택 메뉴·FPS 미검증, 외부 사진 완전 로딩은 관찰되지 않았다. 이전 이미지는 롤백용으로 보존했고 PROD는 변경하지 않았다. [[Work/RobinGraph/2026-10-08-RG015-회전연동-유광반사광|상세 구현·검증·NAS TEST 배포 기록]].
+- **카드 글씨 선택 차단 후속·TEST 배포 완료 (2026-10-08)**: 사용자 요청으로 카드 앞·뒷면·중첩 출처 전체에 `user-select:none`·`-webkit-user-select:none`을 상시 적용했다. JS는 주석만 정정했다. 협업 `card_selection_review` 읽기 전용 검토 완료. 모의 frontend203 통과/0실패/0건너뜀, 실제 NAS API+로컬 자산3설정 및 실제 배포 자산3설정(1280마우스·390touch·390reduced)에서 드래그/더블클릭 선택 없음·출처 펼침/링크 포커스·Enter/Space·카드 회전/스와이프·유광·입력창 선택·pageerror0을 확인했다. 실제 모바일 에뮬레이션 scrollTop0→111/108. 구현 `570fd3f` push, TEST `robingraph-api:test-rg015noselect-570fd3f` deploy/verify·healthy·OCI revision·공개 JS/CSS 바이트 일치 확인. 물리 기기·Safari 미검증. [[Work/RobinGraph/2026-10-08-RG015-카드글씨선택차단-NAS-TEST배포|상세 구현·검증·배포 기록]].
 
 
 RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따라 완료 표시했다. Traces 화면 자체의 시각 확인 미실시는 별도 검증 메모로 남긴다. RG-004~RG-009는 2026-10-03 구현·NAS TEST 배포·검증 기록에 따라 완료 표시했다. RG-003은 버튼 추가로 좁혔던 해석을 정정하고, 2026-10-05 자연어 질문별 직접 답변 구현·NAS TEST 검증에 따라 완료 표시했다. RG-002는 PROD 데이터 준비 대기로 유지한다.
