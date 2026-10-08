@@ -20,6 +20,8 @@ tags:
 
 ## 작업 기록
 
+- [[Work/RobinGraph/2026-10-08-RG015-모바일터치스와이프-NAS-TEST배포|2026-10-08 — RG-015 모바일 터치 스와이프·NAS TEST 배포]]
+
 - [[Work/RobinGraph/2026-10-08-RG015-RG016-MLflow태그-드래그카드-NAS-TEST배포|2026-10-08 — RG-016 MLflow 결과 태그·RG-015 마우스 드래그 카드·NAS TEST 배포]]
 
 - [[Work/RobinGraph/2026-10-08-국명우선-TOP3-점수기준-NAS-TEST배포|2026-10-08 — 국명 우선 TOP 3·점수 기준 화면 NAS TEST 배포]]
