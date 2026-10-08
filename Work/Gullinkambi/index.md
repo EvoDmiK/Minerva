@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-07
+updated: 2026-10-08
 created: 2026-10-01
 project: Gullinkambi
 type: project-index
@@ -14,6 +14,8 @@ tags:
 Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량을 관찰하는 모니터링 프로젝트다.
 
 ## 작업 기록
+
+- [[Work/Gullinkambi/2026-10-08-ORCA-SSD-이전-후-사용량-수집-복구|2026-10-08 — ORCA SSD 이전 후 사용량 수집 복구]]
 
 - [[Work/Gullinkambi/2026-10-07-Claude-사용량-캐시-회귀-진단|2026-10-07 — Claude 사용량 캐시 회귀 진단]]
 - [[Work/Gullinkambi/2026-10-06-OpenViking-탭-개선과-Hermes-Grafana-MCP-연결|2026-10-06 — OpenViking 탭 개선과 Hermes Grafana MCP 연결]]
