@@ -20,6 +20,8 @@ tags:
 
 ## 작업 기록
 
+- [[Work/RobinGraph/2026-10-08-RG015-PC전체표면드래그-NAS-TEST배포|2026-10-08 — RG-015 PC 전체 표면 드래그·NAS TEST 배포]]
+
 - [[Work/RobinGraph/2026-10-08-RG015-카드글씨선택차단-NAS-TEST배포|2026-10-08 — RG-015 카드 글씨 선택 차단·NAS TEST 배포]]
 
 - [[Work/RobinGraph/2026-10-08-RG015-회전연동-유광반사광|2026-10-08 — RG-015 회전 연동 유광 반사광·NAS TEST 배포 완료]]
