@@ -96,6 +96,8 @@ pointercancel, lostpointercapture, 창 blur/resize, 팝업 닫기·재열기, �
 
 graphify는 SQL parser 의존성이 없어 SQL 4개를 추출하지 못했다는 경고를 냈다. 이번 Python/JS AST 변경의 갱신은 완료했고 유료 semantic label 재생성은 실행하지 않았다.
 
+[검증 집계·배포 메타데이터](https://github.com/EvoDmiK/RobinGraph/blob/dev/docs/verification/assets/2026-10-08-RG015016-test-summary.json)에서 1차 실패와 최종 결과를 함께 확인할 수 있다.
+
 ## NAS TEST·MLflow 실서버·브라우저
 
 소스 커밋 `75377ca`의 TEST 이미지를 빌드·교체하고 `deploy_nas.sh verify`와 container health를 확인했다. 소스 archive SHA와 파일별 manifest를 검증했고 실제 image label `org.opencontainers.image.revision`이 전체 구현 커밋과 일치했다. health의 fixture 분류 릴리스 표시는 활성 종 응답의 분류판을 대신하는 증거로 사용하지 않았다.
@@ -128,11 +130,11 @@ NAS container의 SDK와 실제 MLflow 서버는 모두 3.14.0이며 experiment�
 1. `Filters` → Field `Tags`.
 2. Key `response_reason`, Operator `=`, Value `taxon_not_found`.
 3. `Apply filters`를 누르면 박새·미등록 이름처럼 이 사유가 기록된 trace만 표시된다.
-4. trace를 열어 상단 `Tags` 영역에서 태그를 확인한다. 처음 한 태그와 `+5`처럼 나머지 태그 개수가 표시될 수 있다.
+4. trace를 열어 상단 `Tags` 영역에서 태그를 확인한다. 처음 한 태그와 `+5`처럼 나머지 태그 개수가 표시될 수 있으며, `+5`를 열면 나머지 사유·단계·결과 태그가 표시된다.
 
 실제 Chrome에서 위 조작으로 미등록 trace ID가 목록에 나타나고 상세가 열리는 것을 확인했다. 브라우저가 보낸 실제 query에도 `tags.response_reason = 'taxon_not_found'`가 포함됐다. 결과별 조회는 Key를 `response_disposition`으로 바꿔 `answer`, `clarify`, `abstain`, `error`를 사용한다. SDK 검색에서도 같은 태그 식을 사용할 수 있다.
 
-[필터 설정 화면](https://github.com/EvoDmiK/RobinGraph/blob/dev/docs/verification/assets/2026-10-08-RG016-mlflow-filter-settings.png), [필터 결과 화면](https://github.com/EvoDmiK/RobinGraph/blob/dev/docs/verification/assets/2026-10-08-RG016-mlflow-filter-results.png), [브라우저 확인 결과](https://github.com/EvoDmiK/RobinGraph/blob/dev/docs/verification/assets/2026-10-08-RG016-mlflow-ui.json).
+[필터 설정 화면](https://github.com/EvoDmiK/RobinGraph/blob/dev/docs/verification/assets/2026-10-08-RG016-mlflow-filter-settings.png), [필터 결과 화면](https://github.com/EvoDmiK/RobinGraph/blob/dev/docs/verification/assets/2026-10-08-RG016-mlflow-filter-results.png), [trace 상세 태그 화면](https://github.com/EvoDmiK/RobinGraph/blob/dev/docs/verification/assets/2026-10-08-RG016-mlflow-trace-tags.png), [브라우저 확인 결과](https://github.com/EvoDmiK/RobinGraph/blob/dev/docs/verification/assets/2026-10-08-RG016-mlflow-ui.json). 필터 적용·목록·상세 열기는 실제 Playwright 클릭으로 확인했다. 상세 태그 팝오버의 추가 확인은 MLflow의 신규 기능 안내 tooltip이 포인터를 가려 버튼의 DOM click으로 열었으며 물리적 포인터 시험과 구별한다.
 
 ### 실제 NAS 카드 브라우저 검증
 
@@ -153,6 +155,12 @@ Chrome에서 실제 `/v1/chat` 응답으로 만든 청둥오리 카드를 사용
 - PROD 배포·데이터 변경은 이번 작업에 해당하지 않는다. 실제 DB 테스트는 테스트 fixture와 임시 schema를 사용한다.
 - 소스 패키지 SHA-256: `ca4aa4e90718205174274e529690b9299f0734b7ea0cae5a566a98bdef5c8e16`. 패키지와 각 파일 manifest 검증 후 배포한다. 인증 정보는 패키지에 포함하지 않고 기존 NAS TEST 환경 파일을 내부에서 복사한다.
 - 구현 커밋 `75377ca`의 `origin/dev` push를 확인했다. 검증 문서·증거는 후속 문서 커밋으로 같은 브랜치에 기록한다. 실행 이미지의 revision은 위 구현 커밋을 가리키며 뒤의 문서 커밋과 구별한다.
+
+## 작업 관리 문서 동기화
+
+Obsidian의 `Work/RobinGraph/2026-10-08-RG015-RG016-MLflow태그-드래그카드-NAS-TEST배포.md`에 같은 핵심 구현·실제 검증·배포 정보와 한계를 기록했다. 백로그의 RG-016·RG-015 상세를 완료 구역으로 이동하고 목차·현황표·대기 표·변경 이력을 함께 갱신했다. 프로젝트 `index.md`에도 작업 기록 링크를 추가했다. 저장 후 각 문서를 다시 읽어 저장 내용 일치를 검사했다.
+
+작업 상세 ID 17개가 각각 한 번 있고 모든 목차 대상 제목이 존재하는지 확인했다. 기존 최후순위 보류 RG-002·RG-010·RG-011·RG-012와 신규 대기 RG-014·RG-017의 상세 본문은 변경 전과 동일하게 보존했다. 현재 집계는 진행 중 0건·신규 대기 2건·최후순위 보류 4건·완료 RG 11건과 기존 카드 효과 1건이다. 완료 워커는 release 또는 재사용으로 정산했으며 마지막 조회에서 reclaimable worker는 0개다.
 
 ## 남은 한계와 후속
 
