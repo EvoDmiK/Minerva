@@ -20,6 +20,8 @@ tags:
 
 ## 작업 기록
 
+- [[Work/RobinGraph/2026-10-08-비교후보카드-분류계통-UI-NAS-TEST배포|2026-10-08 — 비교 후보 카드·분류 계통 UI 정리 NAS TEST 배포]]
+
 - [[Work/RobinGraph/2026-10-08-RG013-말장난-질문분류-보완-NAS-TEST배포|2026-10-08 — RG013 말장난 포함 질문 분류 보완·NAS TEST 배포]]
 
 - [[Work/RobinGraph/2026-10-08-RG013-첫설명-전체표시-관계탐색-NAS-TEST배포|2026-10-08 — RG013 첫 설명 전체 표시·선택적 관계 탐색 NAS TEST 배포]]
