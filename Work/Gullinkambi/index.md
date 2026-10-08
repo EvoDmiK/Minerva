@@ -15,6 +15,8 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량�
 
 ## 작업 기록
 
+- [[Work/Gullinkambi/2026-10-08-Antigravity-구독-사용량-수집-복구|2026-10-08 — Antigravity 구독 사용량 수집 복구]]
+
 - [[Work/Gullinkambi/2026-10-08-ORCA-SSD-이전-후-사용량-수집-복구|2026-10-08 — ORCA SSD 이전 후 사용량 수집 복구]]
 
 - [[Work/Gullinkambi/2026-10-07-Claude-사용량-캐시-회귀-진단|2026-10-07 — Claude 사용량 캐시 회귀 진단]]
