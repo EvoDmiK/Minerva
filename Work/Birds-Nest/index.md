@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-07
+updated: 2026-10-08
 created: 2026-10-02
 project: Birds-Nest
 type: project-index
@@ -16,6 +16,7 @@ Birds-Nest는 개인 AI 에이전트(Hermes/Dovie), 자동화 워크플로우(n8
 
 ## 작업 기록
 
+- [[Work/Birds-Nest/2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|2026-10-08 — Carrier Pigeon Gmail 바로가기 404 오류 수정과 NAS n8n 배포]]
 - [[Work/Birds-Nest/2026-10-06-n8n-워크플로우-실패율-검증|2026-10-06 — n8n 워크플로우 실패율 검증]]
 - [[Work/Birds-Nest/2026-10-06-Hermes-모델-fallback-설정과-CLI-복구|2026-10-06 — Hermes 모델 fallback 설정과 CLI 복구]]
 - [[Work/Birds-Nest/2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업|2026-10-06 — Hermes Discord 설정과 ORCA SSD 이전 NAS 백업]]
