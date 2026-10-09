@@ -109,7 +109,7 @@ ORCA 관련 Codex/Claude 로그 (read-only)
 
 - `schema_version`, `source_schema_version`, `normalization_version`.
 - `event_key`: 제공자/account-scope/session/request 원본 식별자에 기반한 안정적 키. 파일명·경로·collector_id·수집 시각을 이벤트 정체성으로 사용하지 않는다.
-- `source_request_id_hash`, `session_id_hash`, `origin_namespace`, `agent`, `model`, `project_key`, `project_label`。
+- `source_request_id_hash`, `session_id_hash`, `origin_namespace`, `agent`, `model`, `project_key`, `project_label`.
 - `project_key`와 account/origin namespace는 opaque 논리 식별자다. 전체 경로·사용자명·계정 이메일을 저장하지 않는다. namespace는 실행 계층의 persistent 기본값으로 관리하고 collector 재생성 때 바뀌어 중복되는지 테스트한다.
 - `source_kind = raw_call | cumulative_delta | legacy_aggregate`, `observed_at`, `occurred_at`(UTC), `revision`, privacy-safe `fingerprint`.
 - `origin_evidence = managed_metadata | explicit_mapping | path_only | unknown`; path-only 세션은 ORCA 확정 목록과 구분한다.
