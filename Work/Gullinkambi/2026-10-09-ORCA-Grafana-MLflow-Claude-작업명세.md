@@ -98,6 +98,8 @@ ORCA 관련 Codex/Claude 로그 (read-only)
 - MLflow가 usage 원본을 다시 해석하는 별도 scanner를 만들지 않는다.
 - 이미 있는 DB/n8n/collector 배포 계층에 추가한다. 별도 큐·Kafka·새 관측 서버를 만들지 않는다.
 - 신규 테이블 이름은 저장소 naming 규칙을 따른다. 아래 schema는 논리 계약이며 migration에 맞는 SQL 타입으로 구현한다.
+- 호출별 초기 수집은 최근 48시간의 bounded window를 기본값으로 제안한다. 기존 legacy history는 그대로 유지하며 전체 역사 backfill은 자동 실행하지 않는다. 비밀이 아닌 batch/window 값은 합리적인 기본값으로 제공해 사용자 secret 파일에 관리 부담을 더하지 않는다.
+- 변경 없는 파일을 매 주기 전체 재파싱하지 않는다. bounded batch·resume 위치를 유지하고 기존 집계 cursor와 신규 호출 cursor를 분리한다. 테스트 sample에서 scan 시간·최대 batch·입력 대비 DB 저장량·패널 query plan을 보고한다.
 
 ## 5. 데이터 계약
 
