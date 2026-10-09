@@ -7,12 +7,14 @@ type: document-index
 
 # RobinGraph 작업기록
 
-구현·수정·검증·NAS 배포를 수행한 기록57개를 최신 날짜순으로 찾는다.
+구현·수정·검증·NAS 배포를 수행한 기록을 최신 날짜순으로 찾는다.
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
 - [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]
 
 ## 문서 목록
+
+- [[Work/RobinGraph/작업기록/2026-10-09-전종-형질연결복구-카드표시-TEST배포|2026-10-09 — 전체 종 형질 연결 복구·추정값 구분·카드 표시·NAS TEST 배포]]
 
 - [[Work/RobinGraph/작업기록/2026-10-09-도넛차트-항목비율-목록-다듬기-TEST배포|2026-10-09 — 도넛 차트 항목·비율 목록 다듬기와 자료 N 제거 · NAS TEST 배포]]
 - [[Work/RobinGraph/작업기록/2026-10-09-TEST-파란-파비콘-프레임두께-TEST배포|2026-10-09 — TEST 전용 파란 파비콘·카드 프레임 두께 통일 · NAS TEST 배포]]
