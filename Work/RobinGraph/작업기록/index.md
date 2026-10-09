@@ -7,14 +7,15 @@ type: document-index
 
 # RobinGraph 작업기록
 
-구현·수정·검증·NAS 배포를 수행한 기록52개를 최신 날짜순으로 찾는다.
+구현·수정·검증·NAS 배포를 수행한 기록53개를 최신 날짜순으로 찾는다.
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
 - [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]
 
 ## 문서 목록
 
-- [[Work/RobinGraph/작업기록/2026-10-09-파비콘-추가-TEST배포|2026-10-09 — 꼬까울새 파비콘 추가·NAS TEST 배포]]
+- [[Work/RobinGraph/작업기록/2026-10-09-README-IUCN-등급별-카드색-매핑|2026-10-09 — README에 IUCN 등급별 카드 색 매핑 추가]]
+- [[Work/RobinGraph/작업기록/2026-10-09-파비콘-추가-TEST배포|2026-10-09 — 꼬까울새 파비콘 추가·NAS TEST·PROD 배포]]
 - [[Work/RobinGraph/작업기록/2026-10-09-PROD-API-3e639ce-배포|2026-10-09 — PROD API 최신 버전(3e639ce) 배포]]
 - [[Work/RobinGraph/작업기록/2026-10-09-TEST-PROD-데이터-이관|2026-10-09 — TEST → PROD Neo4j·PostgreSQL 데이터 이관]]
 
