@@ -217,4 +217,4 @@ uv run --locked python scripts/load_pmc_pilot.py --apply
 1. 문헌 검색 결과와 인용된 청크 ID를 먼저 대조한다.
 2. 그다음 생성 응답과 인용 검증 결과를 확인한다.
 3. 배포 검증에서는 실행 이미지의 기능 존재와 실제 HTTP 요청까지 확인한다.
-4. 현재 기능·자료 영역은 [[Work/RobinGraph/RobinGraph 구현·데이터·검증 가이드|구현·데이터·검증 가이드]], 후속 배포 복구는 [[Work/RobinGraph/2026-09-30-NAS-Git이력분기-구형이미지-Gemini검색복구-525진단|NAS 검색 복구 기록]]을 참고한다.
+4. 현재 기능·자료 영역은 [[Work/RobinGraph/RobinGraph 구현·데이터·검증 가이드|구현·데이터·검증 가이드]], 후속 배포 복구는 [[2026-09-30-NAS-Git이력분기-구형이미지-Gemini검색복구-525진단|NAS 검색 복구 기록]]을 참고한다.

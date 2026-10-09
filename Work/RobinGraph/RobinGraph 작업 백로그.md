@@ -67,7 +67,7 @@ tags:
 
 2026-10-09 기준: **진행 중 0건 · 신규 착수 대기 2건 · 최후순위 보류 4건 · 완료 RG 작업 11건과 카드 효과 1건**. RG-015 도넛 차트 후속 구현·검증·NAS TEST 배포를 완료했다. 남은 신규 권장 순서는 RG-014 → RG-017이며, 실제 착수는 별도 사용자 지시를 따른다. 각 작업 ID를 누르면 상세 기록으로 이동한다.
 
-RG-015 모바일 카드의 내부 스크롤을 제거하고 전체 카드를 화면에 비례 맞춤했다. 사진과 본문에서도 양면 스와이프하며 자료 유무별 공통 형식·체중 kg·답변 출처·pinch 확대를 유지한다. NAS TEST 198ebca 검증 완료. [[Work/RobinGraph/2026-10-09-RG015-모바일스크롤제거-스와이프복구|상세 원인·구현·검증·배포 기록]]
+RG-015 모바일 카드의 내부 스크롤을 제거하고 전체 카드를 화면에 비례 맞춤했다. 사진과 본문에서도 양면 스와이프하며 자료 유무별 공통 형식·체중 kg·답변 출처·pinch 확대를 유지한다. NAS TEST 198ebca 검증 완료. [[2026-10-09-RG015-모바일스크롤제거-스와이프복구|상세 원인·구현·검증·배포 기록]]
 
 | 작업 | 상태 | 우선순위 | 현재 요약 |
 |---|---|---|---|
@@ -240,9 +240,9 @@ RG-013·RG-016·RG-015는 완료 상세로 이동했다. 현재 신규 대기는
 - **결과 기록**: 미착수.
 
 **관련 기록**:
-- [[Work/RobinGraph/2026-10-06-전체아종-출처이름-분포-공통처리-NAS배포|전체 아종 공통 처리·검증·NAS TEST 배포]]
-- [[Work/RobinGraph/2026-10-06-전체아종-이름자료-출처감사|이름 자료 출처 감사]]
-- [[Work/RobinGraph/2026-10-06-전체아종-Antigravity-화면검토|Antigravity 화면 검토]]
+- [[2026-10-06-전체아종-출처이름-분포-공통처리-NAS배포|전체 아종 공통 처리·검증·NAS TEST 배포]]
+- [[2026-10-06-전체아종-이름자료-출처감사|이름 자료 출처 감사]]
+- [[2026-10-06-전체아종-Antigravity-화면검토|Antigravity 화면 검토]]
 
 ## 완료 작업 상세 (검증 이력 보존)
 
@@ -275,11 +275,11 @@ RG-013·RG-016·RG-015는 완료 상세로 이동했다. 현재 신규 대기는
 - **완료 결과**: 정상·추가 확인·보류·조회 오류를 trace-level tags로 구분한다. 응답 발생 지점의 구조화 사유와 요청별 ContextVar를 사용하며 HTTP 200 보류의 trace 상태 OK를 보존한다. 실제 MLflow 3.14.0 experiment 33에서 태그 API 필터·Chrome UI 필터·정상/다른 사유 제외를 확인했다. 신고 박새 요청은 여전히 profile=null/abstain이며 taxon_not_found로 정확히 구별된다(자료 수정 작업 아님). 실서버 검증기 2건·병렬 배치 6건 통과. 박새 trace `tr-e7fe5bb586dcca15401b94fbe4d1c24e`. 기술 장애·의도 불명·근거 없음 등은 모의 조회기와 실제 SDK 로컬 exporter 검증으로 확인하며 NAS 제공처를 중단시키지 않았다. 과거 trace는 소급 수정하지 않는다.
 - **실제 협업**: Orca run `run_e82e62b9bbeb`, Claude 서버·UI 구현 및 후속 수정, Antigravity 독립 코드 검토, Codex 통합·실제 DB/MLflow/브라우저·NAS·문서·Git. 런타임 모델 필드가 null이므로 실제 워커 모델명은 미확인. Codex 최초 서버 워커는 업데이트 안내창으로 실행 전 시작 실패 후 같은 Task를 Claude로 재시도했다.
 - **검증·배포**: 실제 Neo4j·임시 PostgreSQL·고정 출처 캐시 전체 Python 633 통과/0 실패/0 건너뜀, frontend 181 통과/0 실패/0 건너뜀. 1차 Python 2건 실패는 병렬 테스트의 전역 mock 복원 경쟁을 수정한 뒤 재실행해 통과했다. TEST 이미지 `robingraph-api:test-rg015016-75377ca`, 구현 커밋 `75377ca`, healthy·verify·실제 API/UI 확인 완료. PROD 배포 없음.
-- **상세 기록·남은 한계**: [[Work/RobinGraph/2026-10-08-RG015-RG016-MLflow태그-드래그카드-NAS-TEST배포|RG-015·RG-016 구현·검증·NAS TEST 배포 기록]]. 모의/실제 SDK·실제 서버·브라우저 범위, 초기 실패/검증기 정정, 태그 사용법·trace ID·변경 파일·후속 제한을 기록했다.
+- **상세 기록·남은 한계**: [[2026-10-08-RG015-RG016-MLflow태그-드래그카드-NAS-TEST배포|RG-015·RG-016 구현·검증·NAS TEST 배포 기록]]. 모의/실제 SDK·실제 서버·브라우저 범위, 초기 실패/검증기 정정, 태그 사용법·trace ID·변경 파일·후속 제한을 기록했다.
 
 ### RG-015 — 마우스 드래그로 조류 카드 뒤집기
 
-- **모바일 내부 스크롤 제거·사진 스와이프 복구 (2026-10-09)**: 사용자 추가 요청에 따라 직전 내부 스크롤 방식을 폐기하고 전체 자연 높이 카드를 모바일 프레임에 비례 축소한다. 사진·placeholder·장식 이미지의 터치 드래그 예외와 사진 컨테이너 native pan으로 인한 pointercancel을 수정했다. 사진/본문 양면 swipe, 내부 scrollTop0, 닫기44px, 공통 자료 없음/부분 자료 형식, pinch 확대·버튼/차트·출처/kg 표시를 유지한다. pc_drag_popup_fix 구현·card_selection_review 독립 최종 검토·root 실제 검증/배포/문서/Git. frontend244통과/실패0/skip0. 실제 API/DB7+모의 API2의9설정은 로컬 새 자산과 NAS TEST 배포 자산에서 각각 통과했다. 사진/본문 양면 넘김·세로 gesture 무스크롤·resize·상세 펼침·재열기·pageerror0 및 공개JS/CSS일치 확인. 별도 모의 native pinch1→1.5확대에서도fit유지. 구현198ebca push, TEST robingraph-api:test-rg015noscroll-198ebca deploy/verify·healthy·OCI revision 확인. 작은 높이/긴 내용은 글씨도 축소되며 물리기기·Safari·전체DB회귀는 미검증. [[Work/RobinGraph/2026-10-09-RG015-모바일스크롤제거-스와이프복구|상세 원인·구현·검증·배포 기록]]
+- **모바일 내부 스크롤 제거·사진 스와이프 복구 (2026-10-09)**: 사용자 추가 요청에 따라 직전 내부 스크롤 방식을 폐기하고 전체 자연 높이 카드를 모바일 프레임에 비례 축소한다. 사진·placeholder·장식 이미지의 터치 드래그 예외와 사진 컨테이너 native pan으로 인한 pointercancel을 수정했다. 사진/본문 양면 swipe, 내부 scrollTop0, 닫기44px, 공통 자료 없음/부분 자료 형식, pinch 확대·버튼/차트·출처/kg 표시를 유지한다. pc_drag_popup_fix 구현·card_selection_review 독립 최종 검토·root 실제 검증/배포/문서/Git. frontend244통과/실패0/skip0. 실제 API/DB7+모의 API2의9설정은 로컬 새 자산과 NAS TEST 배포 자산에서 각각 통과했다. 사진/본문 양면 넘김·세로 gesture 무스크롤·resize·상세 펼침·재열기·pageerror0 및 공개JS/CSS일치 확인. 별도 모의 native pinch1→1.5확대에서도fit유지. 구현198ebca push, TEST robingraph-api:test-rg015noscroll-198ebca deploy/verify·healthy·OCI revision 확인. 작은 높이/긴 내용은 글씨도 축소되며 물리기기·Safari·전체DB회귀는 미검증. [[2026-10-09-RG015-모바일스크롤제거-스와이프복구|상세 원인·구현·검증·배포 기록]]
 
 - [x] 구현·회귀·독립 검토·실제 NAS TEST 검증 완료 (2026-10-08)
 - **우선순위**: 완료 — 당시 착수 우선순위 3.
@@ -305,32 +305,32 @@ RG-013·RG-016·RG-015는 완료 상세로 이동했다. 현재 신규 대기는
 - **최초 완료 결과**: 카드 빈 영역을 마우스 좌우로 끌면 폭 비례 임계값에 따라 앞·뒷면으로 전환한다. 짧은 이동·취소·blur/resize·lost capture·닫기/재열기 상태를 정리하고 텍스트·사진·버튼·링크 조작을 보존한다. 첫 구현의 텍스트 선택 충돌을 허용 목록 방식으로 수정했다. 실제 NAS Chrome 320·390·1280px 및 reduced-motion에서 드래그·원복·텍스트 선택·키보드·취소를 확인했고 카드 밖 release·사진 전환·출처 링크·스크롤·대화 초기화도 통과했다. 터치 제외는 모의/DOM 이벤트 검증이며 실제 터치 하드웨어·Safari/Firefox는 미검증이다.
 - **실제 협업**: Orca run `run_e82e62b9bbeb`, Claude 서버·UI 구현 및 후속 수정, Antigravity 독립 코드 검토, Codex 통합·실제 DB/MLflow/브라우저·NAS·문서·Git. 런타임 모델 필드가 null이므로 실제 워커 모델명은 미확인. Codex 최초 서버 워커는 업데이트 안내창으로 실행 전 시작 실패 후 같은 Task를 Claude로 재시도했다.
 - **최초 검증·배포**: 실제 Neo4j·임시 PostgreSQL·고정 출처 캐시 전체 Python 633 통과/0 실패/0 건너뜀, frontend 181 통과/0 실패/0 건너뜀. 1차 Python 2건 실패는 병렬 테스트의 전역 mock 복원 경쟁을 수정한 뒤 재실행해 통과했다. TEST 이미지 `robingraph-api:test-rg015016-75377ca`, 구현 커밋 `75377ca`, healthy·verify·실제 API/UI 확인 완료. PROD 배포 없음.
-- **상세 기록·남은 한계**: [[Work/RobinGraph/2026-10-08-RG015-RG016-MLflow태그-드래그카드-NAS-TEST배포|RG-015·RG-016 구현·검증·NAS TEST 배포 기록]]. 모의/실제 SDK·실제 서버·브라우저 범위, 초기 실패/검증기 정정, 태그 사용법·trace ID·변경 파일·후속 제한을 기록했다.
+- **상세 기록·남은 한계**: [[2026-10-08-RG015-RG016-MLflow태그-드래그카드-NAS-TEST배포|RG-015·RG-016 구현·검증·NAS TEST 배포 기록]]. 모의/실제 SDK·실제 서버·브라우저 범위, 초기 실패/검증기 정정, 태그 사용법·trace ID·변경 파일·후속 제한을 기록했다.
 
 
 - **모바일 후속 완료 (2026-10-08)**: 사용자 요청에 따라 primary 한 손가락 좌우 스와이프를 추가했다. 본문과 하단 44px 이상 안내 영역에서 시작할 수 있고, 사진·버튼·링크 등은 제외한다. CSS에 `pan-y pinch-zoom`을 미리 선언해 세로 스크롤·확대를 유지하고, 두 번째 터치·선택/contextmenu·cancel/capture 상실·닫기/초기화에서 정리한다. 이전 click 억제 타이머 경쟁도 generation으로 차단했다.
 - **모바일 후속 협업·검증**: Orca `run_bfb68f6544af`, Claude 구현·Antigravity 독립 읽기 전용 검토·Codex 통합/실제 브라우저/NAS/문서/Git. 워커 실제 모델명 미확인. frontend **193 통과/0 실패/0 건너뜀**(모의 DOM); 배포된 NAS 실제 API/DB/JS/CSS에서 Chrome CDP touch 320·390·768px 및 390px reduced-motion 4설정 통과. 실제 세로 scrollTop 변화 0→42/50/89/50, native pinch scale 1→약 1.50, desktop 1280px 일반/동작 줄이기 2설정, 사진 터치·사진 전환·긴 누름 미뒤집힘·초기화 확인. Python 전체 DB 회귀는 JS/CSS 후속이라 재실행하지 않았으며 이전 633개 결과와 구분한다.
-- **모바일 후속 배포·한계**: 구현 커밋 `a2a9bad62ee70426b6947b639a7f09e01d2c7e93`, NAS TEST `robingraph-api:test-rg015mobile-a2a9bad` deploy/verify/healthy·OCI revision 확인, PROD 배포 없음. 물리 휴대폰·Safari/WebKit·Firefox는 미검증이고 긴 누름의 native 선택 메뉴는 에뮬레이션에서 발생하지 않아 확인하지 않았다. 상세: [[Work/RobinGraph/2026-10-08-RG015-모바일터치스와이프-NAS-TEST배포|모바일 터치 구현·실제 검증·배포 기록]].
+- **모바일 후속 배포·한계**: 구현 커밋 `a2a9bad62ee70426b6947b639a7f09e01d2c7e93`, NAS TEST `robingraph-api:test-rg015mobile-a2a9bad` deploy/verify/healthy·OCI revision 확인, PROD 배포 없음. 물리 휴대폰·Safari/WebKit·Firefox는 미검증이고 긴 누름의 native 선택 메뉴는 에뮬레이션에서 발생하지 않아 확인하지 않았다. 상세: [[2026-10-08-RG015-모바일터치스와이프-NAS-TEST배포|모바일 터치 구현·실제 검증·배포 기록]].
 
 
 - **유광 반사광 후속 구현·검증 완료 (2026-10-08)**: 회전 angle에 반사광 위치·강도를 연결하고 마우스/터치·짧은 복귀·버튼 두 단계·앞/뒷면에 적용했다. 밝은 중심과 부드러운 반사층, 정면 통과 시 정확한 0강도 keyframe, 취소/재열기/초기화 cleanup을 구현했다. overlay는 pointer-events none·aria-hidden이며 reduced-motion에서 숨긴다. 원래 구현 담당자의 강도 조정·0도 보간 수정과 독립 최종 검토를 거쳤다.
 - **유광 후속 실제 검증·협업**: Orca `run_0c10f54dd3b5`, Claude 구현/후속·Antigravity 최종 읽기 전용 검토 승인·Codex 브라우저/통합/패키지/문서/Git. 실제 워커 모델 미확인. frontend **203 통과/0 실패/0 건너뜀**(모의 DOM); 실제 NAS API/DB+로컬 JS/CSS 대체 Chrome 반사광 1280마우스/390touch/390reduced 3설정, native touch 회귀4설정, mouse2설정과 사진/긴누름미뒤집힘/초기화 통과. 21.6도에서 위치57.2/42.8%·강도0.404, 정면 통과50%·강도약1.63e-10, native scroll/pinch 유지. 물리 기기·Safari·native 선택 메뉴·FPS는 미검증. Python 전체 DB 회귀는 재실행하지 않았다.
-- **유광 후속 Git·NAS TEST 배포 완료**: 구현 `f8a3771e3fab1ff98dd0b22cf51629d534ba4ed6`는 `origin/dev` push 완료. 최초 SSH 연결 거부는 업로드 이전 실패였으며, 사용자가 SSH를 연 뒤 동일 패키지 SHA256·MANIFEST 확인 후 `robingraph-api:test-rg015gloss-f8a3771`을 배포했다. deploy/verify 통과·컨테이너 healthy·OCI revision 일치·공개 JS/CSS 바이트 일치를 확인했다. 실제 서버 API/DB/자산으로 반사광3설정·터치4설정·마우스2설정·사진/긴누름미뒤집힘/초기화가 통과했다. 스크롤0→20/50/89/50, pinch1→약1.50, pageerror0. 물리 기기·Safari·선택 메뉴·FPS 미검증, 외부 사진 완전 로딩은 관찰되지 않았다. 이전 이미지는 롤백용으로 보존했고 PROD는 변경하지 않았다. [[Work/RobinGraph/2026-10-08-RG015-회전연동-유광반사광|상세 구현·검증·NAS TEST 배포 기록]].
-- **카드 글씨 선택 차단 후속·TEST 배포 완료 (2026-10-08)**: 사용자 요청으로 카드 앞·뒷면·중첩 출처 전체에 `user-select:none`·`-webkit-user-select:none`을 상시 적용했다. JS는 주석만 정정했다. 협업 `card_selection_review` 읽기 전용 검토 완료. 모의 frontend203 통과/0실패/0건너뜀, 실제 NAS API+로컬 자산3설정 및 실제 배포 자산3설정(1280마우스·390touch·390reduced)에서 드래그/더블클릭 선택 없음·출처 펼침/링크 포커스·Enter/Space·카드 회전/스와이프·유광·입력창 선택·pageerror0을 확인했다. 실제 모바일 에뮬레이션 scrollTop0→111/108. 구현 `570fd3f` push, TEST `robingraph-api:test-rg015noselect-570fd3f` deploy/verify·healthy·OCI revision·공개 JS/CSS 바이트 일치 확인. 물리 기기·Safari 미검증. [[Work/RobinGraph/2026-10-08-RG015-카드글씨선택차단-NAS-TEST배포|상세 구현·검증·배포 기록]].
-- **PC 전체 표면 드래그 후속·TEST 배포 완료 (2026-10-08)**: 글씨 선택 차단 뒤에도 마우스가 빈 layout에서만 시작되던 제한을 실제 NAS 앞/뒷면에서 재현했다. PC는 제목·본문·중첩 글씨·사진·SVG/canvas·빈 표면에서 시작하도록 확대하고 pending mouse의 native dragstart를 막았다. 버튼/링크/summary/편집/명시적 draggable과 조상 예외, touch 사진 제외·스크롤/확대, 글씨 선택 금지를 유지했다. 협업 pc_card_drag_fix 구현·card_selection_review 독립 diff 승인·root 실제검증/배포. 모의 frontend205 통과/0실패/0건너뜀, 배포 전후 PC3설정 각11회 드래그·터치4설정·모바일조작 통과. PC의 외부 사진 파일은 로딩된 SVG fixture로 대체했으며 실제 사진 전송 성공으로 기록하지 않는다. 실제서버 scroll0→20/50/89/50·pinch1→약1.50·pageerror0. 도구 teardown timeout은 상세 문서에 구분했다. 구현719e5bc push, NAS TEST robingraph-api:test-rg015pcdrag-719e5bc deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari 미검증. [[Work/RobinGraph/2026-10-08-RG015-PC전체표면드래그-NAS-TEST배포|상세 원인·협업·검증·배포 기록]].
-- **드래그 후 팝업 닫힘 방지 후속 (2026-10-08)**: 실제 TEST719e5bc에서 dialog테두리/padding 시작→밖해제2건이 backdrop click으로 닫힘을 재현했다(캡처된 제목/h3 4건은 유지). dialog capture에서 실제 backdrop의 primary 왼쪽 pointerdown/up와 같은ID click만 닫도록 제한하고 cancel/close/reopen 상태를 정리했다. 협업 pc_drag_popup_fix 구현/모의검사·card_selection_review 독립diff검토·root 실제재현/브라우저/패키지/배포/문서/Git. frontend210 통과/0실패/0건너뜀, 로컬 자산5설정(PC1280/1440일반·1280reduced,390touch일반/reduced)에서 내부→밖해제30건 유지·밖→안쪽 유지·보통거리본문회전·새정상backdrop/X/Escape/재열기 통과. 극단적인 가장자리 해제는 닫힘유지만 합격조건이며 전환결과는 그대로 기록한다. 물리기기·Safari 미검증. 최초 SSH거부 뒤 사용자 SSH재개로 동일소스b58be10을 TEST robingraph-api:test-rg015dragclose-b58be10에 배포했다. deploy/verify·healthy·OCI revision·공개JS/CSS일치 및 실제서버5설정30건유지/정상닫기 검증통과, pageerror0. 구현push완료·PROD변경없음. [[Work/RobinGraph/2026-10-08-RG015-드래그해제-팝업닫힘수정|상세 원인·검증·배포 기록]].
-- **뒷면 압축·출처 통합 후속 (2026-10-08)**: 뒷면 스크롤바 표시를 숨기고 기본 형질을 컴팩트하게 배치했다. 사진·형질·먹이·IUCN·분류·해석 안내 출처를 단일 토글에 모으고 라이선스·원자료 상충·추정·아종 scope·사진 비동기 슬롯을 보존했다. pc_drag_popup_fix 구현·card_selection_review 독립 검토·root 실제 검증/배포/문서/Git. frontend213통과/0실패/0건너뜀. 로컬 자산 및 실제 서버 각각 화면4설정·드래그닫힘5설정30건 통과, pageerror0. 390×844 기본 높이1525→808px, 320×640는 스크롤 유지. 구현cb18d1f push 및 NAS TEST robingraph-api:test-rg015compactback-cb18d1f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-08-RG015-뒷면압축-출처통합-NAS-TEST배포|상세 구현·검증·배포 기록]]
-- **모바일 화면 맞춤·체중 kg 표시 (2026-10-09)**: 모바일 dialog만 고정하고 카드 내용 최소 높이가 넘치던 원인을 320×568에서 재현했다. 카드 외곽·닫기를 화면 안에 고정하고 각 면만 내부 스크롤하며, 짧은 화면 사진/여백·safe-area/dvh·가로 coarse pointer를 반영한다. 면 전환/재열기 scrollTop 초기화와 내부 scroll의 툴팁 해제를 연결했다. 카드 체중은 1000g 이상이면 kg 소수2자리로 표시하며 원g 자료·추정·독립 측정·종 수준 참고를 보존한다. pc_drag_popup_fix 구현·card_selection_review 최종 독립 검토·root 실제 검증/배포/문서/Git. frontend240통과/실패0/skip0, 실제 API/DB7+모의 API2의9설정을 로컬/배포 자산에서 각각 통과했다. 모바일8설정 native 세로 스크롤·resize·양면/프레임·드래그·닫기/재열기·pageerror0 확인. 가로 native 초기 실패는 독립 최소 재현과 CDP screenOrientation 명시로 테스트 설정 문제를 확인했으며 앱 코드는 이 때문에 변경하지 않았다. 실제 흰뺨 체중1.16kg·모의1024g→1.02kg 및 원g 출처를 확인했다. 구현7627d51 push, TEST robingraph-api:test-rg015mobilefit-7627d51 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·실제 노치/주소창·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-모바일화면맞춤-체중kg표시|상세 원인·구현·검증·배포 기록]]
+- **유광 후속 Git·NAS TEST 배포 완료**: 구현 `f8a3771e3fab1ff98dd0b22cf51629d534ba4ed6`는 `origin/dev` push 완료. 최초 SSH 연결 거부는 업로드 이전 실패였으며, 사용자가 SSH를 연 뒤 동일 패키지 SHA256·MANIFEST 확인 후 `robingraph-api:test-rg015gloss-f8a3771`을 배포했다. deploy/verify 통과·컨테이너 healthy·OCI revision 일치·공개 JS/CSS 바이트 일치를 확인했다. 실제 서버 API/DB/자산으로 반사광3설정·터치4설정·마우스2설정·사진/긴누름미뒤집힘/초기화가 통과했다. 스크롤0→20/50/89/50, pinch1→약1.50, pageerror0. 물리 기기·Safari·선택 메뉴·FPS 미검증, 외부 사진 완전 로딩은 관찰되지 않았다. 이전 이미지는 롤백용으로 보존했고 PROD는 변경하지 않았다. [[2026-10-08-RG015-회전연동-유광반사광|상세 구현·검증·NAS TEST 배포 기록]].
+- **카드 글씨 선택 차단 후속·TEST 배포 완료 (2026-10-08)**: 사용자 요청으로 카드 앞·뒷면·중첩 출처 전체에 `user-select:none`·`-webkit-user-select:none`을 상시 적용했다. JS는 주석만 정정했다. 협업 `card_selection_review` 읽기 전용 검토 완료. 모의 frontend203 통과/0실패/0건너뜀, 실제 NAS API+로컬 자산3설정 및 실제 배포 자산3설정(1280마우스·390touch·390reduced)에서 드래그/더블클릭 선택 없음·출처 펼침/링크 포커스·Enter/Space·카드 회전/스와이프·유광·입력창 선택·pageerror0을 확인했다. 실제 모바일 에뮬레이션 scrollTop0→111/108. 구현 `570fd3f` push, TEST `robingraph-api:test-rg015noselect-570fd3f` deploy/verify·healthy·OCI revision·공개 JS/CSS 바이트 일치 확인. 물리 기기·Safari 미검증. [[2026-10-08-RG015-카드글씨선택차단-NAS-TEST배포|상세 구현·검증·배포 기록]].
+- **PC 전체 표면 드래그 후속·TEST 배포 완료 (2026-10-08)**: 글씨 선택 차단 뒤에도 마우스가 빈 layout에서만 시작되던 제한을 실제 NAS 앞/뒷면에서 재현했다. PC는 제목·본문·중첩 글씨·사진·SVG/canvas·빈 표면에서 시작하도록 확대하고 pending mouse의 native dragstart를 막았다. 버튼/링크/summary/편집/명시적 draggable과 조상 예외, touch 사진 제외·스크롤/확대, 글씨 선택 금지를 유지했다. 협업 pc_card_drag_fix 구현·card_selection_review 독립 diff 승인·root 실제검증/배포. 모의 frontend205 통과/0실패/0건너뜀, 배포 전후 PC3설정 각11회 드래그·터치4설정·모바일조작 통과. PC의 외부 사진 파일은 로딩된 SVG fixture로 대체했으며 실제 사진 전송 성공으로 기록하지 않는다. 실제서버 scroll0→20/50/89/50·pinch1→약1.50·pageerror0. 도구 teardown timeout은 상세 문서에 구분했다. 구현719e5bc push, NAS TEST robingraph-api:test-rg015pcdrag-719e5bc deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari 미검증. [[2026-10-08-RG015-PC전체표면드래그-NAS-TEST배포|상세 원인·협업·검증·배포 기록]].
+- **드래그 후 팝업 닫힘 방지 후속 (2026-10-08)**: 실제 TEST719e5bc에서 dialog테두리/padding 시작→밖해제2건이 backdrop click으로 닫힘을 재현했다(캡처된 제목/h3 4건은 유지). dialog capture에서 실제 backdrop의 primary 왼쪽 pointerdown/up와 같은ID click만 닫도록 제한하고 cancel/close/reopen 상태를 정리했다. 협업 pc_drag_popup_fix 구현/모의검사·card_selection_review 독립diff검토·root 실제재현/브라우저/패키지/배포/문서/Git. frontend210 통과/0실패/0건너뜀, 로컬 자산5설정(PC1280/1440일반·1280reduced,390touch일반/reduced)에서 내부→밖해제30건 유지·밖→안쪽 유지·보통거리본문회전·새정상backdrop/X/Escape/재열기 통과. 극단적인 가장자리 해제는 닫힘유지만 합격조건이며 전환결과는 그대로 기록한다. 물리기기·Safari 미검증. 최초 SSH거부 뒤 사용자 SSH재개로 동일소스b58be10을 TEST robingraph-api:test-rg015dragclose-b58be10에 배포했다. deploy/verify·healthy·OCI revision·공개JS/CSS일치 및 실제서버5설정30건유지/정상닫기 검증통과, pageerror0. 구현push완료·PROD변경없음. [[2026-10-08-RG015-드래그해제-팝업닫힘수정|상세 원인·검증·배포 기록]].
+- **뒷면 압축·출처 통합 후속 (2026-10-08)**: 뒷면 스크롤바 표시를 숨기고 기본 형질을 컴팩트하게 배치했다. 사진·형질·먹이·IUCN·분류·해석 안내 출처를 단일 토글에 모으고 라이선스·원자료 상충·추정·아종 scope·사진 비동기 슬롯을 보존했다. pc_drag_popup_fix 구현·card_selection_review 독립 검토·root 실제 검증/배포/문서/Git. frontend213통과/0실패/0건너뜀. 로컬 자산 및 실제 서버 각각 화면4설정·드래그닫힘5설정30건 통과, pageerror0. 390×844 기본 높이1525→808px, 320×640는 스크롤 유지. 구현cb18d1f push 및 NAS TEST robingraph-api:test-rg015compactback-cb18d1f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-08-RG015-뒷면압축-출처통합-NAS-TEST배포|상세 구현·검증·배포 기록]]
+- **모바일 화면 맞춤·체중 kg 표시 (2026-10-09)**: 모바일 dialog만 고정하고 카드 내용 최소 높이가 넘치던 원인을 320×568에서 재현했다. 카드 외곽·닫기를 화면 안에 고정하고 각 면만 내부 스크롤하며, 짧은 화면 사진/여백·safe-area/dvh·가로 coarse pointer를 반영한다. 면 전환/재열기 scrollTop 초기화와 내부 scroll의 툴팁 해제를 연결했다. 카드 체중은 1000g 이상이면 kg 소수2자리로 표시하며 원g 자료·추정·독립 측정·종 수준 참고를 보존한다. pc_drag_popup_fix 구현·card_selection_review 최종 독립 검토·root 실제 검증/배포/문서/Git. frontend240통과/실패0/skip0, 실제 API/DB7+모의 API2의9설정을 로컬/배포 자산에서 각각 통과했다. 모바일8설정 native 세로 스크롤·resize·양면/프레임·드래그·닫기/재열기·pageerror0 확인. 가로 native 초기 실패는 독립 최소 재현과 CDP screenOrientation 명시로 테스트 설정 문제를 확인했으며 앱 코드는 이 때문에 변경하지 않았다. 실제 흰뺨 체중1.16kg·모의1024g→1.02kg 및 원g 출처를 확인했다. 구현7627d51 push, TEST robingraph-api:test-rg015mobilefit-7627d51 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·실제 노치/주소창·전체DB회귀 미검증. [[2026-10-09-RG015-모바일화면맞춤-체중kg표시|상세 원인·구현·검증·배포 기록]]
 
-- **관찰 포인트·카드 형식 통일 (2026-10-09)**: 출처가 확인된 appearance/fun_facts에서 관찰 설명 최대2개를 앞면 하단에 표시하고 원문·숫자·조건·모든 제공 출처 메타데이터를 단일 답변 출처에 보존한다. 사진·기본4행·분포2자리·관찰 영역을 자료가 없어도 유지하고 같은 화면에서 공통 팝업 크기를 사용하며 긴 내용은 내부 스크롤한다. 아종에 부모 종 설명을 차용하지 않고 지연 조회 실패/취소 안내와 교체/빈sections/사진only 갱신을 구분한다. pc_drag_popup_fix 구현·card_selection_review 최종 독립검토 승인·root 실제검증/배포/문서/Git. frontend237통과/실패0/skip0, 실제NAS API+로컬 자산6설정·실제서버6설정, 로컬/배포자산의 모의빈자료12건씩, 실제도넛·출처회귀2설정 통과. 실제서버PC첫응답은 외부추가자료실패로 관찰unavailable, 나머지5설정은 sourced ready였으며 모두 크기/양면/출처/드래그/pageerror0 확인. 모의12건은 실제DB의 자료없는종 검증으로 합산하지 않는다. 구현4048778 push, TEST robingraph-api:test-rg015observation-4048778 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-관찰포인트-카드형식통일|상세 구현·검증·배포 기록]]
+- **관찰 포인트·카드 형식 통일 (2026-10-09)**: 출처가 확인된 appearance/fun_facts에서 관찰 설명 최대2개를 앞면 하단에 표시하고 원문·숫자·조건·모든 제공 출처 메타데이터를 단일 답변 출처에 보존한다. 사진·기본4행·분포2자리·관찰 영역을 자료가 없어도 유지하고 같은 화면에서 공통 팝업 크기를 사용하며 긴 내용은 내부 스크롤한다. 아종에 부모 종 설명을 차용하지 않고 지연 조회 실패/취소 안내와 교체/빈sections/사진only 갱신을 구분한다. pc_drag_popup_fix 구현·card_selection_review 최종 독립검토 승인·root 실제검증/배포/문서/Git. frontend237통과/실패0/skip0, 실제NAS API+로컬 자산6설정·실제서버6설정, 로컬/배포자산의 모의빈자료12건씩, 실제도넛·출처회귀2설정 통과. 실제서버PC첫응답은 외부추가자료실패로 관찰unavailable, 나머지5설정은 sourced ready였으며 모두 크기/양면/출처/드래그/pageerror0 확인. 모의12건은 실제DB의 자료없는종 검증으로 합산하지 않는다. 구현4048778 push, TEST robingraph-api:test-rg015observation-4048778 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-09-RG015-관찰포인트-카드형식통일|상세 구현·검증·배포 기록]]
 
-- **앞·뒷면 높이 통일 (2026-10-09)**: 앞면 안내 제거 뒤 활성 면만 display:none 전환으로 높이를 결정해 앞/뒷면 길이가 달라지는 원인을 수정했다. 두 면을 공통grid 같은 셀에 놓고 긴 쪽 높이를 공유하며 비활성 면은 hidden·visibility·inert·aria-hidden으로 입력/포커스/접근성에서 제외한다. 카드max-height·스크롤·사진/툴팁 숨김·드래그·유광·출처를 보존했다. root 구현/실제검증/배포·card_selection_review 독립검토 승인. 최종frontend231통과/0실패/0skip(초기직계DOM검증헬퍼2건 정정), 로컬자산/실제배포자산 각4설정에서 기본·측정값펼침·resize·긴사진안내 UI모의갱신·복원 시 양면 실측높이/위치와프레임 일치·숨긴면포커스차단·본문드래그 통과. 서버도넛·출처 추가회귀2설정 통과. 구현f63cbc0 push, TEST robingraph-api:test-rg015height-f63cbc0 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-양면높이통일|상세 원인·구현·검증·배포 기록]]
+- **앞·뒷면 높이 통일 (2026-10-09)**: 앞면 안내 제거 뒤 활성 면만 display:none 전환으로 높이를 결정해 앞/뒷면 길이가 달라지는 원인을 수정했다. 두 면을 공통grid 같은 셀에 놓고 긴 쪽 높이를 공유하며 비활성 면은 hidden·visibility·inert·aria-hidden으로 입력/포커스/접근성에서 제외한다. 카드max-height·스크롤·사진/툴팁 숨김·드래그·유광·출처를 보존했다. root 구현/실제검증/배포·card_selection_review 독립검토 승인. 최종frontend231통과/0실패/0skip(초기직계DOM검증헬퍼2건 정정), 로컬자산/실제배포자산 각4설정에서 기본·측정값펼침·resize·긴사진안내 UI모의갱신·복원 시 양면 실측높이/위치와프레임 일치·숨긴면포커스차단·본문드래그 통과. 서버도넛·출처 추가회귀2설정 통과. 구현f63cbc0 push, TEST robingraph-api:test-rg015height-f63cbc0 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-09-RG015-양면높이통일|상세 원인·구현·검증·배포 기록]]
 
-- **앞면 하단 안내·구분선 제거 (2026-10-09)**: 사용자 요청으로 앞면 고정 종평균/출처 문구와 PC·모바일 뒤집기 안내 footer·구분선을 제거했다. 실제 자료 경고·아종 직접/종 참고 안내·답변 출처의 종평균 해석·드래그·키보드·도넛 툴팁은 유지한다. 대체 내용은 ‘관찰 포인트’ 한 줄을 추천하며 새 콘텐츠는 아직 넣지 않았다. root 구현/실제검증/배포·card_selection_review 독립 읽기검토 승인. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB/자산 Chrome1280마우스·390touch 2설정 통과, footer/문구없음·출처해석·도넛·본문드래그·키보드·pageerror0 확인. 구현128da7f push, TEST robingraph-api:test-rg015footer-128da7f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-앞면하단안내제거|상세 구현·검증·배포 기록]]
+- **앞면 하단 안내·구분선 제거 (2026-10-09)**: 사용자 요청으로 앞면 고정 종평균/출처 문구와 PC·모바일 뒤집기 안내 footer·구분선을 제거했다. 실제 자료 경고·아종 직접/종 참고 안내·답변 출처의 종평균 해석·드래그·키보드·도넛 툴팁은 유지한다. 대체 내용은 ‘관찰 포인트’ 한 줄을 추천하며 새 콘텐츠는 아직 넣지 않았다. root 구현/실제검증/배포·card_selection_review 독립 읽기검토 승인. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB/자산 Chrome1280마우스·390touch 2설정 통과, footer/문구없음·출처해석·도넛·본문드래그·키보드·pageerror0 확인. 구현128da7f push, TEST robingraph-api:test-rg015footer-128da7f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-09-RG015-앞면하단안내제거|상세 구현·검증·배포 기록]]
 
-- **도넛 차트·플로팅 툴팁 후속 (2026-10-09)**: 먹이 구성·먹이 활동 위치를 작은 도넛2개로 한 줄에 배치하고 각 실제 영역의 마우스 hover·터치 탭·키보드 포커스에 한국어 항목명/원비율 툴팁을 제공한다. 0%·미기록·100%·잘못된 값·미등록 항목·서로 다른 자료와 출처를 보존하고 차트 입력을 카드 드래그에서 분리했다. pc_drag_popup_fix 구현·card_selection_review 독립검토·root 실제검증/배포. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB+로컬 자산4설정32영역 및 실제배포 자산4설정32영역 통과, 모의API geometry3건은 로컬/배포자산에서 각각 통과했다. 초기 검증기 선택자/경계좌표 실패는 최종 성공과 구분해 상세 기록했다. 최초 SSH거부 후 사용자 개방으로 고정소스a8aa6c1을 TEST robingraph-api:test-rg015donut-a8aa6c1에 배포했고 deploy/verify·healthy·OCI revision·공개JS/CSS일치를 확인했다. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-도넛차트-플로팅툴팁|상세 구현·검증·배포 기록]]
+- **도넛 차트·플로팅 툴팁 후속 (2026-10-09)**: 먹이 구성·먹이 활동 위치를 작은 도넛2개로 한 줄에 배치하고 각 실제 영역의 마우스 hover·터치 탭·키보드 포커스에 한국어 항목명/원비율 툴팁을 제공한다. 0%·미기록·100%·잘못된 값·미등록 항목·서로 다른 자료와 출처를 보존하고 차트 입력을 카드 드래그에서 분리했다. pc_drag_popup_fix 구현·card_selection_review 독립검토·root 실제검증/배포. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB+로컬 자산4설정32영역 및 실제배포 자산4설정32영역 통과, 모의API geometry3건은 로컬/배포자산에서 각각 통과했다. 초기 검증기 선택자/경계좌표 실패는 최종 성공과 구분해 상세 기록했다. 최초 SSH거부 후 사용자 개방으로 고정소스a8aa6c1을 TEST robingraph-api:test-rg015donut-a8aa6c1에 배포했고 deploy/verify·healthy·OCI revision·공개JS/CSS일치를 확인했다. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-09-RG015-도넛차트-플로팅툴팁|상세 구현·검증·배포 기록]]
 
-- **버튼 제거·답변 출처 통합·먹이 비율·영어 이름 후속 (2026-10-08)**: 앞뒤 전환 버튼과 카드 출처 DOM을 제거하고 드래그/터치 및 카드 본인 Enter·Space 전환을 유지했다. 카드·설명·citations·지연 설명/사진 근거를 단일 답변 출처로 중복 제거하며 다른 locator·라이선스·아종 scope·원자료 claim을 보존한다. 먹이는 원본 비율 막대/0%칩과 자료번호 대응, 한국어 옆 작은 영어명/별도 학명으로 표시한다. pc_drag_popup_fix 구현·card_selection_review 독립검토·root 실제검증/배포. frontend225통과/0실패/0skip, 로컬 및 서버 화면5설정·드래그5설정30건 통과, 모의API 실제Chrome deferred단일패널/열림/상충근거보존 통과. 서버native세로스크롤240/170/171/168/240px·pageerror0. 서버화면runner의 결과저장후 browser.close10초 timeout1회는도구종료로별도기록했고 잔여headless없음. 구현ddf002f push, NAS TEST robingraph-api:test-rg015finalcard-ddf002f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-08-RG015-카드버튼제거-답변출처통합-먹이비율-영어이름-NAS-TEST배포|상세 구현·검증·배포 기록]]
+- **버튼 제거·답변 출처 통합·먹이 비율·영어 이름 후속 (2026-10-08)**: 앞뒤 전환 버튼과 카드 출처 DOM을 제거하고 드래그/터치 및 카드 본인 Enter·Space 전환을 유지했다. 카드·설명·citations·지연 설명/사진 근거를 단일 답변 출처로 중복 제거하며 다른 locator·라이선스·아종 scope·원자료 claim을 보존한다. 먹이는 원본 비율 막대/0%칩과 자료번호 대응, 한국어 옆 작은 영어명/별도 학명으로 표시한다. pc_drag_popup_fix 구현·card_selection_review 독립검토·root 실제검증/배포. frontend225통과/0실패/0skip, 로컬 및 서버 화면5설정·드래그5설정30건 통과, 모의API 실제Chrome deferred단일패널/열림/상충근거보존 통과. 서버native세로스크롤240/170/171/168/240px·pageerror0. 서버화면runner의 결과저장후 browser.close10초 timeout1회는도구종료로별도기록했고 잔여headless없음. 구현ddf002f push, NAS TEST robingraph-api:test-rg015finalcard-ddf002f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-08-RG015-카드버튼제거-답변출처통합-먹이비율-영어이름-NAS-TEST배포|상세 구현·검증·배포 기록]]
 
 
 RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따라 완료 표시했다. Traces 화면 자체의 시각 확인 미실시는 별도 검증 메모로 남긴다. RG-004~RG-009는 2026-10-03 구현·NAS TEST 배포·검증 기록에 따라 완료 표시했다. RG-003은 버튼 추가로 좁혔던 해석을 정정하고, 2026-10-05 자연어 질문별 직접 답변 구현·NAS TEST 검증에 따라 완료 표시했다. RG-002는 PROD 데이터 준비 대기로 유지한다.
@@ -361,13 +361,13 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
   - NAS TEST에서 실제 Jev 호출과 전체 채팅 흐름을 검증하고 p50/p95 지연·사용량·비용 산정 근거를 기록한다. 모의 응답 테스트만으로 실제 API 연결 완료라 하지 않는다.
 - **선행 조건·경계**: 사용자 발급 제공자 계정·키·이용 한도를 실제 호출로 확인하고 서버 환경 설정에 연결했다. `JEV_API_KEY` 우선, 기존 `TYPESAFE_API_KEY`도 호환 지원한다. 답변 생성 모델 교체나 HippoRAG 구현은 별도 RG-014 범위다.
 - **결과 기록 (2026-10-08)**:
-  - **최신 후속 — 국명 우선 TOP3·점수 기준 화면**: 사용자가 ‘국명이 있는 후보를 먼저 선정하고 그 안에서 점수순’을 확정했다. 전체 활성 종 점수 계산은 유지하고 검증표 ID·학명·영어 대조를 통과한 국명 후보를 먼저 최대3종, 부족분은 상위 영어 후보로 채운다. 직전의 TOP3 전체 점수순 유지 정책은 이 요청으로 변경됐다. 점수는 유지하고 순번은 ‘추천1·2·3’로 구분했다. 긴 설명을 실제 API 비중의 계통50/분류30/서식10/먹이10 배지와 접힌 계산·자료 한계로 정리했다. 실제 DB 포함 Python620개·프런트175개 통과(실패·건너뜀0), UI 구현과 서버 회귀 협업·독립검토 완료. 실제 NAS 청둥오리→흰뺨검둥오리98.28/미국오리94.83/쇠오리84.48, 곤줄박이 국명후보·390/900px 패널·추천1 비교 검증. NAS TEST `f0fed63` 이미지·OCI revision·healthy 확인. [[Work/RobinGraph/2026-10-08-국명우선-TOP3-점수기준-NAS-TEST배포|상세 원인·정책·구현·검증·배포 기록]].
-  - **후속 보완 — 근연종 한국어 우선**: 같은 속·과 목록이 원본 그래프 국명으로 정렬된 뒤 검증 국명으로 표시되어 영어와 섞이거나 검증 국명 후보가 누락되는 문제를 해결했다. 검증표의 종 ID·학명·원자료 영어 이름을 LIMIT13 전에 대조해 국명 우선 선택·정렬, 국명 없으면 영어·학명 표시를 적용했다. TOP3 후보·점수 순위는 유지한다. 실제 DB 포함 Python 610개/프런트엔드 164개 통과, 실패·건너뛰기 0. 협업 독립 검토 및 실제 Neo4j 제한 경계 테스트 완료. 실제 NAS 청둥오리·곤줄박이 목록과 TOP3 전후 동일성, 390/900px 화면 검증 완료. NAS TEST `cb1cafb` 이미지·OCI revision·healthy 확인. [[Work/RobinGraph/2026-10-08-근연종-한국어우선-NAS-TEST배포|상세 원인·구현·검증·배포 기록]].
-  - **화면 후속 개선 — 비교 후보·분류 계통**: 직접 비슷한 종 질문의 긴 문장과 탐색기 중복을 TOP3 카드 한 벌로 정리했다. 순위·이름/학명·점수·근거 태그·접힌 출처·비교 버튼을 분리했다. 분류 답변은 목→과→속→종 세로 계통, 출처/릴리스 상단, 개념집합 접힌 상세로 정리했다. 참고 국명 상태와 Wikidata/별도 원자료 출처를 구분했다. 프런트엔드 164개 통과(실패·건너뛰기 0), 독립 검토 완료. 실제 NAS 390/900px 비교·계통/상세/새 비교 말풍선 및 ‘무슨 과인가요’ 답변 검증, 기존 후보·점수·계통 동일 확인. Python·DB 코드는 미변경으로 이번 Python 재실행 없음. NAS TEST 최종 `ddba07e` 이미지·OCI revision·healthy 확인. [[Work/RobinGraph/2026-10-08-비교후보카드-분류계통-UI-NAS-TEST배포|상세 원인·구현·협업·검증·배포 기록]].
-  - **후속 보완 — 말장난 포함 질문**: ‘곤줄박이에 대해서 설명 해줄레이요 구르트 아줌마 요구르트 주세요’가 실제 NAS/Jev에서 uncertain으로 끝남을 재현했다. 이름은 이미 추출됐으며 Jev 지시에 인사·호칭·말장난·존댓말 오타와 실질 복수 정보 요청의 구분을 추가했다. 원문 절단·임계값 완화·불확실 판정 덮어쓰기 없음. 실제 대상 평가 14개 중 사전 라벨 13개 일치(1개는 ‘말고’ 대상 변경 문장의 정책 기대값 차이, 한계는 상세 기록), Python 608개·집중 16개 통과, 실패·건너뛰기 0. 실제 NAS Chrome에서 원문→곤줄박이 설명, 복수 정보 요청/왜가리 필터 충돌→clarify 확인. NAS TEST `a91ef5e` 이미지·OCI revision·healthy 검증 완료. [[Work/RobinGraph/2026-10-08-RG013-말장난-질문분류-보완-NAS-TEST배포|원인·협업·실제 검증·배포·이름 변경/필터 한계]].
-  - **최신 동작 — 첫 설명 전체 표시·관계 탐색 선택**: 사용자 흰뺨검둥오리 예시에 맞춰 기본 정보·측정 3개·생활/먹이·외부 외관 설명·재미있는 사실은 처음부터 표시한다. ‘더 알아보기’ 안에 근연 TOP3·아종·통칭/가축형·생태 관계 탐색을 모으고 내부 항목을 선택할 때만 조회한다. 직접 묻는 아종/관계 질문은 즉시 답한다. 최종 Python 606개(실제 테스트 DB 포함)/프런트엔드 152개 통과, 실패·건너뛰기 0. 실제 NAS TEST 390·900px 소개/아종 4개 흐름, 메뉴 클릭 전·메뉴만 연 뒤 추가 HTTP 0건, 각 항목 선택 후 HTTP 200 확인. NAS TEST `5e1d725` 이미지·OCI revision·healthy 검증 완료. [[Work/RobinGraph/2026-10-08-RG013-첫설명-전체표시-관계탐색-NAS-TEST배포|상세 구현·협업·검증·배포 기록]]. 아래 사진/설명 클릭 조회와 자동 로딩 기록은 이전 구현 이력이다.
-  - **이전 구현 — 사진·설명 클릭 조회**: 기본 답변·아종 목록을 먼저 표시하고 ‘더 알아보기’를 눌렀을 때만 사진·설명·일반 소개 추천을 조회한다. 프런트엔드 151개 통과(실패·건너뛰기 0), 실제 NAS TEST Chrome 390·900px 일반/아종 4개 흐름에서 클릭 전 추가 요청 0건·클릭 후 예상 요청 수를 확인했다. NAS TEST `f5412e9` 이미지·OCI revision·healthy 검증 완료. Python 604개는 직전 작업 검증 결과이며 이번 UI 변경에서는 재실행하지 않았다. [[Work/RobinGraph/2026-10-08-RG013-더알아보기-클릭조회-NAS-TEST배포|상세 구현·협업·실제 검증·배포 기록]]. 아래 자동 후속 로딩 기록은 이전 구현 이력이다.
-  - 후속 지연 개선 완료: 첫 답변·아종 목록을 먼저 표시하고 사진·설명·일반 소개 추천을 병렬 후속 조회한다. 종 ID·개념집합·분류판을 다시 검사하고 개별 실패·제공처 경고·대화/비교 경합을 처리한다. 협업 에이전트가 UI 구현과 독립 검토를 분담했다. 실제 DB 포함 Python 604개/프런트엔드 148개 모두 통과, 실패·건너뜀 0. NAS TEST `722e903` 이미지·OCI revision·healthy 확인. 실제 공개 Chrome 390/900px × 소개/아종 4개 흐름과 모바일 팝업·뒤집기 검증 통과. 첫 답변은 소개 831/979ms, 아종 2,772/3,602ms(단일 요청 표본, p95 아님). NAS MLflow 초기 trace 5개에 선택 추천·Gemini 생성이 없음을 확인했다. PROD는 변경하지 않았다. [[Work/RobinGraph/2026-10-08-RG013-첫답변-추가자료-후속로딩-NAS-TEST배포|후속 로딩 구현·실제 검증·배포 상세]]
+  - **최신 후속 — 국명 우선 TOP3·점수 기준 화면**: 사용자가 ‘국명이 있는 후보를 먼저 선정하고 그 안에서 점수순’을 확정했다. 전체 활성 종 점수 계산은 유지하고 검증표 ID·학명·영어 대조를 통과한 국명 후보를 먼저 최대3종, 부족분은 상위 영어 후보로 채운다. 직전의 TOP3 전체 점수순 유지 정책은 이 요청으로 변경됐다. 점수는 유지하고 순번은 ‘추천1·2·3’로 구분했다. 긴 설명을 실제 API 비중의 계통50/분류30/서식10/먹이10 배지와 접힌 계산·자료 한계로 정리했다. 실제 DB 포함 Python620개·프런트175개 통과(실패·건너뜀0), UI 구현과 서버 회귀 협업·독립검토 완료. 실제 NAS 청둥오리→흰뺨검둥오리98.28/미국오리94.83/쇠오리84.48, 곤줄박이 국명후보·390/900px 패널·추천1 비교 검증. NAS TEST `f0fed63` 이미지·OCI revision·healthy 확인. [[2026-10-08-국명우선-TOP3-점수기준-NAS-TEST배포|상세 원인·정책·구현·검증·배포 기록]].
+  - **후속 보완 — 근연종 한국어 우선**: 같은 속·과 목록이 원본 그래프 국명으로 정렬된 뒤 검증 국명으로 표시되어 영어와 섞이거나 검증 국명 후보가 누락되는 문제를 해결했다. 검증표의 종 ID·학명·원자료 영어 이름을 LIMIT13 전에 대조해 국명 우선 선택·정렬, 국명 없으면 영어·학명 표시를 적용했다. TOP3 후보·점수 순위는 유지한다. 실제 DB 포함 Python 610개/프런트엔드 164개 통과, 실패·건너뛰기 0. 협업 독립 검토 및 실제 Neo4j 제한 경계 테스트 완료. 실제 NAS 청둥오리·곤줄박이 목록과 TOP3 전후 동일성, 390/900px 화면 검증 완료. NAS TEST `cb1cafb` 이미지·OCI revision·healthy 확인. [[2026-10-08-근연종-한국어우선-NAS-TEST배포|상세 원인·구현·검증·배포 기록]].
+  - **화면 후속 개선 — 비교 후보·분류 계통**: 직접 비슷한 종 질문의 긴 문장과 탐색기 중복을 TOP3 카드 한 벌로 정리했다. 순위·이름/학명·점수·근거 태그·접힌 출처·비교 버튼을 분리했다. 분류 답변은 목→과→속→종 세로 계통, 출처/릴리스 상단, 개념집합 접힌 상세로 정리했다. 참고 국명 상태와 Wikidata/별도 원자료 출처를 구분했다. 프런트엔드 164개 통과(실패·건너뛰기 0), 독립 검토 완료. 실제 NAS 390/900px 비교·계통/상세/새 비교 말풍선 및 ‘무슨 과인가요’ 답변 검증, 기존 후보·점수·계통 동일 확인. Python·DB 코드는 미변경으로 이번 Python 재실행 없음. NAS TEST 최종 `ddba07e` 이미지·OCI revision·healthy 확인. [[2026-10-08-비교후보카드-분류계통-UI-NAS-TEST배포|상세 원인·구현·협업·검증·배포 기록]].
+  - **후속 보완 — 말장난 포함 질문**: ‘곤줄박이에 대해서 설명 해줄레이요 구르트 아줌마 요구르트 주세요’가 실제 NAS/Jev에서 uncertain으로 끝남을 재현했다. 이름은 이미 추출됐으며 Jev 지시에 인사·호칭·말장난·존댓말 오타와 실질 복수 정보 요청의 구분을 추가했다. 원문 절단·임계값 완화·불확실 판정 덮어쓰기 없음. 실제 대상 평가 14개 중 사전 라벨 13개 일치(1개는 ‘말고’ 대상 변경 문장의 정책 기대값 차이, 한계는 상세 기록), Python 608개·집중 16개 통과, 실패·건너뛰기 0. 실제 NAS Chrome에서 원문→곤줄박이 설명, 복수 정보 요청/왜가리 필터 충돌→clarify 확인. NAS TEST `a91ef5e` 이미지·OCI revision·healthy 검증 완료. [[2026-10-08-RG013-말장난-질문분류-보완-NAS-TEST배포|원인·협업·실제 검증·배포·이름 변경/필터 한계]].
+  - **최신 동작 — 첫 설명 전체 표시·관계 탐색 선택**: 사용자 흰뺨검둥오리 예시에 맞춰 기본 정보·측정 3개·생활/먹이·외부 외관 설명·재미있는 사실은 처음부터 표시한다. ‘더 알아보기’ 안에 근연 TOP3·아종·통칭/가축형·생태 관계 탐색을 모으고 내부 항목을 선택할 때만 조회한다. 직접 묻는 아종/관계 질문은 즉시 답한다. 최종 Python 606개(실제 테스트 DB 포함)/프런트엔드 152개 통과, 실패·건너뛰기 0. 실제 NAS TEST 390·900px 소개/아종 4개 흐름, 메뉴 클릭 전·메뉴만 연 뒤 추가 HTTP 0건, 각 항목 선택 후 HTTP 200 확인. NAS TEST `5e1d725` 이미지·OCI revision·healthy 검증 완료. [[2026-10-08-RG013-첫설명-전체표시-관계탐색-NAS-TEST배포|상세 구현·협업·검증·배포 기록]]. 아래 사진/설명 클릭 조회와 자동 로딩 기록은 이전 구현 이력이다.
+  - **이전 구현 — 사진·설명 클릭 조회**: 기본 답변·아종 목록을 먼저 표시하고 ‘더 알아보기’를 눌렀을 때만 사진·설명·일반 소개 추천을 조회한다. 프런트엔드 151개 통과(실패·건너뛰기 0), 실제 NAS TEST Chrome 390·900px 일반/아종 4개 흐름에서 클릭 전 추가 요청 0건·클릭 후 예상 요청 수를 확인했다. NAS TEST `f5412e9` 이미지·OCI revision·healthy 검증 완료. Python 604개는 직전 작업 검증 결과이며 이번 UI 변경에서는 재실행하지 않았다. [[2026-10-08-RG013-더알아보기-클릭조회-NAS-TEST배포|상세 구현·협업·실제 검증·배포 기록]]. 아래 자동 후속 로딩 기록은 이전 구현 이력이다.
+  - 후속 지연 개선 완료: 첫 답변·아종 목록을 먼저 표시하고 사진·설명·일반 소개 추천을 병렬 후속 조회한다. 종 ID·개념집합·분류판을 다시 검사하고 개별 실패·제공처 경고·대화/비교 경합을 처리한다. 협업 에이전트가 UI 구현과 독립 검토를 분담했다. 실제 DB 포함 Python 604개/프런트엔드 148개 모두 통과, 실패·건너뜀 0. NAS TEST `722e903` 이미지·OCI revision·healthy 확인. 실제 공개 Chrome 390/900px × 소개/아종 4개 흐름과 모바일 팝업·뒤집기 검증 통과. 첫 답변은 소개 831/979ms, 아종 2,772/3,602ms(단일 요청 표본, p95 아님). NAS MLflow 초기 trace 5개에 선택 추천·Gemini 생성이 없음을 확인했다. PROD는 변경하지 않았다. [[2026-10-08-RG013-첫답변-추가자료-후속로딩-NAS-TEST배포|후속 로딩 구현·실제 검증·배포 상세]]
   - Jev 의도 분석·이름 원문 구간 추출·필터 일치·아종 목록 즉시 표시·불확실 확인 질문·장애 시 기존 라우터 대체를 구현했다. 명시적 조회와 기존 확실한 규칙은 Jev를 호출하지 않는다.
   - 실제 협업: Claude가 120문항 정답표를 작성했고(자기 보고 모델 `claude-sonnet-5-5`, 런타임 에코 미제공), Antigravity가 제공자 계약·보안·구현을 읽기 전용 검토했다(실제 모델 미확인). Codex가 구현·실제 API·회귀·배포·브라우저·추적을 검증했다. Orca run `run_8bdb7fd51302`의 두 워커는 성공 정산 후 해제했다.
   - 최초 최종 Python 결과는 600개 중 558개 통과/42개 건너뜀이었다. 2026-10-08 제공된 테스트 DB로 재실행하여 **600개 전부 통과, 실패·오류·건너뜀 0**을 확인했다(37.856초). 이전 건너뜀 42개 = 실제 DB 32개 + 선택 SDK 8개 + 고정 원본 검사·재생성 2개 모두 통과. PostgreSQL 임시 test 스키마는 종료 후 삭제했다. 기존 프런트엔드 134개 통과는 별도 실행 결과다. Jev 유료 추가 호출 0. 상세 기록의 ‘제공된 테스트 DB로 통합 테스트 재실행’ 절과 결과 JSON에 모의/실제 검증 경계·선행 실행 오류·수정 내역을 기록했다.
@@ -376,7 +376,7 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
   - 실제 NAS 공개 채팅 9개·Chrome 390/900px에서 입력·전송 4개 통과. 청둥오리(Anas platyrhynchos) 아종 2개, 흰뺨검둥오리(Anas zonorhyncha) 연결 아종 0개를 활성 v2025b의 정확한 부모/분류판으로 확인했다. JS 오류·가로 넘침 0. 컴포넌트 주입이나 API 모의 응답을 사용하지 않았다.
   - 최초 구현 완료 당시 NAS TEST 이미지 `robingraph-api:test-rg013-42f4927`, 릴리스 `/home/kimdove/RobinGraph-rg013-42f4927`, OCI revision `42f49275e783dd3eda1dde92d01fc0e109de077e`와 healthy 확인. 실제 MLflow Jev span 3개에서 요청 모델·토큰·크레딧·연결 관계와 인증 값 비노출을 확인했다. 공급자 실행 모델 에코·USD 비용은 미제공이다.
   - 구현 `162e540`·호환성/재평가 `42f4927` origin/dev push 완료. PROD·DB 적재·보류 작업·RG-014/RG-016은 변경하지 않았다. 일반 영어 통칭·자연어 관찰 필터 자동 해소와 추가 임베딩 최적화는 포함하지 않았다.
-  - [[Work/RobinGraph/2026-10-08-RG013-Jev-의도분석-구현-NAS-TEST배포|상세 구현·실제 평가·배포·추적 검증 기록]]
+  - [[2026-10-08-RG013-Jev-의도분석-구현-NAS-TEST배포|상세 구현·실제 평가·배포·추적 검증 기록]]
 
 
 ### RG-001 — MLflow 자동 로깅 연동
@@ -426,8 +426,8 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
   - Python 524건 중 492건 성공·32건 제외, 프런트엔드 121건 전부 성공. 실제 NAS 자연어 요청 10개 및 Chromium 320·390·1280px에서 두 요청·직접 후보·별도 비교·연속 질문·활동 시간·먹이 범주 필터를 검증했다.
   - GPT-6.1-sol UI·테스트, GPT-6-sol 대상/출처 정책 독립 검토, Codex 질문 처리·API·근거 구성·통합·배포·실환경 검증. graphify 갱신 완료.
   - 배포 커밋 `4a30e126cc463f0e49a129e19ad0176dce56ce69`, NAS TEST `robingraph-api:test-natural-4a30e12`, health 정상. PROD와 원자료 DB 변경 없음.
-  - [[Work/RobinGraph/2026-10-05-RG003-자연어질문-그래프답변-NAS배포|자연어 질문별 그래프 답변·실환경 검증]]
-- **선행 보조 기능**: 생태 범주 조회 API·설명창 버튼과 96건의 후보 형질 대조는 [[Work/RobinGraph/2026-10-05-RG003-생태관계탐색-NAS배포|생태 탐색 이력]]으로 보존한다. 그 결과만을 자연어 질문 응답의 완료 근거로 삼지 않는다.
+  - [[2026-10-05-RG003-자연어질문-그래프답변-NAS배포|자연어 질문별 그래프 답변·실환경 검증]]
+- **선행 보조 기능**: 생태 범주 조회 API·설명창 버튼과 96건의 후보 형질 대조는 [[2026-10-05-RG003-생태관계탐색-NAS배포|생태 탐색 이력]]으로 보존한다. 그 결과만을 자연어 질문 응답의 완료 근거로 삼지 않는다.
 - **구조 정정**: RG-004~RG-009는 동급의 독립 작업이며 RG-003 하위 항목이 아니다.
 
 ### RG-004 — 통칭과 가축화된 아종·가축형 조사 및 그래프 연결
@@ -472,7 +472,7 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
   - GPT-6.1-sol UI 구현·자동 테스트, GPT-6-sol 독립 검토, Codex 백엔드·출처 검증·통합 수정·배포·실환경 검증.
   - Python 510건 실패 없음(32건 제외), 프런트엔드 113건 통과. NAS API 및 320·390·1280px 브라우저 검증 완료.
   - TEST 이미지 `robingraph-api:test-subspecies-1408fd2`, 배포 커밋 `1408fd2`. PROD 변경 없음.
-  - [[Work/RobinGraph/2026-10-03-그래프검색-아종-통칭카드-NAS배포|아종·통칭 카드 작업 기록]]
+  - [[2026-10-03-그래프검색-아종-통칭카드-NAS배포|아종·통칭 카드 작업 기록]]
 
 ### RG-005 — 비슷한 새 비교 결과를 별도 말풍선으로 표시
 
@@ -484,7 +484,7 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
 - **결과 기록**: 별도 비교 말풍선, 반복 비교·다음 질문·대화 초기화 이후 늦은 응답 차단과 오류 재시도를 구현했다.
   - Python 505건 실패 없음(외부 연동용 32건 제외), 프런트엔드 108건 통과. 실제 NAS 320·390·1280px 검증 완료.
   - TEST 이미지 `robingraph-api:test-rg003-129d482`. 이미지명의 rg003은 당시 잘못 붙인 번호이며 실제 범위는 RG-005~RG-009이다. 이후 아종·통칭 카드를 거쳐 생태 관계 TEST 이미지 `robingraph-api:test-natural-4a30e12`로 갱신되었다. 당시 배포 태그는 이 항목의 이력으로 보존한다.
-  - [[Work/RobinGraph/2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
+  - [[2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
 
 ### RG-006 — 잘못된 생태·설명 정보의 원인 조사 및 수정
 
@@ -497,7 +497,7 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
 - **결과 기록**: 해오라기의 원자료 Nocturnal=0을 보존하면서 Cornell 출처로 야간 먹이 활동과 번식기 낮 활동을 설명한다. 다른 종의 0도 야간 활동 부재로 단정하지 않는다. 모든 종을 전수 검토한 작업은 아니다.
   - Python 505건 실패 없음(외부 연동용 32건 제외), 프런트엔드 108건 통과. 실제 NAS 320·390·1280px 검증 완료.
   - TEST 이미지 `robingraph-api:test-rg003-129d482`. 이미지명의 rg003은 당시 잘못 붙인 번호이며 실제 범위는 RG-005~RG-009이다. 이후 아종·통칭 카드를 거쳐 생태 관계 TEST 이미지 `robingraph-api:test-natural-4a30e12`로 갱신되었다. 당시 배포 태그는 이 항목의 이력으로 보존한다.
-  - [[Work/RobinGraph/2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
+  - [[2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
 
 ### RG-007 — 사용자 화면에 남은 영어 생태 용어 한국어 번역
 
@@ -509,7 +509,7 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
 - **결과 기록**: 활성 자료의 고유 범주값 38개를 한국어로 표시한다. 원본·출처는 보존하고 미등록·결측 값의 안내를 구분한다.
   - Python 505건 실패 없음(외부 연동용 32건 제외), 프런트엔드 108건 통과. 실제 NAS 320·390·1280px 검증 완료.
   - TEST 이미지 `robingraph-api:test-rg003-129d482`. 이미지명의 rg003은 당시 잘못 붙인 번호이며 실제 범위는 RG-005~RG-009이다. 이후 아종·통칭 카드를 거쳐 생태 관계 TEST 이미지 `robingraph-api:test-natural-4a30e12`로 갱신되었다. 당시 배포 태그는 이 항목의 이력으로 보존한다.
-  - [[Work/RobinGraph/2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
+  - [[2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
 
 ### RG-008 — 먹이 생태별 다중 아이콘 추가
 
@@ -522,7 +522,7 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
 - **결과 기록**: 검토된 먹이 구성에 따른 여러 아이콘과 기준·출처를 표시한다. 부모·세부 범주를 구분하고 서로 다른 자료의 비율을 합산하지 않는다.
   - Python 505건 실패 없음(외부 연동용 32건 제외), 프런트엔드 108건 통과. 실제 NAS 320·390·1280px 검증 완료.
   - TEST 이미지 `robingraph-api:test-rg003-129d482`. 이미지명의 rg003은 당시 잘못 붙인 번호이며 실제 범위는 RG-005~RG-009이다. 이후 아종·통칭 카드를 거쳐 생태 관계 TEST 이미지 `robingraph-api:test-natural-4a30e12`로 갱신되었다. 당시 배포 태그는 이 항목의 이력으로 보존한다.
-  - [[Work/RobinGraph/2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
+  - [[2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
 
 ### RG-009 — 사용 가능한 사진이 없는 조류의 처리 방안 마련
 
@@ -538,7 +538,7 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
 - **결과 기록**: 사용 가능한 사진 없음·식별 불확실·제공처 실패를 구분한다. 대체 안내·파일 및 제공처 재시도를 제공하며 카드·뒤집기를 유지하고 다른 종 사진으로 대체하지 않는다.
   - Python 505건 실패 없음(외부 연동용 32건 제외), 프런트엔드 108건 통과. 실제 NAS 320·390·1280px 검증 완료.
   - TEST 이미지 `robingraph-api:test-rg003-129d482`. 이미지명의 rg003은 당시 잘못 붙인 번호이며 실제 범위는 RG-005~RG-009이다. 이후 아종·통칭 카드를 거쳐 생태 관계 TEST 이미지 `robingraph-api:test-natural-4a30e12`로 갱신되었다. 당시 배포 태그는 이 항목의 이력으로 보존한다.
-  - [[Work/RobinGraph/2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
+  - [[2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 작업 기록]]
 
 ### 카드 3D 뒤집기 효과 — 2026-10-01
 
@@ -584,55 +584,55 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
 
 ### 2026-10-09 RG-015 모바일 내부 스크롤 제거·사진 스와이프 복구
 
-사용자 추가 요청에 따라 직전 내부 스크롤 방식을 폐기하고 전체 자연 높이 카드를 모바일 프레임에 비례 축소한다. 사진·placeholder·장식 이미지의 터치 드래그 예외와 사진 컨테이너 native pan으로 인한 pointercancel을 수정했다. 사진/본문 양면 swipe, 내부 scrollTop0, 닫기44px, 공통 자료 없음/부분 자료 형식, pinch 확대·버튼/차트·출처/kg 표시를 유지한다. pc_drag_popup_fix 구현·card_selection_review 독립 최종 검토·root 실제 검증/배포/문서/Git. frontend244통과/실패0/skip0. 실제 API/DB7+모의 API2의9설정은 로컬 새 자산과 NAS TEST 배포 자산에서 각각 통과했다. 사진/본문 양면 넘김·세로 gesture 무스크롤·resize·상세 펼침·재열기·pageerror0 및 공개JS/CSS일치 확인. 별도 모의 native pinch1→1.5확대에서도fit유지. 구현198ebca push, TEST robingraph-api:test-rg015noscroll-198ebca deploy/verify·healthy·OCI revision 확인. 작은 높이/긴 내용은 글씨도 축소되며 물리기기·Safari·전체DB회귀는 미검증. [[Work/RobinGraph/2026-10-09-RG015-모바일스크롤제거-스와이프복구|상세 원인·구현·검증·배포 기록]] 기존 이력·신규 대기2건·최후순위 보류4건은 유지한다.
+사용자 추가 요청에 따라 직전 내부 스크롤 방식을 폐기하고 전체 자연 높이 카드를 모바일 프레임에 비례 축소한다. 사진·placeholder·장식 이미지의 터치 드래그 예외와 사진 컨테이너 native pan으로 인한 pointercancel을 수정했다. 사진/본문 양면 swipe, 내부 scrollTop0, 닫기44px, 공통 자료 없음/부분 자료 형식, pinch 확대·버튼/차트·출처/kg 표시를 유지한다. pc_drag_popup_fix 구현·card_selection_review 독립 최종 검토·root 실제 검증/배포/문서/Git. frontend244통과/실패0/skip0. 실제 API/DB7+모의 API2의9설정은 로컬 새 자산과 NAS TEST 배포 자산에서 각각 통과했다. 사진/본문 양면 넘김·세로 gesture 무스크롤·resize·상세 펼침·재열기·pageerror0 및 공개JS/CSS일치 확인. 별도 모의 native pinch1→1.5확대에서도fit유지. 구현198ebca push, TEST robingraph-api:test-rg015noscroll-198ebca deploy/verify·healthy·OCI revision 확인. 작은 높이/긴 내용은 글씨도 축소되며 물리기기·Safari·전체DB회귀는 미검증. [[2026-10-09-RG015-모바일스크롤제거-스와이프복구|상세 원인·구현·검증·배포 기록]] 기존 이력·신규 대기2건·최후순위 보류4건은 유지한다.
 
 ### 2026-10-09 RG-015 모바일 화면 맞춤·체중 kg 표시
 
-모바일 dialog만 고정하고 카드 내용 최소 높이가 넘치던 원인을 320×568에서 재현했다. 카드 외곽·닫기를 화면 안에 고정하고 각 면만 내부 스크롤하며, 짧은 화면 사진/여백·safe-area/dvh·가로 coarse pointer를 반영한다. 면 전환/재열기 scrollTop 초기화와 내부 scroll의 툴팁 해제를 연결했다. 카드 체중은 1000g 이상이면 kg 소수2자리로 표시하며 원g 자료·추정·독립 측정·종 수준 참고를 보존한다. pc_drag_popup_fix 구현·card_selection_review 최종 독립 검토·root 실제 검증/배포/문서/Git. frontend240통과/실패0/skip0, 실제 API/DB7+모의 API2의9설정을 로컬/배포 자산에서 각각 통과했다. 모바일8설정 native 세로 스크롤·resize·양면/프레임·드래그·닫기/재열기·pageerror0 확인. 가로 native 초기 실패는 독립 최소 재현과 CDP screenOrientation 명시로 테스트 설정 문제를 확인했으며 앱 코드는 이 때문에 변경하지 않았다. 실제 흰뺨 체중1.16kg·모의1024g→1.02kg 및 원g 출처를 확인했다. 구현7627d51 push, TEST robingraph-api:test-rg015mobilefit-7627d51 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·실제 노치/주소창·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-모바일화면맞춤-체중kg표시|상세 원인·구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건은 유지한다.
+모바일 dialog만 고정하고 카드 내용 최소 높이가 넘치던 원인을 320×568에서 재현했다. 카드 외곽·닫기를 화면 안에 고정하고 각 면만 내부 스크롤하며, 짧은 화면 사진/여백·safe-area/dvh·가로 coarse pointer를 반영한다. 면 전환/재열기 scrollTop 초기화와 내부 scroll의 툴팁 해제를 연결했다. 카드 체중은 1000g 이상이면 kg 소수2자리로 표시하며 원g 자료·추정·독립 측정·종 수준 참고를 보존한다. pc_drag_popup_fix 구현·card_selection_review 최종 독립 검토·root 실제 검증/배포/문서/Git. frontend240통과/실패0/skip0, 실제 API/DB7+모의 API2의9설정을 로컬/배포 자산에서 각각 통과했다. 모바일8설정 native 세로 스크롤·resize·양면/프레임·드래그·닫기/재열기·pageerror0 확인. 가로 native 초기 실패는 독립 최소 재현과 CDP screenOrientation 명시로 테스트 설정 문제를 확인했으며 앱 코드는 이 때문에 변경하지 않았다. 실제 흰뺨 체중1.16kg·모의1024g→1.02kg 및 원g 출처를 확인했다. 구현7627d51 push, TEST robingraph-api:test-rg015mobilefit-7627d51 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·실제 노치/주소창·전체DB회귀 미검증. [[2026-10-09-RG015-모바일화면맞춤-체중kg표시|상세 원인·구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건은 유지한다.
 
 ### 2026-10-09 RG-015 관찰 포인트·카드 형식 통일
 
-출처가 확인된 appearance/fun_facts에서 관찰 설명 최대2개를 앞면 하단에 표시하고 원문·숫자·조건·모든 제공 출처 메타데이터를 단일 답변 출처에 보존한다. 사진·기본4행·분포2자리·관찰 영역을 자료가 없어도 유지하고 같은 화면에서 공통 팝업 크기를 사용하며 긴 내용은 내부 스크롤한다. 아종에 부모 종 설명을 차용하지 않고 지연 조회 실패/취소 안내와 교체/빈sections/사진only 갱신을 구분한다. pc_drag_popup_fix 구현·card_selection_review 최종 독립검토 승인·root 실제검증/배포/문서/Git. frontend237통과/실패0/skip0, 실제NAS API+로컬 자산6설정·실제서버6설정, 로컬/배포자산의 모의빈자료12건씩, 실제도넛·출처회귀2설정 통과. 실제서버PC첫응답은 외부추가자료실패로 관찰unavailable, 나머지5설정은 sourced ready였으며 모두 크기/양면/출처/드래그/pageerror0 확인. 모의12건은 실제DB의 자료없는종 검증으로 합산하지 않는다. 구현4048778 push, TEST robingraph-api:test-rg015observation-4048778 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-관찰포인트-카드형식통일|상세 구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건은 유지한다.
+출처가 확인된 appearance/fun_facts에서 관찰 설명 최대2개를 앞면 하단에 표시하고 원문·숫자·조건·모든 제공 출처 메타데이터를 단일 답변 출처에 보존한다. 사진·기본4행·분포2자리·관찰 영역을 자료가 없어도 유지하고 같은 화면에서 공통 팝업 크기를 사용하며 긴 내용은 내부 스크롤한다. 아종에 부모 종 설명을 차용하지 않고 지연 조회 실패/취소 안내와 교체/빈sections/사진only 갱신을 구분한다. pc_drag_popup_fix 구현·card_selection_review 최종 독립검토 승인·root 실제검증/배포/문서/Git. frontend237통과/실패0/skip0, 실제NAS API+로컬 자산6설정·실제서버6설정, 로컬/배포자산의 모의빈자료12건씩, 실제도넛·출처회귀2설정 통과. 실제서버PC첫응답은 외부추가자료실패로 관찰unavailable, 나머지5설정은 sourced ready였으며 모두 크기/양면/출처/드래그/pageerror0 확인. 모의12건은 실제DB의 자료없는종 검증으로 합산하지 않는다. 구현4048778 push, TEST robingraph-api:test-rg015observation-4048778 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-09-RG015-관찰포인트-카드형식통일|상세 구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건은 유지한다.
 
 ### 2026-10-09 RG-015 카드 앞·뒷면 높이 통일
 
-앞면 안내 제거 뒤 활성 면만 display:none 전환으로 높이를 결정해 앞/뒷면 길이가 달라지는 원인을 수정했다. 두 면을 공통grid 같은 셀에 놓고 긴 쪽 높이를 공유하며 비활성 면은 hidden·visibility·inert·aria-hidden으로 입력/포커스/접근성에서 제외한다. 카드max-height·스크롤·사진/툴팁 숨김·드래그·유광·출처를 보존했다. root 구현/실제검증/배포·card_selection_review 독립검토 승인. 최종frontend231통과/0실패/0skip(초기직계DOM검증헬퍼2건 정정), 로컬자산/실제배포자산 각4설정에서 기본·측정값펼침·resize·긴사진안내 UI모의갱신·복원 시 양면 실측높이/위치와프레임 일치·숨긴면포커스차단·본문드래그 통과. 서버도넛·출처 추가회귀2설정 통과. 구현f63cbc0 push, TEST robingraph-api:test-rg015height-f63cbc0 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-양면높이통일|상세 원인·구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건은 유지한다.
+앞면 안내 제거 뒤 활성 면만 display:none 전환으로 높이를 결정해 앞/뒷면 길이가 달라지는 원인을 수정했다. 두 면을 공통grid 같은 셀에 놓고 긴 쪽 높이를 공유하며 비활성 면은 hidden·visibility·inert·aria-hidden으로 입력/포커스/접근성에서 제외한다. 카드max-height·스크롤·사진/툴팁 숨김·드래그·유광·출처를 보존했다. root 구현/실제검증/배포·card_selection_review 독립검토 승인. 최종frontend231통과/0실패/0skip(초기직계DOM검증헬퍼2건 정정), 로컬자산/실제배포자산 각4설정에서 기본·측정값펼침·resize·긴사진안내 UI모의갱신·복원 시 양면 실측높이/위치와프레임 일치·숨긴면포커스차단·본문드래그 통과. 서버도넛·출처 추가회귀2설정 통과. 구현f63cbc0 push, TEST robingraph-api:test-rg015height-f63cbc0 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-09-RG015-양면높이통일|상세 원인·구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건은 유지한다.
 
 ### 2026-10-09 RG-015 앞면 하단 안내·구분선 제거
 
-사용자 요청으로 앞면 고정 종평균/출처 문구와 PC·모바일 뒤집기 안내 footer·구분선을 제거했다. 실제 자료 경고·아종 직접/종 참고 안내·답변 출처의 종평균 해석·드래그·키보드·도넛 툴팁은 유지한다. 대체 내용은 ‘관찰 포인트’ 한 줄을 추천하며 새 콘텐츠는 아직 넣지 않았다. root 구현/실제검증/배포·card_selection_review 독립 읽기검토 승인. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB/자산 Chrome1280마우스·390touch 2설정 통과, footer/문구없음·출처해석·도넛·본문드래그·키보드·pageerror0 확인. 구현128da7f push, TEST robingraph-api:test-rg015footer-128da7f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-앞면하단안내제거|상세 구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건은 유지한다.
+사용자 요청으로 앞면 고정 종평균/출처 문구와 PC·모바일 뒤집기 안내 footer·구분선을 제거했다. 실제 자료 경고·아종 직접/종 참고 안내·답변 출처의 종평균 해석·드래그·키보드·도넛 툴팁은 유지한다. 대체 내용은 ‘관찰 포인트’ 한 줄을 추천하며 새 콘텐츠는 아직 넣지 않았다. root 구현/실제검증/배포·card_selection_review 독립 읽기검토 승인. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB/자산 Chrome1280마우스·390touch 2설정 통과, footer/문구없음·출처해석·도넛·본문드래그·키보드·pageerror0 확인. 구현128da7f push, TEST robingraph-api:test-rg015footer-128da7f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-09-RG015-앞면하단안내제거|상세 구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건은 유지한다.
 
 ### 2026-10-09 RG-015 도넛 차트·플로팅 툴팁·NAS TEST 배포
 
-먹이 구성·먹이 활동 위치를 작은 도넛2개로 한 줄에 배치하고 각 실제 영역의 마우스 hover·터치 탭·키보드 포커스에 한국어 항목명/원비율 툴팁을 제공한다. 0%·미기록·100%·잘못된 값·미등록 항목·서로 다른 자료와 출처를 보존하고 차트 입력을 카드 드래그에서 분리했다. pc_drag_popup_fix 구현·card_selection_review 독립검토·root 실제검증/배포. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB+로컬 자산4설정32영역 및 실제배포 자산4설정32영역 통과, 모의API geometry3건은 로컬/배포자산에서 각각 통과했다. 초기 검증기 선택자/경계좌표 실패는 최종 성공과 구분해 상세 기록했다. 최초 SSH거부 후 사용자 개방으로 고정소스a8aa6c1을 TEST robingraph-api:test-rg015donut-a8aa6c1에 배포했고 deploy/verify·healthy·OCI revision·공개JS/CSS일치를 확인했다. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-도넛차트-플로팅툴팁|상세 구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건의 우선순위는 유지한다.
+먹이 구성·먹이 활동 위치를 작은 도넛2개로 한 줄에 배치하고 각 실제 영역의 마우스 hover·터치 탭·키보드 포커스에 한국어 항목명/원비율 툴팁을 제공한다. 0%·미기록·100%·잘못된 값·미등록 항목·서로 다른 자료와 출처를 보존하고 차트 입력을 카드 드래그에서 분리했다. pc_drag_popup_fix 구현·card_selection_review 독립검토·root 실제검증/배포. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB+로컬 자산4설정32영역 및 실제배포 자산4설정32영역 통과, 모의API geometry3건은 로컬/배포자산에서 각각 통과했다. 초기 검증기 선택자/경계좌표 실패는 최종 성공과 구분해 상세 기록했다. 최초 SSH거부 후 사용자 개방으로 고정소스a8aa6c1을 TEST robingraph-api:test-rg015donut-a8aa6c1에 배포했고 deploy/verify·healthy·OCI revision·공개JS/CSS일치를 확인했다. 물리기기·Safari·전체DB회귀 미검증. [[2026-10-09-RG015-도넛차트-플로팅툴팁|상세 구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건의 우선순위는 유지한다.
 
 ### 2026-10-08 RG-015 카드 버튼 제거·답변 출처 통합·먹이 비율·영어 이름
 
-앞뒤 전환 버튼과 카드 출처 DOM을 제거하고 드래그/터치 및 카드 본인 Enter·Space 전환을 유지했다. 카드·설명·citations·지연 설명/사진 근거를 단일 답변 출처로 중복 제거하며 다른 locator·라이선스·아종 scope·원자료 claim을 보존한다. 먹이는 원본 비율 막대/0%칩과 자료번호 대응, 한국어 옆 작은 영어명/별도 학명으로 표시한다. pc_drag_popup_fix 구현·card_selection_review 독립검토·root 실제검증/배포. frontend225통과/0실패/0skip, 로컬 및 서버 화면5설정·드래그5설정30건 통과, 모의API 실제Chrome deferred단일패널/열림/상충근거보존 통과. 서버native세로스크롤240/170/171/168/240px·pageerror0. 서버화면runner의 결과저장후 browser.close10초 timeout1회는도구종료로별도기록했고 잔여headless없음. 구현ddf002f push, NAS TEST robingraph-api:test-rg015finalcard-ddf002f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. 기존 완료·신규 대기2건·최후순위 보류4건과 과거 배포 이력을 유지한다. [[Work/RobinGraph/2026-10-08-RG015-카드버튼제거-답변출처통합-먹이비율-영어이름-NAS-TEST배포|상세 구현·검증·배포 기록]]
+앞뒤 전환 버튼과 카드 출처 DOM을 제거하고 드래그/터치 및 카드 본인 Enter·Space 전환을 유지했다. 카드·설명·citations·지연 설명/사진 근거를 단일 답변 출처로 중복 제거하며 다른 locator·라이선스·아종 scope·원자료 claim을 보존한다. 먹이는 원본 비율 막대/0%칩과 자료번호 대응, 한국어 옆 작은 영어명/별도 학명으로 표시한다. pc_drag_popup_fix 구현·card_selection_review 독립검토·root 실제검증/배포. frontend225통과/0실패/0skip, 로컬 및 서버 화면5설정·드래그5설정30건 통과, 모의API 실제Chrome deferred단일패널/열림/상충근거보존 통과. 서버native세로스크롤240/170/171/168/240px·pageerror0. 서버화면runner의 결과저장후 browser.close10초 timeout1회는도구종료로별도기록했고 잔여headless없음. 구현ddf002f push, NAS TEST robingraph-api:test-rg015finalcard-ddf002f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. 기존 완료·신규 대기2건·최후순위 보류4건과 과거 배포 이력을 유지한다. [[2026-10-08-RG015-카드버튼제거-답변출처통합-먹이비율-영어이름-NAS-TEST배포|상세 구현·검증·배포 기록]]
 
 ### 2026-10-08 RG-015 뒷면 압축·출처 통합·NAS TEST 배포
 
-뒷면 스크롤바 표시를 숨기고 기본 형질을 컴팩트하게 배치했다. 사진·형질·먹이·IUCN·분류·해석 안내 출처를 단일 토글에 모으고 라이선스·원자료 상충·추정·아종 scope·사진 비동기 슬롯을 보존했다. pc_drag_popup_fix 구현·card_selection_review 독립 검토·root 실제 검증/배포/문서/Git. frontend213통과/0실패/0건너뜀. 로컬 자산 및 실제 서버 각각 화면4설정·드래그닫힘5설정30건 통과, pageerror0. 390×844 기본 높이1525→808px, 320×640는 스크롤 유지. 구현cb18d1f push 및 NAS TEST robingraph-api:test-rg015compactback-cb18d1f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. 기존 완료·신규 대기2건·최후순위 보류4건과 과거 검증 이력은 유지한다. [[Work/RobinGraph/2026-10-08-RG015-뒷면압축-출처통합-NAS-TEST배포|상세 구현·검증·배포 기록]]
+뒷면 스크롤바 표시를 숨기고 기본 형질을 컴팩트하게 배치했다. 사진·형질·먹이·IUCN·분류·해석 안내 출처를 단일 토글에 모으고 라이선스·원자료 상충·추정·아종 scope·사진 비동기 슬롯을 보존했다. pc_drag_popup_fix 구현·card_selection_review 독립 검토·root 실제 검증/배포/문서/Git. frontend213통과/0실패/0건너뜀. 로컬 자산 및 실제 서버 각각 화면4설정·드래그닫힘5설정30건 통과, pageerror0. 390×844 기본 높이1525→808px, 320×640는 스크롤 유지. 구현cb18d1f push 및 NAS TEST robingraph-api:test-rg015compactback-cb18d1f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. 기존 완료·신규 대기2건·최후순위 보류4건과 과거 검증 이력은 유지한다. [[2026-10-08-RG015-뒷면압축-출처통합-NAS-TEST배포|상세 구현·검증·배포 기록]]
 
 ### 2026-10-08 RG-015 드래그 해제 닫힘 수정·NAS TEST 배포
 
-PC 드래그 중 닫힘 제보에 따라 테두리/padding 내부→밖 해제의 backdrop오인을 실제 NAS에서 재현했다. pointerdown/up가 모두 실제바깥인 같은 primary포인터의 click만 닫도록 수정했다. 모의frontend210/210, 로컬5설정·배포후실제서버5설정에서 각각 내부→밖해제30건 유지·밖→안쪽유지·보통본문회전·정상backdrop/X/Escape/재열기 통과. 초기 SSH거부 후 사용자 SSH재개로 동일구현b58be10 TEST배포·healthy·revision·자산일치를 확인했다. PC전체영역·유광·글씨선택차단·모바일정책·기존대기/최후순위보류 상태는 유지한다. [[Work/RobinGraph/2026-10-08-RG015-드래그해제-팝업닫힘수정|상세 원인·협업·검증·배포 기록]]
+PC 드래그 중 닫힘 제보에 따라 테두리/padding 내부→밖 해제의 backdrop오인을 실제 NAS에서 재현했다. pointerdown/up가 모두 실제바깥인 같은 primary포인터의 click만 닫도록 수정했다. 모의frontend210/210, 로컬5설정·배포후실제서버5설정에서 각각 내부→밖해제30건 유지·밖→안쪽유지·보통본문회전·정상backdrop/X/Escape/재열기 통과. 초기 SSH거부 후 사용자 SSH재개로 동일구현b58be10 TEST배포·healthy·revision·자산일치를 확인했다. PC전체영역·유광·글씨선택차단·모바일정책·기존대기/최후순위보류 상태는 유지한다. [[2026-10-08-RG015-드래그해제-팝업닫힘수정|상세 원인·협업·검증·배포 기록]]
 
 ### 2026-10-08 RG-015 PC 전체 표면 드래그·NAS TEST 배포
 
-PC 양면 넘기기 어려움과 전체 영역 요청에 따라 사진·본문 시작 제한을 수정했다. 이전 서버570fd3f에서 제목/h3 드래그가 시작되지 않음을 재현했고 새 구현719e5bc를 NAS TEST에 배포했다. 프런트엔드205/205(모의), 배포 전후 PC3설정·각11회·터치4설정·모바일조작 검증과 배포/자산 일치를 확인했다. 실제 API/DB 응답을 사용했으며 PC 외부사진 파일만 로딩 fixture로 대체했다. 버튼/링크 조작·글씨 선택 금지·touch사진예외를 유지했다. 대기/최후순위보류 상태는 유지한다. [[Work/RobinGraph/2026-10-08-RG015-PC전체표면드래그-NAS-TEST배포|상세 원인·협업·검증·배포 기록]]
+PC 양면 넘기기 어려움과 전체 영역 요청에 따라 사진·본문 시작 제한을 수정했다. 이전 서버570fd3f에서 제목/h3 드래그가 시작되지 않음을 재현했고 새 구현719e5bc를 NAS TEST에 배포했다. 프런트엔드205/205(모의), 배포 전후 PC3설정·각11회·터치4설정·모바일조작 검증과 배포/자산 일치를 확인했다. 실제 API/DB 응답을 사용했으며 PC 외부사진 파일만 로딩 fixture로 대체했다. 버튼/링크 조작·글씨 선택 금지·touch사진예외를 유지했다. 대기/최후순위보류 상태는 유지한다. [[2026-10-08-RG015-PC전체표면드래그-NAS-TEST배포|상세 원인·협업·검증·배포 기록]]
 
 ### 2026-10-08 RG-015 유광 반사광·NAS TEST 배포 완료
 
-사용자의 유광 소재 반사광 요청으로 RG-015 후속 구현을 진행했다. 회전 각도 연동·반대 방향·복귀·버튼 두 단계·양면·cleanup·reduced-motion을 구현하고 독립 최종 검토를 마쳤다. frontend203/203(배포 전 모의 검사), 실제 NAS API+로컬 자산 검증을 통과했다. 구현 `f8a3771` push 후 최초 SSH 연결 거부로 업로드 이전 실패했으나, 사용자의 SSH 재개 안내 후 동일 패키지를 NAS TEST에 배포했다. deploy/verify·healthy·OCI revision·공개 JS/CSS 바이트 일치 및 실제 서버 자산의 반사광3설정·터치4설정·마우스2설정·기존 조작 검증을 통과했다. 물리 기기·Safari·FPS는 미검증이며 외부 사진 완전 로딩은 확인하지 못했다. 기존 모바일 완료·대기 RG-014/RG-017·최후순위 보류4건은 유지한다. [[Work/RobinGraph/2026-10-08-RG015-회전연동-유광반사광|상세 작업 기록]]
+사용자의 유광 소재 반사광 요청으로 RG-015 후속 구현을 진행했다. 회전 각도 연동·반대 방향·복귀·버튼 두 단계·양면·cleanup·reduced-motion을 구현하고 독립 최종 검토를 마쳤다. frontend203/203(배포 전 모의 검사), 실제 NAS API+로컬 자산 검증을 통과했다. 구현 `f8a3771` push 후 최초 SSH 연결 거부로 업로드 이전 실패했으나, 사용자의 SSH 재개 안내 후 동일 패키지를 NAS TEST에 배포했다. deploy/verify·healthy·OCI revision·공개 JS/CSS 바이트 일치 및 실제 서버 자산의 반사광3설정·터치4설정·마우스2설정·기존 조작 검증을 통과했다. 물리 기기·Safari·FPS는 미검증이며 외부 사진 완전 로딩은 확인하지 못했다. 기존 모바일 완료·대기 RG-014/RG-017·최후순위 보류4건은 유지한다. [[2026-10-08-RG015-회전연동-유광반사광|상세 작업 기록]]
 
 ### 2026-10-08 RG-015 모바일 터치 후속·TEST 배포 완료
 
-기존 모바일 폭 마우스 시험과 터치 지원을 구분하고 사용자의 후속 요청으로 RG-015의 터치 스와이프를 추가했다. frontend 193 통과/0 실패/0 건너뜀, 실제 NAS Chrome CDP touch 4설정과 desktop 2설정 및 기존 조작 검사 완료. 세로 스크롤·native pinch 확대 유지, 물리 단말기/Safari 및 native 선택 메뉴는 미검증으로 기록했다. TEST `a2a9bad` 배포·독립 검토 승인, PROD 변경 없음. 완료 수와 RG-014·RG-017 대기, 기존 최후순위 보류 4건은 유지한다. [[Work/RobinGraph/2026-10-08-RG015-모바일터치스와이프-NAS-TEST배포|상세 작업 기록]]
+기존 모바일 폭 마우스 시험과 터치 지원을 구분하고 사용자의 후속 요청으로 RG-015의 터치 스와이프를 추가했다. frontend 193 통과/0 실패/0 건너뜀, 실제 NAS Chrome CDP touch 4설정과 desktop 2설정 및 기존 조작 검사 완료. 세로 스크롤·native pinch 확대 유지, 물리 단말기/Safari 및 native 선택 메뉴는 미검증으로 기록했다. TEST `a2a9bad` 배포·독립 검토 승인, PROD 변경 없음. 완료 수와 RG-014·RG-017 대기, 기존 최후순위 보류 4건은 유지한다. [[2026-10-08-RG015-모바일터치스와이프-NAS-TEST배포|상세 작업 기록]]
 
 ### 2026-10-08 RG-016·RG-015 구현·TEST 배포 완료
 
-사용자의 오늘 RG-015까지 요청을 권장 순서 RG-016 → RG-015로 실행했다. Claude 서버/UI 워커·Antigravity 독립 검토·Codex 통합 검증을 실제 Orca run으로 수행했다. 두 항목을 완료 상세로 이동하고 목차·현황·대기 표·순위·완료 수를 함께 갱신했다. 실제 DB Python 633/633, frontend 181/181(모두 실패·건너뜀 0), 실제 MLflow 태그 API/UI 필터, NAS 화면 폭별 마우스·기존 조작 확인을 마쳤다. 1차 테스트 mock 경쟁 2건 실패와 수정 후 재실행, 실서버 검증기 가정 정정은 상세 기록에 남겼다. 신고 박새는 미발견 상태가 유지되며 이제 사유별 검색이 가능하다. TEST `75377ca` 배포, PROD 변경 없음. 신규 대기 RG-014·RG-017과 기존 최후순위 보류 4건은 유지한다. [[Work/RobinGraph/2026-10-08-RG015-RG016-MLflow태그-드래그카드-NAS-TEST배포|상세 작업 기록]]
+사용자의 오늘 RG-015까지 요청을 권장 순서 RG-016 → RG-015로 실행했다. Claude 서버/UI 워커·Antigravity 독립 검토·Codex 통합 검증을 실제 Orca run으로 수행했다. 두 항목을 완료 상세로 이동하고 목차·현황·대기 표·순위·완료 수를 함께 갱신했다. 실제 DB Python 633/633, frontend 181/181(모두 실패·건너뜀 0), 실제 MLflow 태그 API/UI 필터, NAS 화면 폭별 마우스·기존 조작 확인을 마쳤다. 1차 테스트 mock 경쟁 2건 실패와 수정 후 재실행, 실서버 검증기 가정 정정은 상세 기록에 남겼다. 신고 박새는 미발견 상태가 유지되며 이제 사유별 검색이 가능하다. TEST `75377ca` 배포, PROD 변경 없음. 신규 대기 RG-014·RG-017과 기존 최후순위 보류 4건은 유지한다. [[2026-10-08-RG015-RG016-MLflow태그-드래그카드-NAS-TEST배포|상세 작업 기록]]
 
 ### 2026-10-08 RG-017 한국 서식 토글 후속 계획 등록
 
@@ -712,14 +712,14 @@ PC 양면 넘기기 어려움과 전체 영역 요청에 따라 사진·본문 �
 
 ## 관련 문서 및 링크
 
-- [[Work/RobinGraph/2026-10-06-전체아종-출처이름-분포-공통처리-NAS배포|전체 아종 공통 처리·검증·NAS TEST 배포]]
-- [[Work/RobinGraph/2026-10-06-전체아종-이름자료-출처감사|이름 자료 출처 감사]]
-- [[Work/RobinGraph/2026-10-06-전체아종-Antigravity-화면검토|Antigravity 화면 검토]]
-- [[Work/RobinGraph/2026-10-05-RG003-자연어질문-그래프답변-NAS배포|자연어 질문별 그래프 답변·실환경 검증]]
+- [[2026-10-06-전체아종-출처이름-분포-공통처리-NAS배포|전체 아종 공통 처리·검증·NAS TEST 배포]]
+- [[2026-10-06-전체아종-이름자료-출처감사|이름 자료 출처 감사]]
+- [[2026-10-06-전체아종-Antigravity-화면검토|Antigravity 화면 검토]]
+- [[2026-10-05-RG003-자연어질문-그래프답변-NAS배포|자연어 질문별 그래프 답변·실환경 검증]]
 - [[Work/RobinGraph/RobinGraph 구현·데이터·검증 가이드|구현·데이터·검증 가이드]]
-- [[Work/RobinGraph/2026-10-05-RG003-생태관계탐색-NAS배포|RG-003 상세 작업 기록]]
-- [[Work/RobinGraph/2026-10-03-그래프검색-아종-통칭카드-NAS배포|아종·통칭 카드 작업 기록]]
-- [[Work/RobinGraph/2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 독립 작업 기록]]
-- [[Work/RobinGraph/2026-10-03-그래프-통칭-가축형관계-확대조사-NAS-TEST배포|2026-10-03 관계 확대 조사·NAS TEST 배포 기록]]
+- [[2026-10-05-RG003-생태관계탐색-NAS배포|RG-003 상세 작업 기록]]
+- [[2026-10-03-그래프검색-아종-통칭카드-NAS배포|아종·통칭 카드 작업 기록]]
+- [[2026-10-03-RG005-RG009-비교-생태정보-사진처리-NAS배포|RG-005~RG-009 독립 작업 기록]]
+- [[2026-10-03-그래프-통칭-가축형관계-확대조사-NAS-TEST배포|2026-10-03 관계 확대 조사·NAS TEST 배포 기록]]
 - [[Work/index|작업 노트 목록]]
-- [[Work/RobinGraph/2026-10-01-조류도감카드-대화버그수정-멸종위기등급-NAS배포|2026-10-01 작업 기록]]
+- [[2026-10-01-조류도감카드-대화버그수정-멸종위기등급-NAS배포|2026-10-01 작업 기록]]
