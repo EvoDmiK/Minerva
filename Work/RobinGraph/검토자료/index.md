@@ -7,7 +7,7 @@ type: document-index
 
 # RobinGraph 검토자료
 
-화면·데이터·모델 적합성·성능·학습 설계의 검토 문서7개를 모은다.
+화면·데이터·모델 적합성·성능·학습 설계의 검토 문서를 모은다.
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
 - [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]
