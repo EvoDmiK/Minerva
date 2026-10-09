@@ -145,6 +145,17 @@ ORCA 관련 Codex/Claude 로그 (read-only)
 6. 매핑이 없으면 쓰레드-level Grafana 집계만 가능하다. MLflow task Run을 성공으로 가짜 생성하지 않는다.
 7. 잘못된 매핑 수정은 versioned attribution으로 처리하고 사용량 재계산·MLflow 정정 snapshot을 함께 재전송한다.
 
+### 5.3 최소 manifest/result 입력 계약
+
+1차는 공식 ORCA task API가 없어도 로컬 JSON/JSONL 입력으로 구현할 수 있어야 한다. 이는 호출을 새로 발생시키는 실행 계층이 아니다.
+
+- manifest: schema version, opaque task/attempt/project/session ID, request ID 집합 또는 UTC `[start,end)` 범위, 매핑 revision, producer ID.
+- result event: 안정적 event ID, task/attempt ID, result revision, UTC occurred_at, producer ID/type, `evidence_kind = real | fixture`, reported status, verification state, optional test ID/exit code/counts/allowlisted artifact handle.
+- verification state: `unverified | evidence_verified | failed | unknown`. 수동 입력으로 `evidence_verified` 문자열을 넣었다는 이유만으로 검증됐다고 신뢰하지 않는다. 승인된 verifier producer가 artifact/test 결과 readback으로 대조한 이벤트만 verified view에 반영한다.
+- fixture 이벤트는 isolated integration에서만 사용한다. 실작업/운영 experiment에 fixture 결과를 기록하지 않는다.
+- JSON schema와 실제 sanitized 예제, 유효/무효 입력 test를 구현 산출물에 포함한다. 구조화 start/end 이벤트가 없으면 duration은 NULL이다.
+- producer 인증은 기존 ingest 인증·권한과 조합하고 verification 권한을 usage reporter 권한과 구분한다. 비밀값을 manifest에 저장하지 않는다.
+
 ## 6. 토큰 의미와 계산 — 반드시 제공자별 테스트
 
 기존 `total_tokens`는 제공자 의미가 섞여 있다. **기존 컬럼의 의미를 조용히 바꾸지 않는다.** 신규 표준화 값을 별도 컬럼/view에 저장하고 대시보드 설명에 정의를 표시한다.
