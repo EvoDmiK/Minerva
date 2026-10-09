@@ -308,3 +308,68 @@ AC는 1차 MVP에 대한 기준이다. 후속 Tracing/Antigravity 호출별/전�
 - Vault: `Work/Gullinkambi/2026-10-08-ORCA-SSD-이전-후-사용량-수집-복구.md`.
 - Vault: `Work/Gullinkambi/2026-10-08-RobinGraph-ORCA-전체기간-토큰-사용량-검증.md`.
 - 이 문서의 경로·schema 관측은 출발점이다. Claude가 구현할 시점에 최신 원문/저장소를 재확인한다.
+
+## 14. v2 보강 계약 — 독립 검토 반영
+
+**이 절은 §§5~11의 애매한 문구보다 우선한다.** 1차 범위·운영 승인 경계는 유지한다. 독립 검토는 PASS_WITH_ISSUES였고, 아래는 Dovie가 원문과 최종 v1을 대조한 수정 결정이다. 독립 재검토 PASS를 받았다는 뜻은 아니다.
+
+### 14.1 필드 상태와 집계 (C1·C2 / AC2·AC7)
+
+- 각 필드는 `known(value)` / `unknown(reason)` / `not_separately_observable` 상태다. Claude cache 필드의 생략=0은 해당 source schema가 보장할 때만 허용한다.
+- Codex input/output만 알면 processed total은 계산 가능하다. cached input이 빠졌으면 uncached input과 non-cache는 NULL이다. cached input까지 알면 **관측 정의의 non-cache = 전체 입력 + 출력 - cache read**로 계산한다. 별도 cache-write metric은 NULL로 유지한다.
+- 위 Codex 지표는 `non_cache_definition=processed_minus_cache_read`를 함께 기록한다. 별도 cache-write 분리가 없다는 이유만으로 관측 가능한 차액까지 NULL로 만들라는 C1 제안은 채택하지 않는다. 새로운 숨은 cache-write 양을 추정/추가하지 않는다. 알 수 없는 cached input은 0으로 대체하지 않는다.
+- cross-provider 집계는 같은 normalization version, 중복 제거, source coverage를 만족하는 canonical cohort에서만 한다. `known_sum`, `known_count`, `eligible_count`, `coverage_state`를 함께 제공하고 미확인 행이 있으면 `complete_total=NULL`이다. schema/version이 다르면 먼저 호환 변환을 검증하거나 분리 표시한다.
+- cache-hit은 numerator/denominator가 모두 알려진 동일 cohort에서 계산한다. legacy/Antigravity 미확인 행을 canonical total에 혼용하지 않는다. Claude `cache_read > raw_uncached_input` 정상 사례를 포함한다.
+
+### 14.2 전체 snapshot과 commit/read 계약 (C3 / AC4·AC5·AC6)
+
+- DB에 logical task/attempt + revision별 **전체 snapshot**, field availability, coverage, fingerprint, publication state를 보존한다. 값이 숫자→unknown으로 바뀌는 정정도 snapshot에 명시한다.
+- exporter는 revision별 metric/tag/안전한 snapshot artifact를 전송하고 API readback으로 expected payload와 대조한다. 필요한 metric/tag/artifact 중 하나라도 미확인인 revision은 committed로 확정하지 않는다.
+- 확정 pointer는 DB의 `committed_snapshot_revision`이다. MLflow에도 검증된 committed revision과 artifact handle을 연결한다. 전송 중 부분 성공은 재전송/조정하되 확정 pointer를 앞당기지 않는다.
+- 조회자는 해당 committed revision의 snapshot과 availability만 사용한다. **MLflow의 metric별 latest 값 묶음이나 metric history SUM을 완전한 최신 snapshot으로 사용하지 않는다.** native MLflow 화면에 오래된 값이 남을 수 있음을 안내하고, 사용자의 현재값 조회 링크는 확정 snapshot을 가리킨다.
+- 숫자→unknown은 availability로 masking한다. 과거 metric을 삭제하거나 0으로 덮어쓰지 않는다. metric history 중복은 가능하나 logical summary에 합산하지 않는다.
+- 이미 committed된 최신 revision보다 오래된 replay가 tag/status/pointer를 되돌리지 못하게 한다. 중간 revision이 실패한 상태에서 최신 것을 보내는 순서·skip 정책을 명문화하고 snapshot completeness를 보장한다.
+- superseding Run이 필요하면 logical attempt key, `supersedes_run_id`, active projection 매핑을 남긴다. 조회자는 logical attempt당 active projection 하나를 읽으며 이전/새 Run을 합산하지 않는다. 기본 논리 단위는 여전히 task attempt 하나다.
+- 테스트: metric 성공/tag 실패, artifact 실패, 응답 유실, 역순 revision, 숫자→unknown, 종료 후 late update, superseding Run의 latest logical snapshot 일치.
+
+### 14.3 Run 생성 결과가 불확실할 때 (C4 / AC5·AC6)
+
+- create 요청 전에 durable intent와 correlation key를 남기고, 지원 API에서 correlation tag를 create와 함께 보낸다. 동일 logical attempt의 create는 DB lock/claim으로 직렬화한다.
+- 응답 timeout/유실은 `create_outcome=uncertain`이다. 검색 결과 0개는 미생성의 증거가 아니므로 곧바로 재생성하지 않는다. bounded reconciliation 후에도 불확실하면 blocked/unknown으로 보존한다.
+- 후보 1개는 payload/tag readback 후 매핑; 여러 개는 conflict/quarantine이다. orphan Run을 자동 삭제하지 않는다. 안전한 조정·운영자 확인 경로를 문서화한다.
+- create의 SDK/HTTP 자동 retry 정책을 확인하고, ambiguous non-idempotent create의 무조건 재전송을 막는다.
+- 보장은 **확정된 logical mapping 하나와 중복 후보 감지**다. 네트워크 장애에도 remote physical Run이 반드시 정확히 하나라고 약속하지 않는다. v1의 Run 수 불변 테스트는 정상 ack/replay 경로에 적용하고, 응답 유실 경로는 중복 후보 감지·단일 active projection을 검증한다.
+- 테스트: 서버 생성 후 응답 유실 + 검색 가시성 지연, 경쟁 exporter, 후보 0/1/복수 및 lock 만료 복구.
+
+### 14.4 호출과 누적 구간·귀속 우선순위 (C5 / AC1·AC3·AC4·AC7)
+
+- request count와 호출별 input p50/p95는 stable request ID가 있는 `raw_call`만 대상으로 한다. cumulative delta를 모델 호출 1회로 세지 않는다.
+- delta에는 observed interval, baseline/reset segment, token coverage를 보존한다. 실제 호출 수를 알 수 없으면 request count는 NULL이다. 누적 timestamp 하나를 호출 시작/종료로 사용하지 않는다.
+- delta 구간이 여러 task 경계를 가로지르거나 호출 크기를 복원할 수 없으면 임의 분배하지 않고 ambiguous/unassigned로 둔다. 호출별 panel에서는 제외하고 별도 구간 사용량/coverage로 표시한다.
+- 귀속 후보 탐색 순서는 검증된 공식 mapping → 명시적 request mapping → session/time mapping이다. **서로 충돌하는 명시적 주장에는 순서로 덮어쓰지 않고 conflict를 남긴다.** 해결 revision만 canonical attribution으로 반영한다.
+- occurred_at·model·project·mapping 정정은 이전/새 bucket 및 이전/새 attempt snapshot을 모두 재계산한다. event identity는 동일하고 귀속 revision만 바뀐다.
+- 테스트: task 경계를 가로지르는 delta, 공식/수동 mapping 충돌, timestamp 정정으로 attempt 이동, raw/delta 중첩, 정상 Claude 큰 cache read.
+
+### 14.5 착수 gate·재처리 경계 (C6 / AC1·AC4·AC9)
+
+- discovery 후 stable raw request ID, DB transaction+outbox 경로, 격리 MLflow 쓰기/readback, 명시적 manifest 입력이 가능한지 PASS/UNKNOWN/BLOCKED로 보고한다. 하나가 없으면 대체 가능한 범위만 구현하고 전체 AC 완료를 주장하지 않는다.
+- 기본 초기 lookback 제안은 최근 48시간이며 실행 시점의 UTC boundary를 저장한다. 기존 aggregate/cursor와 신규 call cursor는 분리한다. 초기 경계 밖 과거 호출을 조용히 full coverage라고 표시하지 않는다.
+- lookback 밖 late correction이 발견되면 pending reconciliation/coverage gap으로 기록한다. 승인된 bounded repair window에서만 재처리한다. 전체 역사 backfill이나 기존 cursor reset으로 우회하지 않는다.
+- 단계: fixture 수직 연결 → replay/정정/장애 검증 → 실제 사용량-only bounded sample. 각 단계의 미충족 AC를 명시한다.
+- 테스트: 시작 경계 전후, lookback 밖 정정, cursor 보존, 충돌 revision, incomplete EOF 후 재처리.
+
+### 14.6 자유문자열·artifact 경계 (C7 / AC8·AC9·AC10)
+
+- schema마다 모든 외부 전송 필드의 형식·길이·허용값·invalid 정책을 정의한다. ID 필드는 opaque token/hash만 허용하고 원본 task/project/test 식별자와 로컬 매핑을 분리한다.
+- project label은 명시적 safe project registry, tool 이름은 허용된 tool registry, error는 enum/code를 사용한다. unknown 이름은 safe unknown으로 처리하거나 reject한다. arbitrary 문자열을 default fallback으로 보내지 않는다.
+- hash/namespace 또는 HMAC 선택과 키 참조·회전·기존 ID 안정성 정책을 문서화한다. 비밀값이나 개인 경로를 hash한 값이 언제나 익명이라고 주장하지 않는다. 식별 namespace의 persistent 기본값은 실행 계층이 관리한다.
+- artifact 이름은 exporter가 생성한 안전한 고정 패턴만 허용한다. 전용 staging 디렉터리의 새 요약/manifest만 업로드하며 symlink, path traversal, 임의 파일 참조를 거부한다. 코드/로그 원본을 artifact로 가져오는 옵션은 1차에 없다.
+- exporter 오류 로그도 code + opaque event ID 중심이다. exception의 raw payload, URL credential, 로컬 path를 자동 출력하지 않는다.
+- 테스트: task/project/test ID, tool/error 값, artifact 이름, symlink/traversal, exporter 실패 경로 각각에 fake secret/prompt/path marker를 넣어 remote payload·MLflow tags/artifact·로그에 유출되지 않는지 검증한다.
+
+### 14.7 변경 이력·검토 해석
+
+- C1의 NULL/zero 정책은 수용하되, 관측 가능한 Codex processed-minus-cache-read 차액을 NULL로 강제하라는 부분은 위 정의로 대체한다.
+- C2의 대부분과 C6의 48시간 시작 범위는 최종 v1에 이미 반영되어 있었다. 이 절은 version/cohort 및 범위 밖 정정 계약을 더 명확히 한다.
+- C3/C4/C5/C7의 새 계약과 추가 테스트는 구현 전 필수다. AC1~AC10에 이 절의 테스트를 함께 매핑한다.
+- 원본 v1 artifact는 변경하지 않았다. v2 첨부와 Vault의 이 절을 Claude에게 전달한다. 명세 수정 외 제품 코드·DB·MLflow·배포 변경은 수행하지 않았다.
