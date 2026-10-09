@@ -191,11 +191,11 @@ Cloudflare 경로만 쓰는 구조에서는 Origin 인증서가 관리 부담과
 - [ ] Cloudflare SSL 모드 Full (strict) 적용 여부 확인
 - [ ] 원본 443을 Cloudflare IP 대역만 허용하도록 제한 검토
 
-후속 정리는 [[Work/Gullinkambi/2026-10-02-ORCA-쓰레드-이름-복구와-Birds-Nest-브랜치-정리|ORCA 쓰레드 이름 복구와 Birds-Nest 브랜치 정리]]에 이어서 기록했다.
+후속 정리는 [[Work/Gullinkambi/작업기록/2026-10-02-ORCA-쓰레드-이름-복구와-Birds-Nest-브랜치-정리|ORCA 쓰레드 이름 복구와 Birds-Nest 브랜치 정리]]에 이어서 기록했다.
 
 ## 관련
 
-- [[Work/Gullinkambi/2026-10-02-NPM-모니터링-수집기와-Cloudflare-Origin-인증서|NPM 모니터링 수집기와 Cloudflare Origin 인증서]]
+- [[Work/Gullinkambi/작업기록/2026-10-02-NPM-모니터링-수집기와-Cloudflare-Origin-인증서|NPM 모니터링 수집기와 Cloudflare Origin 인증서]]
 - [[Work/Gullinkambi/index|Gullinkambi 프로젝트 노트]]
 - [[Work/index|토이 프로젝트 목록]]
 - [[Home]]

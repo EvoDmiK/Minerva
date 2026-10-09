@@ -233,8 +233,8 @@ Hermes 인증 병합은 비밀 저장소의 운영 복구 작업이므로 Git에
 
 ## 관련
 
-- [[Work/Gullinkambi/2026-10-01-AI-구독-사용량-수집기와-Grafana-대시보드-구축|AI 구독 사용량 수집기·Grafana 대시보드 구축]]
-- [[Work/Gullinkambi/2026-10-01-Grafana-알람과-Discord-연결|Grafana 알람과 Discord 연결]]
+- [[Work/Gullinkambi/작업기록/2026-10-01-AI-구독-사용량-수집기와-Grafana-대시보드-구축|AI 구독 사용량 수집기·Grafana 대시보드 구축]]
+- [[Work/Gullinkambi/작업기록/2026-10-01-Grafana-알람과-Discord-연결|Grafana 알람과 Discord 연결]]
 - [[Work/Gullinkambi/index|Gullinkambi 프로젝트 노트]]
 - [[Work/index|토이 프로젝트 목록]]
 - [[Home]]

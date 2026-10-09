@@ -235,7 +235,7 @@ Mac mini 서비스 중 NPM을 거치는 것(`hermes`, `viking`, `embed`)은 NAS�
 
 ## 관련
 
-- [[Work/Gullinkambi/2026-10-02-NPM-모니터링-수집기와-Cloudflare-Origin-인증서|NPM 모니터링 수집기와 Cloudflare Origin 인증서]]
-- [[Work/Gullinkambi/2026-10-02-Tailscale-Split-DNS와-와일드카드-인증서|Tailscale Split DNS와 와일드카드 인증서]]
+- [[Work/Gullinkambi/작업기록/2026-10-02-NPM-모니터링-수집기와-Cloudflare-Origin-인증서|NPM 모니터링 수집기와 Cloudflare Origin 인증서]]
+- [[Work/Gullinkambi/작업기록/2026-10-02-Tailscale-Split-DNS와-와일드카드-인증서|Tailscale Split DNS와 와일드카드 인증서]]
 - [[Dev/index|Dev — 개발 / 프로그래밍]]
 - [[Home]]

@@ -71,6 +71,6 @@ launchctl bootstrap gui/$(id -u) /Users/kimdove/Library/LaunchAgents/com.gullink
 
 ## 관련 문서
 
-- [[Work/Gullinkambi/2026-10-03-AI-subscription-exporter-README]]
-- [[Work/Gullinkambi/2026-10-01-AI-구독-사용량-수집기와-Grafana-대시보드-구축]]
-- [[Work/Gullinkambi/2026-10-08-ORCA-SSD-이전-후-사용량-수집-복구]]
+- [[Work/Gullinkambi/작업기록/2026-10-03-AI-subscription-exporter-README]]
+- [[Work/Gullinkambi/작업기록/2026-10-01-AI-구독-사용량-수집기와-Grafana-대시보드-구축]]
+- [[Work/Gullinkambi/작업기록/2026-10-08-ORCA-SSD-이전-후-사용량-수집-복구]]

@@ -115,8 +115,8 @@ Queue Messages는 고장이 아니다. exporter가 큐에 남은 행만 세어�
 
 ## 관련
 
-- [[Work/Gullinkambi/2026-10-05-Claude-Antigravity-초기화-패널-5시간·주간-통합|Claude·Antigravity 초기화 패널 5시간·주간 통합]]
-- [[Work/Gullinkambi/2026-10-03-AI-subscription-exporter-README|AI subscription exporter README]]
+- [[Work/Gullinkambi/작업기록/2026-10-05-Claude-Antigravity-초기화-패널-5시간·주간-통합|Claude·Antigravity 초기화 패널 5시간·주간 통합]]
+- [[Work/Gullinkambi/작업기록/2026-10-03-AI-subscription-exporter-README|AI subscription exporter README]]
 - [[Work/Gullinkambi/index|Gullinkambi 프로젝트 노트]]
 - [[Work/index|토이 프로젝트 목록]]
 - [[Home]]

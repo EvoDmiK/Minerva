@@ -176,8 +176,8 @@ Ran 6 tests — OK
 
 ## 관련
 
-- [[Work/Gullinkambi/2026-10-01-ORCA-Antigravity-사용량-집계와-Hermes-인증-복구|ORCA Antigravity 사용량 집계와 Hermes 인증 복구]]
-- [[Work/Gullinkambi/2026-10-01-Grafana-알람과-Discord-연결|Grafana 알람과 Discord 연결]]
+- [[Work/Gullinkambi/작업기록/2026-10-01-ORCA-Antigravity-사용량-집계와-Hermes-인증-복구|ORCA Antigravity 사용량 집계와 Hermes 인증 복구]]
+- [[Work/Gullinkambi/작업기록/2026-10-01-Grafana-알람과-Discord-연결|Grafana 알람과 Discord 연결]]
 - [[Work/Gullinkambi/index|Gullinkambi 프로젝트 노트]]
 - [[Work/index|토이 프로젝트 목록]]
 - [[Home]]
