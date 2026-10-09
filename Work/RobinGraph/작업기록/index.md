@@ -7,22 +7,18 @@ type: document-index
 
 # RobinGraph 작업기록
 
-<<<<<<< HEAD
-구현·수정·검증·NAS 배포를 수행한 기록60개를 최신 날짜순으로 찾는다.
-=======
 구현·수정·검증·NAS 배포를 수행한 기록을 최신 날짜순으로 찾는다.
->>>>>>> 5287ab576d57ce687ed7974f91dacc7383d697bc
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
 - [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]
 
 ## 문서 목록
 
+- [[Work/RobinGraph/작업기록/2026-10-09-국명408-형질503-평가447-원자료복구|2026-10-09 — 국명 408·형질 503·평가 447 원자료 복구와 TEST/Production 검증]]
+
 - [[Work/RobinGraph/작업기록/2026-10-09-카드-앞면-빈공간-제거-TEST배포|2026-10-09 — 카드 앞면 관찰 포인트 위 빈 공간 제거 · NAS TEST 배포(배포 조율 포함)]]
-<<<<<<< HEAD
 - [[Work/RobinGraph/작업기록/2026-10-09-RobinGraph-TEST-PROD-이관-배포와-도감카드-UX-개선|2026-10-09 — [종합] TEST → PROD 데이터 이관·PROD 배포와 도감 카드 UX 개선]]
 - [[Work/RobinGraph/작업기록/2026-10-09-NAS-임시파일-volume3-이동|2026-10-09 — NAS 임시 파일 /volume3로 이동(삭제 없음)]]
-=======
 - [[Work/RobinGraph/작업기록/2026-10-09-까마귀-통칭제거-정식종-직접조회|2026-10-09 — 까마귀 통칭 완전 제거·정식 종 직접 조회·TEST/PROD 배포]]
 
 - [[Work/RobinGraph/작업기록/2026-10-09-Production-최신앱-f71b37b-배포|2026-10-09 — Production 최신 앱 f71b37b 배포·보전 뱃지·카드·실제 검증]]
@@ -37,7 +33,6 @@ type: document-index
 
 - [[Work/RobinGraph/작업기록/2026-10-09-전종-형질연결복구-카드표시-TEST배포|2026-10-09 — 전체 종 형질 연결 복구·추정값 구분·카드 표시·NAS TEST 배포]]
 
->>>>>>> 5287ab576d57ce687ed7974f91dacc7383d697bc
 - [[Work/RobinGraph/작업기록/2026-10-09-도넛차트-항목비율-목록-다듬기-TEST배포|2026-10-09 — 도넛 차트 항목·비율 목록 다듬기와 자료 N 제거 · NAS TEST 배포]]
 - [[Work/RobinGraph/작업기록/2026-10-09-TEST-파란-파비콘-프레임두께-TEST배포|2026-10-09 — TEST 전용 파란 파비콘·카드 프레임 두께 통일 · NAS TEST 배포]]
 - [[Work/RobinGraph/작업기록/2026-10-09-도넛차트-항목비율-토글-스크롤-TEST배포|2026-10-09 — 도넛 차트 아래 항목·비율 토글도 스크롤(Ponytail 방식) · NAS TEST 배포]]
