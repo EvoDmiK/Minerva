@@ -15,7 +15,7 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량�
 
 ## 주요 문서
 
-- [[Work/Gullinkambi/2026-10-09-ORCA-Grafana-MLflow-Claude-작업명세|ORCA 개발 사용량·성과 Grafana/MLflow — Claude 작업 명세]] — 구현 지시용 문서, 구현·배포 완료 기록 아님.
+- [[Work/Gullinkambi/2026-10-09-ORCA-Grafana-MLflow-Claude-작업명세|ORCA 개발 사용량·성과 Grafana/MLflow — Claude 작업 명세 v2]] — 구현 지시용 문서, 구현·배포 완료 기록 아님.
 
 ## 작업 기록
 
