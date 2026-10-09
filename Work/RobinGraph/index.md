@@ -64,3 +64,5 @@ tags:
 - [[Work/RobinGraph/작업기록/2026-10-09-까마귀-큰부리까마귀-통칭관계-제거|2026-10-09 — 까마귀 → 큰부리까마귀 통칭 관계 제거·TEST 자료 적용]]
 
 - [[Work/RobinGraph/작업기록/2026-10-09-TEST-PROD-DB-재이관-통칭수정반영|2026-10-09 — TEST → Production DB 재이관·쌍방 백업·전체 검증]]
+
+- [[Work/RobinGraph/작업기록/2026-10-09-Production-최신앱-f71b37b-배포|2026-10-09 — Production 최신 앱 f71b37b 배포·보전 뱃지·카드·실제 검증]]
