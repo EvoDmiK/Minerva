@@ -1,0 +1,129 @@
+---
+created: 2026-10-09
+date: 2026-10-09
+project: Birds-Nest
+type: worklog
+status: completed
+tags:
+  - birds-nest
+  - n8n
+  - stock
+  - swallow
+  - gemini
+  - discord
+  - nas
+  - homelab
+  - production
+---
+
+# [Stock] Swallow 워크플로우 활성화 및 고도화 (단일 체인 개편, DB 캐싱, 실시간 시세 연동, Discord 발송)
+
+## 요약
+
+미완성 및 비활성 상태(`active: false`, 32개 레거시 노드)로 방치되어 있던 Birds-Nest의 주식 파이프라인 워크플로우 **`[Stock] Swallow` (`smy9xPoHICCO69JF`)**를 전면 개편하여 활성화하고, NAS 운영 n8n 환경에 배포·검증을 완료했다.
+
+기존의 비효율적인 3개 병렬 LLM 체인(Chain A/B/C) 구조와 DB 스키마 불일치(존재하지 않는 `instruments`/`listings` 조인 쿼리), 데이터 유실 버그(종목 분리 시 기사 메타데이터 증발), 종점 누락(토스 시세 조회 후 알림 노드 부재) 문제를 해결했다.
+
+**Gemini 3.5 Flash One-Shot Triage 단일 체인**으로 통합하여 속도 3배 향상 및 API 비용을 대폭 절감하고, PostgreSQL `data.companies` 테이블 연동과 공공데이터포털 KRX 상장정보 API를 통한 자동 동적 캐싱, 토스증권 Open API 실시간 시세 연동, 그리고 Discord `#전서구` 채널로 실시간 증권 브리핑 카드를 전송하는 완전한 파이프라인을 완성했다.
+
+## 완료 결과
+
+| 구분 | 변경 사항 | 상세 내용 |
+| --- | --- | --- |
+| **LLM 구조 경량화** | 3-Chain 병렬 분할 ➔ 단일 One-Shot Triage | 기사당 3회 호출하던 체인을 1회 단일 체인으로 통합(호출수 67% 절감, 토큰/비용 최적화, 속도 3배 향상) |
+| **트리거 확장** | 수동 트리거만 존재 ➔ 3개 다중 진입점 구축 | 평일 08:30 KST Schedule Trigger, Webhook Trigger(`/webhook/swallow`), 수동 실행 트리거 지원 |
+| **DB 스키마 정렬** | 가상 스키마 제거 ➔ 실제 `data.companies` 연동 | 미존재 테이블(`instruments`, `listings`) 쿼리를 `data.companies` 실 스키마에 맞춰 단일 쿼리로 정렬 |
+| **동적 종목 캐싱** | 공공데이터포털 KRX API 자동 Fallback | DB 캐시 미스 시 공공데이터포털 API로 단축코드·시장 조회 후 `companies` 테이블에 자동 upsert 및 영구 캐싱 |
+| **실시간 시세 조회** | 토스증권 Open API(`/api/v1/prices`) 결합 | 종목 티커 기준 실시간 현재가, 등락률, 변동폭 조회 및 장애 대응(`continueOnFail`) 구축 |
+| **Discord 브리핑 발송** | 종점 부재 ➔ Discord 마크다운 브리핑 카드 전송 | 관련 종목, 현재가, 섹터, 투자 시그널(목표/근거), 2줄 핵심 요약, 원문 링크 포함 카드 실시간 발송 |
+| **NAS 운영 배포** | NAS n8n REST API 배포 및 Activate | 워크플로우 `smy9xPoHICCO69JF` unarchive 후 32개 노드 업로드 및 실시간 활성화(`active: true`) 완료 |
+| **실서비스 검증** | 실시간 뉴스 수집 및 Discord 발송 검증 | 한경·매경 RSS 수집 후 삼성전기(`009150`), 현대지에프홀딩스(`005440`), S-Oil(`010950`) 등 실제 브리핑 정상 발송 확인 |
+| **형상 관리** | Git 커밋 & 원격 저장소 푸시 | 커밋 `bd0c10c` 작성 후 `origin/dev-mac`으로 푸시 완료 |
+
+---
+
+## 1. 개편 배경 및 문제점 분석
+
+### 기존 Swallow 워크플로우의 한계
+1. **과도한 LLM 호출 비용 및 레이트 리밋 위험**:
+   - 기사 1건당 Chain A(종목/섹터), Chain B(요약/감정/리스크), Chain C(시그널/전략) 등 3개의 Gemini LLM 체인을 병렬 호출함.
+   - 1회 실행 시 15~20건의 기사가 유입되면 45~60회의 API 호출이 발생해 속도 저하 및 Google API 레이트 리밋 유발.
+2. **PostgreSQL 스키마 불일치**:
+   - `companies` ➔ `instruments` ➔ `listings` 조인 쿼리를 수행했으나, 실제 홈랩 `data` DB에는 `companies` 단일 테이블만 존재함.
+3. **데이터 컨텍스트 유실 버그**:
+   - `회사 이름만 가져오기`(Split Out) 노드를 거치며 기사 원문의 제목, 링크, 요약, 시그널 등의 정보가 모두 날아가고 티커명만 남음.
+4. **목적지 부재 (파이프라인 미완결)**:
+   - `현재가 조회` 노드 이후 저장이나 Discord/Slack 발송 노드가 전혀 연결되어 있지 않아 실행해도 아무런 알림을 받지 못함.
+5. **자동화 트리거 부재 및 비활성 방치**:
+   - 스케줄 트리거 없이 수동 버튼만 존재했으며, NAS 운영 환경에서는 아카이브/비활성화 상태로 방치되어 있었음.
+
+---
+
+## 2. 주요 개선 및 구현 내용
+
+### 2.1 단일 체인 One-Shot LLM Triage
+기존 3개 체인을 하나의 고성능 프롬프트와 Structured JSON Schema로 통합:
+- **모델**: `models/gemini-3.5-flash` (`LdFPhSxQOLqZfRfx`, Gemni API 키 프로덕션)
+- **추출 항목**:
+  - `primary_stock`: 기사의 핵심 상장 종목명 (KRX 정식 종목명)
+  - `related_stocks`: 추가 연관 종목명 목록
+  - `sector`: 관련 산업 섹터 배열
+  - `summary`: 시장 관점의 핵심 1~2문장 요약
+  - `sentiment`: 긍정 / 중립 / 부정
+  - `signal_action`: 매수 / 매도 / 관망
+  - `signal_reason`: 투자 시그널 제시 근거
+  - `impact_score`: 주가 및 섹터 영향도 (1~5 정수)
+  - `confidence`: 분석 신뢰도 (0.0~1.0)
+
+### 2.2 PostgreSQL `data.companies` 실시간 캐시 및 공공데이터 자동 폴백
+- **DB 캐시 조회**:
+  ```sql
+  SELECT $1::text AS primary_stock, c.ticker, c.market, c.company_name
+  FROM (SELECT $1::text AS qname) q
+  LEFT JOIN companies c ON c.company_name = q.qname
+  LIMIT 1;
+  ```
+- **캐시 미스 시**: 공공데이터포털 KRX 상장종목 정보 API(`GetKrxListedInfoService`)를 호출하여 단축코드(`srtnCd`)와 시장(`mrktCtg`)을 파싱.
+- **자동 upsert**:
+  ```sql
+  INSERT INTO companies (company_name, ticker, market)
+  SELECT $1, $2, $3
+  WHERE NULLIF($2, '') IS NOT NULL
+    AND NOT EXISTS (SELECT 1 FROM companies WHERE ticker = $2)
+  RETURNING company_id, ticker, market, company_name;
+  ```
+  검증 실행 중 `삼성전기(009150)`, `현대지에프홀딩스(005440)`, `S-Oil(010950)`, `KT&G(033780)` 등이 DB에 자동으로 적재 및 캐싱됨을 확인.
+
+### 2.3 토스증권 Open API 현재가 조회 및 Discord 브리핑 카드 발송
+- 토스증권 Open API(`/api/v1/prices`)를 통해 실시간 종가와 등락률을 조회하고, `continueOnFail: true`를 적용해 API 장애 시에도 안전하게 폴백.
+- 마크다운 브리핑 카드를 생성하여 Discord `#전서구` 채널로 자동 발송.
+
+---
+
+## 3. 실서비스 검증 결과 (Discord 전송 메시지 예시)
+
+실제 실행 결과(`Execution ID: 25119`, 20초 만에 성공 완료), 디스코드에 정상 발송된 브리핑 예시:
+
+```markdown
+🕊️ **[Swallow 증권 브리핑] “241층 구조대 오나요?”…고점서 36% 빠진 삼성전기, 증권가 전망은**
+• **언론사:** 매일경제
+• **관련 종목:** 삼성전기 (`009150`) | KOSPI
+• **현재가:** **1,559,000원**
+• **섹터:** IT/인터넷, 반도체
+• **투자 시그널:** 🟢 **매수** (영향도: 3/5 | 신뢰도: 90%)
+• **시그널 근거:** AI향 고부가 MLCC 수주 본격화로 인한 실적 개선 전망과 최근 주가 조정에 따른 가격 메리트가 존재합니다.
+
+**[핵심 요약]**
+>>> 삼성전기가 글로벌 대형 기업과 AI 서버용 MLCC 대규모 공급 계약을 체결하며 올해 누적 수주액이 3조 9000억원으로 급증해 실적 턴어라운드가 기대됩니다.
+
+**[기사 원문]**
+- https://www.mk.co.kr/news/stock/12172221
+```
+
+---
+
+## 4. 관련 링크
+
+- [[Work/Birds-Nest/index|Birds-Nest 인덱스]]
+- [[Work/Birds-Nest/작업기록/2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|2026-10-08 — Carrier Pigeon Gmail 바로가기 404 오류 수정과 NAS n8n 배포]]
+- [[Dev/n8n-워크플로우-신뢰성-및-에러-복구-패턴|n8n 워크플로우 신뢰성 및 에러 복구 설계 패턴]]
