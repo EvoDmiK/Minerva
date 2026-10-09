@@ -101,8 +101,9 @@ tags:
 - **완료 기준**: 의도적 오류 주입 시 Discord 알림 채널에 executionId 링크가 포함된 카드가 10초 내 도착.
 
 ### BN-504 — Woodpecker n8n 기반 지식 증류 자동 추천 웹훅 구축
-- **목적**: Minerva에 새 `Work/` 기록이 push될 때 n8n이 `scripts/distill_knowledge.py`를 호출하여 재사용 가능한 Dev 지식 초안을 자동 생성 및 알림.
-- **범위**: GitHub Webhook → NAS n8n → distill 스크립트 실행 → Discord 알림 전송.
+- **목적**: Minerva에 새 `Work/` 기록이 push될 때 n8n이 재사용 가능한 Dev 지식 초안을 자동 생성 및 Discord 알림.
+- **명세서**: [[Dev/자동화/n8n-지식-증류-워크플로우-작업-명세서|DEV-202 작업 명세서]]
+- **범위**: GitHub Webhook → NAS n8n → Obsidian MCP 초안 생성 → Discord 알림 전송.
 - **완료 기준**: 신규 작업 기록 push 시 Dev 후보 도메인 요약 카드가 Discord에 도착.
 
 ### BN-403 — Itzcuauhtli 읽기 전용 볼트 MCP 프로덕션 연결
