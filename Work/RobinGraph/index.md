@@ -38,3 +38,7 @@ tags:
 
 - [[Work/index|Work 프로젝트 목록]]
 - [[Home]]
+
+## 보전 등급 출처 개선
+
+- [[Work/RobinGraph/검토자료/2026-10-09-보전등급-대체출처-GBIF-IUCN-공개목록|GBIF 공개 IUCN 목록: 라이선스·종 연결·제약 검토]]
