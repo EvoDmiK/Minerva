@@ -7,12 +7,14 @@ type: document-index
 
 # RobinGraph 작업기록
 
-구현·수정·검증·NAS 배포를 수행한 기록47개를 최신 날짜순으로 찾는다.
+구현·수정·검증·NAS 배포를 수행한 기록48개를 최신 날짜순으로 찾는다.
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
 - [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]
 
 ## 문서 목록
+
+- [[Work/RobinGraph/작업기록/2026-10-09-dev-main-병합-Windows-CI-UTF8수정|2026-10-09 — dev → main 병합·Windows CI UTF-8 보완]]
 
 - [[Work/RobinGraph/작업기록/2026-10-09-RG015-PC스크롤제거-모바일테두리균일화|2026-10-09 — RG-015 PC 무스크롤·모바일 균일 테두리 NAS TEST 배포]]
 
