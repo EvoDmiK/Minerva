@@ -161,6 +161,16 @@ tags:
   5. `swallow_trigger_pipeline`: n8n Swallow 웹훅 즉시 호출 및 비동기 실행.
 - **전역 설정 등록**: `~/.gemini/config/mcp_config.json`에 `swallow_trader` 추가 완료 및 로컬 stdio 통신 검증 완료.
 
+### 3.4 Hermes Agent 연동 및 Discord #주가-분석 채널 활성화
+- **Hermes MCP 연동**:
+  - `config/hermes/integrations.toml`에 `swallow_trader` (Stdio MCP 서버) 추가.
+  - Hermes 컨트롤 플레인(`hermes-control-plane.py apply`)을 통해 `hybrid-v2` 프로필에 반영.
+  - 컨테이너 내부 `hermes -p hybrid-v2 mcp test swallow_trader` 실행 결과: 5개 도구 정상 검색 및 통신(167ms) 확인.
+- **Discord 채널 활성화**:
+  - 신규 채널 `#주가-분석` (`1557998164970315786`)을 `config/hermes/profiles/hybrid-v2.toml`의 `allowed_channels` 및 `channel_prompts`에 등록.
+  - 프롬프트: *"이 채널(#주가-분석)에서는 Swallow 모의투자 포트폴리오 조회, 종목별 주가 분석 및 매매 시그널을 확인하고 가상 주문을 수행한다."*
+  - Hermes 컨테이너 재시작 후 정상 상주 확인 완료.
+
 ---
 
 ## 4. 관련 링크
