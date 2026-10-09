@@ -7,12 +7,14 @@ type: document-index
 
 # RobinGraph 작업기록
 
-구현·수정·검증·NAS 배포를 수행한 기록44개를 최신 날짜순으로 찾는다.
+구현·수정·검증·NAS 배포를 수행한 기록45개를 최신 날짜순으로 찾는다.
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
 - [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]
 
 ## 문서 목록
+
+- [[Work/RobinGraph/작업기록/2026-10-09-RG015-모바일앞면-빈공간제거|2026-10-09 — RG-015 모바일 앞면 큰 빈 공간 제거 NAS TEST 배포]]
 
 - [[Work/RobinGraph/작업기록/2026-10-09-RG015-모바일앞면-사진-기본정보확대|2026-10-09 — RG-015 모바일 앞면 사진·기본 정보 글씨 확대 NAS TEST 배포]]
 
