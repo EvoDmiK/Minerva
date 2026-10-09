@@ -150,6 +150,17 @@ tags:
 📰 출처 및 원문: 매일경제 • [기사 바로가기](https://www.mk.co.kr/news/stock/12172221)
 ```
 
+### 3.3 Swallow Trader MCP 서버 구축 및 전역 등록 (`swallow_trader`)
+- **목적**: Antigravity, Mac mini Hermes, Claude 등 대화형 AI가 실시간으로 Swallow 모의투자 포트폴리오를 확인하고, 주문을 실행하며, 파이프라인을 트리거할 수 있는 Model Context Protocol (MCP) 서버 구현.
+- **구현 위치**: `mcp/swallow-mcp/index.js` (Node.js `@modelcontextprotocol/sdk` 기반 Stdio 서버)
+- **제공 도구 (Tools)**:
+  1. `swallow_get_portfolio`: 총 평가자산, 예수금, 보유 종목, 평균단가, 실시간 평가손익 마크다운 테이블 리턴.
+  2. `swallow_get_trades`: 체결 이력, 체결단가, 실현 손익 로그 조회 (`limit`, `ticker` 지원).
+  3. `swallow_check_stock`: 특정 종목의 모의투자 보유 여부 및 개별 평가손익 조회.
+  4. `swallow_order`: 가상 매수/매도 수동 주문 실행 (`execute_paper_trade` 연동).
+  5. `swallow_trigger_pipeline`: n8n Swallow 웹훅 즉시 호출 및 비동기 실행.
+- **전역 설정 등록**: `~/.gemini/config/mcp_config.json`에 `swallow_trader` 추가 완료 및 로컬 stdio 통신 검증 완료.
+
 ---
 
 ## 4. 관련 링크
