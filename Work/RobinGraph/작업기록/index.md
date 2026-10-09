@@ -86,3 +86,5 @@ type: document-index
 - [[Work/RobinGraph/작업기록/2026-10-09-GBIF-IUCN-보전등급-연동-NAS-TEST배포|2026-10-09 — GBIF 공개 IUCN 보전 등급 연결·검증·NAS TEST 배포]]
 
 - [[Work/RobinGraph/작업기록/2026-10-09-까치-임시LC-이름-검색구분|2026-10-09 — 까치 LC 임시 보정·두 종 이름 구분·한국어 검색 연결]]
+
+- [[Work/RobinGraph/작업기록/2026-10-09-까치-설명-생태-체중-LC표시-보완|2026-10-09 — 까치 설명·생태·표본 체중 보완과 LC 표시 정리]]
