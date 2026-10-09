@@ -15,7 +15,9 @@
 
 ## 작업 백로그
 
-- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]] — 조류 지식 그래프·RAG·UI·배포 (`RG-1xx` ~ `RG-9xx`)
+- [[Work/Birds-Nest/Birds-Nest 작업 백로그|Birds-Nest 작업 백로그]] — 인프라·n8n 워크플로우·에이전트 게이트웨이·MCP (`BN-1xx` ~ `BN-8xx`)
+- [[Work/Gullinkambi/Gullinkambi 작업 백로그|Gullinkambi 작업 백로그]] — 모니터링·수집기·Grafana 대시보드·AI 사용량 분석 (`GK-1xx` ~ `GK-8xx`)
 
 ## 노트
 

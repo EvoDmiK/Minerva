@@ -21,6 +21,10 @@ Birds-Nest는 개인 AI 에이전트(Hermes/Dovie), 자동화 워크플로우(n8
 - **자동화 & 데이터**: n8n, TimescaleDB, Neo4j, Redis, pgBackWeb
 - **테스트베드**: Mac mini 로컬 `n8n-test`, `neo4j-test`
 
+## 작업 관리
+
+- [[Work/Birds-Nest/Birds-Nest 작업 백로그|Birds-Nest 작업 백로그]] — 상태·우선순위·카테고리별 작업 ID (1xx 인프라, 2xx n8n, 3xx 에이전트, 4xx MCP, 5xx 지식연동, 6xx 관측성)
+
 ## 관련 공통 기술 문서 (Dev)
 
 - [[Dev/n8n-워크플로우-신뢰성-및-에러-복구-패턴|n8n 워크플로우 신뢰성 및 에러 복구 설계 패턴]]

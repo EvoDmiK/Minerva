@@ -18,6 +18,10 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량�
 - [[Work/Gullinkambi/2026-10-09-ORCA-Grafana-MLflow-Claude-작업명세|ORCA 개발 사용량·성과 Grafana/MLflow — Claude 작업 명세 v2]] — 구현 지시용 문서, 구현·배포 완료 기록 아님.
 - [[Work/Gullinkambi/작업기록/2026-10-03-AI-subscription-exporter-README|AI subscription exporter README]] — 사용량 수집 모듈 명세.
 
+## 작업 관리
+
+- [[Work/Gullinkambi/Gullinkambi 작업 백로그|Gullinkambi 작업 백로그]] — 상태·우선순위·카테고리별 작업 ID (1xx 수집기, 2xx 대시보드, 3xx 알림, 4xx 네트워킹, 5xx 분석진단, 6xx MLflow)
+
 ## 관련 공통 기술 문서 (Dev)
 
 - [[Dev/LLM-토큰-사용량-및-관측성-파이프라인-설계|LLM 토큰 사용량 및 에러 관측성 파이프라인 설계]]
