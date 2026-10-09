@@ -7,13 +7,14 @@ type: document-index
 
 # RobinGraph 검토자료
 
-화면·데이터·모델 적합성·성능·학습 설계의 검토 문서6개를 모은다.
+화면·데이터·모델 적합성·성능·학습 설계의 검토 문서7개를 모은다.
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
 - [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]
 
 ## 문서 목록
 
+- [[Work/RobinGraph/검토자료/2026-10-09-DB-저장소-분담-논의|2026-10-09 — DB 저장소 분담 논의 (문헌 Chunk 검색을 PostgreSQL로 옮길지)]]
 - [[Work/RobinGraph/검토자료/Strands-Decider-한국어-의도분류-데이터셋-설계|Strands Decider — 한국어 의도 분류 데이터셋 설계]]
 - [[Work/RobinGraph/검토자료/Strands-Decider-2B-의도분류와-Mac-학습-검토|Strands Decider 2B — 의도 분류와 Mac 학습 검토]]
 - [[Work/RobinGraph/검토자료/2026-10-08-RG013-채팅플로우-지연점검|2026-10-08 — RG013 채팅 플로우 지연 점검]]
