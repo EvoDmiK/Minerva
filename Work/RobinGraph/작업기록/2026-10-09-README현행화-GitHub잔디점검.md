@@ -91,3 +91,10 @@ NAS TEST·PROD의 컨테이너·DB·환경 파일은 변경하지 않았다. 이
 
 
 저장소 기록: [README 현행화·GitHub 기여도 점검](https://github.com/EvoDmiK/RobinGraph/blob/main/docs/verification/2026-10-09-readme-github-contributions.md)
+
+
+## 최종 Git 반영 확인
+
+README 커밋 `08fb621838fe757b60d3790a409723e692173b51`과 상세 기록 커밋 `c904e6f24c56e1ea0c96f37624e8c6eb88ffb475`을 main·dev에 atomic push했다. 로컬·원격의 두 브랜치는 최종 `c904e6f`로 일치하고 두 작업트리는 깨끗하다. 최종 기록 커밋도 GitHub REST API에서 author·committer 모두 EvoDmiK로 확인했다.
+
+README 변경 커밋의 [main CI](https://github.com/EvoDmiK/RobinGraph/actions/runs/37879054736)와 [dev CI](https://github.com/EvoDmiK/RobinGraph/actions/runs/37879054611)는 completed/success로 확인했다. 이는 README 변경 커밋의 결과이며 후속 기록 커밋의 CI 결과로 대체하지 않는다. 과거 로컬 이메일 커밋 63개는 아직 수정하지 않았다. NAS 배포는 수행하지 않았다.
