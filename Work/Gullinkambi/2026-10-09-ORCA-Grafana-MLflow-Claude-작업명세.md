@@ -2,13 +2,15 @@
 title: Claude 작업 명세 — ORCA 개발 사용량·성과 Grafana/MLflow 추적
 created: 2026-10-09
 status: implementation-brief
+revision: 2
 project: Gullinkambi
 ---
 
-# Claude 작업 명세 — ORCA 개발 사용량·성과 Grafana/MLflow 추적
+# Claude 작업 명세 — ORCA 개발 사용량·성과 Grafana/MLflow 추적 (v2)
 
 > 이 문서는 Claude에게 전달할 구현 명세다. Dovie가 구현·배포하거나 ORCA 작업을 시작했다는 뜻이 아니다.
 > 먼저 현재 저장소·서비스를 확인하고, 아래 **1차 범위**만 구현한다. 운영 반영은 별도 승인 단계다.
+> **v2 전달본: 14절의 보강 계약이 이전 절의 애매한 문구보다 우선한다.**
 
 ## 1. 목표와 판단 기준
 
