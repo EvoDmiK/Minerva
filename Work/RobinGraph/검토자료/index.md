@@ -17,8 +17,8 @@ type: document-index
 - [[Work/RobinGraph/검토자료/2026-10-09-DB-저장소-분담-논의|2026-10-09 — DB 저장소 분담 논의 (문헌 Chunk 검색을 PostgreSQL로 옮길지)]]
 - [[Work/RobinGraph/검토자료/Strands-Decider-한국어-의도분류-데이터셋-설계|Strands Decider — 한국어 의도 분류 데이터셋 설계]]
 - [[Work/RobinGraph/검토자료/Strands-Decider-2B-의도분류와-Mac-학습-검토|Strands Decider 2B — 의도 분류와 Mac 학습 검토]]
-- [[Work/RobinGraph/검토자료/2026-10-08-RG013-채팅플로우-지연점검|2026-10-08 — RG013 채팅 플로우 지연 점검]]
-- [[Work/RobinGraph/검토자료/2026-10-07-RG013-Jev-의도분석-적합성검증|RG-013 Jev 의도분석 적합성 검증]]
+- [[Work/RobinGraph/검토자료/2026-10-08-RG013-채팅플로우-지연점검|2026-10-08 — RG301 채팅 플로우 지연 점검]]
+- [[Work/RobinGraph/검토자료/2026-10-07-RG013-Jev-의도분석-적합성검증|RG-301 Jev 의도분석 적합성 검증]]
 - [[Work/RobinGraph/검토자료/2026-10-06-전체아종-이름자료-출처감사|2026-10-06 — 전체아종 이름자료 출처감사]]
 - [[Work/RobinGraph/검토자료/2026-10-06-전체아종-Antigravity-화면검토|2026-10-06 — 전체아종 Antigravity 화면검토]]
 

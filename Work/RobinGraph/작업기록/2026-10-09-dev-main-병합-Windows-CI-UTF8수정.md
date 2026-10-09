@@ -70,6 +70,6 @@ CI7개 성공을 확인한 뒤 기존 main worktree에서 `git merge --ff-only o
 
 이번 작업에서 NAS 배포·DB/환경파일 변경은 수행하지 않았다. 알려진 NAS TEST 제품 소스는 직전 `3e639ce51d9c247a244a2451adcb2a2e9da60a67`이며 이번 추가 소스 변경은 테스트 인코딩3줄뿐이다. main 푸시의 Docker CI 빌드를 실제 NAS 배포로 기록하지 않는다. PROD 배포도 하지 않았다.
 
-Windows는 GitHub runner에서 실제 검증했으며 로컬 물리 Windows 장비는 사용하지 않았다. pinned 원본 자료 부재·선택 의존성/전용 DB가 필요한 조건부 검증의 건너뜀은 표에 그대로 남긴다. RG-015 최종 완료, 신규 대기 RG-014·RG-017, 최후순위 보류 RG-002·RG-010·RG-011·RG-012 상태는 유지한다.
+Windows는 GitHub runner에서 실제 검증했으며 로컬 물리 Windows 장비는 사용하지 않았다. pinned 원본 자료 부재·선택 의존성/전용 DB가 필요한 조건부 검증의 건너뜀은 표에 그대로 남긴다. RG-405 최종 완료, 신규 대기 RG-202·RG-406, 최후순위 보류 RG-102·RG-503·RG-504·RG-505 상태는 유지한다.
 
 최종 문서 커밋 `13b5361ff1a2b2cb943a478562f0b894200a11f1`까지 main/origin/main/dev/origin/dev 네 ref가 같고 두 worktree가 깨끗한 것을 확인했다. 제품 소스 보완 커밋969f332의 dev/main CI와 최종 기록 커밋13b5361의 dev/main CI는 각각7개 작업 모두 success다. 최종 [main CI37877970274](https://github.com/EvoDmiK/RobinGraph/actions/runs/37877970274), [dev CI37877946767](https://github.com/EvoDmiK/RobinGraph/actions/runs/37877946767)를 실제 조회했다. 상세·백로그·작업기록 index 저장 후 전체 읽기 일치, RG 상세17개 불변·목차 대상 누락0을 확인했다.

@@ -322,4 +322,4 @@ docker exec robingraph-api-test python scripts/verify_api_deployment.py \
 
 원문에 있는 ‘NAS 배포 대기’는 이 기록을 작성한 시점의 상태다. 이어진 [[Work/RobinGraph/작업기록/2026-09-30-NAS-Git이력분기-구형이미지-Gemini검색복구-525진단|NAS 복구·실제 배포 기록]]에서 TEST 이미지 재빌드와 내부·공용 도메인 검증이 완료되었다. 이 문서의 당시 결과를 실제 NAS 배포 완료로 소급해서 바꾸지 않는다.
 
-현재는 [[Work/RobinGraph/작업기록/2026-10-05-RG003-생태관계탐색-NAS배포|RG-003 생태 관계 탐색·NAS TEST 검증]]의 별도 TEST 릴리스가 최신 작업 기록이며, PROD 종 데이터 준비는 [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]의 RG-002로 남아 있다.
+현재는 [[Work/RobinGraph/작업기록/2026-10-05-RG003-생태관계탐색-NAS배포|RG-201 생태 관계 탐색·NAS TEST 검증]]의 별도 TEST 릴리스가 최신 작업 기록이며, PROD 종 데이터 준비는 [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]의 RG-102로 남아 있다.

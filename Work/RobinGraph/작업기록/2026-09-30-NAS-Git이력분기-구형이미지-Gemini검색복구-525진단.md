@@ -376,4 +376,4 @@ docker exec robingraph-api-test python -c \
 - TLS 요청이 NPM으로 향했는지 확인한 포트와 서버 이름.
 - 정상으로 확인한 경로 및 확인하지 못한 경로.
 
-현재 TEST 배포 기록은 [[Work/RobinGraph/작업기록/2026-10-05-RG003-생태관계탐색-NAS배포|RG-003 생태 관계 탐색·NAS TEST 검증]], 전체 구조는 [[Work/RobinGraph/RobinGraph 구현·데이터·검증 가이드|구현·데이터·검증 가이드]]에서 이어서 확인한다. 이 보완에서 NAS나 TLS를 새로 점검한 것은 아니다.
+현재 TEST 배포 기록은 [[Work/RobinGraph/작업기록/2026-10-05-RG003-생태관계탐색-NAS배포|RG-201 생태 관계 탐색·NAS TEST 검증]], 전체 구조는 [[Work/RobinGraph/RobinGraph 구현·데이터·검증 가이드|구현·데이터·검증 가이드]]에서 이어서 확인한다. 이 보완에서 NAS나 TLS를 새로 점검한 것은 아니다.
