@@ -165,6 +165,7 @@ tags:
   6. `swallow_order`: 가상 매수/매도 수동 주문 실행 (`execute_paper_trade` 연동).
   7. `swallow_trigger_pipeline`: n8n Swallow 웹훅 즉시 호출 및 비동기 실행.
 - **전역 설정 등록**: `~/.gemini/config/mcp_config.json`에 `swallow_trader` 추가 완료 및 로컬 stdio 통신 검증 완료.
+- **DB 스키마 Git 관리 (`schema.sql`)**: 모의투자 DDL(`paper_account`, `paper_positions`, `paper_trades`) 및 원자적 트랜잭션 함수(`execute_paper_trade`), KRX 제약조건을 `mcp/swallow-mcp/schema.sql`로 추출하여 Git에 버전 관리 등록 완료.
 
 ### 3.4 Hermes Agent 연동 및 Discord #주가-분석 채널 활성화
 - **Hermes MCP 연동**:
