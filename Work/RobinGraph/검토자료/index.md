@@ -7,6 +7,8 @@ type: document-index
 
 # RobinGraph 검토자료
 
+- [[Work/RobinGraph/검토자료/2026-10-09-보전등급-전수출처-교차검토|2026-10-09 — HKBWS 584종·미연결 305종 전수 대조와 IUCN 공식 변경표 7종 검증]]
+
 화면·데이터·모델 적합성·성능·학습 설계의 검토 문서를 모은다.
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
