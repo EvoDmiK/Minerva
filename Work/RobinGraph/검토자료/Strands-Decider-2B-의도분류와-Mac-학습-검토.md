@@ -52,4 +52,4 @@ tags:
 - [학습 엔트리](https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/src/strands_decider/train.py)
 - [MLX 추론 엔진](https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/src/strands_decider/mlx_engine.py)
 
-[[2026-10-07-RG013-Jev-의도분석-적합성검증]] 및 [[RobinGraph 작업 백로그]]와 관련된 조사다. 백로그 상태·구현·서버는 변경하지 않았다.
+[[Work/RobinGraph/검토자료/2026-10-07-RG013-Jev-의도분석-적합성검증]] 및 [[RobinGraph 작업 백로그]]와 관련된 조사다. 백로그 상태·구현·서버는 변경하지 않았다.

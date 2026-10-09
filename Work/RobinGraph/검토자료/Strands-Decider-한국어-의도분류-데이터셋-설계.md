@@ -83,4 +83,4 @@ validation은 모델·설정 선택, calibration은 temperature/확신 임계값
 - [학습·보정·평가 절차](https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/training/steps.md)
 - [데이터 및 teacher 파일 정합성](https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/data/README.md)
 
-관련: [[Strands-Decider-2B-의도분류와-Mac-학습-검토]] · [[RobinGraph 작업 백로그]]
+관련: [[Work/RobinGraph/검토자료/Strands-Decider-2B-의도분류와-Mac-학습-검토]] · [[RobinGraph 작업 백로그]]

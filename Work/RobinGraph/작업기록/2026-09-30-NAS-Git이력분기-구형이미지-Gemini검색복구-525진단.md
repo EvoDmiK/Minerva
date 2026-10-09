@@ -38,7 +38,7 @@ SSH로 확인한 결과, NAS의 Git 이력이 원격과 갈라져 **이전 코�
 > [!note] 이번 조치의 범위
 > 기존 구현을 최신 버전으로 배포한 작업이다. 이번 장애 대응에서 새 애플리케이션 코드를 작성하거나 DB에 문헌을 다시 적재하지 않았다. TEST API를 재생성했고 PROD API 재배포는 수행하지 않았다.
 
-이전 기록: [[2026-09-30-한국어검색-Gemini-PostgreSQL-연결수정-NAS배포준비]]
+이전 기록: [[Work/RobinGraph/작업기록/2026-09-30-한국어검색-Gemini-PostgreSQL-연결수정-NAS배포준비]]
 
 ## 1. 관찰한 증상과 원인 분리
 
@@ -345,8 +345,8 @@ docker exec robingraph-api-test python -c \
 
 ## 관련 기록
 
-- [[2026-09-30-한국어검색-Gemini-PostgreSQL-연결수정-NAS배포준비]]
-- [[2026-09-29-CI-수정-Gemini-연동-PMC-문헌파일럿]]
+- [[Work/RobinGraph/작업기록/2026-09-30-한국어검색-Gemini-PostgreSQL-연결수정-NAS배포준비]]
+- [[Work/RobinGraph/작업기록/2026-09-29-CI-수정-Gemini-연동-PMC-문헌파일럿]]
 - [[Work/index|Work — 토이 프로젝트]]
 - [배포에 사용한 커밋 f3b77e5](https://github.com/EvoDmiK/RobinGraph/commit/f3b77e5)
 
@@ -376,4 +376,4 @@ docker exec robingraph-api-test python -c \
 - TLS 요청이 NPM으로 향했는지 확인한 포트와 서버 이름.
 - 정상으로 확인한 경로 및 확인하지 못한 경로.
 
-현재 TEST 배포 기록은 [[2026-10-05-RG003-생태관계탐색-NAS배포|RG-003 생태 관계 탐색·NAS TEST 검증]], 전체 구조는 [[Work/RobinGraph/RobinGraph 구현·데이터·검증 가이드|구현·데이터·검증 가이드]]에서 이어서 확인한다. 이 보완에서 NAS나 TLS를 새로 점검한 것은 아니다.
+현재 TEST 배포 기록은 [[Work/RobinGraph/작업기록/2026-10-05-RG003-생태관계탐색-NAS배포|RG-003 생태 관계 탐색·NAS TEST 검증]], 전체 구조는 [[Work/RobinGraph/RobinGraph 구현·데이터·검증 가이드|구현·데이터·검증 가이드]]에서 이어서 확인한다. 이 보완에서 NAS나 TLS를 새로 점검한 것은 아니다.
