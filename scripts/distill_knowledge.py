@@ -93,10 +93,27 @@ def extract_distill_candidates(file_path: Path):
         "code_languages": list(set(lang for lang, _ in code_blocks if lang)),
     }
 
+def get_category_folder(domains: list):
+    """도메인 매칭 결과에 따라 적절한 Dev 하위 폴더 반환"""
+    if not domains:
+        return "인프라"
+    d = domains[0]
+    if "인프라" in d or "네트워크" in d:
+        return "인프라"
+    elif "워크플로우" in d or "n8n" in d:
+        return "자동화"
+    elif "관측성" in d or "LLM" in d:
+        return "관측성"
+    elif "데이터" in d or "그래프" in d:
+        return "데이터"
+    return "인프라"
+
 def generate_dev_draft(candidate: dict, output_dir: Path = None):
     """Dev/ 상록수 노트 초안 생성"""
+    cat_folder = get_category_folder(candidate.get("domains", []))
     if output_dir is None:
-        output_dir = VAULT_ROOT / "Dev"
+        output_dir = VAULT_ROOT / "Dev" / cat_folder
+    output_dir.mkdir(parents=True, exist_ok=True)
         
     safe_slug = re.sub(r"^\d{4}-\d{2}-\d{2}-", "", candidate["file"].stem)
     draft_name = f"초안-{safe_slug}.md"
@@ -108,6 +125,7 @@ def generate_dev_draft(candidate: dict, output_dir: Path = None):
 created: {datetime.date.today().isoformat()}
 updated: {datetime.date.today().isoformat()}
 type: reference
+category: {cat_folder}
 status: draft
 source_project: {candidate["project"]}
 source_work_log: "[[{candidate["file"]}]]"

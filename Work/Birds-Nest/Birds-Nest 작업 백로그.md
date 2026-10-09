@@ -75,7 +75,7 @@ tags:
 | **BN-201** | Jev AI 기반 carrier pigeon 개편과 n8n 테스트베드 구축 | 2xx 워크플로우 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축\|기록]] |
 | **BN-202** | Carrier Pigeon Gmail 바로가기 404 오류 수정 및 NAS n8n 배포 | 2xx 워크플로우 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포\|기록]] |
 | **BN-203** | Codex 사용량 리셋 모니터링 (Kestrel) 워크플로우 구축 | 2xx 워크플로우 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축\|기록]] |
-| **BN-204** | n8n 전역 에러 핸들러 및 Discord 알림 표준 카드 적용 | 2xx 워크플로우 | ⏳ 착수 대기 | 높음 | [[Dev/n8n-워크플로우-신뢰성-및-에러-복구-패턴\|패턴 가이드]] |
+| **BN-204** | n8n 전역 에러 핸들러 및 Discord 알림 표준 카드 적용 | 2xx 워크플로우 | ⏳ 착수 대기 | 높음 | [[Dev/자동화/n8n-워크플로우-신뢰성-및-에러-복구-패턴\|패턴 가이드]] |
 | **BN-301** | Hermes 모델 fallback 설정과 CLI 복구 | 3xx 에이전트 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-06-Hermes-모델-fallback-설정과-CLI-복구\|기록]] |
 | **BN-302** | Dovie 음성 및 양방향 인터페이스 확장 검토 | 3xx 에이전트 | ⏸️ 보류 | 낮음 | — |
 | **BN-401** | Kestrel MCP 도구화와 Hermes 연결 | 4xx MCP | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-05-Kestrel-MCP-도구화와-Hermes-연결\|기록]] |
@@ -97,7 +97,7 @@ tags:
 - **범위**: 
   - 공통 `[System] Global Error Handler` 워크플로우 작성
   - 주요 워크플로우(Carrier Pigeon, Magpie, Kestrel)의 Error Workflow 설정 연결
-  - [[Dev/n8n-워크플로우-신뢰성-및-에러-복구-패턴]] 가이드 준수
+  - [[Dev/자동화/n8n-워크플로우-신뢰성-및-에러-복구-패턴]] 가이드 준수
 - **완료 기준**: 의도적 오류 주입 시 Discord 알림 채널에 executionId 링크가 포함된 카드가 10초 내 도착.
 
 ### BN-504 — Woodpecker n8n 기반 지식 증류 자동 추천 웹훅 구축

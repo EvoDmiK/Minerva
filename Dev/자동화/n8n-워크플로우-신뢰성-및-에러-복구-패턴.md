@@ -2,6 +2,8 @@
 created: 2026-10-09
 updated: 2026-10-09
 type: reference
+id: DEV-201
+category: 워크플로우·자동화
 tags:
   - dev
   - n8n

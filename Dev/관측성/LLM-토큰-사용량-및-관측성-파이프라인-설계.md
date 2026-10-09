@@ -2,6 +2,8 @@
 created: 2026-10-09
 updated: 2026-10-09
 type: reference
+id: DEV-301
+category: AI·관측성
 tags:
   - dev
   - llm

@@ -146,6 +146,6 @@ Mac mini
 - [[Work/Gullinkambi/작업기록/2026-10-02-NPM-모니터링-수집기와-Cloudflare-Origin-인증서|NPM 모니터링 수집기와 Cloudflare Origin 인증서]]
 - [[Work/Gullinkambi/작업기록/2026-10-01-ORCA-Antigravity-사용량-집계와-Hermes-인증-복구|ORCA Antigravity 사용량 집계와 Hermes 인증 복구]]
 - [[Work/RobinGraph/작업기록/2026-10-02-임베딩-API-내부망-직접-호출|임베딩 API 내부망 직접 호출]]
-- [[Dev/2026-10-02-홈랩-인증서·Cloudflare·접속-경로-비교-정리|홈랩 인증서·Cloudflare·접속 경로 비교 정리]]
+- [[Dev/인프라/2026-10-02-홈랩-인증서·Cloudflare·접속-경로-비교-정리|홈랩 인증서·Cloudflare·접속 경로 비교 정리]]
 - [[Work/Gullinkambi/index|Gullinkambi 프로젝트 노트]]
 - [[Home]]

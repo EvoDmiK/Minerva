@@ -2,6 +2,8 @@
 created: 2026-10-02
 date: 2026-10-02
 type: reference
+id: DEV-101
+category: 인프라·네트워크
 tags:
   - dev
   - homelab

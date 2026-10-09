@@ -86,7 +86,7 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 모델 사
 | **GK-106** | ORCA 개발 세션 토큰·성과 수집기 (1차 필수 구현) | 1xx 수집기 | ⏳ 착수 대기 | 높음 | [[Work/Gullinkambi/2026-10-09-ORCA-Grafana-MLflow-Claude-작업명세\|명세서 v2]] |
 | **GK-201** | Claude·Antigravity 초기화 패널 5시간·주간 통합 | 2xx 대시보드 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-05-Claude-Antigravity-초기화-패널-5시간·주간-통합\|기록]] |
 | **GK-202** | OpenViking 탭 개선과 Hermes Grafana MCP 연결 | 2xx 대시보드 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-06-OpenViking-탭-개선과-Hermes-Grafana-MCP-연결\|기록]] |
-| **GK-203** | Aviary Control Room 대시보드에 ORCA 쓰레드별 패널 추가 | 2xx 대시보드 | ⏳ 착수 대기 | 보통 | [[Dev/LLM-토큰-사용량-및-관측성-파이프라인-설계\|패턴 가이드]] |
+| **GK-203** | Aviary Control Room 대시보드에 ORCA 쓰레드별 패널 추가 | 2xx 대시보드 | ⏳ 착수 대기 | 보통 | [[Dev/관측성/LLM-토큰-사용량-및-관측성-파이프라인-설계\|패턴 가이드]] |
 | **GK-301** | Grafana 알람과 Discord 연결 | 3xx 알림 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-01-Grafana-알람과-Discord-연결\|기록]] |
 | **GK-302** | Grafana Discord 알림 단일 카드 개선 | 3xx 알림 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-02-Grafana-Discord-알림-단일-카드-개선\|기록]] |
 | **GK-303** | GitHub 커밋 작성자 이상 및 잔디 누락 감시 알림 구축 | 3xx 알림 | ⏳ 착수 대기 | 높음 | — |
