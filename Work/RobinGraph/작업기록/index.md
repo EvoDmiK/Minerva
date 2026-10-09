@@ -7,13 +7,14 @@ type: document-index
 
 # RobinGraph 작업기록
 
-구현·수정·검증·NAS 배포를 수행한 기록42개를 최신 날짜순으로 찾는다.
+구현·수정·검증·NAS 배포를 수행한 기록43개를 최신 날짜순으로 찾는다.
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
 - [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]
 
 ## 문서 목록
 
+- [[Work/RobinGraph/작업기록/2026-10-09-Obsidian-작업기록-검토자료-폴더정리|2026-10-09 — Obsidian 작업기록·검토자료 폴더 정리]]
 - [[Work/RobinGraph/작업기록/2026-10-09-RG015-양면높이통일|2026-10-09 — RG-015 카드 앞·뒷면 높이 통일 NAS TEST 배포]]
 - [[Work/RobinGraph/작업기록/2026-10-09-RG015-앞면하단안내제거|2026-10-09 — RG-015 앞면 하단 안내·구분선 제거 NAS TEST 배포]]
 - [[Work/RobinGraph/작업기록/2026-10-09-RG015-모바일화면맞춤-체중kg표시|2026-10-09 — RG-015 모바일 화면 맞춤·체중 kg 표시 NAS TEST 배포]]
