@@ -40,6 +40,7 @@ tags:
 - [[#지속적 백로그 운영 규칙|지속적 백로그 운영 규칙]]
 - [[#새 작업 추가 템플릿|새 작업 추가 템플릿]]
 - [[#백로그 변경 이력|백로그 변경 이력]]
+  - [[#2026-10-09 RG-015 카드 앞·뒷면 높이 통일|2026-10-09 RG-015 카드 앞·뒷면 높이 통일]]
   - [[#2026-10-09 RG-015 앞면 하단 안내·구분선 제거|2026-10-09 RG-015 앞면 하단 안내·구분선 제거]]
   - [[#2026-10-09 RG-015 도넛 차트·플로팅 툴팁·NAS TEST 배포|2026-10-09 RG-015 도넛 차트·플로팅 툴팁·NAS TEST 배포]]
   - [[#2026-10-08 RG-015 카드 버튼 제거·답변 출처 통합·먹이 비율·영어 이름|2026-10-08 RG-015 카드 버튼 제거·답변 출처 통합·먹이 비율·영어 이름]]
@@ -63,13 +64,13 @@ tags:
 
 2026-10-09 기준: **진행 중 0건 · 신규 착수 대기 2건 · 최후순위 보류 4건 · 완료 RG 작업 11건과 카드 효과 1건**. RG-015 도넛 차트 후속 구현·검증·NAS TEST 배포를 완료했다. 남은 신규 권장 순서는 RG-014 → RG-017이며, 실제 착수는 별도 사용자 지시를 따른다. 각 작업 ID를 누르면 상세 기록으로 이동한다.
 
-RG-015 앞면 하단의 고정 안내 문구·드래그 안내·구분선을 제거해 NAS TEST에서 검증했다. 도넛·드래그·키보드·단일 답변 출처는 유지하며 대체 내용 추천은 상세 기록을 따른다. [[Work/RobinGraph/2026-10-09-RG015-앞면하단안내제거|상세 구현·검증·배포 기록]]
+RG-015 앞·뒷면을 긴 쪽의 높이에 맞춰 NAS TEST에서 검증했다. 안내 문구·구분선 제거는 유지하며 양면 전환·상세 펼침·resize·사진 슬롯 갱신에 같은 높이를 공유한다. [[Work/RobinGraph/2026-10-09-RG015-양면높이통일|상세 원인·구현·검증·배포 기록]]
 
 | 작업 | 상태 | 우선순위 | 현재 요약 |
 |---|---|---|---|
 | [[#RG-013 — Jev System One API를 이용한 질문 의도 분석\|RG-013]] | 완료 | — | Jev·첫 설명·국명 우선 TOP3·점수 기준 UI · 완료 이력은 상세 참조 |
 | [[#RG-016 — MLflow에서 답변 결과와 미응답 사유 구분\|RG-016]] | 완료 | — | MLflow 결과·미응답 사유 태그 및 필터 · NAS TEST 75377ca |
-| [[#RG-015 — 마우스 드래그로 조류 카드 뒤집기\|RG-015]] | 완료 | — | 앞면 하단 안내·구분선 제거 NAS TEST 128da7f 검증 완료 |
+| [[#RG-015 — 마우스 드래그로 조류 카드 뒤집기\|RG-015]] | 완료 | — | 앞·뒷면 높이 통일 NAS TEST f63cbc0 검증 완료 |
 | [[#RG-014 — HippoRAG 스타일의 근거 검색 및 그래프 연관 검색 도입\|RG-014]] | 착수 대기 | 4 | HippoRAG 스타일 검색·기준선 비교 |
 | [[#RG-017 — 한국 서식 여부 토글과 범위별 이름 우선 정책\|RG-017]] | 후속 계획 | 5 | 한국 서식 여부 토글·국명/영어 우선 정책 |
 | [[#RG-002 — PROD 활성 종 데이터 준비\|RG-002]] | 보류 | 최후순위 | PROD 활성 종 데이터 준비 대기 |
@@ -314,6 +315,8 @@ RG-013·RG-016·RG-015는 완료 상세로 이동했다. 현재 신규 대기는
 - **PC 전체 표면 드래그 후속·TEST 배포 완료 (2026-10-08)**: 글씨 선택 차단 뒤에도 마우스가 빈 layout에서만 시작되던 제한을 실제 NAS 앞/뒷면에서 재현했다. PC는 제목·본문·중첩 글씨·사진·SVG/canvas·빈 표면에서 시작하도록 확대하고 pending mouse의 native dragstart를 막았다. 버튼/링크/summary/편집/명시적 draggable과 조상 예외, touch 사진 제외·스크롤/확대, 글씨 선택 금지를 유지했다. 협업 pc_card_drag_fix 구현·card_selection_review 독립 diff 승인·root 실제검증/배포. 모의 frontend205 통과/0실패/0건너뜀, 배포 전후 PC3설정 각11회 드래그·터치4설정·모바일조작 통과. PC의 외부 사진 파일은 로딩된 SVG fixture로 대체했으며 실제 사진 전송 성공으로 기록하지 않는다. 실제서버 scroll0→20/50/89/50·pinch1→약1.50·pageerror0. 도구 teardown timeout은 상세 문서에 구분했다. 구현719e5bc push, NAS TEST robingraph-api:test-rg015pcdrag-719e5bc deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari 미검증. [[Work/RobinGraph/2026-10-08-RG015-PC전체표면드래그-NAS-TEST배포|상세 원인·협업·검증·배포 기록]].
 - **드래그 후 팝업 닫힘 방지 후속 (2026-10-08)**: 실제 TEST719e5bc에서 dialog테두리/padding 시작→밖해제2건이 backdrop click으로 닫힘을 재현했다(캡처된 제목/h3 4건은 유지). dialog capture에서 실제 backdrop의 primary 왼쪽 pointerdown/up와 같은ID click만 닫도록 제한하고 cancel/close/reopen 상태를 정리했다. 협업 pc_drag_popup_fix 구현/모의검사·card_selection_review 독립diff검토·root 실제재현/브라우저/패키지/배포/문서/Git. frontend210 통과/0실패/0건너뜀, 로컬 자산5설정(PC1280/1440일반·1280reduced,390touch일반/reduced)에서 내부→밖해제30건 유지·밖→안쪽 유지·보통거리본문회전·새정상backdrop/X/Escape/재열기 통과. 극단적인 가장자리 해제는 닫힘유지만 합격조건이며 전환결과는 그대로 기록한다. 물리기기·Safari 미검증. 최초 SSH거부 뒤 사용자 SSH재개로 동일소스b58be10을 TEST robingraph-api:test-rg015dragclose-b58be10에 배포했다. deploy/verify·healthy·OCI revision·공개JS/CSS일치 및 실제서버5설정30건유지/정상닫기 검증통과, pageerror0. 구현push완료·PROD변경없음. [[Work/RobinGraph/2026-10-08-RG015-드래그해제-팝업닫힘수정|상세 원인·검증·배포 기록]].
 - **뒷면 압축·출처 통합 후속 (2026-10-08)**: 뒷면 스크롤바 표시를 숨기고 기본 형질을 컴팩트하게 배치했다. 사진·형질·먹이·IUCN·분류·해석 안내 출처를 단일 토글에 모으고 라이선스·원자료 상충·추정·아종 scope·사진 비동기 슬롯을 보존했다. pc_drag_popup_fix 구현·card_selection_review 독립 검토·root 실제 검증/배포/문서/Git. frontend213통과/0실패/0건너뜀. 로컬 자산 및 실제 서버 각각 화면4설정·드래그닫힘5설정30건 통과, pageerror0. 390×844 기본 높이1525→808px, 320×640는 스크롤 유지. 구현cb18d1f push 및 NAS TEST robingraph-api:test-rg015compactback-cb18d1f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-08-RG015-뒷면압축-출처통합-NAS-TEST배포|상세 구현·검증·배포 기록]]
+- **앞·뒷면 높이 통일 (2026-10-09)**: 앞면 안내 제거 뒤 활성 면만 display:none 전환으로 높이를 결정해 앞/뒷면 길이가 달라지는 원인을 수정했다. 두 면을 공통grid 같은 셀에 놓고 긴 쪽 높이를 공유하며 비활성 면은 hidden·visibility·inert·aria-hidden으로 입력/포커스/접근성에서 제외한다. 카드max-height·스크롤·사진/툴팁 숨김·드래그·유광·출처를 보존했다. root 구현/실제검증/배포·card_selection_review 독립검토 승인. 최종frontend231통과/0실패/0skip(초기직계DOM검증헬퍼2건 정정), 로컬자산/실제배포자산 각4설정에서 기본·측정값펼침·resize·긴사진안내 UI모의갱신·복원 시 양면 실측높이/위치와프레임 일치·숨긴면포커스차단·본문드래그 통과. 서버도넛·출처 추가회귀2설정 통과. 구현f63cbc0 push, TEST robingraph-api:test-rg015height-f63cbc0 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-양면높이통일|상세 원인·구현·검증·배포 기록]]
+
 - **앞면 하단 안내·구분선 제거 (2026-10-09)**: 사용자 요청으로 앞면 고정 종평균/출처 문구와 PC·모바일 뒤집기 안내 footer·구분선을 제거했다. 실제 자료 경고·아종 직접/종 참고 안내·답변 출처의 종평균 해석·드래그·키보드·도넛 툴팁은 유지한다. 대체 내용은 ‘관찰 포인트’ 한 줄을 추천하며 새 콘텐츠는 아직 넣지 않았다. root 구현/실제검증/배포·card_selection_review 독립 읽기검토 승인. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB/자산 Chrome1280마우스·390touch 2설정 통과, footer/문구없음·출처해석·도넛·본문드래그·키보드·pageerror0 확인. 구현128da7f push, TEST robingraph-api:test-rg015footer-128da7f deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-앞면하단안내제거|상세 구현·검증·배포 기록]]
 
 - **도넛 차트·플로팅 툴팁 후속 (2026-10-09)**: 먹이 구성·먹이 활동 위치를 작은 도넛2개로 한 줄에 배치하고 각 실제 영역의 마우스 hover·터치 탭·키보드 포커스에 한국어 항목명/원비율 툴팁을 제공한다. 0%·미기록·100%·잘못된 값·미등록 항목·서로 다른 자료와 출처를 보존하고 차트 입력을 카드 드래그에서 분리했다. pc_drag_popup_fix 구현·card_selection_review 독립검토·root 실제검증/배포. 모의 frontend231통과/0실패/0skip, 실제NAS API/DB+로컬 자산4설정32영역 및 실제배포 자산4설정32영역 통과, 모의API geometry3건은 로컬/배포자산에서 각각 통과했다. 초기 검증기 선택자/경계좌표 실패는 최종 성공과 구분해 상세 기록했다. 최초 SSH거부 후 사용자 개방으로 고정소스a8aa6c1을 TEST robingraph-api:test-rg015donut-a8aa6c1에 배포했고 deploy/verify·healthy·OCI revision·공개JS/CSS일치를 확인했다. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-도넛차트-플로팅툴팁|상세 구현·검증·배포 기록]]
@@ -569,6 +572,10 @@ RG-001은 2026-10-02 구현·NAS TEST 배포·실제 추적 검증 기록에 따
 ```
 
 ## 백로그 변경 이력
+
+### 2026-10-09 RG-015 카드 앞·뒷면 높이 통일
+
+앞면 안내 제거 뒤 활성 면만 display:none 전환으로 높이를 결정해 앞/뒷면 길이가 달라지는 원인을 수정했다. 두 면을 공통grid 같은 셀에 놓고 긴 쪽 높이를 공유하며 비활성 면은 hidden·visibility·inert·aria-hidden으로 입력/포커스/접근성에서 제외한다. 카드max-height·스크롤·사진/툴팁 숨김·드래그·유광·출처를 보존했다. root 구현/실제검증/배포·card_selection_review 독립검토 승인. 최종frontend231통과/0실패/0skip(초기직계DOM검증헬퍼2건 정정), 로컬자산/실제배포자산 각4설정에서 기본·측정값펼침·resize·긴사진안내 UI모의갱신·복원 시 양면 실측높이/위치와프레임 일치·숨긴면포커스차단·본문드래그 통과. 서버도넛·출처 추가회귀2설정 통과. 구현f63cbc0 push, TEST robingraph-api:test-rg015height-f63cbc0 deploy/verify·healthy·OCI revision·공개JS/CSS일치 확인. 물리기기·Safari·전체DB회귀 미검증. [[Work/RobinGraph/2026-10-09-RG015-양면높이통일|상세 원인·구현·검증·배포 기록]] 기존 완료 이력과 신규 대기2건·최후순위 보류4건은 유지한다.
 
 ### 2026-10-09 RG-015 앞면 하단 안내·구분선 제거
 
