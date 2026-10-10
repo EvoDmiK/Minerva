@@ -59,7 +59,8 @@ NAS PostgreSQL `data` 데이터베이스에 3개 핵심 테이블 구축 완료:
 
 ## 4. Grafana 대시보드 프로비저닝
 
-- **데이터소스 등록**: [`docker-data/monitoring/grafana/provisioning/datasources/datasources.yml`](file:///Volumes/Dove-Nest-SSD/projects/Birds-Nest/docker-data/monitoring/grafana/provisioning/datasources/datasources.yml)에 `Swallow-PostgreSQL` (`postgres-n8n:5432`, `data` DB) 추가.
+- **실제 접속 URL**: [Swallow 관심종목 모니터링 & 피어 뉴스 대시보드](https://monitoring.dove-nest.com/d/swallow-stock-monitor)
+- **데이터소스 등록**: Grafana의 기존 PostgreSQL 데이터소스(`데이터 DB`, uid: `efrgyfz5k7ldsb`, database: `data`)에 바인딩 완료.
 - **대시보드 정의**: [`docker-data/monitoring/grafana/dashboards/swallow_stock_monitoring.json`](file:///Volumes/Dove-Nest-SSD/projects/Birds-Nest/docker-data/monitoring/grafana/dashboards/swallow_stock_monitoring.json)
   - `$ticker` 드롭다운 변수 (활성 관심종목 목록 자동 쿼리)
   - 시계열 주가 차트 (토스/네이버 라인 비교)
