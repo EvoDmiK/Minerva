@@ -1,6 +1,6 @@
 ---
 created: 2026-10-07
-updated: 2026-10-09
+updated: 2026-10-10
 project: RobinGraph
 type: project-index
 tags:
@@ -8,6 +8,8 @@ tags:
 ---
 
 # RobinGraph
+
+- [[Work/RobinGraph/작업기록/2026-10-10-카드뒷면-토글배율유지-PC모바일|2026-10-10 — 카드 뒷면 토글 확대 방지·PC/모바일 18사례·NAS TEST 배포]]
 
 - [[Work/RobinGraph/작업기록/2026-10-09-운영승인-PG이관-동일이미지-배포|2026-10-09 — 운영 승인·PG 이관·동일 이미지 배포·전종/PC/모바일 검증]]
 
