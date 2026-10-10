@@ -129,5 +129,33 @@ NAS PostgreSQL `data` 데이터베이스에 구축된 핵심 스키마:
 
 ## 8. 관련 링크
 
+## 8. 모의투자 손실률 & 뉴스 영향도 분석 (News Impact Tracker)
+
+- **배경 및 목적**:
+  - 모의투자 시 단순 계좌 잔고뿐 아니라 누적 손실률(`%`), 보유 종목별 손익률(`%`), 실현 손익률을 정밀하게 가시화.
+  - "어떤 뉴스를 보고 매매 판단을 내렸을 때 주가가 어떻게 변했는가?"에 대한 인과 관계(Causality)를 추적.
+- **주요 구현 내용**:
+  1. **DB 스키마 및 저장 프로시저 확장**:
+     - `paper_positions`에 `entry_news_title`, `entry_news_url` 추가.
+     - `paper_trades`에 `news_title`, `news_url`, `pnl_rate`, `realized_pnl` 추가.
+     - `execute_paper_trade` 저장 프로시저를 개선하여 익절(+5%), 손절(-3%), 일반 매도 시에도 진입을 유발했던 뉴스 정보와 최종 확정 손익률(`pnl_rate`)을 누락 없이 보존.
+  2. **n8n 파이프라인 연계**:
+     - `paper-trade-execute-swallow` 노드에서 뉴스 제목(`$json.title`)과 원문 링크(`$json.link`)를 프로시저 파라미터로 자동 전달.
+  3. **MCP Tool 12 (`swallow_news_impact`) 추가 및 기존 툴 고도화**:
+     - `swallow_get_portfolio`: 포트폴리오 누적 수익/손실률(`%`) 및 보유 종목의 진입 뉴스 링크 표기.
+     - `swallow_get_trades`: 체결 건별 실현 손익률(`%`) 및 원인 뉴스 칼럼 추가.
+     - `swallow_news_impact`: 뉴스 발행 당시 주가 vs 현재 주가 비교, 주가 변동률(`%`), AI 적중 여부(적중/미적중/보합), 모의투자 매수/익절/손절 체결 결과 및 손익률을 포괄적으로 분석하는 신규 도구 등록.
+  4. **Grafana 대시보드 4종 신규 패널 구축**:
+     - `Row 4: 💼 모의투자 성과 & 뉴스 영향도 분석 (Paper Portfolio & News Impact)`
+     - `Stat Panel (ID 201)`: 💼 모의투자 총자산 & 누적 손익률
+     - `Stat Panel (ID 202)`: 💵 예수금 & 누적 실현손익
+     - `Table Panel (ID 203)`: 📋 모의투자 보유 종목 및 손익률 (원인 뉴스 포함)
+     - `Table Panel (ID 204)`: 🎯 뉴스 이벤트 반응 & 주가 변동 추적 (News Impact Tracker)
+     - `scripts/verify-swallow-queries.js` 검증 통과 (17/17 패널 성공).
+
+---
+
+
+
 - [[Work/Birds-Nest/index|Birds-Nest 인덱스]]
 - [[Work/Birds-Nest/작업기록/2026-10-09-Stock-Swallow-워크플로우-고도화-단일-체인-개편-및-NAS-n8n-배포|2026-10-09 — [Stock] Swallow 워크플로우 고도화 (단일 체인 개편 및 NAS n8n 배포)]]
