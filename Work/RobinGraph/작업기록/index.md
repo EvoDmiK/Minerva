@@ -140,3 +140,5 @@ type: document-index
 - [[Work/RobinGraph/작업기록/2026-10-10-비교하단-kg-출처카드-TEST전용|비교 하단 정리·kg 단위 통일·출처 카드 — TEST 전용]]
 
 - [[Work/RobinGraph/작업기록/2026-10-10-더알아보기-버튼크기통일-TEST전용|더 알아보기 네 버튼 크기·글꼴·여백 통일 — PC·모바일 TEST 전용]]
+
+- [[Work/RobinGraph/작업기록/2026-10-10-근연관계-버튼화살표제거-TEST전용|근연 관계 버튼 화살표 제거 — PC·모바일 TEST 전용]]
