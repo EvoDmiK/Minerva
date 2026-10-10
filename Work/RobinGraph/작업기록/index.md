@@ -144,3 +144,5 @@ type: document-index
 - [[Work/RobinGraph/작업기록/2026-10-10-근연관계-버튼화살표제거-TEST전용|근연 관계 버튼 화살표 제거 — PC·모바일 TEST 전용]]
 
 - [[Work/RobinGraph/작업기록/2026-10-10-사용자승인-비교탐색UI-운영배포|사용자 승인·동일 이미지 운영 승격 — 비교·출처·탐색 버튼·화살표 검증]]
+
+- [[Work/RobinGraph/작업기록/2026-10-10-dev-codex-main-UI병합|dev-codex → main 답변·비교·탐색 UI 병합 — 303개 회귀 통과·원격 반영]]
