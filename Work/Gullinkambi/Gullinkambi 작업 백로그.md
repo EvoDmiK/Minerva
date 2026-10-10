@@ -131,7 +131,7 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 모델 사
 
 ## 완료 작업 상세 (검증 이력 보존)
 
-* **GK-107 · GK-204 (2026-10-10)**: Hermes 세션 샘플·도구 이벤트 수집과 Hermes 탭 전면 개편. MCP 도구 오류는 Hermes 로그에서 읽어 반영. 남은 일: DB 통합 테스트. [[Work/Gullinkambi/작업기록/2026-10-10-Hermes-모니터링-전면-개편|상세 기록]].
+* **GK-107 · GK-204 (2026-10-10)**: Hermes 세션 샘플·도구 이벤트 수집과 Hermes 탭 전면 개편. MCP 도구 오류는 Hermes 로그에서 읽어 반영, DB 통합 테스트 추가. [[Work/Gullinkambi/작업기록/2026-10-10-Hermes-모니터링-전면-개편|상세 기록]].
 * **GK-701 · GK-205 (2026-10-10)**: NAS Loki/Alloy와 Mac mini Alloy로 로그 중앙 수집, Grafana 로그 탭. Hermes 파일 로그 수신과 리소스 점검 완료. 남은 일: Loki 디스크 증가 속도 재점검(며칠 후). [[Work/Gullinkambi/작업기록/2026-10-10-Loki-중앙-로그-수집-도입|상세 기록]].
 * **GK-106 · GK-203 (2026-10-10)**: ORCA 호출별 관측 구현·운영 반영(수집→n8n→TimescaleDB→Grafana 패널, 도구 호출 집계). 남은 일: Antigravity 도구 호출. [[Work/Gullinkambi/작업기록/2026-10-10-ORCA-호출별-관측-구현과-운영-반영|상세 기록]].
 * **GK-601 부분 완료 (2026-10-10)**: MLflow Run 자동 생성 확인. 남은 일: 공개 라우트 인증 보호, DB 비밀번호 로테이션. [[Work/Gullinkambi/작업기록/2026-10-10-ORCA-호출별-관측-구현과-운영-반영|상세 기록]].
