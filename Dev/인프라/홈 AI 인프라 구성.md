@@ -100,6 +100,7 @@ Mac mini 2대와 UGREEN NAS 1대를 활용하여 개인 AI 개발 및 서비스 
 - AI 모델 학습
 - 임베딩 생성
 - 데이터 전처리
+- Exporter — 설치됨(종류 확인 필요)
 
 **스토리지 역할**
 
@@ -182,6 +183,8 @@ Milvus는 자원 요구량을 확인한 후 별도 배치 여부를 결정한다
 
 - n8n
 - PostgreSQL
+- Grafana — 설치됨
+- Exporter — 설치됨(종류 확인 필요)
 - Portainer
 - Obsidian
 - Tailscale Gateway
@@ -217,6 +220,7 @@ flowchart TB
         LLM["Local LLM"]
         AI["PyTorch / AI 학습"]
         Embedding["임베딩 생성"]
+        MacExporter["Exporter · 설치됨"]
     end
 
     subgraph Mac2["Mac mini #2 - M4 16GB"]
@@ -231,6 +235,8 @@ flowchart TB
         Portainer["Portainer"]
         Obsidian["Obsidian"]
         Storage["데이터 저장 / 백업"]
+        NASGrafana["Grafana · 설치됨"]
+        NASExporter["Exporter · 설치됨"]
     end
 
     Client --> Network
@@ -271,7 +277,9 @@ flowchart TB
 | Portainer | NAS | Docker 관리 | 사용 중 |
 | Obsidian | NAS | 지식 관리 | 사용 중 |
 | Tailscale | 전체 장비 | 사설 네트워크 | 운영 구성 |
-| Grafana | 미정 | 모니터링 | 확대 계획 |
+| Grafana | NAS | 모니터링 | 설치됨 / 통합 범위 확인 필요 |
+| Exporter (NAS) | NAS | 메트릭 노출 | 설치됨 / 종류 확인 필요 |
+| Exporter (Mac mini #1) | Mac mini #1 | 메트릭 노출 | 설치됨 / 종류 확인 필요 |
 | Loki | 미정 | 로그 수집 | 도입 계획 |
 
 ---
@@ -479,6 +487,8 @@ Mac mini 여러 대를 연결하더라도 통합 메모리와 GPU가 하나의 �
 
 ### 10.1 Grafana
 
+**현재 상태:** NAS에 설치됨(2026-10-10 사용자 확인). 대시보드와 통합 모니터링의 실제 적용 범위는 별도 확인한다.
+
 **모니터링 대상**
 
 - CPU 사용률
@@ -491,7 +501,7 @@ Mac mini 여러 대를 연결하더라도 통합 메모리와 GPU가 하나의 �
 
 ### 10.2 Prometheus
 
-주요 메트릭 수집 및 저장.
+주요 메트릭 수집 및 저장. 현재 설치 상태, 배치 및 exporter 수집 대상은 확인이 필요하다.
 
 ### 10.3 Loki
 
@@ -506,34 +516,45 @@ Mac mini 여러 대를 연결하더라도 통합 메모리와 GPU가 하나의 �
 - PostgreSQL
 - Hermes
 
-### 10.4 모니터링 아키텍처
+### 10.4 Exporter 설치 현황
+
+| 장비 | 상태 | 추가 확인 사항 |
+|---|---|---|
+| NAS | 설치됨 | exporter 종류, 수집 지표, endpoint |
+| Mac mini #1 | 설치됨 | exporter 종류, 수집 지표, endpoint |
+| Mac mini #2 | 설치 여부 미확인 | 설치 필요 여부 |
+
+설치 상태는 2026-10-10 사용자 설명을 반영했다. Exporter 설치만으로 모든 호스트 지표의 수집이나 Grafana 연동 완료를 의미하지는 않는다.
+
+기존 [[Work/Gullinkambi/작업기록/2026-10-03-AI-subscription-exporter-README|AI subscription exporter 문서]]에는 Mac mini의 AI 구독 사용량 exporter가 기록되어 있다. 이번에 언급한 exporter와 동일한지, 호스트 지표 exporter가 별도로 있는지는 확인이 필요하다.
+
+### 10.5 모니터링 아키텍처
+
+실선은 확인된 장비별 설치 배치를 나타내고, 점선은 확인 또는 도입이 필요한 수집·연동 경로를 나타낸다.
 
 ```mermaid
 flowchart TB
-    Mac1["Mac mini #1"]
-    Mac2["Mac mini #2"]
-    NAS["UGREEN NAS"]
+    subgraph Mac1["Mac mini #1"]
+        ExporterMac["Exporter · 설치됨"]
+    end
+    subgraph Mac2["Mac mini #2"]
+        ExporterMac2["메트릭 수집 · 설치 여부 미확인"]
+    end
+    subgraph NAS["UGREEN NAS"]
+        ExporterNAS["Exporter · 설치됨"]
+        Grafana["Grafana · 설치됨"]
+    end
 
-    Metrics["메트릭 수집"]
-    Logs["로그 수집"]
+    Prometheus["Prometheus · 현재 배치 확인 필요"]
+    Logs["로그 수집 · 도입 계획"]
+    Loki["Loki · 도입 계획"]
 
-    Prometheus["Prometheus"]
-    Loki["Loki"]
-    Grafana["Grafana"]
-
-    Mac1 --> Metrics
-    Mac2 --> Metrics
-    NAS --> Metrics
-
-    Mac1 --> Logs
-    Mac2 --> Logs
-    NAS --> Logs
-
-    Metrics --> Prometheus
-    Logs --> Loki
-
-    Prometheus --> Grafana
-    Loki --> Grafana
+    ExporterMac -.-> Prometheus
+    ExporterMac2 -.-> Prometheus
+    ExporterNAS -.-> Prometheus
+    Prometheus -.-> Grafana
+    Logs -.-> Loki
+    Loki -.-> Grafana
 ```
 
 ---
@@ -560,7 +581,11 @@ flowchart TB
 - [ ] Neo4j 서버 배치 확정
 - [ ] 벡터 DB 선택
 - [ ] Milvus 요구사항 검증
-- [ ] Grafana 통합 구성
+- [x] NAS Grafana 설치
+- [x] NAS exporter 설치
+- [x] Mac mini #1 exporter 설치
+- [ ] Exporter 종류·endpoint 및 Prometheus 수집 연결 확인
+- [ ] Grafana 통합 모니터링 범위 확인
 - [ ] Loki 중앙 로그 수집
 - [ ] Celery 또는 Ray 시험 운영
 
@@ -642,14 +667,14 @@ Django, API, Neo4j, 경량 벡터 DB
 
 **UGREEN DXP2800 16GB**
 
-n8n, PostgreSQL, Docker 관리, 데이터 저장 및 백업
+n8n, PostgreSQL, Grafana, exporter, Docker 관리, 데이터 저장 및 백업
 
 ### 최종 방향
 
 1. 현재 장비 3대의 역할을 분리한다.
 2. 서비스별 메모리 사용량을 측정한다.
 3. Mac mini 16GB의 외장 SSD를 확장한다.
-4. Grafana와 Loki로 통합 모니터링을 구성한다.
+4. NAS의 기존 Grafana와 NAS·Mac mini #1의 exporter를 기반으로 통합 모니터링을 확대하고, Loki 로그 수집을 검토한다.
 5. 서비스 안정화 후 4베이 NAS를 추가한다.
 6. AI 연산이 병목이라면 GPU 서버를 추가한다.
 7. DB 메모리가 병목이라면 고용량 RAM 서버를 검토한다.
