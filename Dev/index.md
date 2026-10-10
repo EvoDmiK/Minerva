@@ -26,6 +26,8 @@ tags:
 ## 상세 가이드 목록
 
 ### 1xx 인프라 & 네트워킹 (`Dev/인프라/`)
+* **[[Dev/인프라/홈 AI 인프라 구성|홈 AI 인프라 구성]]**
+  * Mac mini 2대·UGREEN NAS의 서비스 배치, 스토리지, 모니터링 설치 현황과 확장 계획
 * **[[Dev/인프라/2026-10-02-홈랩-인증서·Cloudflare·접속-경로-비교-정리|DEV-101 — 홈랩 인증서·Cloudflare·접속 경로 비교 정리]]**
   * Cloudflare Origin vs Let's Encrypt (DNS-01), ECDSA 키 선택 기준, Tailscale Split DNS
 
