@@ -63,7 +63,7 @@ NAS PostgreSQL `data` 데이터베이스에 구축된 핵심 스키마:
 
 ---
 
-## 4. Swallow MCP 도구 확장 (총 10종 도구 체제)
+## 4. Swallow MCP 도구 확장 (총 11종 도구 체제)
 
 [`mcp/swallow-mcp/index.js`](file:///Volumes/Dove-Nest-SSD/projects/Birds-Nest/mcp/swallow-mcp/index.js) 도구 구성:
 
@@ -77,6 +77,7 @@ NAS PostgreSQL `data` 데이터베이스에 구축된 핵심 스키마:
 8. **`swallow_get_price_history`**: 소스별 시세 이력 및 교차검증 괴리율(±0.5%) 리포트.
 9. **`swallow_get_news_alerts`**: 관심종목 관련 피어 뉴스 및 파급 영향 브리핑.
 10. **`swallow_reset_portfolio`**: 모의투자 포트폴리오 초기화(기본 1,000만원) 및 MLflow에 `RESET` 이벤트 기록.
+11. **`swallow_backtest`**: 과거 일봉 시세 기반 퀀트 전략(RSI 과매도 반등) 시뮬레이션 및 MLflow(Exp 39: `swallow-quant-backtest`) 자동 로깅.
 
 ---
 
@@ -107,6 +108,8 @@ NAS PostgreSQL `data` 데이터베이스에 구축된 핵심 스키마:
 - **모의투자 포트폴리오 실험 (Exp ID: 37, `swallow-paper-portfolio`)**:
   - 총자산(`total_asset`), 예수금(`cash_balance`), 주식평가액(`stock_valuation`), 실현손익, 보유종목수 등 시계열 메트릭 로깅.
   - 포트폴리오 리셋 및 스냅샷 이벤트 추적.
+- **퀀트 백테스트 실험 (Exp ID: 39, `swallow-quant-backtest`)**:
+  - 전략 파라미터(`rsi_period`, `buy_threshold`, `take_profit_pct`, `stop_loss_pct`), 성과 지표(수익률, MDD, 승률, Profit Factor, 평균 보유일) 로깅.
 
 ---
 
