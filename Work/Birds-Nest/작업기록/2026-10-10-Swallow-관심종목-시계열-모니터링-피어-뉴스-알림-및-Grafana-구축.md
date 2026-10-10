@@ -127,13 +127,12 @@ NAS PostgreSQL `data` 데이터베이스에 구축된 핵심 스키마:
 
 ---
 
-## 8. 관련 링크
-
-## 8. 모의투자 손실률 & 뉴스 영향도 분석 (News Impact Tracker)
+## 8. 모의투자 손실률 & 뉴스 영향도 분석 (News Impact Tracker) 및 2-Tab 대시보드 분리
 
 - **배경 및 목적**:
   - 모의투자 시 단순 계좌 잔고뿐 아니라 누적 손실률(`%`), 보유 종목별 손익률(`%`), 실현 손익률을 정밀하게 가시화.
   - "어떤 뉴스를 보고 매매 판단을 내렸을 때 주가가 어떻게 변했는가?"에 대한 인과 관계(Causality)를 추적.
+  - 대형 뉴스 영향도 분석 테이블의 가독성을 극대화하기 위해 독립된 전용 탭(대시보드)으로 분리.
 - **주요 구현 내용**:
   1. **DB 스키마 및 저장 프로시저 확장**:
      - `paper_positions`에 `entry_news_title`, `entry_news_url` 추가.
@@ -145,13 +144,15 @@ NAS PostgreSQL `data` 데이터베이스에 구축된 핵심 스키마:
      - `swallow_get_portfolio`: 포트폴리오 누적 수익/손실률(`%`) 및 보유 종목의 진입 뉴스 링크 표기.
      - `swallow_get_trades`: 체결 건별 실현 손익률(`%`) 및 원인 뉴스 칼럼 추가.
      - `swallow_news_impact`: 뉴스 발행 당시 주가 vs 현재 주가 비교, 주가 변동률(`%`), AI 적중 여부(적중/미적중/보합), 모의투자 매수/익절/손절 체결 결과 및 손익률을 포괄적으로 분석하는 신규 도구 등록.
-  4. **Grafana 대시보드 4종 신규 패널 구축**:
-     - `Row 4: 💼 모의투자 성과 & 뉴스 영향도 분석 (Paper Portfolio & News Impact)`
-     - `Stat Panel (ID 201)`: 💼 모의투자 총자산 & 누적 손익률
-     - `Stat Panel (ID 202)`: 💵 예수금 & 누적 실현손익
-     - `Table Panel (ID 203)`: 📋 모의투자 보유 종목 및 손익률 (원인 뉴스 포함)
-     - `Table Panel (ID 204)`: 🎯 뉴스 이벤트 반응 & 주가 변동 추적 (News Impact Tracker)
-     - `scripts/verify-swallow-queries.js` 검증 통과 (17/17 패널 성공).
+  4. **Grafana 2-Tab 대시보드 분리 및 상단 네비게이션 연동**:
+     - **Tab 1: `Swallow 종목 실시간 모니터링` (`swallow-stock-monitor`)**: 글로벌 매크로, 수집 상태, 실시간 시세, 교차검증, 피어 뉴스, 모의투자 성과 요약.
+     - **Tab 2: `Swallow 뉴스 영향도 분석 (News Impact)` (`swallow-news-impact`)**: AI 예측 적중률(%), 호재/악재 분포, 모의투자 자산, **뉴스 이벤트 반응 & 주가 변동 추적(News Impact Tracker 전면 테이블)**, 보유 포지션 상세.
+     - **상단 탭 바 (Dashboard Links)**: 두 대시보드 상단에 탭 버튼이 연동되어 종목 필터(`$ticker`) 및 시간 범위를 유지한 채 1클릭 전환.
+     - `scripts/verify-swallow-queries.js` 다중 대시보드 검증 통과 (총 24/24 쿼리 100% 성공).
+
+---
+
+## 9. 관련 링크
 
 ---
 
