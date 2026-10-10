@@ -82,6 +82,14 @@ tags:
 | 관리 | portainer-agent | 원격 Docker 관리 지원 |
 | 사설 네트워크 | tailscale-hermes-dashboard | Hermes dashboard 접속 지원 |
 
+### macOS에서 직접 실행하는 앱
+
+| 앱 | 역할 | 확인 근거 |
+|---|---|---|
+| ORCA | AI 개발 작업·워크스페이스 관리 | 2026-10-10 사용자 확인 |
+
+ORCA는 Mac mini #1에서 실행하는 앱이며, NAS의 orca-exporter와 구분한다. Docker 컨테이너 개수에는 포함하지 않는다.
+
 ### macOS에서 직접 실행하는 수집기
 
 | 수집기 | 수집 대상 |
