@@ -120,8 +120,9 @@ NAS PostgreSQL `data` 데이터베이스에 구축된 핵심 스키마:
    - 손절 테스트 (-4.0% 도달 시 `STOP_LOSS` 자동 전량 매도) 통과 ✅
    - 추격매수 방지 테스트 (+8.5% 급등 종목 매수 시 `CHASE_BUY_GUARDED` 차단) 통과 ✅
 2. **Git Sync 및 리포지토리 반영**:
-   - `Birds-Nest` 리포지토리 `dev-mac` 브랜치에 커밋 및 푸시 완료 (`c0b4a43`).
-   - `mcp/swallow-mcp/README.md` 및 `grafana/swallow/README.md` 문서 대폭 확장(아키텍처 플로우차트, 11개 MCP 도구, 리스크 관리 규칙, 백테스트 엔진, MLflow 실험 체계, 패널 레이아웃 등 반영).
+   - `Birds-Nest` 리포지토리 `dev-mac` 및 운영 기준 `main` 브랜치에 최종 병합 및 푸시 완료 (`2c045da`).
+   - `origin/main`과 `origin/dev-mac` 완전 동기화 달성.
+   - `mcp/swallow-mcp/README.md` 및 `grafana/swallow/README.md` 상세 확충 완료.
    - `graphify update .` 지식 그래프 최신화 완료.
 
 ---
