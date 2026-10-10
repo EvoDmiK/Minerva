@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-09
+updated: 2026-10-10
 created: 2026-10-01
 project: Gullinkambi
 type: project-index
@@ -29,6 +29,7 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량�
 
 ## 작업 기록 (Work Logs)
 
+- [[Work/Gullinkambi/작업기록/2026-10-10-ORCA-호출별-관측-구현과-운영-반영|2026-10-10 — ORCA 호출별 관측 구현과 운영 반영]]
 - [[Work/Gullinkambi/작업기록/2026-10-08-Antigravity-구독-사용량-수집-복구|2026-10-08 — Antigravity 구독 사용량 수집 복구]]
 - [[Work/Gullinkambi/작업기록/2026-10-08-Gemini-세션-주간-사용률-차이-진단|2026-10-08 — Gemini 세션 주간 사용률 차이 진단]]
 - [[Work/Gullinkambi/작업기록/2026-10-08-ORCA-SSD-이전-후-사용량-수집-복구|2026-10-08 — ORCA SSD 이전 후 사용량 수집 복구]]
