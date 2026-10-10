@@ -57,9 +57,9 @@ NAS PostgreSQL `data` 데이터베이스에 3개 핵심 테이블 구축 완료:
 
 ---
 
-## 4. Grafana 대시보드 프로비저닝
+## 4. Grafana 대시보드 프로비저닝 및 Gullinkambi 반영
 
-- **실제 접속 URL**: [Swallow 관심종목 모니터링 & 피어 뉴스 대시보드](https://monitoring.dove-nest.com/d/swallow-stock-monitor)
+- **실제 접속 URL**: [Swallow 관심종목 모니터링 & 피어 뉴스 대시보드](https://monitoring.dove-nest.com/d/swallow-stock-monitor) (폴더: `Swallow`)
 - **데이터소스 등록**: Grafana의 기존 PostgreSQL 데이터소스(`데이터 DB`, uid: `efrgyfz5k7ldsb`, database: `data`)에 바인딩 완료.
 - **대시보드 정의**: [`docker-data/monitoring/grafana/dashboards/swallow_stock_monitoring.json`](file:///Volumes/Dove-Nest-SSD/projects/Birds-Nest/docker-data/monitoring/grafana/dashboards/swallow_stock_monitoring.json)
   - `$ticker` 드롭다운 변수 (활성 관심종목 목록 자동 쿼리)
@@ -67,6 +67,8 @@ NAS PostgreSQL `data` 데이터베이스에 3개 핵심 테이블 구축 완료:
   - 차트 위 **뉴스 어노테이션(Annotation)** 마커 (피어 뉴스 발생 시점 플래그)
   - 소스 간 실시간 괴리율 게이지
   - 실시간 피어 뉴스 타임라인 테이블
+- **Gullinkambi 리포지토리 동기화**:
+  - 홈랩 Grafana 프로비저닝 전용 리포지토리인 `Gullinkambi`의 `provisioning/dashboards/`에 `swallow.yml` 프로바이더 및 `swallow/swallow-stock-monitoring.json` 추가 완료 (`dev` 브랜치 커밋 & 푸시 완료).
 
 ---
 
