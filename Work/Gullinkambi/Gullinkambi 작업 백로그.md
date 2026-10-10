@@ -84,9 +84,12 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 모델 사
 | **GK-104** | ORCA SSD 이전 후 사용량 수집 복구 | 1xx 수집기 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-08-ORCA-SSD-이전-후-사용량-수집-복구\|기록]] |
 | **GK-105** | Antigravity 구독 사용량 수집 복구 | 1xx 수집기 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-08-Antigravity-구독-사용량-수집-복구\|기록]] |
 | **GK-106** | ORCA 개발 세션 토큰·성과 수집기 (1차 필수 구현) | 1xx 수집기 | ✅ 완료 (Antigravity 도구 호출 제외) | — | [[Work/Gullinkambi/작업기록/2026-10-10-ORCA-호출별-관측-구현과-운영-반영\|기록]] · [[Work/Gullinkambi/2026-10-09-ORCA-Grafana-MLflow-Claude-작업명세\|명세서 v2]] |
+| **GK-107** | Hermes 세션 샘플·도구 이벤트 수집 개편 | 1xx 수집기 | ✅ 완료 (MCP 도구 실패 판정 제외) | — | [[Work/Gullinkambi/작업기록/2026-10-10-Hermes-모니터링-전면-개편\|기록]] |
 | **GK-201** | Claude·Antigravity 초기화 패널 5시간·주간 통합 | 2xx 대시보드 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-05-Claude-Antigravity-초기화-패널-5시간·주간-통합\|기록]] |
 | **GK-202** | OpenViking 탭 개선과 Hermes Grafana MCP 연결 | 2xx 대시보드 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-06-OpenViking-탭-개선과-Hermes-Grafana-MCP-연결\|기록]] |
 | **GK-203** | Aviary Control Room 대시보드에 ORCA 쓰레드별 패널 추가 | 2xx 대시보드 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-10-ORCA-호출별-관측-구현과-운영-반영\|기록]] · [[Dev/관측성/LLM-토큰-사용량-및-관측성-파이프라인-설계\|패턴 가이드]] |
+| **GK-204** | Hermes 탭 개편과 세션 상세 드릴다운 | 2xx 대시보드 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-10-Hermes-모니터링-전면-개편\|기록]] |
+| **GK-205** | Grafana 로그 탭 추가 (Loki) | 2xx 대시보드 | ✅ 완료 (화면 확인 대기) | — | [[Work/Gullinkambi/작업기록/2026-10-10-Loki-중앙-로그-수집-도입\|기록]] |
 | **GK-301** | Grafana 알람과 Discord 연결 | 3xx 알림 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-01-Grafana-알람과-Discord-연결\|기록]] |
 | **GK-302** | Grafana Discord 알림 단일 카드 개선 | 3xx 알림 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-02-Grafana-Discord-알림-단일-카드-개선\|기록]] |
 | **GK-303** | GitHub 커밋 작성자 이상 및 잔디 누락 감시 알림 구축 | 3xx 알림 | ⏳ 착수 대기 | 높음 | — |
@@ -99,6 +102,7 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 모델 사
 | **GK-506** | Gemini 세션 주간 사용률 차이 진단 | 5xx 분석진단 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-08-Gemini-세션-주간-사용률-차이-진단\|기록]] |
 | **GK-507** | RobinGraph ORCA 전체기간 토큰 사용량 검증 | 5xx 분석진단 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-08-RobinGraph-ORCA-전체기간-토큰-사용량-검증\|기록]] |
 | **GK-601** | MLflow Tracing 연동 및 Run 추적 검증 | 6xx MLflow | 🔄 부분 완료 (Run 생성·내부 URL 전환 완료, 공개 라우트 보호 미완) | 보통 | [[Work/Gullinkambi/작업기록/2026-10-10-ORCA-호출별-관측-구현과-운영-반영\|기록]] · [[Work/Gullinkambi/2026-10-09-ORCA-Grafana-MLflow-Claude-작업명세\|명세서 v2]] |
+| **GK-701** | Loki 중앙 로그 수집 도입 | 7xx 인프라 | 🔄 부분 완료 (Hermes 파일 로그 수신 확인 대기) | 보통 | [[Work/Gullinkambi/작업기록/2026-10-10-Loki-중앙-로그-수집-도입\|기록]] |
 | **GK-801** | AI subscription exporter README 작성 | 8xx 문서 | ✅ 완료 | — | [[Work/Gullinkambi/작업기록/2026-10-03-AI-subscription-exporter-README\|기록]] |
 | **GK-802** | ORCA 개발 사용량·성과 Grafana/MLflow 작업 명세 v2 작성 | 8xx 문서 | ✅ 완료 | — | [[Work/Gullinkambi/2026-10-09-ORCA-Grafana-MLflow-Claude-작업명세\|명세서 v2]] |
 
@@ -127,6 +131,8 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 모델 사
 
 ## 완료 작업 상세 (검증 이력 보존)
 
+* **GK-107 · GK-204 (2026-10-10)**: Hermes 세션 샘플·도구 이벤트 수집과 Hermes 탭 전면 개편. 남은 일: MCP 도구 실패를 Hermes 로그에서 판정, DB 통합 테스트. [[Work/Gullinkambi/작업기록/2026-10-10-Hermes-모니터링-전면-개편|상세 기록]].
+* **GK-701 · GK-205 (2026-10-10)**: NAS Loki/Alloy와 Mac mini Alloy로 로그 중앙 수집, Grafana 로그 탭. 남은 일: Hermes 파일 로그 수신 확인, 디스크·메모리 점검. [[Work/Gullinkambi/작업기록/2026-10-10-Loki-중앙-로그-수집-도입|상세 기록]].
 * **GK-106 · GK-203 (2026-10-10)**: ORCA 호출별 관측 구현·운영 반영(수집→n8n→TimescaleDB→Grafana 패널, 도구 호출 집계). 남은 일: Antigravity 도구 호출. [[Work/Gullinkambi/작업기록/2026-10-10-ORCA-호출별-관측-구현과-운영-반영|상세 기록]].
 * **GK-601 부분 완료 (2026-10-10)**: MLflow Run 자동 생성 확인. 남은 일: 공개 라우트 인증 보호, DB 비밀번호 로테이션. [[Work/Gullinkambi/작업기록/2026-10-10-ORCA-호출별-관측-구현과-운영-반영|상세 기록]].
 * **GK-802 (2026-10-09)**: ORCA 개발 사용량·성과 추적 Grafana/MLflow 작업 명세 v2 작성. [[Work/Gullinkambi/2026-10-09-ORCA-Grafana-MLflow-Claude-작업명세|명세서 v2]].
