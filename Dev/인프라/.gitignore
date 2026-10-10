@@ -1,0 +1,3 @@
+# Exclude generated macOS metadata from public infrastructure notes.
+._*
+.DS_Store
