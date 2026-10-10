@@ -130,3 +130,5 @@ type: document-index
 - [[2026-10-09-국명-원자료-전수검증]] — 기관 국명19종 보강, 검토665종 표시 확인, 추가 검토408종 목록.
 
 - [[Work/RobinGraph/작업기록/2026-10-10-답변영문명-사진미리보기-NAS운영배포|답변 영문명·사진 미리보기 TEST·운영 배포 및 실제 채팅 검증]]
+
+- [[Work/RobinGraph/작업기록/2026-10-10-먹이답변-profile탐색-UI통일-NAS배포|먹이 답변 타일·profile 탐색 UI 통일 — Claude·Antigravity 협업 및 TEST·운영 검증]]
