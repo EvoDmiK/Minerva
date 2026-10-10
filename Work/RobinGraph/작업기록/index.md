@@ -132,3 +132,7 @@ type: document-index
 - [[Work/RobinGraph/작업기록/2026-10-10-답변영문명-사진미리보기-NAS운영배포|답변 영문명·사진 미리보기 TEST·운영 배포 및 실제 채팅 검증]]
 
 - [[Work/RobinGraph/작업기록/2026-10-10-먹이답변-profile탐색-UI통일-NAS배포|먹이 답변 타일·profile 탐색 UI 통일 — Claude·Antigravity 협업 및 TEST·운영 검증]]
+
+- [[Work/RobinGraph/작업기록/2026-10-10-비교도감버튼-가로배치-TEST전용|비교 도감 카드 버튼 가로 배치 — PC·모바일 TEST 전용]]
+
+- [[Work/RobinGraph/작업기록/2026-10-10-비교값중복-출처통합-추천요약-TEST전용|비교값 중복 제거·출처 통합·추천 요약 카드 — TEST 전용]]
