@@ -138,3 +138,5 @@ type: document-index
 - [[Work/RobinGraph/작업기록/2026-10-10-비교값중복-출처통합-추천요약-TEST전용|비교값 중복 제거·출처 통합·추천 요약 카드 — TEST 전용]]
 
 - [[Work/RobinGraph/작업기록/2026-10-10-비교하단-kg-출처카드-TEST전용|비교 하단 정리·kg 단위 통일·출처 카드 — TEST 전용]]
+
+- [[Work/RobinGraph/작업기록/2026-10-10-더알아보기-버튼크기통일-TEST전용|더 알아보기 네 버튼 크기·글꼴·여백 통일 — PC·모바일 TEST 전용]]
