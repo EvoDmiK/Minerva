@@ -108,6 +108,6 @@ RETURN candidate.name_ko, candidate.sci_name, final_score;
 
 ## 6. 관련 문서
 
-* [[Work/RobinGraph/작업기록/2026-10-06-전체종-근연관계우선-계통근거-NAS배포|RobinGraph 전체 종 근연 우선 비교 및 NAS 배포 기록]]
-* [[Work/RobinGraph/작업기록/2026-10-06-근연관계-가중합점수-NAS배포|RobinGraph 근연 관계 가중합 점수 배포 기록]]
+* [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-06-전체종-근연관계우선-계통근거-NAS배포|RobinGraph 전체 종 근연 우선 비교 및 NAS 배포 기록]]
+* [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-06-근연관계-가중합점수-NAS배포|RobinGraph 근연 관계 가중합 점수 배포 기록]]
 * [[Dev/index|Dev 인덱스]]
