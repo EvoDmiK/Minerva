@@ -82,6 +82,6 @@ ORDER BY failure_count DESC;
 
 ## 6. 관련 문서
 
-* [[Work/Birds-Nest/작업기록/2026-10-06-n8n-워크플로우-실패율-검증|n8n 워크플로우 실패율 검증 기록]]
-* [[Work/Birds-Nest/작업기록/2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|Carrier Pigeon 오류 수정 및 배포 기록]]
+* [[2026-10-06-n8n-워크플로우-실패율-검증|n8n 워크플로우 실패율 검증 기록]]
+* [[2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|Carrier Pigeon 오류 수정 및 배포 기록]]
 * [[Dev/index|Dev 인덱스]]

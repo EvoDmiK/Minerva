@@ -34,16 +34,16 @@ Birds-Nest는 개인 AI 에이전트(Hermes/Dovie), 자동화 워크플로우(n8
 
 - [[2026-10-10-Swallow-관심종목-시계열-모니터링-피어-뉴스-알림-및-Grafana-구축|2026-10-10 — [Stock] Swallow 관심종목 시계열 모니터링, 토스·네이버 교차검증, 매크로 지표 및 리스크 관리 구축]]
 - [[2026-10-09-Stock-Swallow-워크플로우-고도화-단일-체인-개편-및-NAS-n8n-배포|2026-10-09 — [Stock] Swallow 워크플로우 고도화 (단일 체인 개편 및 NAS n8n 배포)]]
-- [[Work/Birds-Nest/작업기록/2026-10-09-Minerva-지식증류-파이프라인-구축-및-Dev-구조개편|2026-10-09 — Minerva 지식증류 파이프라인 구축 및 Dev 구조개편]]
-- [[Work/Birds-Nest/작업기록/2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|2026-10-08 — Carrier Pigeon Gmail 바로가기 404 오류 수정과 NAS n8n 배포]]
-- [[Work/Birds-Nest/작업기록/2026-10-06-n8n-워크플로우-실패율-검증|2026-10-06 — n8n 워크플로우 실패율 검증]]
-- [[Work/Birds-Nest/작업기록/2026-10-06-Hermes-모델-fallback-설정과-CLI-복구|2026-10-06 — Hermes 모델 fallback 설정과 CLI 복구]]
-- [[Work/Birds-Nest/작업기록/2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업|2026-10-06 — Hermes Discord 설정과 ORCA SSD 이전 NAS 백업]]
-- [[Work/Birds-Nest/작업기록/2026-10-05-Kestrel-MCP-도구화와-Hermes-연결|2026-10-05 — Kestrel MCP 도구화와 Hermes 연결]]
-- [[Work/Birds-Nest/작업기록/2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리|2026-10-03 — Minerva Git Sync 웹훅 버그 수정과 NAS obsidian mcp 정리]]
-- [[Work/Birds-Nest/작업기록/2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축|2026-10-03 — Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축]]
-- [[Work/Birds-Nest/작업기록/2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축|2026-10-03 — Codex 사용량 리셋 모니터링 워크플로우 구축]]
-- [[Work/Birds-Nest/작업기록/2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축|2026-10-02 — Jev AI 기반 carrier pigeon 개편과 n8n 테스트베드 구축]]
+- [[2026-10-09-Minerva-지식증류-파이프라인-구축-및-Dev-구조개편|2026-10-09 — Minerva 지식증류 파이프라인 구축 및 Dev 구조개편]]
+- [[2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|2026-10-08 — Carrier Pigeon Gmail 바로가기 404 오류 수정과 NAS n8n 배포]]
+- [[2026-10-06-n8n-워크플로우-실패율-검증|2026-10-06 — n8n 워크플로우 실패율 검증]]
+- [[2026-10-06-Hermes-모델-fallback-설정과-CLI-복구|2026-10-06 — Hermes 모델 fallback 설정과 CLI 복구]]
+- [[2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업|2026-10-06 — Hermes Discord 설정과 ORCA SSD 이전 NAS 백업]]
+- [[2026-10-05-Kestrel-MCP-도구화와-Hermes-연결|2026-10-05 — Kestrel MCP 도구화와 Hermes 연결]]
+- [[2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리|2026-10-03 — Minerva Git Sync 웹훅 버그 수정과 NAS obsidian mcp 정리]]
+- [[2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축|2026-10-03 — Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축]]
+- [[2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축|2026-10-03 — Codex 사용량 리셋 모니터링 워크플로우 구축]]
+- [[2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축|2026-10-02 — Jev AI 기반 carrier pigeon 개편과 n8n 테스트베드 구축]]
 
 ## 인덱스 관리
 

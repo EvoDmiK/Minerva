@@ -126,4 +126,4 @@ const mailLink = threadId ? `https://mail.google.com/mail/u/?authuser=kimhippowo
 
 - [[Home]]
 - [[Work/Birds-Nest/index]]
-- [[Work/Birds-Nest/작업기록/2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축]]
+- [[2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축]]

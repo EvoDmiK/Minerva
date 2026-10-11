@@ -13,7 +13,7 @@ tags:
 
 # 🪶 Hermes 모델·fallback 설정과 CLI 복구
 
-> [[Work/Birds-Nest/작업기록/2026-10-05-Kestrel-MCP-도구화와-Hermes-연결|Kestrel MCP 연결]]의 후속. hybrid-v2의 주 모델/fallback을 바꾸고, 깨져 있던 로컬 `hermes` CLI를 복구했다. 맥미니 SSH 접속 준비 상태도 점검.
+> [[2026-10-05-Kestrel-MCP-도구화와-Hermes-연결|Kestrel MCP 연결]]의 후속. hybrid-v2의 주 모델/fallback을 바꾸고, 깨져 있던 로컬 `hermes` CLI를 복구했다. 맥미니 SSH 접속 준비 상태도 점검.
 
 ## 1. 모델 / fallback 설정 (hybrid-v2)
 - 주 모델: `openai-codex` / `gpt-5.6-sol` → **`gpt-6.1-sol`**

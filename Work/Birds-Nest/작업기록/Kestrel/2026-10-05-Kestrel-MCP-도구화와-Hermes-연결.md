@@ -14,7 +14,7 @@ tags:
 
 # 🦅 Kestrel MCP 도구화와 Hermes 연결
 
-> [[Work/Birds-Nest/작업기록/2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축|Kestrel 구축]]의 후속 작업. 알림만 보내던 Kestrel을 에이전트가 질문할 수 있는 MCP 도구로 확장.
+> [[2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축|Kestrel 구축]]의 후속 작업. 알림만 보내던 Kestrel을 에이전트가 질문할 수 있는 MCP 도구로 확장.
 
 ## 1. 목표
 - Discord에서 Dovie(Hermes)에게 "Codex 다음 리셋 언제야?"처럼 물으면, Hermes가 Kestrel을 통해 실시간 리셋 현황을 조회해 답하도록 한다.
