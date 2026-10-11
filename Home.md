@@ -61,7 +61,7 @@ Dove-Nest의 중심 지식 베이스(MOC, Map of Content)입니다.
 
 ## ⚙️ 자동화 및 시스템 도구
 
-* **지식 증류 자동화 스크립트**: [`scripts/distill_knowledge.py`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/scripts/distill_knowledge.py)
+* **지식 증류 자동화 스크립트**: `scripts/distill_knowledge.py`
 * **n8n 증류 웹훅 명세**: [[Dev/자동화/n8n-지식-증류-워크플로우-작업-명세서|DEV-202 명세서]] (BN-504)
 * **새 노트 템플릿**: [[Templates/note|note 템플릿]]
 
