@@ -159,4 +159,4 @@ NAS PostgreSQL `data` 데이터베이스에 구축된 핵심 스키마:
 
 
 - [[Work/Birds-Nest/index|Birds-Nest 인덱스]]
-- [[Work/Birds-Nest/작업기록/2026-10-09-Stock-Swallow-워크플로우-고도화-단일-체인-개편-및-NAS-n8n-배포|2026-10-09 — [Stock] Swallow 워크플로우 고도화 (단일 체인 개편 및 NAS n8n 배포)]]
+- [[2026-10-09-Stock-Swallow-워크플로우-고도화-단일-체인-개편-및-NAS-n8n-배포|2026-10-09 — [Stock] Swallow 워크플로우 고도화 (단일 체인 개편 및 NAS n8n 배포)]]
