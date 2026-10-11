@@ -1,6 +1,6 @@
 ---
 created: 2026-10-09
-updated: 2026-10-09
+updated: 2026-10-11
 project: Birds-Nest
 type: backlog
 tags:
@@ -135,6 +135,8 @@ tags:
 
 ## 관련 문서 및 링크
 
+- [[Work/Birds-Nest/작업기록/Swallow/Swallow 작업 백로그|Swallow 전용 작업 백로그]] — 워크플로우·DB·MCP·대시보드 수정 및 통합 검증은 SW-001~SW-009로 관리한다. 기존 BN 작업 ID와 상태는 유지한다.
+- [[Work/Birds-Nest/작업기록/index|주제별 작업기록 분류]]
 - [[Work/Birds-Nest/index|Birds-Nest 인덱스]]
 - [[Work/index|Work 전체 인덱스]]
 - [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

@@ -21,3 +21,7 @@ Dovie 게이트웨이·모델·CLI 운영.
 
 - [[Work/Birds-Nest/작업기록/index|전체 작업기록 분류]]
 - [[Work/Birds-Nest/index|Birds-Nest 프로젝트]]
+
+## 함께 참고할 복합 기록
+
+- [[Work/Birds-Nest/작업기록/인프라/2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업|Hermes Discord 설정·Orca SSD 이전·NAS 백업]] — 주된 인프라 작업 기준으로 인프라 폴더에 보관.
