@@ -70,22 +70,22 @@ tags:
 
 | ID | 작업명 | 카테고리 | 상태 | 우선순위 | 검증/결과 문서 |
 |---|---|---|---|---|---|
-| **BN-101** | Hermes Discord 설정과 ORCA SSD 이전 NAS 백업 | 1xx 인프라 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업\|기록]] |
+| **BN-101** | Hermes Discord 설정과 ORCA SSD 이전 NAS 백업 | 1xx 인프라 | ✅ 완료 | — | [[2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업\|기록]] |
 | **BN-102** | TimescaleDB·Neo4j 핵심 데이터 정기 백업 파이프라인 | 1xx 인프라 | ⏳ 착수 대기 | 보통 | — |
-| **BN-201** | Jev AI 기반 carrier pigeon 개편과 n8n 테스트베드 구축 | 2xx 워크플로우 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축\|기록]] |
-| **BN-202** | Carrier Pigeon Gmail 바로가기 404 오류 수정 및 NAS n8n 배포 | 2xx 워크플로우 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포\|기록]] |
-| **BN-203** | Codex 사용량 리셋 모니터링 (Kestrel) 워크플로우 구축 | 2xx 워크플로우 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축\|기록]] |
+| **BN-201** | Jev AI 기반 carrier pigeon 개편과 n8n 테스트베드 구축 | 2xx 워크플로우 | ✅ 완료 | — | [[2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축\|기록]] |
+| **BN-202** | Carrier Pigeon Gmail 바로가기 404 오류 수정 및 NAS n8n 배포 | 2xx 워크플로우 | ✅ 완료 | — | [[2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포\|기록]] |
+| **BN-203** | Codex 사용량 리셋 모니터링 (Kestrel) 워크플로우 구축 | 2xx 워크플로우 | ✅ 완료 | — | [[2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축\|기록]] |
 | **BN-204** | n8n 전역 에러 핸들러 및 Discord 알림 표준 카드 적용 | 2xx 워크플로우 | ⏳ 착수 대기 | 높음 | [[Dev/자동화/n8n-워크플로우-신뢰성-및-에러-복구-패턴\|패턴 가이드]] |
-| **BN-301** | Hermes 모델 fallback 설정과 CLI 복구 | 3xx 에이전트 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-06-Hermes-모델-fallback-설정과-CLI-복구\|기록]] |
+| **BN-301** | Hermes 모델 fallback 설정과 CLI 복구 | 3xx 에이전트 | ✅ 완료 | — | [[2026-10-06-Hermes-모델-fallback-설정과-CLI-복구\|기록]] |
 | **BN-302** | Dovie 음성 및 양방향 인터페이스 확장 검토 | 3xx 에이전트 | ⏸️ 보류 | 낮음 | — |
-| **BN-401** | Kestrel MCP 도구화와 Hermes 연결 | 4xx MCP | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-05-Kestrel-MCP-도구화와-Hermes-연결\|기록]] |
-| **BN-402** | NAS obsidian-mcp 정리 및 권한 격리 | 4xx MCP | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리\|기록]] |
+| **BN-401** | Kestrel MCP 도구화와 Hermes 연결 | 4xx MCP | ✅ 완료 | — | [[2026-10-05-Kestrel-MCP-도구화와-Hermes-연결\|기록]] |
+| **BN-402** | NAS obsidian-mcp 정리 및 권한 격리 | 4xx MCP | ✅ 완료 | — | [[2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리\|기록]] |
 | **BN-403** | Itzcuauhtli 읽기 전용 볼트 MCP 프로덕션 연결 | 4xx MCP | ⏳ 착수 대기 | 보통 | [[Work/Itzcuauhtli/ORCA-REPORT-READONLY-MVP\|명세서]] |
-| **BN-501** | Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축 | 5xx 지식연동 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축\|기록]] |
-| **BN-502** | Minerva Git Sync 웹훅 버그 수정 | 5xx 지식연동 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리\|기록]] |
-| **BN-503** | Minerva 지식 증류 파이프라인 구축 및 Dev 구조 개편 | 5xx 지식연동 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-09-Minerva-지식증류-파이프라인-구축-및-Dev-구조개편\|기록]] |
+| **BN-501** | Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축 | 5xx 지식연동 | ✅ 완료 | — | [[2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축\|기록]] |
+| **BN-502** | Minerva Git Sync 웹훅 버그 수정 | 5xx 지식연동 | ✅ 완료 | — | [[2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리\|기록]] |
+| **BN-503** | Minerva 지식 증류 파이프라인 구축 및 Dev 구조 개편 | 5xx 지식연동 | ✅ 완료 | — | [[2026-10-09-Minerva-지식증류-파이프라인-구축-및-Dev-구조개편\|기록]] |
 | **BN-504** | Woodpecker n8n 기반 지식 증류 자동 추천 웹훅 구축 | 5xx 지식연동 | ⏳ 착수 대기 | 보통 | [[scripts/distill_knowledge.py\|도구]] |
-| **BN-601** | n8n 워크플로우 실패율 검증 및 COALESCE 시간 보정 | 6xx 관측성 | ✅ 완료 | — | [[Work/Birds-Nest/작업기록/2026-10-06-n8n-워크플로우-실패율-검증\|기록]] |
+| **BN-601** | n8n 워크플로우 실패율 검증 및 COALESCE 시간 보정 | 6xx 관측성 | ✅ 완료 | — | [[2026-10-06-n8n-워크플로우-실패율-검증\|기록]] |
 | **BN-602** | Hermes Telemetry Ingest 성능 및 드롭율 모니터링 | 6xx 관측성 | ⏳ 착수 대기 | 보통 | — |
 
 ---
@@ -114,16 +114,16 @@ tags:
 
 ## 완료 작업 상세 (검증 이력 보존)
 
-* **BN-503 (2026-10-09)**: Minerva 지식 증류 파이프라인 구축, Dev 가이드 3편 신설, Work 일지 `작업기록/` 하위 폴더 이동 및 `scripts/distill_knowledge.py` 작성. [[Work/Birds-Nest/작업기록/2026-10-09-Minerva-지식증류-파이프라인-구축-및-Dev-구조개편|상세 기록]].
-* **BN-202 (2026-10-08)**: Carrier Pigeon Gmail 바로가기 404 오류 수정 및 NAS n8n 배포. [[Work/Birds-Nest/작업기록/2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|상세 기록]].
-* **BN-601 (2026-10-06)**: n8n 워크플로우 실패율 검증. Grafana MCP 및 SELECT 쿼리로 35개 워크플로우 이력 전수 분석. [[Work/Birds-Nest/작업기록/2026-10-06-n8n-워크플로우-실패율-검증|상세 기록]].
-* **BN-301 (2026-10-06)**: Hermes 모델 fallback 설정과 CLI 복구. [[Work/Birds-Nest/작업기록/2026-10-06-Hermes-모델-fallback-설정과-CLI-복구|상세 기록]].
-* **BN-101 (2026-10-06)**: Hermes Discord 설정 및 ORCA SSD 이전 후 NAS 백업. [[Work/Birds-Nest/작업기록/2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업|상세 기록]].
-* **BN-401 (2026-10-05)**: Kestrel MCP 도구화와 Hermes 연결. [[Work/Birds-Nest/작업기록/2026-10-05-Kestrel-MCP-도구화와-Hermes-연결|상세 기록]].
-* **BN-502 (2026-10-03)**: Minerva Git Sync 웹훅 버그 수정 및 NAS obsidian mcp 정리. [[Work/Birds-Nest/작업기록/2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리|상세 기록]].
-* **BN-501 (2026-10-03)**: Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축. [[Work/Birds-Nest/작업기록/2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축|상세 기록]].
-* **BN-203 (2026-10-03)**: Codex 사용량 리셋 모니터링 (Kestrel) 워크플로우 구축. [[Work/Birds-Nest/작업기록/2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축|상세 기록]].
-* **BN-201 (2026-10-02)**: Jev AI 기반 carrier pigeon 개편과 n8n 테스트베드 구축. [[Work/Birds-Nest/작업기록/2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축|상세 기록]].
+* **BN-503 (2026-10-09)**: Minerva 지식 증류 파이프라인 구축, Dev 가이드 3편 신설, Work 일지 `작업기록/` 하위 폴더 이동 및 `scripts/distill_knowledge.py` 작성. [[2026-10-09-Minerva-지식증류-파이프라인-구축-및-Dev-구조개편|상세 기록]].
+* **BN-202 (2026-10-08)**: Carrier Pigeon Gmail 바로가기 404 오류 수정 및 NAS n8n 배포. [[2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|상세 기록]].
+* **BN-601 (2026-10-06)**: n8n 워크플로우 실패율 검증. Grafana MCP 및 SELECT 쿼리로 35개 워크플로우 이력 전수 분석. [[2026-10-06-n8n-워크플로우-실패율-검증|상세 기록]].
+* **BN-301 (2026-10-06)**: Hermes 모델 fallback 설정과 CLI 복구. [[2026-10-06-Hermes-모델-fallback-설정과-CLI-복구|상세 기록]].
+* **BN-101 (2026-10-06)**: Hermes Discord 설정 및 ORCA SSD 이전 후 NAS 백업. [[2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업|상세 기록]].
+* **BN-401 (2026-10-05)**: Kestrel MCP 도구화와 Hermes 연결. [[2026-10-05-Kestrel-MCP-도구화와-Hermes-연결|상세 기록]].
+* **BN-502 (2026-10-03)**: Minerva Git Sync 웹훅 버그 수정 및 NAS obsidian mcp 정리. [[2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리|상세 기록]].
+* **BN-501 (2026-10-03)**: Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축. [[2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축|상세 기록]].
+* **BN-203 (2026-10-03)**: Codex 사용량 리셋 모니터링 (Kestrel) 워크플로우 구축. [[2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축|상세 기록]].
+* **BN-201 (2026-10-02)**: Jev AI 기반 carrier pigeon 개편과 n8n 테스트베드 구축. [[2026-10-02-Jev-AI-기반-carrier-pigeon-개편과-n8n-테스트베드-구축|상세 기록]].
 
 ---
 

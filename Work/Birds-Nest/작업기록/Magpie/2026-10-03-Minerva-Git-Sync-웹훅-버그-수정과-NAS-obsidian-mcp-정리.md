@@ -16,7 +16,7 @@ tags:
 
 # 🔧 Minerva Git Sync 웹훅 버그 수정과 NAS obsidian-mcp 정리
 
-> 오전에 구축한 [[Work/Birds-Nest/작업기록/2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축|Magpie 기반 Git Sync 파이프라인]]의 후속 작업.
+> 오전에 구축한 [[2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축|Magpie 기반 Git Sync 파이프라인]]의 후속 작업.
 
 ## 1. 증상
 - 볼트 변경은 GitHub(`EvoDmiK/Minerva`)로 정상 commit/push 되지만, Discord `#llm-위키` 알림이 오지 않음.
