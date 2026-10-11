@@ -32,7 +32,7 @@ Birds-Nest는 개인 AI 에이전트(Hermes/Dovie), 자동화 워크플로우(n8
 
 ## 작업 기록 (Work Logs)
 
-- [[Work/Birds-Nest/작업기록/2026-10-10-Swallow-관심종목-시계열-모니터링-피어-뉴스-알림-및-Grafana-구축|2026-10-10 — [Stock] Swallow 관심종목 시계열 모니터링, 토스·네이버 교차검증 및 Grafana 구축]]
+- [[Work/Birds-Nest/작업기록/2026-10-10-Swallow-관심종목-시계열-모니터링-피어-뉴스-알림-및-Grafana-구축|2026-10-10 — [Stock] Swallow 관심종목 시계열 모니터링, 토스·네이버 교차검증, 매크로 지표 및 리스크 관리 구축]]
 - [[Work/Birds-Nest/작업기록/2026-10-09-Stock-Swallow-워크플로우-고도화-단일-체인-개편-및-NAS-n8n-배포|2026-10-09 — [Stock] Swallow 워크플로우 고도화 (단일 체인 개편 및 NAS n8n 배포)]]
 - [[Work/Birds-Nest/작업기록/2026-10-09-Minerva-지식증류-파이프라인-구축-및-Dev-구조개편|2026-10-09 — Minerva 지식증류 파이프라인 구축 및 Dev 구조개편]]
 - [[Work/Birds-Nest/작업기록/2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|2026-10-08 — Carrier Pigeon Gmail 바로가기 404 오류 수정과 NAS n8n 배포]]
