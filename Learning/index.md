@@ -33,7 +33,6 @@ document_role: index
 |---|---|---|
 | Jev·LangGraph 프로덕션 에이전트 | [[Learning/원문/2026-10-06-Jev-LangGraph-프로덕션-에이전트-원문\|원문]] | [[Learning/변환검증/2026-10-06-Jev-LangGraph-Markdown-변환-검증\|검증 기록]] |
 | Jev 추천 재순위화 게시글 | [[Learning/원문/2026-10-06-Jev-추천-재순위화-실증-연구-원문\|원문]] | [[Learning/변환검증/2026-10-06-Jev-재순위화-게시글-Markdown-변환-검증\|검증 기록]] |
-
 | Unsloth 결정 모델 학습·로컬 서빙 | [[Learning/원문/2026-10-13-Unsloth-Jev식-결정-모델-학습과-로컬-서빙-원문\|Unsloth Jev식 결정 모델 학습과 로컬 서빙]] | [[Learning/변환검증/2026-10-13-Unsloth-결정-모델-Markdown-변환-검증\|변환 검증 기록]] |
 
 ## 학습노트와 작성 예정
