@@ -13,6 +13,7 @@ tags: [birds-nest, worklog]
 
 ## 기록
 
+- [[Work/Birds-Nest/작업기록/인프라/2026-10-12-프로젝트-전체-브랜치-통합|2026-10-12-프로젝트-전체-브랜치-통합]]
 - [[Work/Birds-Nest/작업기록/인프라/2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업|2026-10-06-Hermes-Discord-설정과-ORCA-SSD-이전-NAS-백업]]
 
 ## 기록 규칙
