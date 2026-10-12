@@ -60,4 +60,5 @@ Minerva/
 ### 4. 보안 및 커밋 가이드라인
 * 이 저장소는 공개 저장소(Public Repository)입니다.
 * API Key, Token, DB 비밀번호, SSH Private Key 및 회사/고용주 관련 민감 정보는 절대 커밋하지 않습니다.
-* 모든 커밋 작성자는 `EvoDmiK <kimhippowork@gmail.com>`으로 통일합니다.
+* 모든 커밋 작성자는 `EvoDmiK <93193661+EvoDmiK@users.noreply.github.com>`(GitHub noreply)으로 통일합니다. 개인 이메일은 커밋에 쓰지 않습니다.
+* 노트에 내부 IP·개인 이메일·호스트명을 적을 때는 `<NAS-LAN-IP>`, `user@example.com`, `<host>` 같은 자리표시자를 사용합니다.
