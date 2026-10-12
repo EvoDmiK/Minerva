@@ -13,7 +13,7 @@ Swallow의 n8n 워크플로우, 주식·뉴스 DB, 모의투자, MCP 도구와 G
 
 ## 작업 관리
 
-- [[Work/Birds-Nest/작업기록/Swallow/Swallow 작업 백로그|Swallow 작업 백로그]] — 코드 검토에서 발견한 8개 수정 작업과 1개 적재 경로 확인·통합 검증 작업. 모두 착수 대기.
+- [[Work/Birds-Nest/작업기록/Swallow/Swallow 작업 백로그|Swallow 작업 백로그]] — 검토 항목과 관심종목 정기 수집의 최신 진행 상태·검증 결과.
 
 ## 기록
 
