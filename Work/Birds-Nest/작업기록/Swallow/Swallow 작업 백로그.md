@@ -183,3 +183,14 @@ SW-003 자격증명 노출 대응과 SW-001·SW-002 오체결 방지를 우선�
 - **운영 주의:** Grafana Swallow Git Sync repo `rgjc79`는 현재 `dev-codex`/`grafana/swallow`. 사용자가 PR #5를 main에 머지한 후 동기화 branch를 main으로 복구한다.
 - **남은 범위:** CNN 지수, 뉴스 writer, 전체 PR 필수 검증은 별도. 장외·휴장 실제 시간대 미관측.
 - **기록:** [[Work/Birds-Nest/작업기록/Swallow/2026-10-12-Swallow-시장지표-수집-및-가격표시-수정|시장 지표 수집 및 가격 표시 수정]]
+
+### SW-009 — 2026-10-12 뉴스 수집 운영 점검
+
+- **상태:** 점검 완료·수정 및 뉴스 적재 검증 미완료. dev-codex `3bb85d7` 기준, 운영 읽기 전용 점검. 뉴스 workflow 실행·수정·배포 및 Discord 발송은 하지 않았다.
+- **운영:** `[Stock] Swallow` (`smy9xPoHICCO69JF`) active. cron `30 8 * * 1-5`, workflow timezone 미지정. n8n 컨테이너에는 `TZ=Asia/Seoul`만 있고 `GENERIC_TIMEZONE`은 없다. 최근 예약 실행 `26046`은 10월 9일 21:30 KST success. 10월 12일 12:41 점검 시 이후 실행 없음. 최근 예약 관측에 따르면 오늘 다음 실행 시각은 21:30이며, 장중 1분/장외 5분 시세 수집과는 별개이다.
+- **RSS:** 실제 NAS n8n 컨테이너에서 한경·매경 모두 HTTP 200, 각 50건. 최신 발행 시각은 각각 10월 12일 12:00:06·11:36 KST. 로컬 Python 요청에서는 매경 403이었지만 NAS에서는 정상으로, 운영 RSS 장애로 판정하지 않는다.
+- **실행 증거:** `26046`은 RSS 100건 → 최신 10건 선별 → AI 분석 10건 → 임계치 통과 2건 → Discord 노드 성공 2건. 임계치는 impactScore≥3, confidence≥0.7, signalAction≠관망이며 관심종목 전용 수집 조건은 아니다. 중복 제거 Set은 실행 단위로 초기화된다.
+- **DB 연결 누락:** 활성 뉴스 workflow의 Postgres 노드는 종목 조회/신규 종목 저장/모의투자 체결뿐이며 `stock_news_alerts` writer가 없다. 운영 n8n 전체 36개 workflow의 노드 parameters에도 해당 테이블 참조가 없다. 저장소의 Swallow MCP 참조는 조회용이다. 외부 서비스·동적 SQL에 의한 별도 writer까지 부재로 확정하지는 않는다.
+- **실제 DB:** `postgres-n8n`의 `data` DB `stock_news_alerts`는 총 1행, 최신 published_at·created_at 모두 10월 10일 14:33:53.626117 KST. 삼성전자 대상 SK하이닉스 뉴스 1건이며 삽입 출처는 미확인. paper_trades는 0행. Discord 실행 성공을 뉴스 테이블 적재 성공으로 간주할 수 없다.
+- **화면:** 뉴스 영향도 적중률·감정 집계·상세 목록 SQL은 시간 필터를 사용하지 않는다(SW-004). 오래된 1건이 선택 기간 밖에도 표시되는 원인이다.
+- **후속 수정 제안:** 뉴스 저장을 매매/Discord 조건에서 분리하고 활성 관심종목의 직접·피어 관련 기사에 대한 영속 중복 방지와 DB 적재 경로를 구현한다. 뉴스 cron의 Asia/Seoul 지정 및 수집 빈도를 별도 결정하고, SW-004의 시간 필터를 적용한다. 시세의 1분 주기를 기존 뉴스·모의매매 workflow에 그대로 적용하면 중복 분석·발송·매매 위험(SW-002)이 있으므로 이를 해결한 뒤 조정한다.
