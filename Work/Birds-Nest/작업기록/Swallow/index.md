@@ -17,6 +17,8 @@ Swallow의 n8n 워크플로우, 주식·뉴스 DB, 모의투자, MCP 도구와 G
 
 ## 기록
 
+- [[Work/Birds-Nest/작업기록/Swallow/2026-10-12-Swallow-시장지표-수집-및-가격표시-수정|2026-10-12 Swallow 시장 지표 수집 및 가격 표시 수정]]
+
 - [[Work/Birds-Nest/작업기록/Swallow/2026-10-12-Swallow-장중-장외-수집주기-조정|2026-10-12 Swallow 장중 1분·장외 5분 수집주기 조정]]
 
 
