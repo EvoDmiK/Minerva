@@ -151,7 +151,7 @@ AviList 개념 집합: rg:concept-set:avilist-v2025b
 프로젝트 루트 `.env`는 접속되지 않는 내부망 주소를 사용했다.
 
 ```text
-기존: 192.168.219.99:5433
+기존: <NAS-LAN-IP>:5433
 오류: No route to host
 ```
 
@@ -162,7 +162,7 @@ AviList 개념 집합: rg:concept-set:avilist-v2025b
 `.env`에서 주소 한 줄만 변경했다.
 
 ```dotenv
-ROBINGRAPH_PG_HOST=100.93.181.111
+ROBINGRAPH_PG_HOST=<NAS-Tailscale-IP>
 ROBINGRAPH_PG_PORT=5433
 ROBINGRAPH_PG_DATABASE=robingraph_test
 ROBINGRAPH_PG_SCHEMA=ingest
@@ -191,7 +191,7 @@ ROBINGRAPH_PG_SSLMODE=prefer
 - 실행 모드: `serve-neo4j`.
 - TEST 전용 이미지: `robingraph-api:test-20260930`.
 - Gemini 모델: `gemini-3.5-flash-lite`.
-- PostgreSQL: `100.93.181.111:5433` / `robingraph_test`.
+- PostgreSQL: `<NAS-Tailscale-IP>:5433` / `robingraph_test`.
 
 로컬 Docker 이미지 빌드가 성공했다. NAS와 같은 읽기 전용 파일시스템·비루트 사용자·capability 제거 조건으로 임시 컨테이너를 실행했다.
 
@@ -266,7 +266,7 @@ chmod 600 .env.nas.test
 ```dotenv
 ROBINGRAPH_API_MODE=serve-neo4j
 ROBINGRAPH_IMAGE=robingraph-api:test-20260930
-ROBINGRAPH_PG_HOST=100.93.181.111
+ROBINGRAPH_PG_HOST=<NAS-Tailscale-IP>
 ROBINGRAPH_PG_PORT=5433
 ROBINGRAPH_PG_DATABASE=robingraph_test
 ROBINGRAPH_GEMINI_MODEL=gemini-3.5-flash-lite

@@ -45,7 +45,7 @@ Gmail 수신 알림 및 메일 처리 자동화 워크플로우인 `[mail alarm]
 ```mermaid
 flowchart TD
     subgraph Gmail_Flow["1. Gmail 알람 및 처리 (Gemini 3.5 Flash)"]
-        A["Unread Gmail Trigger<br/>(kimhippowork 메일)"] --> B["Prep Gmail Data<br/>(발신자 from.text, 본문 text 정규화)"]
+        A["Unread Gmail Trigger<br/>(개인 Gmail 메일)"] --> B["Prep Gmail Data<br/>(발신자 from.text, 본문 text 정규화)"]
         B --> C["Gemini Gmail Triage<br/>(One-shot 분류 + 요약 + 일정 추출)"]
         C --> D["Parse Gmail Triage<br/>(JSON 병합)"]
         D --> E{"Route by Category<br/>(Switch 노드)"}
@@ -121,7 +121,7 @@ return items.map(item => {
 
 * **배경:** 디스코드 메일 알림 수신 시 즉시 해당 메일 본문으로 이동할 수 있도록 직접 웹 링크 연동 요청.
 * **구현:**
-  * `Prep Gmail Data`: `threadId || id` 기반으로 `https://mail.google.com/mail/u/kimhippowork@gmail.com/#all/${threadId}` 링크를 생성하여 downstream 노드에 전달. (다중 구글 계정 접속 환경에서도 업무 계정으로 자동 포커싱되도록 계정명 파라미터 부여)
+  * `Prep Gmail Data`: `threadId || id` 기반으로 `https://mail.google.com/mail/u/user@example.com/#all/${threadId}` 링크를 생성하여 downstream 노드에 전달. (다중 구글 계정 접속 환경에서도 업무 계정으로 자동 포커싱되도록 계정명 파라미터 부여)
   * 디스코드 알림 노드 4종(`Authentication Safe Discord`, `Billing Alert Discord`, `Job Offer Review Discord`, `Job Offer Created Discord`) 하단에 `[Gmail 바로가기]` 링크 블록 추가.
 
 ## 관련 링크

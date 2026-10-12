@@ -145,7 +145,7 @@ Python 요청에는 명시적인 User-Agent를 넣었다. 403의 정확한 차�
 
 ```text
 NAS: DXP2800-B9B3
-접속 경로: 100.93.181.111:99
+접속 경로: <NAS-Tailscale-IP>:99
 배포 디렉터리: /volume3/RobinGraph
 TEST 컨테이너: robingraph-api-test
 이미지 태그: robingraph-api:test-local

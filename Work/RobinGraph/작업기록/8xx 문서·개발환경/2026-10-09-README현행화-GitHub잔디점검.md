@@ -21,9 +21,9 @@ GitHub 저장소는 공개 저장소이고 fork가 아니며 기본 브랜치는
 
 | 작성자 이메일 | main 커밋 수 | GitHub author.login |
 | --- | ---: | --- |
-| `kimdove@gimdulgiui-Macmini.local` | 59 | null |
-| `dovekim-32@gimdulgiui-Macmini.local` | 4 | null |
-| `kimhippowork@gmail.com` | 58 | EvoDmiK |
+| `kimdove@<host>.local` | 59 | null |
+| `dovekim-32@<host>.local` | 4 | null |
+| `user@example.com` | 58 | EvoDmiK |
 | `93193661+EvoDmiK@users.noreply.github.com` | 74 | EvoDmiK |
 
 따라서 기존 main의 **63개 커밋은 로컬 이메일 때문에 계정에 연결되지 않은 상태**다. 기본 브랜치 병합은 이미 끝났으므로 최근 커밋의 원인을 dev 미병합만으로 설명할 수 없다. GitHub 공식 문서는 계정에 연결된 이메일과 기본 브랜치 조건을 요구하고, `.local` 같은 일반 로컬 이메일을 계정에 추가할 수 없다고 설명한다. [누락된 기여도 문제 해결](https://docs.github.com/en/account-and-profile/how-tos/contribution-settings/troubleshooting-missing-contributions).

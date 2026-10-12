@@ -62,7 +62,7 @@ Queue Messages는 고장이 아니다. exporter가 큐에 남은 행만 세어�
 
 ## 반영 경로
 
-- **Git Sync:** `main`에 push하면 NAS Grafana(`192.168.219.99:3002`)가 60초 주기로 가져온다. Grafana 로그의 `r4l2wj-sync`와 커밋 SHA로 확인했다. 브라우저에 이전 화면이 남아 있어서 처음에는 그대로인 것처럼 보였다. 강제 새로고침이 먼저다.
+- **Git Sync:** `main`에 push하면 NAS Grafana(`<NAS-LAN-IP>:3002`)가 60초 주기로 가져온다. Grafana 로그의 `r4l2wj-sync`와 커밋 SHA로 확인했다. 브라우저에 이전 화면이 남아 있어서 처음에는 그대로인 것처럼 보였다. 강제 새로고침이 먼저다.
 - **file provisioning:** NAS의 `/volume3/Gullinkambi` checkout이 `provisioning/alerting`, `provisioning/dashboards`를 마운트한다. 이쪽은 자동 갱신되지 않아 `git pull --ff-only`가 필요하다. 이번에 `1ee29a9`, `6ca7243`까지 맞췄다.
 - `ssh NAS`(kimdove, port 99)는 이날부터 접속된다.
 
@@ -92,7 +92,7 @@ Queue Messages는 고장이 아니다. exporter가 큐에 남은 행만 세어�
 
 1. **기존 토큰 재사용 보류:** `hermes-dashboard-import`는 Editor 역할이고 만료가 없으며 다른 용도로 쓰이고 있어서 MCP에 쓰지 않았다. 새 Viewer 계정의 토큰을 발급했다.
 2. **글롭 필터 오작동:** `include`에 `get_dashboard_*` 같은 글롭을 쓰자 Hermes가 `7 selected`로만 잡았다. 또 `*alert*`에는 라우팅을 바꾸는 `alerting_manage_routing`도 걸렸다. 이름 15개를 직접 적어 `15 selected`로 맞췄다.
-3. **컨테이너에서 LAN IP 접속 불가:** 컨테이너에서 `192.168.219.99:3002`는 응답하지 않고(`000`), `https://monitoring.dove-nest.com`은 200이었다. 접속 주소를 도메인으로 바꿨다.
+3. **컨테이너에서 LAN IP 접속 불가:** 컨테이너에서 `<NAS-LAN-IP>:3002`는 응답하지 않고(`000`), `https://monitoring.dove-nest.com`은 200이었다. 접속 주소를 도메인으로 바꿨다.
 4. **토큰 저장 명령 잘림:** 클립보드를 파일로 저장하는 명령이 입력 도중 잘려 빈 파일이 생겼다. 토큰 파일은 600 권한으로 정리했다.
 
 ### 검증
