@@ -17,6 +17,9 @@ Swallow의 n8n 워크플로우, 주식·뉴스 DB, 모의투자, MCP 도구와 G
 
 ## 기록
 
+- [[Work/Birds-Nest/작업기록/Swallow/2026-10-12-Swallow-관심종목-지속-수집|2026-10-12 Swallow 관심종목 지속 수집]]
+
+
 - [[Work/Birds-Nest/작업기록/Swallow/2026-10-10-Swallow-관심종목-시계열-모니터링-피어-뉴스-알림-및-Grafana-구축|2026-10-10-Swallow-관심종목-시계열-모니터링-피어-뉴스-알림-및-Grafana-구축]]
 - [[Work/Birds-Nest/작업기록/Swallow/2026-10-09-Stock-Swallow-워크플로우-고도화-단일-체인-개편-및-NAS-n8n-배포|2026-10-09-Stock-Swallow-워크플로우-고도화-단일-체인-개편-및-NAS-n8n-배포]]
 
