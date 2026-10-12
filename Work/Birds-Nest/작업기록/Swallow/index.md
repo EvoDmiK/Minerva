@@ -34,3 +34,5 @@ Swallow 관련 신규 문서는 이 폴더에 `YYYY-MM-DD-Swallow-작업명.md`�
 
 - [[Work/Birds-Nest/작업기록/index|전체 작업기록 분류]]
 - [[Work/Birds-Nest/index|Birds-Nest 프로젝트]]
+
+- [[Work/Birds-Nest/작업기록/Swallow/2026-10-12-Swallow-뉴스-적재-및-평가-백로그-구현|뉴스 적재 및 평가 백로그 구현]] — SW-001/002/004/005/006/007/009 구현·개발 검증 완료, 운영 승인 대기. 최종 84ff835.
