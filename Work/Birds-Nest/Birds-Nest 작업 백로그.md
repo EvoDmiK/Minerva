@@ -144,7 +144,7 @@ tags:
 
 ### BN-603 — 모든 프로젝트 브랜치의 dev-codex 통합
 
-- **상태**: 진행 중
+- **상태**: 완료
 - **우선순위**: P2(보통)
 - **권장 담당**: Codex 통합·검증·PR, dev-docs 작업 기록
 - **목적**: 사용자 요청에 따라 로컬 및 현재 origin 브랜치의 커밋을 dev-codex에 통합한다.
@@ -153,7 +153,7 @@ tags:
 - **완료 기준 (Acceptance Criteria)**:
   - [x] 수집한 모든 브랜치 tip이 dev-codex의 조상이며 충돌이 해결되어야 한다.
   - [x] 관련 테스트와 실제 Grafana SQL 검증 결과 및 미실행 검증을 구분해 기록한다.
-  - [ ] dev-docs 기록 대조, dev-codex push 및 기존 Draft PR #5 갱신.
+  - [x] dev-docs 기록 대조, dev-codex push 및 기존 Draft PR #5 갱신.
 - **실제 검증 계획**: Git merge-base 조상 확인, Swallow39개, telemetry179개(131pass/48skip), NPM 임시 SQLite·로그 회전, 변경 JSON 연결 및 Code 문법, 실제 Grafana SQL21개, graphify update.
 - **선행 조건 / 의존성**: 신규 운영 배포와 main 최종 머지는 이번 요청에 포함하지 않는다. 전체 시스템 E2E 및 DB/MLflow 의존 테스트는 미완료이므로 PR은 Draft 유지.
-- **결과 및 작업 기록 링크**: 통합 기준 `0cc0be5`. dev-docs 기록 작성 중. https://github.com/EvoDmiK/Birds-Nest/pull/5
+- **결과 및 작업 기록 링크**: 최종 `f1f06a6` origin/dev-codex push 및 Draft PR #5 갱신 완료. 텔레메트리 export 검증기 정렬 `b110ec7` 포함. [[Work/Birds-Nest/작업기록/인프라/2026-10-12-프로젝트-전체-브랜치-통합|상세 통합 기록]] · https://github.com/EvoDmiK/Birds-Nest/pull/5

@@ -22,3 +22,5 @@ tags: [birds-nest, worklog]
 
 - [[Work/Birds-Nest/작업기록/index|전체 작업기록 분류]]
 - [[Work/Birds-Nest/index|Birds-Nest 프로젝트]]
+
+- [[Work/Birds-Nest/작업기록/인프라/2026-10-12-프로젝트-전체-브랜치-통합|2026-10-12 프로젝트 전체 브랜치 dev-codex 통합]] — BN-603, 최종 f1f06a6 push 및 Draft PR #5 갱신.
