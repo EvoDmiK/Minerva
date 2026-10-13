@@ -223,10 +223,12 @@ SW-003 자격증명 노출 대응과 SW-001·SW-002 오체결 방지를 우선�
 ### SW-013 — 거래량 수집 누락 및 패널 표시 보완
 
 - [ ] 완료
-- **상태:** 구현 착수 (2026-10-13 사용자 거래량 미표시 보고)
+- **상태:** 구현·개발 검증 완료·운영 반영 대기 (2026-10-13, Draft PR #7)
 - **우선순위:** P1
 - **담당:** dev-claude 시세 수집/적재, dev-agy 거래량 패널, dev-codex 통합·검증, dev-docs 결과 기록.
 - **근거:** 운영 stock_price_history 최근1시간 volume 전부NULL. 현재 Toss quotes/Naver basic 응답에 거래량 필드 없음. Naver integration의 totalInfos.accumulatedTradingVolume 실제 응답 확인.
 - **범위:** 네이버 당일 누적 거래량을 volume에 저장하고, 누적 거래량임을 명시한 Grafana 패널에서 쉼표 전체 숫자로 표시. 토스 거래량 추정/과거NULL을0으로 채우기/분당 거래량으로 오인하는 표시 금지. 거래량 조회 실패 시 기존 가격 수집 유지.
 - **완료 기준:** 실제 API 거래량과 정규화·DB 저장·Grafana 조회가 연결됨. 0/NULL/음수·비정수/요청실패/자정리셋/원문종목연결 및 upsert 회귀 검증. 기존 가격·매크로 수집 유지.
 - **검증·커밋·결과 기록:** 개발 및 통합 검증 진행 예정. 운영 배포 및 실제 패널 확인 전까지 완료로 표시하지 않음.
+
+- **SW-013 결과:** 백엔드0cccd53/Grafana8cb1d16/통합5e4eb26, Node52pass, root실제격리n8n18141/18142 success(거래량오류시가격유지/기존volume보존), SQL5queries pass, 임시테스트자원정리완료. 최초18140은Toss fixture의1종목반환으로error, mock정정후성공. 원격dev-codex/Draft [PR #7](https://github.com/EvoDmiK/Birds-Nest/pull/7), main/Grafana/운영수집기는아직기존상태. [[Work/Birds-Nest/작업기록/Swallow/2026-10-13-Swallow-거래량-수집-및-표시-수정|구현·검증 기록]]
