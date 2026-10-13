@@ -222,8 +222,8 @@ SW-003 자격증명 노출 대응과 SW-001·SW-002 오체결 방지를 우선�
 
 ### SW-013 — 거래량 수집 누락 및 패널 표시 보완
 
-- [ ] 완료
-- **상태:** 구현·개발 검증 완료·운영 반영 대기 (2026-10-13, Draft PR #7)
+- [x] 완료
+- **상태:** 완료·운영 배포 및 실제 그래프 검증 (2026-10-13, PR #7 main 4f16b69)
 - **우선순위:** P1
 - **담당:** dev-claude 시세 수집/적재, dev-agy 거래량 패널, dev-codex 통합·검증, dev-docs 결과 기록.
 - **근거:** 운영 stock_price_history 최근1시간 volume 전부NULL. 현재 Toss quotes/Naver basic 응답에 거래량 필드 없음. Naver integration의 totalInfos.accumulatedTradingVolume 실제 응답 확인.
@@ -232,3 +232,5 @@ SW-003 자격증명 노출 대응과 SW-001·SW-002 오체결 방지를 우선�
 - **검증·커밋·결과 기록:** 개발 및 통합 검증 진행 예정. 운영 배포 및 실제 패널 확인 전까지 완료로 표시하지 않음.
 
 - **SW-013 결과:** 백엔드0cccd53/Grafana8cb1d16/통합5e4eb26, Node52pass, root실제격리n8n18141/18142 success(거래량오류시가격유지/기존volume보존), SQL5queries pass, 임시테스트자원정리완료. 최초18140은Toss fixture의1종목반환으로error, mock정정후성공. 원격dev-codex/Draft [PR #7](https://github.com/EvoDmiK/Birds-Nest/pull/7), main/Grafana/운영수집기는아직기존상태. [[Work/Birds-Nest/작업기록/Swallow/2026-10-13-Swallow-거래량-수집-및-표시-수정|구현·검증 기록]]
+
+- **SW-013 운영 완료:** 사용자 별도배포 요청으로24노드 active, credential/staticData/AsiaSeoul보존. 10:30/10:31KST 예약30393/30398 success, 각가격6행/네이버거래량3행·volumeErrors없음. DB→Grafana API200 및 실제한화오션누적선그래프/기업명범례/쉼표전체정수축 확인. 기존운영대기기록은당시상태로보존. [[Work/Birds-Nest/작업기록/Swallow/2026-10-13-Swallow-거래량-수집-및-표시-수정|배포·검증 기록]]
