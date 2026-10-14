@@ -10,6 +10,7 @@
 | Gullinkambi | [[Work/Gullinkambi/index|프로젝트 문서 목록]] | 모니터링·사용량·Grafana |
 | Itzcuauhtli | [[Work/Itzcuauhtli/index|프로젝트 문서 목록]] | 읽기 전용 Obsidian MCP |
 | RobinGraph | [[Work/RobinGraph/index|프로젝트 문서 목록]] | 조류 그래프·작업 백로그·검증·배포 |
+| Jery | [[Work/Jery/index|프로젝트 문서 목록]] | MCP 도구 선택·학습 데이터·Hermes·MLflow |
 
 프로젝트 기록은 각 폴더의 `index.md`에서 찾는다. 새 프로젝트 폴더를 만들면 해당 인덱스와 이 표를 함께 추가한다.
 
