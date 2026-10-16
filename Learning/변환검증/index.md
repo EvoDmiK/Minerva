@@ -13,6 +13,10 @@ document_role: index
 
 - [[Learning/원문/2026-10-13-Unsloth-Jev식-결정-모델-학습과-로컬-서빙-원문|Unsloth Jev식 결정 모델 학습과 로컬 서빙]] — [[Learning/변환검증/2026-10-13-Unsloth-결정-모델-Markdown-변환-검증|변환 검증 기록]]
 
+## 도구 검증
+
+- [[Learning/변환검증/2026-10-16-markdown-converter-설치-검증|markdown-converter 설치·실행 검증]] — 변환 도구 점검이며 논문 변환 완료 기록은 아니다.
+
 ## 관리
 
 - 새 검증 기록은 이 폴더에 저장하고 `document_role: verification`, 작업일, 사용 도구·방법, 실제 결과·한계를 기록한다.

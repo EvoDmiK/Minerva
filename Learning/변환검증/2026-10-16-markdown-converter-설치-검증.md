@@ -74,4 +74,5 @@ $$\int\_0^1 x^2 \, dx = \frac{1}{3}$$
 
 ## 관련
 
-- [[Work/Birds-Nest/작업기록/Hermes/index]]
+- [[Learning/변환검증/index]]
+- [[Learning/index]]
