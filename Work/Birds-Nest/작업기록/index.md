@@ -48,3 +48,5 @@ tags: [birds-nest, worklog, index]
 
 - [[Work/Birds-Nest/index|Birds-Nest 프로젝트 인덱스]]
 - [[Work/Birds-Nest/Birds-Nest 작업 백로그|프로젝트 전체 작업 백로그]]
+
+- [[Work/Birds-Nest/작업기록/지식연동/2026-10-17-Minerva-지식-증류-n8n-워크플로우-구현|BN-504 / DEV-202 Minerva 지식 증류 n8n 워크플로우]] — Claude 구현·Codex 통합/17계약테스트/n8n격리검증·dev-docs 가이드. 개발에2개inactive등록, 운영연동대기.
