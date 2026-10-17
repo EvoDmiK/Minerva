@@ -13,6 +13,9 @@ Dovie 게이트웨이·모델·CLI 운영.
 
 ## 기록
 
+- [[Work/Birds-Nest/작업기록/Hermes/2026-10-11-Orca-프로젝트명-오기록-수정|2026-10-11 Orca 프로젝트명 오기록 수정 및 통합]]
+
+
 - [[Work/Birds-Nest/작업기록/Hermes/2026-10-06-Hermes-모델-fallback-설정과-CLI-복구|2026-10-06-Hermes-모델-fallback-설정과-CLI-복구]]
 
 ## 기록 규칙

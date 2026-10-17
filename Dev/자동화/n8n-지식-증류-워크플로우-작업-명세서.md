@@ -168,7 +168,7 @@ flowchart LR
   - NAS Obsidian MCP (`http://obsidian:3443/mcp`) 통신 및 `vault.read` / `vault.create` 정상 동작 검증.
   - Discord Webhook URL Credential 등록.
 - [ ] **Step 3: 목(Mock) 데이터 단위 테스트**
-  - `Work/RobinGraph/작업기록/2026-10-06-전체종-근연관계우선-계통근거-NAS배포.md` 경로를 페이로드로 주입하여 카테고리 판별(`데이터`), 초안 생성, Discord 알림 동작 확인.
+  - `Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-06-전체종-근연관계우선-계통근거-NAS배포.md` 경로를 페이로드로 주입하여 카테고리 판별(`데이터`), 초안 생성, Discord 알림 동작 확인.
 - [ ] **Step 4: 멱등성(중복 생성 방지) 검증**
   - 동일한 파일로 2회 연속 트리거 시 두 번째 실행에서는 생성을 스킵하고 정상 종료되는지 확인.
 - [ ] **Step 5: 에러 주입 테스트**

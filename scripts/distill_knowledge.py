@@ -4,7 +4,7 @@ distill_knowledge.py
 Minerva 볼트의 Work/ 작업기록에서 Dev/ 상록수 지식을 추출(증류)하는 CLI & 자동화 도구.
 
 사용법:
-    python3 scripts/distill_knowledge.py --file Work/RobinGraph/작업기록/2026-10-06-전체종-근연관계우선-계통근거-NAS배포.md
+    python3 scripts/distill_knowledge.py --file Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-06-전체종-근연관계우선-계통근거-NAS배포.md
     python3 scripts/distill_knowledge.py --recent-days 3
     python3 scripts/distill_knowledge.py --list-candidates
 """

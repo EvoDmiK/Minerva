@@ -13,6 +13,8 @@ document_role: index
 
 ‘원문’은 보관한 페이지의 원문을 뜻한다. 게시글이 소개한 논문 전체를 함께 보관했다는 뜻은 아니다.
 
+- [[Learning/원문/2026-10-13-Unsloth-Jev식-결정-모델-학습과-로컬-서빙-원문|Unsloth Jev식 결정 모델 학습과 로컬 서빙]] — [[Learning/변환검증/2026-10-13-Unsloth-결정-모델-Markdown-변환-검증|변환 검증 기록]]
+
 ## 관리
 
 - 새 보관본은 이 폴더에 저장하고 `document_role: source`, 출처 URL, 수집일을 기록한다.

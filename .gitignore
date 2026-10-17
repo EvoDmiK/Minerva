@@ -6,3 +6,8 @@ resume/
 
 # macOS AppleDouble metadata
 ._*
+
+# Obsidian plugin settings that can hold credentials (API keys, OAuth tokens)
+.obsidian/plugins/semantic-vault-mcp/data.json
+.obsidian/plugins/remotely-save/data.json
+.obsidian/plugins/github-sync/data.json

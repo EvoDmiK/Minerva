@@ -46,7 +46,7 @@ model = "gpt-6-sol"
 - **결정: 추가 비용 없이 OpenAI(Codex) 그대로 유지**, Claude OAuth 로그인/설정 변경 없음.
 
 ## 4. 네트워크 / 맥미니 점검
-- 로컬 LAN(192.168.219.0/24)에서 ARP·mDNS로 장비 파악. NAS는 `DXP2800-B9B3`로 확인.
+- 로컬 LAN(<LAN-대역>)에서 ARP·mDNS로 장비 파악. NAS는 `DXP2800-B9B3`로 확인.
 - 16GB 맥미니는 Tailscale에서 `dove-mini-16`(온라인, LAN 직접 연결, 3ms)로 확인됨. 다만 mDNS로 찾은 `.97`과 Tailscale이 보는 LAN IP가 달라 어느 쪽이 맞는지 미확인.
 - SSH 접속 불가: 22번 포트 닫힘(원격 로그인 꺼짐). **집에서 시스템 설정 → 일반 → 공유 → 원격 로그인 켜기** 필요.
 
