@@ -84,7 +84,7 @@ tags:
 | **BN-501** | Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축 | 5xx 지식연동 | ✅ 완료 | — | [[2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축\|기록]] |
 | **BN-502** | Minerva Git Sync 웹훅 버그 수정 | 5xx 지식연동 | ✅ 완료 | — | [[2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리\|기록]] |
 | **BN-503** | Minerva 지식 증류 파이프라인 구축 및 Dev 구조 개편 | 5xx 지식연동 | ✅ 완료 | — | [[2026-10-09-Minerva-지식증류-파이프라인-구축-및-Dev-구조개편\|기록]] |
-| **BN-504** | Woodpecker n8n 기반 지식 증류 자동 추천 웹훅 구축 | 5xx 지식연동 | 구현·개발 검증 완료 / 운영 연동 대기 | 보통 | [[Work/Birds-Nest/작업기록/지식연동/2026-10-17-Minerva-지식-증류-n8n-워크플로우-구현\|구현·검증 기록]] |
+| **BN-504** | Woodpecker n8n 기반 지식 증류 자동 추천 웹훅 구축 | 5xx 지식연동 | 운영 활성 / GitHub Cloudflare 차단 잔여 | 보통 | [[Work/Birds-Nest/작업기록/지식연동/2026-10-17-Minerva-지식-증류-n8n-워크플로우-구현\|구현·검증 기록]] |
 | **BN-601** | n8n 워크플로우 실패율 검증 및 COALESCE 시간 보정 | 6xx 관측성 | ✅ 완료 | — | [[2026-10-06-n8n-워크플로우-실패율-검증\|기록]] |
 | **BN-602** | Hermes Telemetry Ingest 성능 및 드롭율 모니터링 | 6xx 관측성 | ⏳ 착수 대기 | 보통 | — |
 

@@ -4,7 +4,7 @@ updated: 2026-10-09
 type: spec
 category: 워크플로우·자동화
 id: DEV-202
-status: implemented_pending_production
+status: active_github_delivery_blocked
 tags:
   - n8n
   - workflow
@@ -191,3 +191,9 @@ flowchart LR
 - Step1 및Step3·4의개발mock범위완료. Step2는실제MCP읽기와nativeMCP/Discord격리연동까지만확인했고운영credentials·실제볼트생성/Discord발송은미실행. Step5의실패카드payload는확인했으나ErrorTrigger자동호출은CLI범위에서미검증. Step6운영GitHub연동미실행.
 - 명세대비차이: 서명검증을위해native GitHub Trigger를사용하므로고정 /webhook/minerva-distill 대신n8n이생성하는URL을사용한다. 테스트웹훅은인증된 minerva-distill-test다. LLM없이규칙분류/초안작성하며사람검토가필요하다.
 - [[Work/Birds-Nest/작업기록/지식연동/2026-10-17-Minerva-지식-증류-n8n-워크플로우-구현|구현·검증 상세 기록]]
+
+## 2026-10-17 운영 활성화 및 남은 차단
+
+사용자 활성화 요청으로 운영main vtOMX12kZzpS6Uwc/errorAofvp7nvJxHuvmCZ 모두active:true. 기존Nesty봇/전서구채널을재사용하며실행38716실제초안/알림성공,38740재실행already_exists,38737의도오류→38738 ErrorTrigger자동실행및실패알림성공. Step2실연동/Step4실제중복방지/Step5자동ErrorTrigger는이운영결과로확인되었다. 새벽03시실예약은아직관측전이다.
+
+Step6GitHubWebhook699481301 등록은성공했으나GitHub실제push/ping을Cloudflare403이차단하므로자동Push연동완료가아니다. 관리접속정보를사용자에게질문중이며,전체방화벽완화/우회는수행하지않았다. [[Work/Birds-Nest/작업기록/지식연동/2026-10-17-Minerva-지식-증류-n8n-워크플로우-구현|운영 검증 기록]]
