@@ -84,7 +84,7 @@ tags:
 | **BN-501** | Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축 | 5xx 지식연동 | ✅ 완료 | — | [[2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축\|기록]] |
 | **BN-502** | Minerva Git Sync 웹훅 버그 수정 | 5xx 지식연동 | ✅ 완료 | — | [[2026-10-03-Minerva-Git-Sync-웹훅-버그-수정과-NAS-obsidian-mcp-정리\|기록]] |
 | **BN-503** | Minerva 지식 증류 파이프라인 구축 및 Dev 구조 개편 | 5xx 지식연동 | ✅ 완료 | — | [[2026-10-09-Minerva-지식증류-파이프라인-구축-및-Dev-구조개편\|기록]] |
-| **BN-504** | Woodpecker n8n 기반 지식 증류 자동 추천 웹훅 구축 | 5xx 지식연동 | ⏳ 착수 대기 | 보통 | [[scripts/distill_knowledge.py\|도구]] |
+| **BN-504** | Woodpecker n8n 기반 지식 증류 자동 추천 웹훅 구축 | 5xx 지식연동 | 구현·개발 검증 완료 / 운영 연동 대기 | 보통 | [[Work/Birds-Nest/작업기록/지식연동/2026-10-17-Minerva-지식-증류-n8n-워크플로우-구현\|구현·검증 기록]] |
 | **BN-601** | n8n 워크플로우 실패율 검증 및 COALESCE 시간 보정 | 6xx 관측성 | ✅ 완료 | — | [[2026-10-06-n8n-워크플로우-실패율-검증\|기록]] |
 | **BN-602** | Hermes Telemetry Ingest 성능 및 드롭율 모니터링 | 6xx 관측성 | ⏳ 착수 대기 | 보통 | — |
 
@@ -157,3 +157,10 @@ tags:
 - **실제 검증 계획**: Git merge-base 조상 확인, Swallow39개, telemetry179개(131pass/48skip), NPM 임시 SQLite·로그 회전, 변경 JSON 연결 및 Code 문법, 실제 Grafana SQL21개, graphify update.
 - **선행 조건 / 의존성**: 신규 운영 배포와 main 최종 머지는 이번 요청에 포함하지 않는다. 전체 시스템 E2E 및 DB/MLflow 의존 테스트는 미완료이므로 PR은 Draft 유지.
 - **결과 및 작업 기록 링크**: 최종 `f1f06a6` origin/dev-codex push 및 Draft PR #5 갱신 완료. 텔레메트리 export 검증기 정렬 `b110ec7` 포함. [[Work/Birds-Nest/작업기록/인프라/2026-10-12-프로젝트-전체-브랜치-통합|상세 통합 기록]] · https://github.com/EvoDmiK/Birds-Nest/pull/5
+
+### BN-504 — 2026-10-17 구현·개발 검증 완료
+
+- 사용자 Obsidian MCP명세 DEV-202 기반작성요청. dev-claude29a9b47 구현(main21/error3노드), dev-codex통합·검증, dev-docs README작성.
+- Code계약17pass. 실제n8n-test격리18143/18144/18145/18148/18150 success(첫생성·재실행쓰기/알림0·pagination·실패카드payload·복수원천),18146/18147/18149는권한/없는원천의도error·추가쓰기없음. 테스트자원은정리했고최종원본workflow2개는개발n8n에inactive로유지한다.
+- 운영활성화/GitHubWebhook등록/실제Discord발송및ErrorTrigger자동발송실측은미완료. 따라서실운영완료로체크하지않는다. nativeGitHubTrigger사용으로고정URL대신생성URL사용,동시create원자성서버의존,Discord재알림수동복구한계명시.
+- [[Work/Birds-Nest/작업기록/지식연동/2026-10-17-Minerva-지식-증류-n8n-워크플로우-구현|상세 구현·검증 기록]]

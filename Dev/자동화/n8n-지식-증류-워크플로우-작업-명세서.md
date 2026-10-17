@@ -4,7 +4,7 @@ updated: 2026-10-09
 type: spec
 category: 워크플로우·자동화
 id: DEV-202
-status: ready
+status: implemented_pending_production
 tags:
   - n8n
   - workflow
@@ -183,3 +183,11 @@ flowchart LR
 - 백로그 항목: [[Work/Birds-Nest/Birds-Nest 작업 백로그#BN-504 — Woodpecker n8n 기반 지식 증류 자동 추천 웹훅 구축|BN-504 지식 증류 웹훅 구축]]
 - 참조 패턴: [[Dev/자동화/n8n-워크플로우-신뢰성-및-에러-복구-패턴|DEV-201 n8n 워크플로우 신뢰성 및 에러 복구 패턴]]
 - Dev 인덱스: [[Dev/index|Dev 인덱스]]
+
+## 2026-10-17 구현 및 개발 검증 결과
+
+- 워크플로우 구현29a9b47, 개발n8n-test에 MinervaDistill01(21노드) / MinervaDistErr01(3노드)를가져왔고둘다inactive. Error workflow설정연결확인.
+- Code계약17개통과, 실제n8n격리실행에서최초생성/재처리중복방지/목록pagination/복수원천연결/실패카드전송확인. 권한오류·없는원천은의도대로실패하며쓰기없음.
+- Step1 및Step3·4의개발mock범위완료. Step2는실제MCP읽기와nativeMCP/Discord격리연동까지만확인했고운영credentials·실제볼트생성/Discord발송은미실행. Step5의실패카드payload는확인했으나ErrorTrigger자동호출은CLI범위에서미검증. Step6운영GitHub연동미실행.
+- 명세대비차이: 서명검증을위해native GitHub Trigger를사용하므로고정 /webhook/minerva-distill 대신n8n이생성하는URL을사용한다. 테스트웹훅은인증된 minerva-distill-test다. LLM없이규칙분류/초안작성하며사람검토가필요하다.
+- [[Work/Birds-Nest/작업기록/지식연동/2026-10-17-Minerva-지식-증류-n8n-워크플로우-구현|구현·검증 상세 기록]]
