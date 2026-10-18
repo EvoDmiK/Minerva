@@ -33,7 +33,7 @@ tags:
 | 4xx 채팅 UI·카드 | [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/작업 백로그\|작업 백로그]] | 7 | 41 |
 | 5xx 데이터·분류·이름 | [[Work/RobinGraph/작업기록/5xx 데이터·분류·이름/작업 백로그\|작업 백로그]] | 5 | 17 |
 | 6xx 관측·평가 | [[Work/RobinGraph/작업기록/6xx 관측·평가/작업 백로그\|작업 백로그]] | 2 | 1 |
-| 7xx 배포·인프라 | [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그\|작업 백로그]] | 0 | 10 |
+| 7xx 배포·인프라 | [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그\|작업 백로그]] | 0 | 11 |
 | 8xx 문서·개발환경 | [[Work/RobinGraph/작업기록/8xx 문서·개발환경/작업 백로그\|작업 백로그]] | 0 | 5 |
 | 9xx 기타·실험 | [[Work/RobinGraph/작업기록/9xx 기타·실험/작업 백로그\|작업 백로그]] | 0 | 0 |
 
@@ -139,7 +139,7 @@ RG-301·RG-602·RG-405는 완료 상세로 이동했다. 2026-10-15 RG-202는 �
 
 ### RG-406 — 한국 서식 여부 토글과 범위별 이름 우선 정책
 
-**2026-10-17 최신 상태: 범위 API·UI 구현·TEST 이전 검증 완료, 분포 자료 확장 후속.** 사용자 지시에 따라 대한민국 기준으로 출처의 Korea·Korean Peninsula도 수용하고 북한만 명시한 근거는 국내 승인하지 않는다. 전체/국내 기록·분포 확인/국외 분포 검토/미확인 네 범위. 국내592·국외 검토6·미확인10,533종이며 전 세계 비서식 전수 분류 완료는 아니다. 이후 범위를 고급 옵션 내부로 이동하고, 사용자 승인으로 TEST 앱을 M4 16GB Mac(192.168.219.97:8000)으로 이전 완료했다. 최신 ARM64 이미지 `robingraph-api:test-mac-8ffeb7734750` healthy, 실제 공개 HTTPS(https://robingraph-test.dove-nest.com) 및 Chromium 1280/390/320 총 9POST와 /birds, API 12사례 통과. 이후 2026-10-18 Jenkins + GHCR 자동 배포 체계(RobinGraph-TEST #2)로 최신 digest(`ghcr.io/evodmik/robingraph@sha256:9d3fbea038a9a4cdfb423a2de50d9ca923766af5891c24941f28f79cfbafcee6`) 배포 및 API 12사례·공개 HTTPS Chromium 검증 완료. 2026-10-18 재조회 기준 NAS TEST 컨테이너는 부재하며 현재 롤백 기준은 Mac previous release, 운영 불변, commit/push/병합 없음. [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-17-RG406-국내기록-분포범위-이름정책|정책·자료·실제 검증·배포·남은 한계]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-17-RG406-고급조회옵션-범위선택-NAS-TEST|고급 옵션 이동·NAS TEST 배포]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-17-TEST앱-M4-16GB-이전|TEST 앱 M4 16GB Mac 이전 기록]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-GHCR-배포-구성-사전검증|Jenkins·GHCR 배포 구성·사전 검증]].
+**2026-10-17 최신 상태: 범위 API·UI 구현·TEST 이전 검증 완료, 분포 자료 확장 후속.** 사용자 지시에 따라 대한민국 기준으로 출처의 Korea·Korean Peninsula도 수용하고 북한만 명시한 근거는 국내 승인하지 않는다. 전체/국내 기록·분포 확인/국외 분포 검토/미확인 네 범위. 국내592·국외 검토6·미확인10,533종이며 전 세계 비서식 전수 분류 완료는 아니다. 이후 범위를 고급 옵션 내부로 이동하고, 사용자 승인으로 TEST 앱을 M4 16GB Mac(192.168.219.97:8000)으로 이전 완료했다. 최신 ARM64 이미지 `robingraph-api:test-mac-8ffeb7734750` healthy, 실제 공개 HTTPS(https://robingraph-test.dove-nest.com) 및 Chromium 1280/390/320 총 9POST와 /birds, API 12사례 통과. 2026-10-18 사용자 지시에 따라 Jenkins 기본 배포 대상을 NAS Production으로 정정하여 `RobinGraph-PROD` #2 SUCCESS로 실제 운영 앱을 교체 배포했다(commit `bc643ee9edef0fc58c605adde70b4808b7622ac5`, digest `sha256:100e4aa30fd8981ebb631ced8c4bfecd95e71fcdb6d90cc5026e42f11b333ead`). admin 승인 gate 통과, NAS 내부 및 공개 운영 GET API 200 통과, 공개 Chromium 3너비 UI 읽기 검사 통과(POST 차단; Cloudflare /cdn-cgi/rum telemetry 필터링 정정 후 통과; 답변 생성/DB 쓰기 검증 아님). 오래된 운영 compose 부재는 running env 47개 값을 보존하여 복원. TEST job은 비활성화·polling 제거 및 TEST 컨테이너 불변, TEST artifact 승격 의존성은 제거됨. 미래 운영 배포 시 명시적 admin 승인 gate 유지, commit/push/병합 없음. [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-17-RG406-국내기록-분포범위-이름정책|정책·자료·실제 검증·배포·남은 한계]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-17-RG406-고급조회옵션-범위선택-NAS-TEST|고급 옵션 이동·NAS TEST 배포]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-17-TEST앱-M4-16GB-이전|TEST 앱 M4 16GB Mac 이전 기록]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-GHCR-배포-구성-사전검증|Jenkins·GHCR 배포 구성·사전 검증]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-Production-배포-대상-정정|Jenkins 배포 대상을 NAS Production으로 정정]].
 
 상세는 [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/작업 백로그#RG-406 — 한국 서식 여부 토글과 범위별 이름 우선 정책|4xx 채팅 UI·카드 작업 백로그]]에서 관리한다. 기존 제목 앵커는 이전 링크 호환을 위해 유지한다.
 
