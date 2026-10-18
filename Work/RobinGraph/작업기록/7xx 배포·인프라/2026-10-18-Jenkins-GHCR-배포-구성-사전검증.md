@@ -1,5 +1,8 @@
 # Jenkins·GHCR 배포 구성과 사전 검증 — 2026-10-18
 
+> [!NOTE] 2026-10-18 초기 TEST 구성 이력 보존 안내
+> 본 문서는 2026-10-18 초기 Jenkins + GHCR 연결 및 TEST 자동 배포 파이프라인 구성 당시의 기록이다. 이후 사용자의 명시적 지시에 따라 Jenkins 기본 배포 대상이 **NAS Production**으로 정정되었으며, `RobinGraph-PROD` #2 SUCCESS로 실제 운영 앱 교체가 완료되었다. 현재 `RobinGraph-TEST`는 비활성화(polling 제거) 상태이며, 최신 운영 배포 현황은 [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-Production-배포-대상-정정|Jenkins 배포 대상을 NAS Production으로 정정 — 2026-10-18]]을 따른다.
+
 ## 요청 배경·목표
 
 사용자가 수동 tar NAS 배포를 Jenkins로 자동화하는 방안을 요청하고 Jenkins 주소·접속 정보를 제공했다. Registry는 GHCR을 선택했다. TEST 자동 배포와 사용자 승인 후 Production 승격을 준비하되 운영 반영은 실행하지 않는 범위다. 인증 값은 기록하지 않는다.
@@ -43,12 +46,12 @@ GHCR 등록 후에는 credential 확인→TEST 전체1회 실행→image digest/
 - PAT classic write:packages 필요. 저장소 공개라 repo scope는 필요 없다. secret 본문을 채팅이나 문서로 재출력하지 않는다.
 - native agent는 로그인 LaunchAgent와 Java21이 필요하다. Mac 물리 재부팅·로그인 전 복구·Jenkins 장기부하는 미검증이다.
 - 코드와 host helper·inline job 버전이 함께 바뀌어야 한다. 추후 사용자 Git 게시 지시 후 Pipeline from SCM 전환 가능하다.
-- 이 초기 단계에서는 ARM64/AMD64 게시와 NAS native AMD64/Production DB 경로를 확인하지 않았다. 이후 게시·TEST 성공은 아래 최종 결과를 따르며 운영은 여전히 미실행이다.
+- 이 초기 단계에서는 ARM64/AMD64 게시와 NAS native AMD64/Production DB 경로를 확인하지 않았다. 이후 게시·TEST 성공은 아래 최종 결과를 따르며, 운영 배포는 이후 사용자 지시로 진행된 별도 운영 대상 정정 기록을 따른다.
 - 상세 운영 절차와 권한 ID는 docs/jenkins-deployment.md를 따른다. Writer에게 확정 증거와 실제 완료/미완료 경계를 전달해 로컬·Obsidian 기록을 맞춘다.
 
 ## GHCR 등록 후 최종 TEST 배포 결과
 
-위 미등록·미배포 설명은 초기 대기 상태다. 사용자가 credential 등록을 알린 뒤 ID·종류만 확인하고 TEST job을 활성화했다. Production job은 비활성으로 유지했다.
+위 미등록·미배포 설명은 초기 대기 상태다. 사용자가 credential 등록을 알린 뒤 ID·종류만 확인하고 TEST job을 활성화했다. (당시 초기 TEST 구성 기준이며, 이후 사용자 지시로 운영 대상을 정정하고 실제 운영 배포를 완료함).
 
 ### 첫 실제 실행의 실패와 보정
 
@@ -72,7 +75,7 @@ TEST#1은 GHCR 로그인 성공 후 docker buildx의 --platform flag 오류(exit
 
 ### 운영 보존과 재조회
 
-TEST job source=Jenkinsfile·활성, PROD source=ci/Jenkinsfile.production·비활성을 readback 확인했다. host helper 두 파일도 source hash와 일치했다. Production lastBuild=null.
+초기 검증 당시에는 TEST job source=Jenkinsfile·활성, PROD source=ci/Jenkinsfile.production·비활성을 readback 확인했고 Production lastBuild=null이었다. (이후 2026-10-18 사용자 지시로 운영 대상을 정정하여 `RobinGraph-PROD` #2 실제 운영 배포 SUCCESS 완료 및 `RobinGraph-TEST` 비활성화로 전환됨).
 
 NAS 읽기 전용 SSH 로그인 후 Production ID 03ce208b9f30a3242fd16dd2772935d45099d77aaba0c81d49240bb8699de8fd, 시작2026-10-10T06:07:33.413088244Z, image robingraph-api:prod-approved-ui-0681747 동일을 확인했다. 이번 Jenkins 작업으로 운영 앱을 변경/재시작하지 않았다.
 
@@ -82,6 +85,6 @@ NAS 읽기 전용 SSH 로그인 후 Production ID 03ce208b9f30a3242fd16dd2772935
 
 ### 최종 증거와 한계
 
-증거 디렉터리에 test-{1,2}.json/.txt, test-release.json, image-metadata.json, deployed-test.json, environment-preserved.json, configuration-readback.json, browser-live.json 및 화면3개를 보존했다. 실제 Registry TEST 경로는 완료했다. 운영은 최신 성공 TEST artifact+admin 명시적 input 승인 전 비활성으로 유지한다. TEST polling은5분 간격이다.
+증거 디렉터리에 test-{1,2}.json/.txt, test-release.json, image-metadata.json, deployed-test.json, environment-preserved.json, configuration-readback.json, browser-live.json 및 화면3개를 보존했다. 실제 Registry TEST 경로는 완료했다. (당시 운영 비활성 및 TEST 5분 polling 설명은 초기 TEST 파이프라인 구성 당시의 이력이며, 이후 사용자 지시로 Jenkins 배포 대상이 NAS Production으로 정정되어 `RobinGraph-PROD` #2 SUCCESS 배포 및 TEST job 비활성화·polling 제거로 전환되었다. 최신 운영 배포 현황은 [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-Production-배포-대상-정정|Jenkins 배포 대상을 NAS Production으로 정정]] 참조).
 
 새 CI 구성 파일은 아직 Git commit/push하지 않았다. 실제 TEST/운영 rollback·NAS native AMD64 새 앱 검증·Production approval 런타임은 미검증이다. 저장소·Obsidian 기록을 이 최종 결과로 일치시키도록 Writer에게 전달한다.
