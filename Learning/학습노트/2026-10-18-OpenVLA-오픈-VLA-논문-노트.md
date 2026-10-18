@@ -47,3 +47,7 @@ tags: [robotics, vla, openvla, open-source]
 2. [π0.5 논문 v1](https://arxiv.org/html/2504.16054v1), Abstract·§IV.
 
 논문 실험이나 현재 코드의 기능을 직접 재현·점검한 기록은 아니다.
+
+## 종합 비교
+
+- [[Learning/학습노트/2026-10-18-VLA-관련-논문-비교-pi05-중심|VLA 관련 논문 비교 — π0.5 중심]] — VLM 초기화·행동 토큰·목표 환경 적응을 비교.
