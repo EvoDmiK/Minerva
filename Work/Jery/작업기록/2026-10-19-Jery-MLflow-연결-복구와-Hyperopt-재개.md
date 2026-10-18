@@ -60,3 +60,8 @@ MLflow의 마지막 학습 곡선은 epoch 5의 검증 정확도 5.24%다. 최�
 - [[Work/Jery/작업기록/2026-10-18-Jery-Laya-균형학습-Hyperopt-콜백과-MLflow|균형 학습·Hyperopt·콜백 정책]]
 - [수정된 실행기](https://github.com/EvoDmiK/Jery/blob/a8de267f245962c850dde8aa7a19a15a9a64a7ef/scripts/run_laya_full_experiment.py)
 - [저장소 기술 문서](https://github.com/EvoDmiK/Jery/blob/a8de267f245962c850dde8aa7a19a15a9a64a7ef/docs/model/laya-balanced-hyperopt-20261018.md)
+
+
+### 07:04 KST 실행 확인
+
+두 번째 모델이 학습 전 전체 validation을 마치고 실제 optimizer step 79회까지 진행한 것을 확인했다. 실행기와 모델 프로세스 모두 살아 있으며 MLflow 추적 주소는 공개 HTTPS다. 첫 모델의 report·가중치·원래 실행 소스와 설정은 해시가 그대로 유지됐다.
