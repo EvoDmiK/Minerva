@@ -169,7 +169,7 @@ python3 scripts/predict_tool.py --request '삼성전자 지금 주가 확인해�
 - [ ] Gemma 출력 제약·프롬프트와 더 넓은 후보 수에서 정확도·지연 검증.
 - [ ] 검토 데이터로 미세조정할지, 다른 소형 모델과 비교할지 결정.
 - [ ] 실제 Hermes 로그 수집·정제·검토를 수행한 후 학습 데이터 반영.
-- [ ] 로컬 커밋과 Gemma 변경사항을 검토해 커밋·푸시.
+- [x] 로컬 커밋과 Gemma 변경사항을 검토해 커밋·푸시. (2026-10-18, `dev-codex`, `f135208`)
 
 ## 관련 문서
 
@@ -179,3 +179,10 @@ python3 scripts/predict_tool.py --request '삼성전자 지금 주가 확인해�
 - [MLflow 등록 모델](https://mlflow.dove-nest.com/#/models/Jery-LinearRouter/versions/1)
 
 이 기록은 실제 실행 보고서, 데이터 manifest, MLflow 업로드·검증 영수증과 현재 Git 상태를 근거로 작성했다.
+
+
+## 2026-10-18 후속 갱신
+
+위 형상 관리의 미커밋·미푸시 항목은 이 기록을 작성한 당시 상태다. 2026-10-18에 Laya 파일럿·전체 데이터 학습·균형 조정·콜백·Hyperopt 및 Gemma 실행기 변경을 포함한 커밋 [`f135208`](https://github.com/EvoDmiK/Jery/commit/f135208a6eeade7b33c286360f366b6b4157bfc1)을 `origin/dev-codex`에 푸시했고 전체 테스트 109개가 통과했다.
+
+현재 진행 중인 Laya 학습의 정책·MLflow 링크·재현 방법은 [[Work/Jery/작업기록/2026-10-18-Jery-Laya-균형학습-Hyperopt-콜백과-MLflow|최신 작업기록]]을 따른다. 이 갱신은 당시 Gemma 실행이나 선형 모델 결과를 변경하지 않는다.
