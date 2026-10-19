@@ -4,7 +4,7 @@ updated: 2026-10-19
 project: RobinGraph
 type: work-log
 category: "1xx DB·저장소"
-status: draft
+status: test-pilot-done
 tags:
   - robingraph
   - ingest
@@ -19,28 +19,29 @@ tags:
 
 저장소 기록: `docs/work-log/2026-10-19-avilist-ingest-pilot.md` (main-2)
 
-> 상태: **초안 (검증 진행 중)**. 아래 "미확인"으로 표시한 항목은 Codex/Claude의 최종 증거를 받은 뒤
-> 갱신한다. 이 문서는 현재 시점의 구현 범위와 확인된 사실만 기록하며, 완료·배포·커밋을 주장하지 않는다.
+> 상태: **1차 수동 TEST pilot 완료**. 전체 수집 파이프라인(주기 실행·도메인 projection·대량 수집) 완료가 아니다.
+> Production 반영·commit/push는 없다.
 
 ## 요청 배경과 목표
 
 사용자가 대량 수집 작업에 앞서 Airflow를 새로 도입하지 않고 기존 n8n + PostgreSQL 구성으로
-**자료원 하나에 대한 반복 가능한 수집 파이프라인**을 먼저 구현하도록 요청했고, 세 담당자 협업으로 진행한다.
+**자료원 하나에 대한 반복 가능한 수집 파이프라인**을 먼저 구현하도록 요청했고, 담당자 협업으로 진행했다.
 
 - 목표: 공식 자료원 1개(AviList Explorer v2025b JSON)를 고정 SHA-256으로 받아, 결정적(deterministic)
-  prepare → 운영자 review → hash gate를 거친 뒤 TEST PostgreSQL에 별도 pilot dataset/source_record/
-  pointer만 저장하는 흐름을 확인한다. 같은 입력을 다시 실행하면 새 run 없이 no-op이 되어야 한다.
-- 역할: Codex(dev-codex)가 root CLI·통합, Claude(dev-claude)가 코어 모듈·단위 테스트, main 워크트리의
-  Codex가 독립 리뷰, Writer(main-2)가 본 작업 기록을 맡는다.
-- Airflow 미도입 판단은 사용자 지시에 따른 것이며, 이 문서에서 Airflow와의 비교 평가를 수행하지 않았다.
+  prepare → review 승인 → hash gate를 거친 뒤 TEST PostgreSQL에 별도 pilot dataset/source_record/pointer만
+  저장한다. 같은 입력을 다시 실행하면 새 run 없이 no-op이 되어야 한다.
+- 역할: Codex(dev-codex) root CLI·통합·TEST 실행, Claude(dev-claude) 코어 모듈·단위 테스트, 별도 Codex
+  독립 reviewer의 read-only 검토와 agent 승인, Writer(main-2) 본 작업 기록·Obsidian 동기화.
+- Airflow 미도입은 사용자 지시에 따른 것이며, 이 문서에서 Airflow와 비교 평가를 수행하지 않았다.
 
-## 작업 경계 (이번 범위에 포함하지 않는 것)
+## 작업 경계 (이번 범위에 포함하지 않은 것)
 
 - 새 종 분포 추론, 도메인 projection(Neo4j/검색 자료 반영), 이름 벡터·임베딩 쓰기 없음.
-- n8n schedule/workflow 연결 없음. 현재는 수동 CLI 실행 파일럿이다. "반복"은 동일 입력 재실행의
-  멱등성을 뜻하며 주기 실행이 구현됐다는 의미가 아니다.
-- Production 대상 실행·배포, commit/push/merge 없음. 운영 배포 승인 규칙(AGENTS.md)을 그대로 따른다.
-- Writer는 코드 수정·DB 쓰기·서비스 재시작을 하지 않았다. 이 문서 외 파일을 변경하지 않았다.
+- n8n schedule/workflow 연결 없음. 수동 CLI 실행 파일럿이다. "반복"은 동일 입력 재실행의 멱등성
+  (`already_applied`)을 뜻하며 주기 실행이 구현됐다는 의미가 아니다.
+- Production 실행·배포, 앱 이미지 교체·앱 재시작, 컨테이너 rootfs 보안 설정 변경, commit/push/merge 없음.
+- 백로그: Codex 지시에 따라 RG-101(보류)·RG-406 전체 상태는 변경하지 않았고 작업 기록만 추가했다.
+- Writer는 코드 수정·DB 쓰기·서비스 재시작을 하지 않았고 이 문서 외 저장소 파일을 변경하지 않았다.
 
 ## 자료원과 라이선스
 
@@ -53,110 +54,116 @@ tags:
 | 참조 자료(신규 수집 아님) | 기존 고정 KOS 2025 한국조류목록 v2.1 참조 bundle `src/robingraph/retrieval/species_ko_names.json`, SHA-256 `b660e125…66ba7a` (`KOS_SHA256`) |
 | 분류판 | `TAXONOMY_RELEASE=v2025b`, `CONCEPT_SET_ID=rg:concept-set:avilist-v2025b` |
 
-KOS 자료는 이번에 새로 내려받지 않으며, 기존 저장소에 고정된 bundle을 그대로 입력으로 사용한다.
-KOS 라이선스 필드는 기존 builder에서 `None`이며 이용 안내 문구(`KOS_USE_NOTE`)만 보존한다.
-KOS는 별도 고정 보조 입력이며 CC BY로 재표기하지 않는다.
+KOS 자료는 새로 내려받지 않았고 저장소에 고정된 bundle을 보조 입력으로만 사용했다. KOS의
+`license_name`은 `null`이며 이용 안내 문구(`KOS_USE_NOTE`)만 보존한다. KOS를 CC BY로 재표기하지 않는다.
+실제 PG readback에서도 `kos_license_name: null`, `kos_use_note_preserved: true`를 확인했다.
 
-## 확인한 근거
+## 확인한 원인과 근거
 
-- **공식 JSON 실제 다운로드 (Codex 전달, 실제 네트워크)**: 19,933,159 byte, 33,684행 / species 11,131,
-  SHA-256이 기존 pin과 일치. Writer가 직접 재다운로드하지는 않았다.
-- **코드 정독 (Writer, 읽기만)**: `dev-codex/scripts/run_avilist_pipeline.py`(첫 정독 241줄 → 재확인 263줄, 미추적 신규 파일),
-  `dev-codex/tests/test_avilist_pipeline_runner.py`(미추적 신규 파일), 기존 추적 파일
-  `scripts/build_species_distribution.py`, `src/robingraph/ingest/store.py`의 `begin_run`·`append_batch`·
-  `activate_release`·`pipeline_state_version`·`active_release_context`·`fail_run` 존재 확인.
-- 코어 모듈 `robingraph.ingest.avilist_pipeline`(`prepare_manifest`, `validate_approval`)은 Writer 첫 확인 때
-  없었고, 재확인 시 dev-claude에 `src/robingraph/ingest/avilist_pipeline.py`(8,858 byte)와
-  `tests/test_avilist_pipeline.py`가 생겼다. dev-codex 워크트리에는 아직 없다(통합 전). approval 필드는
-  `manifest_sha256`·`bundle_sha256`·`decision`·`reviewer`·`reviewer_type`(agent/human) 등이다.
-- **approval의 의미 (Codex 전달)**: CLI gate의 approval은 신뢰된 로컬 운영자 파일의 digest 대조이며 인증
-  서명이 아니다. 검토 에이전트가 실제 prepare 패키지를 재검증한 뒤 준 agent 승인 메시지를 저장하는 것으로,
-  사용자의 Production 승인이나 인간 조류 전문가 검토와 다르다.
+- 기존에는 AviList 자료를 n8n 기준정보 workflow(`docs/n8n/reference-ingest.md`)와 수동 builder로 처리했고,
+  자료원 단위로 review 승인·hash gate·PG pilot pointer를 묶어 재실행할 수 있는 경로가 없었다. 대량 작업 전에
+  이 경로를 자료원 하나로 먼저 검증하는 것이 이번 작업의 이유다(사용자 요청).
+- 공식 JSON 실제 다운로드(Codex, 실제 네트워크): 19,933,159 byte, 33,684행 / species 11,131, SHA-256이 기존
+  pin과 일치. Writer는 재다운로드하지 않았다.
+- Writer 코드 정독(읽기만): dev-codex `scripts/run_avilist_pipeline.py`(263줄), `src/robingraph/ingest/avilist_pipeline.py`,
+  두 테스트 파일, 기존 `scripts/build_species_distribution.py`와 `src/robingraph/ingest/store.py`의
+  `begin_run`·`append_batch`·`activate_release`·`pipeline_state_version`·`active_release_context`·`fail_run`.
+- approval의 의미: CLI gate의 approval은 신뢰된 로컬 운영자 파일의 hash binding(운영자 실수 방지)이며 인증
+  서명이 아니다. 이번 승인은 agent 승인으로, 사용자의 Production 승인이나 인간 조류 전문가 검토가 아니다.
 
 ## 변경 전후 동작
 
-- 변경 전: AviList 자료는 n8n 기준정보 workflow(`docs/n8n/reference-ingest.md`)와 수동 builder로
-  `species_distribution.json`을 생성했다. 자료원 단위로 review 승인·hash gate·PG pilot pointer를 묶는
-  재실행 가능한 CLI 경로는 없었다.
-- 변경 후(구현 중, 코드 기준 설명):
-  (아래는 Writer가 2026-10-19 재확인한 263줄 runner 기준)
-  1. `prepare [--source PATH] --output DIR`: `--source`가 없으면 공식 URL을 받으며, 다른 URL로 redirect되면
-     거부, 25,000,000 byte 상한. builder로 bundle을 다시 만들고(내부에서 AviList·KOS SHA 불일치 시 실패)
-     manifest를 생성한다. 출력 폴더가 이미 있으면 덮어쓰지 않고 실패한다. 결과는 `review_required`.
-  2. `apply --package DIR --approval FILE`: 패키지의 source로 bundle·manifest를 재계산해 바이트 단위로
-     같은지 확인(hash gate)하고 approval을 검증한다. 이어서 읽기 전용 runtime 검사를 수행한다.
-     `--apply`가 없으면 `dry_run`으로 끝나고 쓰기 lock에 들어가지 않는다.
+- 변경 전: 위와 같이 자료원 단위 반복 실행 경로가 없었다.
+- 변경 후:
+  1. `prepare [--source PATH] --output DIR`: `--source`가 없으면 공식 URL을 받고, 다른 URL로 redirect되면 거부,
+     25,000,000 byte 상한. builder로 bundle을 만들고(AviList·KOS SHA 불일치 시 실패) 코어의 `prepare_manifest`로
+     manifest를 만든다. 코어는 형식 오류 행, 중복 species ID/이름, 변경된 source·로컬 입력, 변조된 bundle에
+     fail-closed한다(코어 단위 테스트 기준). 출력 폴더가 이미 있으면 덮어쓰지 않는다. 결과 `review_required`.
+  2. `apply --package DIR --approval FILE`: source로 bundle·manifest를 재계산해 바이트 단위로 대조(hash gate)하고
+     `validate_approval`로 승인 파일(`manifest_sha256`·`bundle_sha256`·`decision`·`reviewer`·`reviewer_type` 등)을
+     검증한다. 이어 읽기 전용 runtime 검사를 한다. `--apply`가 없으면 `dry_run`으로 끝나고 쓰기 lock에 들어가지 않는다.
   3. 읽기 전용 runtime 검사: TEST PG/Neo4j(`bolt://192.168.219.98:7687`) allowlist, 설치된
-     `species_distribution.json`과 bundle 동일성, `/health`의 `deployment_target=test`, 활성 분류판이 pin과
-     같은지, 이름 벡터 인덱스 `dry_run=True` 결과가 최신·호환인지, 고정 검색 회귀 4건
-     (Kea outside/all answer, Keaa outside clarify, 청둥오리 korea answer). answer 응답은 API의 분포 status·
-     evidence가 승인 bundle과 같은지도 대조한다. 검사 전후 활성 분류판·한국어 이름 dataset 불변을 확인한다.
-     이 검색 검증은 기존 runtime의 같은 bundle 근거 회귀 + 이름 인덱스(855종) dry-run이며, 새 PG artifact의
-     projection 검증이 아니다.
-     이름 인덱스에 갱신이 필요하면 쓰기 없이 실패한다.
-  4. `--apply` 시: `ROBINGRAPH_DEPLOY_TARGET=test`와 PG 대상 allowlist(host/port/database/user/schema)를
-     연결 전에 확인하고, 연결 후 `current_database()/current_user`를 다시 확인한다. advisory lock으로 동시
-     실행을 막고, 기존 pilot dataset이 있으면 source_id·`policy_status=allowed`가 맞는지 확인한다. 같은 manifest의 release가 이미 활성이면 provenance(content/manifest SHA)를 대조한 뒤
-     `already_applied` no-op. 아니면 pilot dataset `rg:dataset:avilist-distribution-pilot` 아래 release·run을
-     만들고 bundle 전체를 source_record 1건으로 append한 뒤 state version CAS로 pilot pointer를 활성화한다.
-     cursor에 `projection_performed: false`를 기록한다. release/record의 URI는
-     `urn:robingraph:avilist-pilot:bundle:<bundle canonical sha256>`이며 실제 artifact는 `source_record.payload`에
-     있다. 원문 URL·각 SHA·라이선스는 release metadata의 sources/inputs로 보존한다.
-     append/activate 예외 시 먼저 활성 pointer를 다시 읽어 같은 run/release가 이미 커밋됐으면
-     `applied_reconciled`로 처리하고(응답 유실 대비), 아니면 run을 실패 처리하며 활성화하지 않는다. 실패 상태
-     확인마저 실패하면 재시도 시 reconcile된다는 note를 남긴다. 재시도 시 record ID는 manifest 해시 기반이라
-     같고 run ID만 새로 생성된다.
+     `species_distribution.json`과 bundle 동일성, `/health`의 `deployment_target=test`, 활성 분류판이 pin과 같은지,
+     이름 벡터 인덱스 `dry_run=True` 결과가 최신·호환인지(갱신 필요 시 쓰기 없이 실패), 고정 검색 회귀 4건
+     (Kea outside/all answer, Keaa outside clarify, 청둥오리 korea answer; answer는 API 분포 status·evidence가
+     승인 bundle과 같은지 대조), 검사 전후 활성 분류판·한국어 이름 dataset 불변.
+     이는 기존 runtime의 같은 bundle 근거 회귀 + 이름 인덱스 dry-run이며 새 PG artifact의 projection 검증이 아니다.
+  4. `--apply`: `ROBINGRAPH_DEPLOY_TARGET=test`와 PG 대상 allowlist(host/port/database/user/schema)를 연결 전에
+     확인하고, 연결 후 `current_database()/current_user`를 재확인한다. advisory lock으로 동시 실행을 막고, 기존
+     pilot dataset이 있으면 source_id·`policy_status=allowed`를 확인한다. 같은 manifest의 release가 이미 활성이면
+     provenance(content/manifest SHA)를 대조하고 `already_applied` no-op. 아니면 pilot dataset
+     `rg:dataset:avilist-distribution-pilot` 아래 release·run을 만들고 bundle 전체를 source_record 1건으로 append한
+     뒤 state version CAS로 pilot pointer를 활성화하며 cursor에 `projection_performed: false`를 기록한다.
+     release/record URI는 `urn:robingraph:avilist-pilot:bundle:<bundle canonical sha256>`이고 실제 artifact는
+     `source_record.payload`에 있다. 원문 URL·각 SHA·라이선스는 release metadata의 sources/inputs로 보존한다.
+     append/activate 예외 시 활성 pointer를 다시 읽어 같은 run/release가 이미 커밋됐으면 `applied_reconciled`로
+     처리하고(응답 유실 대비), 아니면 run을 실패 처리하며 활성화하지 않는다. 실패 기록이 원래 오류를 가리지 않는다.
+     재시도 시 record ID는 manifest 해시 기반으로 같고 run ID만 새로 생성된다.
 
 ## 변경 파일
 
-| 워크트리 | 파일 | 담당 | 상태 |
-|---|---|---|---|
-| dev-codex | `scripts/run_avilist_pipeline.py` (263줄) | Codex (root CLI·통합) | 미추적 신규, 잠금/정책/응답유실 보강 |
-| dev-codex | `tests/test_avilist_pipeline_runner.py` (test 13개) | Codex | 미추적 신규 |
-| dev-claude | `src/robingraph/ingest/avilist_pipeline.py`, `tests/test_avilist_pipeline.py` | Claude | 신규, dev-codex 통합 **미확인** |
-| main-2 | `docs/work-log/2026-10-19-avilist-ingest-pilot.md` (저장소 기록) | Writer | 신규 |
+최종 코드 변경 4개(모두 dev-codex 미추적 신규, 미커밋):
 
-dev-codex의 다른 dirty 파일(Jenkins·RG-406 관련)은 이번 작업과 별개이며 본 문서의 변경으로 보지 않는다.
-최종 변경 파일 목록과 diff는 **미확인**이다.
+| 파일 | 담당 | 내용 |
+|---|---|---|
+| `src/robingraph/ingest/avilist_pipeline.py` | Claude 작성 → Codex 통합 | canonical bytes, `prepare_manifest`, `validate_approval`, fail-closed 입력 검사 |
+| `tests/test_avilist_pipeline.py` | Claude | 코어 11개 (fixture 10 + 실제 고정 source 1) |
+| `scripts/run_avilist_pipeline.py` | Codex | root CLI(prepare/apply), TEST allowlist·lock·정책·응답 유실 reconcile |
+| `tests/test_avilist_pipeline_runner.py` | Codex | runner 13개 (mock) |
+
+검증 산출물: dev-codex `docs/verification/assets/2026-10-19-avilist-pilot/`
+(`prepare.json`, `approval.json`, `before.json`, `dry-run.json`, `negative-gates.json`, `apply.json`, `reapply.json`,
+`after-dry-run.json`, `after.json`, `record-readback.json`, `summary.json`, `related-tests.log`).
+저장소 기록: main-2 `docs/work-log/2026-10-19-avilist-ingest-pilot.md`. dev-codex의 다른 dirty 파일(Jenkins·RG-406 등)은
+이번 작업과 별개다.
 
 ## 검증 방법과 실제 결과
 
+Writer는 아래 산출물 파일을 dev-codex에서 직접 읽어 수치를 대조했다. 실행 자체는 Codex가 했다.
+
 | 검증 | 종류 | 결과 |
 |---|---|---|
-| 공식 JSON 다운로드·크기·행/종 수·SHA pin 대조 | 실제 네트워크 | **통과** (Codex 전달: 19,933,159 byte, 33,684행, 11,131 species, SHA 일치) |
-| runner unittest 1차 | mock (실제 DB 아님) | 7개 통과 (Codex 전달, 보강 전 이력) |
-| `uv run --locked --extra test python -m unittest tests.test_avilist_pipeline_runner tests.test_postgres_ingest tests.test_species_scope -v` | mock/단위 (실제 DB 아님) | **34 통과 · 실패 0 · skip 0** (runner 13 + 기존 21, Codex 실제 실행, 로그 `/tmp/rg-avilist-pipeline/related-tests.log`) |
-| 코어 모듈 단위 테스트 `tests/test_avilist_pipeline.py` (Claude) | 단위 | **미확인** (위 34개에 포함되지 않음) |
-| TEST PG 읽기 전용 identity | 실제 TEST DB (읽기) | `current_database(), current_user` = (robingraph_test, robingraph_test_app), pilot dataset 수 0 확인 (Codex) |
-| TEST 앱 HTTP smoke | 실제 TEST API (읽기) | `/health` target=test, Kea/outside answer + Nestor notabilis 확인. **단발 smoke이며 최종 파이프라인 검증 아님** |
-| prepare 실제 패키지 생성·manifest SHA | 실제 실행 | **미확인** |
-| apply dry-run (TEST 읽기 전용 gate) | 실제 TEST DB/API | **미확인** |
-| apply 실제 쓰기·재실행 no-op | 실제 TEST PG 쓰기 | **미확인** |
-| main Codex 독립 리뷰 | 리뷰 | **미확인** |
-| Python 전체/Node UI 테스트 | — | **미확인** (실행 여부 전달 없음) |
-| graphify update | — | **미확인** |
+| 공식 JSON 다운로드·크기·행/종 수·SHA pin 대조 | 실제 네트워크 | **통과** (19,933,159 byte, 33,684행, 11,131 species, SHA 일치) |
+| runner unittest 1차 | mock | 7개 통과 (보강 전 이력) |
+| 관련 unittest 2차 (runner + `test_postgres_ingest` + `test_species_scope`) | mock/단위 | 34 통과 · 실패 0 · skip 0 (통합 전 중간 결과) |
+| 관련 unittest 최종 (코어 + runner + 기존) | fixture/mock 중심 + 실제 고정 source 1건 | **45 통과 · 실패 0 · skip 0** (코어 11, runner 13, 기존 21; `related-tests.log` `Ran 45 tests ... OK`) |
+| prepare (공식 source) | 실제 실행 | `review_required`, manifest SHA-256 `efa03d4ee4bdc19780c3a83ed994a6faf5637f814a82fe42c3b2640a4b29913f`. counts: active 11,131 / korea 592 (KOS만 490·AviList만 1·둘 다 101) / outside 6 / unknown 10,533 / KOS 가-2 unknown 5 / AviList 한국 문구 거부 44종·46행 |
+| 독립 reviewer 검토·승인 | read-only agent 리뷰 | `decision=approved`, `reviewer_type=agent`, `reviewed_at=2026-10-19T05:11:48Z`, `target=test`, bundle SHA-256 `859192488fb24952e509937249351a5daf2266709f3326ecd20259e2a6b44cc3`. 근거: pinned source hash, KOS/generator 입력 hash, manifest/bundle 결정적 재구성, 설치된 분포 자료와 동일, 기존 국외 6종 불변. 인간 승인·Production 승인 아님 |
+| TEST before 스냅샷 | 실제 TEST DB (읽기) | 이름 벡터 855, catalog fingerprint `a96ed6f8…19f4c1`, 다른 pipeline 상태 digest `5a5eee35…21a866b`, pilot run 0 |
+| apply dry-run | 실제 TEST DB/API (읽기) | `dry_run`, 이름 인덱스 inventory 855·reused 855·to_embed 0·stale 0·schema/constraint compatible·catalog_current true, HTTP 검색 회귀 4건 통과, `projection_performed=false` |
+| negative gates | 실제 실행 | approval 누락·잘못된 approval·bundle 변조·production 대상 4건 모두 차단, `write_attempted=false` |
+| apply 실제 쓰기 | 실제 TEST PG 쓰기 | `applied`, release `rg:release:avilist-pilot:efa03d4e…4b29913f`, run `avilist-pilot-cdf8b630-def1-4283-8125-f6d349e0cbcb`, state_version 1, 같은 readiness 검사 통과 |
+| 재실행 | 실제 TEST PG | `already_applied`, 같은 release·run (새 run 없음) |
+| after 스냅샷·요약 | 실제 TEST DB (읽기) | pilot run 1(succeeded)·record 1, 다른 pipeline 상태 digest before와 동일, 이름 catalog fingerprint 동일, 벡터 855 유지, 새 임베딩 0 |
+| record readback | 실제 TEST PG (읽기) | 저장 bundle digest 일치, payload = 준비 bundle, sources/inputs 보존, KOS license_name null·use_note 보존 |
+| graphify update . | 로컬 | rc 0, 6,074 nodes / 12,651 edges / 356 communities (로그 `/tmp/rg-avilist-pipeline/graphify-update.log`) |
+| 전체 Python / Node UI | — | **미실행** (변경 범위상 관련 45개만 실행). 전체 회귀 통과로 표현하지 않는다 |
 
-mock 단위 검사가 확인하는 범위(Writer 첫 정독 시 8개 test 기준, 보강 후 13개의 추가 세부는 미정리): 동일 release no-op 시 begin_run/append 미호출, 다른
-dataset pointer 거부, append 실패 시 미활성화·fail_run·재시도 record ID 유지, CAS `expected_state_version`
-전달과 `projection_performed=False`, readiness 실패 시 write lock 미진입, dry-run 시 lock 미진입,
-production 대상 시 설정 로드 전 거부, TEST라도 다른 DB명 거부. 이는 실제 DB 동작 검증이 아니다.
+fixture/mock 단위 검사와 실제 TEST DB/API 검증을 구분한다. 45개 중 실제 자료를 쓰는 것은 코어의 고정 source
+1건뿐이며, PG 동작은 위 실제 TEST 실행 산출물로만 확인됐다.
+
+## 실행 환경과 실패·보정
+
+- 실행 위치: TEST 기존 앱 컨테이너의 `/tmp` 별도 코드 경로. `docker cp`는 컨테이너 read-only rootfs 때문에
+  실패했고, 보안 설정을 바꾸지 않고 tmpfs `/tmp`에 tar stream으로 추출해 설치했다.
+- `/tmp` 도구는 재실행할 수 있도록 남겨 두었다. 컨테이너가 다시 생성되면 사라지며 호스트에 보관본이 있다.
+- runner는 1차 이후 잠금·정책·응답 유실 처리를 보강했다(7 → 13개 테스트).
+- 도구 이력: Writer 작업은 처음 Codex 세션으로 배정됐으나 startup agent-update-prompt 실패로 같은 Task를
+  Claude 세션으로 재시도했고, 이 문서는 재시도 세션(main-2 Writer)이 작성했다. 앱·데이터 결과와 무관하다.
 
 ## 배포·커밋 정보
 
-- 실행 위치(예정, Codex 전달): root batch를 TEST 기존 앱 컨테이너의 `/tmp` 별도 코드 경로에 설치해 실행한다.
-  앱 이미지 교체·컨테이너 재시작은 없다(예정 사항이며 실행 결과는 **미확인**).
-- TEST PG 실제 쓰기(`apply --apply`): **아직 미실행** (2026-10-19 05:07Z Codex 전달 기준).
-- Production: 대상 아님, 변경 없음. commit/push/merge: 없음(현재까지).
+- TEST: 앱 배포 아님. 앱 이미지 교체·재시작 없음. TEST PG `ingest` 스키마에 pilot dataset/release/run 1건/record 1건/
+  pointer만 기록됐다. 롤백은 실행하지 않았다.
+- Production: 대상 아님, 변경 없음. Jenkins 운영 job 실행 없음.
+- commit/push/merge: 없음. 코드 4개 파일과 산출물은 dev-codex 미추적 상태다.
 
 ## 남은 한계와 후속 사항
 
-- 코어 모듈·실제 TEST 실행·독립 리뷰 결과를 받아 위 "미확인" 항목을 갱신해야 한다. 확정 후에도 표현은
-  "1차 수동 TEST pilot 완료"로 하고, 전체 파이프라인(주기 실행·projection·대량 수집) 완료로 쓰지 않는다.
-- 도구 이력: Writer 작업은 처음 Codex 세션으로 배정됐으나 startup agent-update-prompt 실패로 같은 Task를
-  Claude 세션으로 재시도했고, 이 문서는 그 재시도 세션(main-2 Writer)이 작성했다. 앱·데이터 결과와 무관하다.
-- n8n schedule 연결, 도메인 projection, 두 번째 자료원 확장, 대량 수집 적용은 별도 범위다.
-- source_record가 bundle 전체를 1건으로 저장하므로, 행 단위 diff/증분 적재는 이번 파일럿으로 검증되지 않는다.
-- `verify_runtime`은 TEST API `http://127.0.0.1:8000`을 가정하므로 실행 위치(예정: TEST 앱 컨테이너 내부)에 의존한다.
-- 이번 결과를 다른 자료원이나 Production 수집 경로로 일반화하지 않는다. 인증 정보는 기록하지 않았다.
-- Obsidian 동기화: `Work/RobinGraph/작업기록/1xx DB·저장소/2026-10-19-AviList-단일자료원-수집파일럿-TEST.md`에
-  같은 초안을 기록하고 재조회했다(status: draft). 카테고리 백로그는 최종 증거 전 갱신하지 않았다.
+- n8n schedule 연결, 도메인 projection, 두 번째 자료원, 대량 수집 적용은 별도 범위다.
+- source_record가 bundle 전체를 1건으로 저장하므로 행 단위 diff/증분 적재는 검증되지 않았다.
+- `verify_runtime`은 TEST API `http://127.0.0.1:8000`을 가정하므로 TEST 앱 컨테이너 안에서 실행해야 한다.
+- 승인은 agent hash binding이며 인증 서명이 아니다. 인간 전문가 검토 절차는 별도로 정해야 한다.
+- 전체 Python/Node 회귀, 운영 환경 실행, 컨테이너 재생성 후 재설치 절차 검증은 하지 않았다.
+- 이 결과를 다른 자료원이나 Production 수집 경로로 일반화하지 않는다. 인증 정보는 기록하지 않았다.
+- Obsidian: 이 노트가 저장소 기록과 같은 내용이다. 백로그 상태는 변경하지 않았다.
