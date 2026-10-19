@@ -46,3 +46,8 @@ Codex 통합 실행 보강 커밋 `fe805c4`는 `origin/dev-codex`에 푸시하�
 2026-10-19 14:24 KST에 회사 RTX 5070 Ti에서 전체 CUDA 학습을 시작했다. 새 [Jery Parent `bc61fce284ae468e8b7022508f36e819`](https://mlflow.dove-nest.com/#/experiments/47/runs/bc61fce284ae468e8b7022508f36e819), 첫 [Child `18dc59a3819d42739340f20890702b08`](https://mlflow.dove-nest.com/#/experiments/47/runs/18dc59a3819d42739340f20890702b08)는 모두 RUNNING이다. 첫 조건은 window_none 가중치 1.0이며 이후 0.5·0.25를 순차 실행한다. supervisor PID 176131, 학습 PID 176205에서 실제 optimizer step 128 이상과 유한한 loss·gradient를 확인했다. 코드 기준은 `275fee1`; native Unsloth CUDA 환경은 `requirements-decision-cuda.txt`를 따른다. Mac 학습은 재시작하지 않았다. 첫 에폭 지표는 실제 validation 완료 후 기록한다. 데이터 및 readiness JSON 다섯 개는 Parent에 업로드하고 GET 재조회 SHA-256을 확인했다. 전체 데이터는 source train/validation/test 668/248/246개, 후보 창 4,172/1,592/1,577개다. 필수 Child params 4개·metrics 7개만 기록하며 상세 설정·진단·실행 근거는 JSON artifact에 저장한다. 데이터와 가중치는 Git에 넣지 않는다.
 
 합성 정답은 미검토 상태이며 실제 사용 정확도나 성능 개선을 주장하지 않는다.
+
+
+## 후속 변경 — 낮은 LR·가중치 공동 탐색
+
+성능 저하 및 초기 LR 고정에 대한 사용자 지적에 따라 이 문서의 Parent `bc61fce284ae468e8b7022508f36e819`는 KILLED로 중단했다. 완료한 두 Child는 FINISHED로 보존했고 세 번째는 중단했다. 준비한 LR 단독 Parent도 학습 시작 전에 폐기했다. 현재 실행은 [[Work/Jery/작업기록/2026-10-19-Jery-LR-가중치-공동탐색과-데이터형식검증|LR·가중치 공동 탐색 작업기록]]과 [새 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/afef02bf60dc496e8287ca3dc3057ad7)를 따른다. 기존 시점의 실행 기록을 현재 상태로 해석하지 않는다.
