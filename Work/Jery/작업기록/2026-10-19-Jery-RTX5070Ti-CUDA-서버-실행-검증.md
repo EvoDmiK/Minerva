@@ -36,3 +36,7 @@ Tailscale SSH로 `persona-ai@persona-ai` 접속을 확인하고, Ubuntu 24.04.4 
 Mac의 기존 Hyperopt 학습은 유지한다. 확인 시 1~3번째 trial이 완료되고 4번째 trial이 실행 중이었다. CUDA의 이번 실행은 짧은 공학 검증이며 전체 학습을 이전하거나 Mac checkpoint를 이어 학습한 것이 아니다. 전체 CUDA 학습에는 window 집계·검증 콜백·Hyperopt·MLflow 정책 연결과 baseline 평가·재개 검증이 남아 있다.
 
 합성 미검토 `mcp-routing-v2`, `decision-export-v1`, 카탈로그 `hermes-mcp-57e701d87790`를 사용했다. 실제 요청 정확도 개선을 입증한 결과는 아니다.
+
+## 커밋과 업로드 확인
+
+`dev-codex`의 [`4f7a706`](https://github.com/EvoDmiK/Jery/commit/4f7a706)을 `origin/dev-codex`에 푸시했다. 로컬 작업 트리는 깨끗하다. MLflow 결과·환경·코드 JSON과 두 검증용 head(각 59,086,748바이트)를 업로드하고 GET 재조회 SHA-256 일치를 확인했다. 가중치는 `diagnostics/cuda-20261019/b1/head.safetensors`, `b4/head.safetensors`에 있다.
