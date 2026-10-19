@@ -31,7 +31,7 @@ Claude는 `dev-claude`의 `b3ea679`로 weighted soft CE와 학습 head 선택 �
 - min_epochs 10, trained-only patience 5, min_delta 0.004. 최초 제어 실험은 세 조건 각 10에폭이며 64에폭 Hyperopt를 실행 중이라고 보고하지 않는다.
 - prepared configuration과 실행 configuration 일치 검사를 보강했다.
 
-AGY는 독립 감사 도구와 검증 테스트를 구현했다. 현재 CLI 입력 격리와 이식성을 추가 검토 중이다. 실제 협업은 Orca Run `run_e483b51bc37f`에서 Claude·Antigravity와 진행했다.
+AGY는 독립 감사 도구·입력 격리·이식성 보강을 `dev-agy`의 `1e5610f`·`08a7c3d`·`e7a7655`로 커밋·푸시했다. 실제 CUDA 10에폭 smoke의 독립 감사도 PASS했다. Codex는 생성된 대형 JSON을 제외한 최종 변경만 `275fee1`로 통합·푸시하고 서버에 반영했다. 통합 후 전체 테스트 132개 및 데이터 검증을 통과했다. 실제 협업은 Orca Run `run_e483b51bc37f`에서 Claude·Antigravity와 진행했고 모든 담당 작업은 succeeded로 종료했다.
 
 ## 검증
 
