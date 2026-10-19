@@ -12,6 +12,7 @@ MCP 도구 선택을 위한 경량 로컬 학습 결정 모델 프로젝트.
 
 ## 작업기록
 
+- [[Work/Jery/작업기록/2026-10-19-Jery-routing-v2-공동수정과-재학습|2026-10-19 — Claude·AGY 공동 수정, routing v2 검증과 전체 CUDA 재학습]]
 - [[Work/Jery/작업기록/2026-10-19-Jery-CUDA-전체학습-검증과-실험-전환|2026-10-19 — CUDA 전체 한 에폭 검증과 Mac 이후 Hyperopt 전환]]
 - [[Work/Jery/작업기록/2026-10-19-Jery-RTX5070Ti-CUDA-서버-실행-검증|2026-10-19 — RTX 5070 Ti CUDA 서버 환경과 32스텝 실행 검증]]
 - [[Work/Jery/작업기록/2026-10-19-Jery-MLflow-연결-복구와-Hyperopt-재개|2026-10-19 — MLflow HTTPS 연결 복구, 완료 기록 동기화와 Hyperopt 재개]]
@@ -23,7 +24,7 @@ MCP 도구 선택을 위한 경량 로컬 학습 결정 모델 프로젝트.
 
 등록 MCP 5개·도구 96개의 합성 데이터셋 v2(1,162개)와 학습·예측 가능한 선형 기준 모델을 구현하고 Mac mini M4에서 학습을 완료했다. MLflow에 학습 모델 Jery-LinearRouter v1, 데이터셋, 평가 결과와 코드를 등록했다. Gemma 4 E4B 4비트의 로컬 실행도 확인했지만 미세조정하지 않았으며, 6건의 탐색 결과는 기존 모델 대체를 뒷받침하지 못했다.
 
-Laya multilingual은 인코더를 고정하고 결정 head를 학습한다. 첫 전체 데이터 64에폭 실험에서 성능 저하와 불균형을 확인해 기존 실행을 보존하고 중단했다. 후속 실험은 학습 비중 40/40/10/10, 검증 기준 최적 head 복원·patience 5 조기 종료와 Hyperopt TPE 5회 탐색을 적용하며, `Jery` Experiment에서 진행 중이다. 모델 성능이 개선됐다는 결론은 아직 내리지 않았다. [현재 MLflow Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/9325d1ca84944fe281f94b519c59f305)
+Laya multilingual은 인코더를 고정하고 결정 head를 학습한다. 사용자 요청에 따라 기존 Mac·CUDA Parent를 KILLED로 종료하고 결과를 보존했다. Claude는 weighted loss·trained-only 모델 선택을, AGY는 독립 감사를 구현했으며 Codex가 통합했다. 전체 테스트 132개, CUDA 10에폭 smoke 및 checkpoint 재개 검증을 통과했다. 현재 회사 RTX 5070 Ti에서 전체 데이터로 window_none 가중치 1.0/0.5/0.25를 각 10에폭 비교하는 새 Jery Parent–Child 실행을 시작했다. Mac 학습은 중단 상태다. 성능 개선 여부는 아직 확인하지 않았다. [현재 MLflow Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/bc61fce284ae468e8b7022508f36e819)
 
 읽기 전용 Hermes 로그 수집기·검토 후보 API와 독립 데이터 감사 도구는 구현했다. 이번 학습에는 실제 대화 로그를 사용하지 않았고 합성 정답은 모두 미검토 상태다. 정답 검토와 실제 요청 평가, action·비선택 사례 보강이 남아 있다.
 
@@ -31,7 +32,7 @@ Laya multilingual은 인코더를 고정하고 결정 head를 학습한다. 첫 
 
 2026-10-19 학습용 Python의 내부 IP 연결 실패를 공개 HTTPS 주소로 우회하고, 첫 trial 결과를 재학습 없이 동기화해 두 번째 Hyperopt trial을 시작했다. 복구 코드는 `a8de267`로 커밋·푸시했다. 상세 검증과 시각별 상태는 2026-10-19 작업기록을 따른다.
 
-2026-10-19 회사 RTX 5070 Ti에서 전체 한 에폭 학습·검증·checkpoint 저장은 4분 32초, 로드·최종 평가·복원까지 전체 CLI는 5분 56초였다. epoch 1 정확도는 하락해 초기 head를 복원했으며 정확도 개선을 주장하지 않는다. 기존 Mac 실험은 유지하며, 이후 사용자 요청으로 완료 대기를 해제하고 CUDA Hyperopt 5회도 즉시 시작했다. 현재 Mac과 CUDA는 별도 Parent에서 독립적으로 실행한다. 전체 테스트 112개 통과, `1c0011f` 커밋·푸시 및 서버 반영 완료. 자세한 상태와 한계는 최신 CUDA 전체 학습 작업기록을 따른다.
+2026-10-19 회사 RTX 5070 Ti에서 전체 한 에폭 학습·검증·checkpoint 저장은 4분 32초, 로드·최종 평가·복원까지 전체 CLI는 5분 56초였다. epoch 1 정확도는 하락해 초기 head를 복원했으며 정확도 개선을 주장하지 않는다. 당시 Mac 실험을 유지하면서 사용자 요청으로 CUDA Hyperopt 5회도 시작했으나, 이후 이번 routing v2 전환 요청에 따라 두 실행을 모두 중단했다. 현재 실행 상태는 위 routing v2 Parent와 최신 작업기록을 따른다. 전체 테스트 112개 통과, `1c0011f` 커밋·푸시 및 서버 반영 완료. 자세한 상태와 한계는 최신 CUDA 전체 학습 작업기록을 따른다.
 
 ## 관련
 
