@@ -71,7 +71,7 @@ tags:
   `manifest_sha256` 형식·단계 간 일치, `projection_performed === false`, 최종 apply의 release identity를 검사한다.
 - 설정: `executionOrder=v1`, `executionTimeout=900`, `timezone=Asia/Seoul`, 성공·오류 실행 데이터 모두 저장.
 
-## 변경 파일 (root dev-codex 신규 5개, 이 워크트리에는 반영하지 않음)
+## 변경 파일 (dev-codex 신규 5개, 미커밋)
 
 | 파일 | 담당 | 내용 |
 |---|---|---|
@@ -82,8 +82,8 @@ tags:
 | `tests/test_n8n_avilist_pipeline.py` | Codex | 워크플로 구조·계약 테스트 3건 |
 
 이 문서: `docs/work-log/2026-10-19-n8n-avilist-workflow.md`(main-2, Writer 신규). 증거 자산은 root의
-`docs/verification/assets/2026-10-19-n8n-avilist/`(after/before/missing-approval/success-first/success-second/summary/workflow-readback JSON,
-`related-tests.log`, `graphify-update.log`)를 직접 읽어 대조했다.
+`docs/verification/assets/2026-10-19-n8n-avilist/`의 현재 11개 파일(after/before/execution-history/missing-approval/runner-deployment/
+success-first/success-second/summary/workflow-readback JSON 9개, `related-tests.log`, `graphify-update.log`)을 직접 읽어 대조했다.
 
 ## 실제 실행 명령
 
@@ -91,22 +91,24 @@ tags:
 
 ```sh
 # 관련 단위 테스트 (6개 모듈)
-python -m unittest -v tests.test_avilist_pipeline tests.test_avilist_pipeline_runner \
+uv run --locked --extra test python -m unittest \
+  tests.test_avilist_pipeline tests.test_avilist_pipeline_runner \
   tests.test_avilist_pipeline_service tests.test_n8n_avilist_pipeline \
-  tests.test_postgres_ingest tests.test_species_scope
+  tests.test_postgres_ingest tests.test_species_scope -v
 
 # 워크플로 JSON 생성 결과와 저장 파일 일치 확인
-python scripts/generate_n8n_avilist_pipeline.py --check
+uv run --locked python -m scripts.generate_n8n_avilist_pipeline --check
 
 # TEST n8n(32GB Mac) 워크플로 실행 — 해당 실행만 Task Broker 포트 분리
-ssh kimdove@192.168.219.98 /usr/local/bin/docker exec \
+ssh -o BatchMode=yes -i <TEST SSH key path> kimdove@192.168.219.98 /usr/local/bin/docker exec \
   -e N8N_RUNNERS_BROKER_PORT=15679 -e N8N_RUNNERS_MODE=internal \
   n8n-test n8n execute --id=rgAvilistTest01 --rawOutput
 ```
 
 - 등록은 n8n 공식 CLI `import:credentials` / `import:workflow`로 수행했다. import에 쓴 토큰 포함 JSON은 로컬·원격 양쪽에서 삭제했다.
-- 정확한 테스트 실행 인자는 Codex가 위 6개 모듈로 실행한 것으로, 모듈 목록은 `related-tests.log`의 테스트 ID와 일치한다.
-  `generate --check` 결과는 별도 로그 자산이 없어 Codex 보고(통과)에 근거한다.
+- Python 명령은 모두 `uv run --locked`로 프로젝트 잠금 환경에서 실행했다(시스템 python 3.9 직접 실행이 아님).
+  단위 테스트 모듈 목록은 `related-tests.log`의 테스트 ID와 일치한다. `generate --check` 결과는 별도 로그 자산이 없어 Codex 보고(통과)에 근거한다.
+- SSH는 `BatchMode`와 operator가 보관한 TEST SSH 키 파일을 `-i`로 지정해 실행했다. 키 경로 원문·키 내용·인증 값은 기록하지 않는다.
 
 ## 검증 방법과 실제 결과
 
@@ -146,6 +148,9 @@ ssh kimdove@192.168.219.98 /usr/local/bin/docker exec \
 - prepare 집계: active_species 11131, korea 592(KOS만 490 / AviList만 1 / 양쪽 101), outside 6, unknown 10533, KOS GA2 unknown 5,
   AviList 한국 텍스트 거부 종 44·행 46.
 - negative 방법: 실행기 자체 폴더의 승인 파일을 일시 분리해 1회 실행하고, `finally`로 복원했음을 확인했다.
+- n8n 실행 이력(`execution-history.json`, read-only 조회): `rgAvilistTest01`에 저장된 실행은 **success 2 / error 2**, 실행 방법 `n8n execute --id`(CLI).
+  error 2건은 초기 LaunchAgent 실행기의 DB `OperationalError` 1건과 승인 누락 negative 1건이다. Task Broker 포트 충돌은 워크플로 실행 전 CLI 오류여서 이력에 포함되지 않는다.
+  CLI 실행 이력이 n8n DB에 저장된 것은 확인했으나 UI에서의 실행은 미검증이다.
 
 ### DB 불변 확인 (actual TEST PG)
 
@@ -156,6 +161,9 @@ name catalog fingerprint `a96ed6f8…19f4c1`, 다른 pipeline 상태 SHA-256 `5a
 
 - 실제 실행기: native M4(192.168.219.97):18001. root 고정 코드 복사본 `/Users/kimdove/robingraph-test/pipelines/n8n-avilist-test/code`,
   상태(state)는 별도 폴더, 승인 파일은 그 밖의 `approval.json`.
+- `runner-deployment.json`: target test, mode "native foreground; no automatic startup", `app_image_unchanged=true`, `app_restart=false`.
+  기록된 4개 파일(`scripts/serve_avilist_pipeline.py`, `scripts/run_avilist_pipeline.py`, `scripts/build_species_distribution.py`,
+  `src/robingraph/ingest/avilist_pipeline.py`)의 SHA-256이 dev-codex 현재 파일과 일치함을 Writer가 `shasum -a 256`으로 확인했다.
 - LaunchAgent로 실행했을 때 DB `OperationalError`가 발생했다. 같은 env 일치를 확인한 뒤 foreground tools 세션에서 같은 verify가 성공했다.
   **원인은 단정하지 않는다.** 실패한 LaunchAgent는 bootout했고 plist는 시작 폴더에서 빼 private 보관했다.
 - 현재 작동 중인 실행기는 tools 세션(session 17212 / PID 59159)이다. 자동 시작 미구성, 재부팅 복구 미검증.
@@ -175,15 +183,15 @@ name catalog fingerprint `a96ed6f8…19f4c1`, 다른 pipeline 상태 SHA-256 `5a
 ## 배포·커밋 정보
 
 - 배포: TEST n8n에 workflow·credential CLI import, TEST 실행기 코드 복사본 배치만. 앱 이미지 교체·재시작 없음, Production 없음.
-- 커밋: 없음(commit/push 미수행). root 신규 5개 파일은 dev-codex 미커밋 상태다.
+- 커밋: 없음(commit/push 미수행). 구현 5개 파일은 dev-codex 신규(미커밋) 상태다.
 - 백로그: RG-101 보류, RG-406 상태 변경 없음.
 
 ## 남은 한계와 후속 사항
 
 1. 실행기 자동 시작(LaunchAgent) 미구성·재부팅 복구 미검증. LaunchAgent의 DB `OperationalError` 원인 조사 필요.
 2. 현재 실행기는 대화형 tools 세션 프로세스(PID 59159)에 의존하므로 세션 종료 시 워크플로 HTTP 단계가 실패한다(fail-closed).
-3. 정기 스케줄 미구성(`active=false`). 스케줄화는 별도 요청·승인 대상이다.
-4. 브라우저 UI에서의 수동 실행·로그인 후 화면 확인은 미검증(로그인 화면까지만 확인).
+3. 스케줄 주기가 정해지지 않아 정기 스케줄은 미구성이다(`active=false`).
+4. 브라우저 UI에서의 수동 실행·로그인 후 화면 확인은 미검증(로그인 화면까지만 확인). CLI 실행 이력이 n8n DB에 저장된 것은 확인했다.
 5. 전체 회귀 테스트 미실행. 새 artifact의 도메인 projection은 여전히 범위 밖이다.
 6. 기존 n8n API key 상태(만료 1, 서명 불일치 2)는 정리하지 않았다.
-7. root 신규 파일의 commit, dev-codex 통합, Production 반영은 사용자 승인 후 별도 진행.
+7. dev-codex 신규 5개 파일은 미커밋이며 commit/push와 Production 반영은 수행하지 않았다.
