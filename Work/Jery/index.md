@@ -14,6 +14,9 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 ## 작업기록
 
+- [[Work/Jery/작업기록/2026-10-20-Jery-10개-도구-학습데이터600개-보강|2026-10-20 — 학습 240→600개, AI 공동 작성·검토와 native 형식 검증]]
+
+
 - [[Work/Jery/작업기록/2026-10-20-Jery-실제요청-고정평가셋-준비와-협업|2026-10-20 — 실제 요청 수집·공동 검토·평가 게이트와 데이터 부족 확인]]
 
 
@@ -31,6 +34,9 @@ tags: [jery, mcp, dataset, training, hyperopt]
 - [[Work/Jery/작업기록/2026-10-14-Jery-데이터셋-구축과-Hermes-MLflow-수집-방향|2026-10-14 — 초기 데이터셋 구축, 에이전트 역할, n8n 초안과 MLflow 수집 방향]]
 
 ## 현재 상태
+
+고정 10개 도구 학습 데이터 v3를 train600개(도구당60), validation20/test20으로 준비했다. Claude·Antigravity가 신규 합성360개를 작성하고 Claude·Codex가 검토했다. AGY는 수정 후 quota 제한으로 상대 검토를 완료하지 못해 Codex가 이어받았다. 전체 테스트169개 및 최종 Laya native 검사640개에서 누락·잘림·특징/target 불일치0개. 기존 train240 prefix와 heldout 파일을 보존했다. dev-codex bf8ca94까지 푸시했고 MLflow training-data-v3-prepared/에 데이터·검토·검증 Artifact13개를 업로드했다. 새 학습은 실행하지 않았으며 사람 검토는 남아 있다.
+
 
 등록 MCP 5개·도구 96개의 합성 데이터셋 v2(1,162개)와 학습·예측 가능한 선형 기준 모델을 구현하고 Mac mini M4에서 학습을 완료했다. MLflow에 학습 모델 Jery-LinearRouter v1, 데이터셋, 평가 결과와 코드를 등록했다. Gemma 4 E4B 4비트의 로컬 실행도 확인했지만 미세조정하지 않았으며, 6건의 탐색 결과는 기존 모델 대체를 뒷받침하지 못했다.
 
