@@ -14,6 +14,9 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 ## 작업기록
 
+- [[Work/Jery/작업기록/2026-10-20-Jery-train600-CUDA-Hyperopt-시작|2026-10-20 — train600 CUDA Hyperopt5회 시작, Parent–Child와 네트워크 복구]]
+
+
 - [[Work/Jery/작업기록/2026-10-20-Jery-10개-도구-학습데이터600개-보강|2026-10-20 — 학습 240→600개, AI 공동 작성·검토와 native 형식 검증]]
 
 
@@ -34,6 +37,9 @@ tags: [jery, mcp, dataset, training, hyperopt]
 - [[Work/Jery/작업기록/2026-10-14-Jery-데이터셋-구축과-Hermes-MLflow-수집-방향|2026-10-14 — 초기 데이터셋 구축, 에이전트 역할, n8n 초안과 MLflow 수집 방향]]
 
 ## 현재 상태
+
+사용자 요청으로 train600 CUDA Hyperopt 학습을 시작했다. [새 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/88a5250cd54048d8a9593bab7e59d753) 아래 Child5회 순차 실행, LR1e-5~2e-4, batch4, 최대16에폭이다. PC 네트워크 복구 후 기존 Parent로 이어서 실행했다. 첫 Child의 실제 CUDA step·에폭 지표 동기화를 확인했으며 첫 조건은9에폭 후 초기 head보다 개선되지 않아 serving 초기 head를 유지했다. 전체 탐색은 진행 중이고 다음 조건·모델 업로드는 detached supervisor가 수행한다. 과거 '미학습' 표기는 데이터 준비 당시 기록이다.
+
 
 고정 10개 도구 학습 데이터 v3를 train600개(도구당60), validation20/test20으로 준비했다. Claude·Antigravity가 신규 합성360개를 작성하고 Claude·Codex가 검토했다. AGY는 수정 후 quota 제한으로 상대 검토를 완료하지 못해 Codex가 이어받았다. 전체 테스트169개 및 최종 Laya native 검사640개에서 누락·잘림·특징/target 불일치0개. 기존 train240 prefix와 heldout 파일을 보존했다. dev-codex bf8ca94까지 푸시했고 MLflow training-data-v3-prepared/에 데이터·검토·검증 Artifact13개를 업로드했다. 새 학습은 실행하지 않았으며 사람 검토는 남아 있다.
 
