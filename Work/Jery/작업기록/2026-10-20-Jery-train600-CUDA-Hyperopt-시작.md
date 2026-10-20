@@ -24,3 +24,7 @@ MLflow 필수 params5개·metrics7개만 트래킹하고 설정·상세 에폭/�
 실행 코드 기준 커밋 ce638ba, 시작 문서3af6a02, README47e8829까지 dev-codex에 커밋·푸시했다. 서버의 실행 코드는 ce638ba이며 후속 커밋은 문서뿐이다.
 
 기존 데이터 검증 PASS, CUDA 계획 통합 테스트5개와 새 명시 계획 검증 PASS. native format audit은600/20/20에서 누락·잘림·특징/정답 불일치0이었다. 합성 AI 검토 정답이며 사람 검토와 실제 요청 독립 평가가 남아 있다.
+
+## 후속 상태 확인
+
+첫 Child 4a01c09c5a2c4edaa2b341d415901a39는9에폭 종료 후 모델·상세 결과 등27개 Artifact의 업로드 검증까지 마쳐 finished 상태다. 최고 trained validation60%로 초기60%를 넘지 못했고 selected_epoch0을 유지했다. 두 번째 Child 3c1d2aad62ff40878078ee0b97a04ca5가 자동 생성돼 running 상태임을 확인했다. Parent는running, error/tracking_error는없었다. 전체5회 완료가 아니다. 로컬 outputs/laya-ten-tools-train600-20261020/server-state-snapshot.json에 서버 상태 사본을 남겼다.
