@@ -8,7 +8,9 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 # Jery
 
-MCP 도구 선택을 위한 경량 로컬 학습 결정 모델 프로젝트.
+## 작업 백로그
+
+- [[Work/Jery/Jery 작업 백로그|Jery 작업 백로그]] (`JR-1xx` ~ `JR-8xx`)
 
 ## 작업기록
 

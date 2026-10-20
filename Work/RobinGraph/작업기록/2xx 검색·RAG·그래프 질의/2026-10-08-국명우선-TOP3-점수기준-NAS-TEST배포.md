@@ -1,13 +1,15 @@
 ---
 created: 2026-10-08
-updated: 2026-10-08
+date: 2026-10-08
 project: RobinGraph
+category: "2xx 검색·RAG·그래프 질의"
 type: worklog
+status: completed
 tags:
+  - worklog
   - robingraph
   - verification
 ---
-
 # 검증 국명 우선 TOP 3 선정과 점수 기준 화면
 
 작성일: 2026-10-08. 대상: NAS TEST. 사용자가 청둥오리 비교 카드의 영어 1위와 긴 점수 설명을 지적하고, ‘국명이 있는 후보를 먼저 선정하고, 그 안에서 점수순으로 표시’하는 정책을 명시했다.
@@ -69,3 +71,11 @@ tags:
 ## 한계·후속 사항
 
 한국어 이름 후보의 점수가 영어 후보보다 낮을 수 있다. 표시 순번은 추천 순서이며 전체 점수 순위가 아니다. 검증표가 없는 분류판이나 국명 후보가 없는 질문은 영어 이름 후보로 대체된다. 실제 진화 거리·유전 유사도·확률로 점수를 해석하지 않는다. 외부 국명 원자료를 새로 검증한 작업이 아니다. 다른 백로그와 보류 작업은 진행하지 않는다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

@@ -9,7 +9,8 @@
 | 파일명 | 용도 | 저장 위치 및 명명 규칙 | 주요 구성 |
 |---|---|---|---|
 | **[`worklog.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/Templates/worklog.md)** | **작업 문서 (작업기록)**<br>특정 작업/이슈 해결 후 작성하는 공식 실행 일지 | `Work/<프로젝트>/작업기록/<서브폴더>/`<br>`YYYY-MM-DD-<작업명-슬러그>.md` | 요약, 결과표, 문제분석, 구현내용, 테스트/검증 증거, 배포/형상관리, 후속과제 |
-| **[`backlog.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/Templates/backlog.md)** | **프로젝트 백로그 전체 MOC**<br>새 프로젝트나 서브 영역 개설 시 생성 | `Work/<프로젝트>/<프로젝트> 작업 백로그.md` | 목차, 1xx~8xx ID 체계, 대시보드, 대기/진행/보류/완료 구역, 검증원칙 |
+| **[`backlog.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/Templates/backlog.md)** | **프로젝트 백로그 전체 MOC**<br>새 프로젝트 메인 백로그 개설 시 생성 | `Work/<프로젝트>/<프로젝트> 작업 백로그.md` | 목차, 1xx~8xx ID 체계, 대시보드, 대기/진행/보류/완료 구역, 검증원칙 |
+| **[`category-backlog.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/Templates/category-backlog.md)** | **카테고리 서브 백로그**<br>카테고리/모듈별 세부 백로그 생성 시 사용 | `Work/<프로젝트>/작업기록/<카테고리>/작업 백로그.md` | 작업 현황 표, 세부 작업 상세, 작업기록 목록, 상위 전체 백로그 링크 |
 | **[`backlog-item.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/Templates/backlog-item.md)** | **단일 백로그 작업 항목**<br>기존 백로그에 새 작업을 등록할 때 삽입 | 기존 백로그 문서의 `## 1. 신규 착수 대기 작업` 아래 삽입 | 상태, 우선순위, 담당, 목적, 범위, 완료기준(체크리스트), 검증계획 |
 | **[`note.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/Templates/note.md)** | **범용 일반 노트**<br>아이디어, 빠른 메모, 일반 참고 문서 | `Inbox/`, `Dev/`, `Learning/` 등 | Frontmatter, 요약, 내용, 관련 |
 

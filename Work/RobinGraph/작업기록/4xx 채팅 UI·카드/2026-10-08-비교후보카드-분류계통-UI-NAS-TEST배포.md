@@ -1,13 +1,15 @@
 ---
 created: 2026-10-08
-updated: 2026-10-08
+date: 2026-10-08
 project: RobinGraph
+category: "4xx 채팅 UI·카드"
 type: worklog
+status: completed
 tags:
+  - worklog
   - robingraph
   - verification
 ---
-
 # 비교 후보 카드와 분류 계통 화면 정리
 
 작성일: 2026-10-08. 대상: NAS TEST. 사용자의 비교 후보·분류 계통 표시 개선 요청을 함께 반영했다. 이번 작업은 표시와 조작 개선이며 서버의 후보 선택·점수 계산·계통 데이터는 변경하지 않았다.
@@ -69,3 +71,11 @@ tags:
 ## 한계·후속 사항
 
 랭킹 계산 방식과 자료의 정확성·누락은 기존 서버/원자료의 범위다. 한국어 이름이 없는 후보를 임의 번역하지 않으며 영어 이름을 유지한다. 근거 태그는 요약용 최대 3개이고 전체 근거는 상세에서 확인한다. 분류 목록은 기존처럼 최대 20개를 표시하며 알 수 없는 단계를 임의 분류로 바꾸지 않는다. 다른 백로그와 보류 작업은 진행하지 않았다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

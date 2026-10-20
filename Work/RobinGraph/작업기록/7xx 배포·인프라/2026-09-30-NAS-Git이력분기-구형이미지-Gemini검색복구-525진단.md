@@ -1,21 +1,23 @@
 ---
+created: 2026-09-30
 date: 2026-09-30
 project: RobinGraph
-type: incident-and-deployment-log
+category: "7xx 배포·인프라"
+type: worklog
 status: resolved
 deployment_target: test
 branch: nas-test-20260930
 commit: f3b77e5
 tags:
+  - worklog
   - project/robingraph
   - nas
   - docker
   - git
   - gemini
   - troubleshooting
-updated: 2026-10-05
+  - robingraph
 ---
-
 # RobinGraph — NAS Git 이력 분기·구형 이미지 교체·Gemini 검색 복구
 
 ## 요약

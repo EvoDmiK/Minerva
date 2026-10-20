@@ -5,6 +5,7 @@ project: Birds-Nest
 type: worklog
 status: completed
 tags:
+  - worklog
   - birds-nest
   - n8n
   - carrier-pigeon
@@ -15,7 +16,6 @@ tags:
   - bugfix
   - production
 ---
-
 # Carrier Pigeon 워크플로우 Gmail 바로가기 404 오류 수정 및 NAS n8n 배포
 
 ## 요약

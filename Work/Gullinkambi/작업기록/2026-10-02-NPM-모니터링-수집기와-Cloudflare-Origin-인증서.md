@@ -5,6 +5,7 @@ project: Gullinkambi
 type: worklog
 status: completed
 tags:
+  - worklog
   - gullinkambi
   - grafana
   - prometheus
@@ -12,7 +13,6 @@ tags:
   - cloudflare
   - monitoring
 ---
-
 # NPM 모니터링 수집기와 Cloudflare Origin 인증서
 
 ## 요약

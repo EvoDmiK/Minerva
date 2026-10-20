@@ -1,3 +1,14 @@
+---
+created: 2026-10-15
+date: 2026-10-15
+project: RobinGraph
+category: "2xx 검색·RAG·그래프 질의"
+type: worklog
+status: completed
+tags:
+  - worklog
+  - robingraph
+---
 # 이름 벡터의 Neo4j 영구 저장·인덱스 검색 이전
 
 ## 요청 배경과 목표
@@ -96,3 +107,11 @@ NAS TEST와 PROD의 Neo4j URI·PostgreSQL DB가 서로 다르고 새 TEST 환경
 Graphify AST 갱신은5,593노드·11,559엣지·345커뮤니티로 완료했다. SQL4개는 tree_sitter_sql 부재로 제외됐고 문서 의미 추출은 AST 범위 밖이다. HTML은5,000노드 초과에 따른 커뮤니티 집계 화면이다. `git diff --check`도 확인했다. 저장소와 Obsidian의 작업 기록·핵심 검증 결과를 일치시킨다.
 
 이름 벡터 범위는850종이며 종11,131개·아종19,879개 전체를 색인한 결과가 아니다. Neo4j 벡터 index는 근사 이웃 검색이어서 모든 입력의 전수 비교 순위를 보장하지 않는다. 후보 하한·좁은 자모 보완·사용자 확인은 유지하며, 모델·차원·분류판 변경 시 명시적 재색인/마이그레이션이 필요하다. 물리 모바일·Safari·Firefox·운영 부하·물리 재부팅·공개 도메인 경유 검사는 이번 범위 밖이다. 공개 TEST 도메인은 앞선 외부 접근의403 때문에 직접 확인하지 못했으며 NAS 컨테이너 직접 검증과 구분한다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

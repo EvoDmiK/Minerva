@@ -28,7 +28,7 @@ def find_work_logs(recent_days: int = None):
         cutoff_time = datetime.datetime.now() - datetime.timedelta(days=recent_days)
 
     for path in work_dir.rglob("*.md"):
-        if "작업기록" in path.parts:
+        if "작업기록" in path.parts and "백로그" not in path.name and path.name != "index.md":
             if cutoff_time:
                 mtime = datetime.datetime.fromtimestamp(path.stat().st_mtime)
                 if mtime >= cutoff_time:

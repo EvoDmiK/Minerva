@@ -1,10 +1,14 @@
 ---
 created: 2026-10-09
-updated: 2026-10-09
+date: 2026-10-09
 project: RobinGraph
-type: work-record
+category: "7xx 배포·인프라"
+type: worklog
+status: completed
+tags:
+  - worklog
+  - robingraph
 ---
-
 # dev → main 병합과 Windows CI UTF-8 보완
 
 - 작업일: 2026-10-09
@@ -73,3 +77,11 @@ CI7개 성공을 확인한 뒤 기존 main worktree에서 `git merge --ff-only o
 Windows는 GitHub runner에서 실제 검증했으며 로컬 물리 Windows 장비는 사용하지 않았다. pinned 원본 자료 부재·선택 의존성/전용 DB가 필요한 조건부 검증의 건너뜀은 표에 그대로 남긴다. RG-405 최종 완료, 신규 대기 RG-202·RG-406, 최후순위 보류 RG-102·RG-503·RG-504·RG-505 상태는 유지한다.
 
 최종 문서 커밋 `13b5361ff1a2b2cb943a478562f0b894200a11f1`까지 main/origin/main/dev/origin/dev 네 ref가 같고 두 worktree가 깨끗한 것을 확인했다. 제품 소스 보완 커밋969f332의 dev/main CI와 최종 기록 커밋13b5361의 dev/main CI는 각각7개 작업 모두 success다. 최종 [main CI37877970274](https://github.com/EvoDmiK/RobinGraph/actions/runs/37877970274), [dev CI37877946767](https://github.com/EvoDmiK/RobinGraph/actions/runs/37877946767)를 실제 조회했다. 상세·백로그·작업기록 index 저장 후 전체 읽기 일치, RG 상세17개 불변·목차 대상 누락0을 확인했다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

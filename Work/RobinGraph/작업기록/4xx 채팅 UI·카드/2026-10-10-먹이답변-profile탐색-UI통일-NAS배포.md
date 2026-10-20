@@ -1,3 +1,14 @@
+---
+created: 2026-10-10
+date: 2026-10-10
+project: RobinGraph
+category: "4xx 채팅 UI·카드"
+type: worklog
+status: completed
+tags:
+  - worklog
+  - robingraph
+---
 # 먹이 답변 타일과 profile 탐색 UI 통일 — Ponytail 협업 및 NAS 배포
 
 ## 요청 배경과 목표
@@ -82,3 +93,11 @@ Antigravity의 반복 접두어·세로 pill 배치에 대한 의견은 수용�
 전체 종의 실제 HTTP 요청, 물리 모바일 기기·iOS Safari, 전체 백엔드 테스트·새 CI는 실행하지 않았다. 목적별 related/ecological_related의 직접 답변과 기존 보안·접근성·카드 동작은 프런트엔드 회귀 범위에서 검증했고, 이번 실제 UI 질문은 먹이와 서식에 집중했다.
 
 기존 먹이 아이콘 정책에 따라 일부 척추동물 하위 범주는 척추동물로 합쳐지고, 여러 자료가 있으면 첫 유효 구성 자료를 표시한다. 원래 범주·자료 의미는 출처와 카드에서 확인할 수 있다. 이번 화면 개선을 새 생태 데이터 수집이나 모든 자료 공백 해소로 안내하지 않는다. 정량 자료가 없는 종에는 임의 비율을 만들지 않는다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

@@ -1,10 +1,17 @@
 ---
 created: 2026-10-19
+date: 2026-10-19
 project: Jery
 type: worklog
-tags: [jery, laya, cuda, training, mlflow]
+status: completed
+tags:
+  - worklog
+  - jery
+  - laya
+  - cuda
+  - training
+  - mlflow
 ---
-
 # RTX 5070 Ti CUDA 서버 실행 검증
 
 Tailscale SSH로 `persona-ai@persona-ai` 접속을 확인하고, Ubuntu 24.04.4 / RTX 5070 Ti 16GB에 독립 환경을 준비했다. 기존 IsaacLab·vision 작업은 유지했다.
@@ -40,3 +47,11 @@ Mac의 기존 Hyperopt 학습은 유지한다. 확인 시 1~3번째 trial이 완
 ## 커밋과 업로드 확인
 
 `dev-codex`의 [`4f7a706`](https://github.com/EvoDmiK/Jery/commit/4f7a706)을 `origin/dev-codex`에 푸시했다. 로컬 작업 트리는 깨끗하다. MLflow 결과·환경·코드 JSON과 두 검증용 head(각 59,086,748바이트)를 업로드하고 GET 재조회 SHA-256 일치를 확인했다. 가중치는 `diagnostics/cuda-20261019/b1/head.safetensors`, `b4/head.safetensors`에 있다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Jery/index|Jery 프로젝트 인덱스]]
+- [[Work/Jery/Jery 작업 백로그|Jery 작업 백로그]]

@@ -1,13 +1,16 @@
 ---
 created: 2026-10-08
-updated: 2026-10-08
+date: 2026-10-08
 project: RobinGraph
+category: "3xx 질문 의도·LLM"
+task_id: RG-013
 type: worklog
+status: completed
 tags:
+  - worklog
   - robingraph
   - rg013
 ---
-
 # RG-301 — Jev 질문 의도 분석 구현·검증 기록
 
 ## 배경·목표와 확인한 원인
@@ -131,3 +134,11 @@ Jev 호출 지연은 calibration p50 1,806/p95 2,309ms, heldout p50 1,803/p95 1,
 ### 변경 파일·배포·커밋 및 남은 한계
 
 변경은 이 검증 문서와 재실행 결과 JSON, Obsidian 상세 기록·백로그 검증 결과다. 기능 코드·DB 연결 설정 파일은 수정하지 않았다. 문서 변경은 별도 커밋으로 `dev`에 보존한다. 이번에는 배포하지 않았으며 NAS TEST 구현 이미지는 기존 `42f4927` 그대로다. 테스트 통과가 의도 평가 정답표의 품질이나 일반 영어 통칭·자연어 관찰 필터 자동 해소 등 기존 범위 밖 항목을 해결했다는 뜻은 아니다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

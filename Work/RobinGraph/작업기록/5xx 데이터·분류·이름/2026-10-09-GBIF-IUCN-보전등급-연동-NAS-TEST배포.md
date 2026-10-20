@@ -1,3 +1,14 @@
+---
+created: 2026-10-09
+date: 2026-10-09
+project: RobinGraph
+category: "5xx 데이터·분류·이름"
+type: worklog
+status: completed
+tags:
+  - worklog
+  - robingraph
+---
 # GBIF 공개 IUCN 평가목록 연결과 NAS TEST 배포
 
 ## 요청 배경과 목표
@@ -125,3 +136,11 @@ NAS TEST 컨테이너의 실제 Neo4j에 READ 모드로 조회했다. 허용 Avi
 이 자료도 평가 기관은 IUCN이므로 별도 기관의 독립 평가가 아니다. 공개 목록은 고정 스냅샷이며 최신 실시간 위험 상태·평가 본문 전체·정확한 평가 날짜·CR PE/PEW flags를 제공하지 않는다. 전체 종의 32.56%는 이번 조건을 통과하지 않았고, 명명자 다중 저자 표기 정규화·분류 변경 개념 연결은 추후 별도 검토 대상이다. 24건의 평가 연도 결측은 남겨둔다.
 
 현재는 NAS TEST에만 반영했다. 국내 법정 보호 등급과 국가·지역 적색목록을 IUCN 세계 등급의 대체값으로 섞지 않았다. 까치의 실제 종 범위 연결과 현행 국내 보호 상태 보완은 후속 작업으로 남는다. 기존 health 릴리스 기본값 표기의 개선도 별도 범위다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

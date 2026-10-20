@@ -1,3 +1,14 @@
+---
+created: 2026-10-09
+date: 2026-10-09
+project: RobinGraph
+category: "1xx DB·저장소"
+type: worklog
+status: completed
+tags:
+  - worklog
+  - robingraph
+---
 # TEST → Production DB 재이관 — 이름 관계 수정 이후
 
 - 수행일: 2026-10-09
@@ -126,3 +137,11 @@ PROD API 이미지 `robingraph-api:prod-e90ff85`, TEST API 이미지 `robingraph
 - [[Work/RobinGraph/작업기록/index|작업기록 목록]]
 - [[Work/RobinGraph/작업기록/1xx DB·저장소/2026-10-09-TEST-PROD-데이터-이관|같은 날 최초 DB 이관 기록]]
 - [[Work/RobinGraph/작업기록/5xx 데이터·분류·이름/2026-10-09-까마귀-큰부리까마귀-통칭관계-제거|통칭 관계 제거 작업]]
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

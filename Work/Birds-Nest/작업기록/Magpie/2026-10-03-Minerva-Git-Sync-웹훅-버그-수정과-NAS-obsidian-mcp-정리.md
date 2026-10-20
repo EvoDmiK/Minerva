@@ -1,9 +1,13 @@
 ---
-title: Minerva Git Sync 웹훅 버그 수정과 NAS obsidian-mcp 정리
+created: 2026-10-03
 date: 2026-10-03
+project: Birds-Nest
+type: worklog
+status: completed
+title: Minerva Git Sync 웹훅 버그 수정과 NAS obsidian-mcp 정리
 author: Claude (Opus 5.5) with 둘기 (Dove)
-category: Infra/Wiki
 tags:
+  - worklog
   - infra
   - birds-nest
   - obsidian
@@ -13,7 +17,6 @@ tags:
   - mcp
   - troubleshooting
 ---
-
 # 🔧 Minerva Git Sync 웹훅 버그 수정과 NAS obsidian-mcp 정리
 
 > 오전에 구축한 [[2026-10-03-Magpie-기반-Minerva-볼트-실시간-Git-Sync-파이프라인-구축|Magpie 기반 Git Sync 파이프라인]]의 후속 작업.
@@ -71,3 +74,11 @@ tags:
 - **Birds Nest 백업 수정**: `Get a file`에 `Reference: dev` 추가. `main`에 없는 워크플로(Kestrel) 수정 시 422 `sha wasn't supplied` 실패하던 문제 해결. 재실행으로 dev의 Kestrel 백업 최신화 (`8e91271`).
 - **운영 반영 방식**: `n8n export:workflow` → 수정 → `import:workflow`(가져오면 비활성화됨) → `publish:workflow` → n8n 재시작. CLI 실행은 `N8N_RUNNERS_BROKER_PORT=5699 N8N_RUNNERS_MODE=internal`로 포트 충돌 회피.
 - **github-sync 이중 커밋**: 볼트의 `github-sync` 플러그인(5분 주기 + 시작 시 sync)이 두 번째 커밋 주체. 설정 파일이 git으로 Mac 볼트와 공유돼 있어, Mac 동기화에 영향을 주지 않도록 **그대로 유지하기로 결정**.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Birds-Nest/index|Birds-Nest 프로젝트 인덱스]]
+- [[Work/Birds-Nest/Birds-Nest 작업 백로그|Birds-Nest 작업 백로그]]

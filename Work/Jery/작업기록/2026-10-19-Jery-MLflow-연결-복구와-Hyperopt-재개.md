@@ -1,14 +1,19 @@
 ---
 created: 2026-10-19
-updated: 2026-10-19
 date: 2026-10-19
 project: Jery
 type: worklog
 status: in-progress
 source_commit: a8de267f245962c850dde8aa7a19a15a9a64a7ef
-tags: [jery, laya, training, hyperopt, mlflow, recovery, worklog]
+tags:
+  - jery
+  - laya
+  - training
+  - hyperopt
+  - mlflow
+  - recovery
+  - worklog
 ---
-
 # Jery MLflow 연결 복구와 Hyperopt 재개
 
 ## 요약

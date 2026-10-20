@@ -2,9 +2,10 @@
 created: 2026-10-03
 date: 2026-10-03
 project: Gullinkambi
-type: reference
+type: worklog
 status: completed
 tags:
+  - worklog
   - gullinkambi
   - prometheus
   - grafana
@@ -13,7 +14,6 @@ tags:
   - antigravity
   - monitoring
 ---
-
 # AI subscription exporter
 
 Codex, Claude Code, Google Antigravity의 개인 구독 사용률을 Prometheus 형식으로 노출하는 macOS용 로컬 exporter입니다. 로그인 토큰이나 설정 파일 자체는 노출하지 않습니다.

@@ -1,16 +1,19 @@
 ---
-title: Hermes 모델·fallback 설정과 CLI 복구
+created: 2026-10-06
 date: 2026-10-06
+project: Birds-Nest
+type: worklog
+status: completed
+title: Hermes 모델·fallback 설정과 CLI 복구
 author: Claude (Sonnet 5.5) with 둘기 (Dove)
-category: Infra/Agents
 tags:
+  - worklog
   - birds-nest
   - hermes
   - codex
   - tailscale
   - mcp
 ---
-
 # 🪶 Hermes 모델·fallback 설정과 CLI 복구
 
 > [[2026-10-05-Kestrel-MCP-도구화와-Hermes-연결|Kestrel MCP 연결]]의 후속. hybrid-v2의 주 모델/fallback을 바꾸고, 깨져 있던 로컬 `hermes` CLI를 복구했다. 맥미니 SSH 접속 준비 상태도 점검.
@@ -78,3 +81,11 @@ model = "gpt-6-sol"
 - [ ] Hermes 쪽 obsidian_vault MCP 실제 연결 확인
 - [ ] 필요 시 렌더러가 dict 리스트(`fallback_providers`)를 지원하도록 개선
 - [ ] `~/.ssh/config`의 `Host NAS`에 `IdentityFile` 추가(키: `nas_codex_ed25519`, 포트 99)
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Birds-Nest/index|Birds-Nest 프로젝트 인덱스]]
+- [[Work/Birds-Nest/Birds-Nest 작업 백로그|Birds-Nest 작업 백로그]]

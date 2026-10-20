@@ -5,6 +5,7 @@ project: Birds-Nest
 type: worklog
 status: completed
 tags:
+  - worklog
   - birds-nest
   - n8n
   - stock
@@ -15,7 +16,6 @@ tags:
   - homelab
   - production
 ---
-
 # [Stock] Swallow 워크플로우 활성화 및 고도화 (단일 체인 개편, DB 캐싱, 실시간 시세 연동, Discord 발송)
 
 ## 요약
@@ -184,3 +184,11 @@ tags:
 - [[Work/Birds-Nest/index|Birds-Nest 인덱스]]
 - [[2026-10-08-Carrier-Pigeon-Gmail-바로가기-404-오류-수정과-NAS-n8n-배포|2026-10-08 — Carrier Pigeon Gmail 바로가기 404 오류 수정과 NAS n8n 배포]]
 - [[Dev/n8n-워크플로우-신뢰성-및-에러-복구-패턴|n8n 워크플로우 신뢰성 및 에러 복구 설계 패턴]]
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Birds-Nest/index|Birds-Nest 프로젝트 인덱스]]
+- [[Work/Birds-Nest/Birds-Nest 작업 백로그|Birds-Nest 작업 백로그]]

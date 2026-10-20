@@ -1,3 +1,14 @@
+---
+created: 2026-10-18
+date: 2026-10-18
+project: RobinGraph
+category: "7xx 배포·인프라"
+type: worklog
+status: completed
+tags:
+  - worklog
+  - robingraph
+---
 # Jenkins·GHCR 배포 구성과 사전 검증 — 2026-10-18
 
 > [!NOTE] 2026-10-18 초기 TEST 구성 이력 보존 안내
@@ -88,3 +99,11 @@ NAS 읽기 전용 SSH 로그인 후 Production ID 03ce208b9f30a3242fd16dd2772935
 증거 디렉터리에 test-{1,2}.json/.txt, test-release.json, image-metadata.json, deployed-test.json, environment-preserved.json, configuration-readback.json, browser-live.json 및 화면3개를 보존했다. 실제 Registry TEST 경로는 완료했다. (당시 운영 비활성 및 TEST 5분 polling 설명은 초기 TEST 파이프라인 구성 당시의 이력이며, 이후 사용자 지시로 Jenkins 배포 대상이 NAS Production으로 정정되어 `RobinGraph-PROD` #2 SUCCESS 배포 및 TEST job 비활성화·polling 제거로 전환되었다. 최신 운영 배포 현황은 [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-Production-배포-대상-정정|Jenkins 배포 대상을 NAS Production으로 정정]] 참조).
 
 새 CI 구성 파일은 아직 Git commit/push하지 않았다. 실제 TEST/운영 rollback·NAS native AMD64 새 앱 검증·Production approval 런타임은 미검증이다. 저장소·Obsidian 기록을 이 최종 결과로 일치시키도록 Writer에게 전달한다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

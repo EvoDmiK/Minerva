@@ -1,18 +1,18 @@
 ---
 created: 2026-10-19
-updated: 2026-10-19
+date: 2026-10-19
 project: RobinGraph
-type: work-log
 category: "1xx DB·저장소"
+type: worklog
 status: test-pilot-done
 tags:
+  - worklog
   - robingraph
   - ingest
   - avilist
   - postgresql
   - pilot
 ---
-
 # AviList 단일 자료원 반복 수집 파이프라인 TEST 파일럿 — 2026-10-19
 
 [[Work/RobinGraph/작업기록/1xx DB·저장소/작업 백로그|1xx DB·저장소 작업 백로그]] · [[Work/RobinGraph/RobinGraph 작업 백로그|전체 작업 백로그]]
@@ -203,3 +203,11 @@ fixture/mock 단위 검사와 실제 TEST DB/API 검증을 구분한다. 47개 �
 - 이 결과를 다른 자료원이나 Production 수집 경로로 일반화하지 않는다. 인증 정보는 기록하지 않았다.
 - Obsidian: `Work/RobinGraph/작업기록/1xx DB·저장소/2026-10-19-AviList-단일자료원-수집파일럿-TEST.md`에 같은 내용을
   기록하고 재조회했다. 백로그 상태는 변경하지 않았다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

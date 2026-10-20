@@ -5,6 +5,7 @@ project: Gullinkambi
 type: worklog
 status: completed
 tags:
+  - worklog
   - gullinkambi
   - orca
   - telemetry
@@ -12,7 +13,6 @@ tags:
   - cloudflare
   - git
 ---
-
 # ORCA 쓰레드 이름 복구와 Birds-Nest 브랜치 정리
 
 ## 요약

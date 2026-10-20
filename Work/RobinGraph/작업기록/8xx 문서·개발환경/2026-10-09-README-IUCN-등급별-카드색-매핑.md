@@ -1,10 +1,14 @@
 ---
 created: 2026-10-09
-updated: 2026-10-09
+date: 2026-10-09
 project: RobinGraph
-type: work-log
+category: "8xx 문서·개발환경"
+type: worklog
+status: completed
+tags:
+  - worklog
+  - robingraph
 ---
-
 # README에 IUCN 등급별 카드 색 매핑 추가
 
 ## 요청 배경과 목표
@@ -61,3 +65,11 @@ README의 "PC·모바일 도감 카드" 섹션 끝에 `#### IUCN 등급별 카�
 
 - [[Work/RobinGraph/index|프로젝트 인덱스]]
 - [[Work/RobinGraph/작업기록/index|작업기록 목록]]
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

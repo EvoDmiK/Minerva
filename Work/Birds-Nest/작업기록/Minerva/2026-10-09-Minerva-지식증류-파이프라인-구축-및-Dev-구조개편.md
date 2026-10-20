@@ -1,16 +1,17 @@
 ---
 created: 2026-10-09
-updated: 2026-10-09
+date: 2026-10-09
 project: Birds-Nest
-type: work-record
+type: worklog
+status: completed
 tags:
+  - worklog
   - birds-nest
   - minerva
   - pkm
   - knowledge-distillation
   - architecture
 ---
-
 # Minerva 지식 증류(Distillation) 파이프라인 구축 및 Dev 구조 개편
 
 - **작업일**: 2026-10-09
@@ -61,3 +62,11 @@ tags:
 * [[Work/Birds-Nest/index|Birds-Nest 인덱스]]
 * [[Work/Gullinkambi/index|Gullinkambi 인덱스]]
 * [[Work/RobinGraph/index|RobinGraph 인덱스]]
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Birds-Nest/index|Birds-Nest 프로젝트 인덱스]]
+- [[Work/Birds-Nest/Birds-Nest 작업 백로그|Birds-Nest 작업 백로그]]

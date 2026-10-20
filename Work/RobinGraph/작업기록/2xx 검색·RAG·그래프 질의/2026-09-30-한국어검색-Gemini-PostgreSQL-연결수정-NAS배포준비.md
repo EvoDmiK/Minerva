@@ -1,20 +1,22 @@
 ---
+created: 2026-09-30
 date: 2026-09-30
 project: RobinGraph
-type: development-log
+category: "2xx 검색·RAG·그래프 질의"
+type: worklog
 status: pushed
 branch: dev
 commit: f3b77e5
 tags:
+  - worklog
   - project/robingraph
   - development
   - graphrag
   - gemini
   - postgresql
   - nas
-updated: 2026-10-05
+  - robingraph
 ---
-
 # RobinGraph — 한국어 검색·Gemini·PostgreSQL 연결 수정·NAS 배포 준비
 
 ## 오늘의 결과

@@ -1,14 +1,20 @@
 ---
 created: 2026-10-18
-updated: 2026-10-18
 date: 2026-10-18
 project: Jery
 type: worklog
 status: in-progress
 source_commit: f135208a6eeade7b33c286360f366b6b4157bfc1
-tags: [jery, mcp, dataset, laya, training, hyperopt, mlflow, worklog]
+tags:
+  - jery
+  - mcp
+  - dataset
+  - laya
+  - training
+  - hyperopt
+  - mlflow
+  - worklog
 ---
-
 # Jery Laya 균형 학습, Hyperopt 탐색과 검증 콜백
 
 ## 기록 시점과 현재 진행
@@ -115,3 +121,11 @@ DECISION_PYTHON=/Volumes/Dove-Nest-SSD/app-data/orca/kimdove/home/workspaces/Jer
 - [[Learning/원문/2026-10-13-Unsloth-Jev식-결정-모델-학습과-로컬-서빙-원문|학습 전략의 원문 참고 자료]]
 
 이 문서는 저장소 기술 문서, 실제 실행 상태 및 Git 커밋·푸시 검증 결과를 근거로 갱신했다. MLflow 진행 기록은 자동 추적하지만 Obsidian 문서의 계속 동기화 작업이나 예약 자동화는 설정하지 않았다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Jery/index|Jery 프로젝트 인덱스]]
+- [[Work/Jery/Jery 작업 백로그|Jery 작업 백로그]]

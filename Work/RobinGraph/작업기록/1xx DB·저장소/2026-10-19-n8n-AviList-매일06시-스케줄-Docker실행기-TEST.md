@@ -1,18 +1,18 @@
 ---
 created: 2026-10-19
-updated: 2026-10-19
+date: 2026-10-19
 project: RobinGraph
-type: work-log
 category: "1xx DB·저장소"
+type: worklog
 status: test-daily-schedule-done
 tags:
+  - worklog
   - robingraph
   - n8n
   - avilist
   - ingest
   - test
 ---
-
 # n8n AviList 파이프라인 매일 06시 스케줄·Docker 실행기 TEST 전환 — 2026-10-19
 
 [[Work/RobinGraph/작업기록/1xx DB·저장소/작업 백로그|1xx DB·저장소 작업 백로그]] · [[Work/RobinGraph/RobinGraph 작업 백로그|전체 작업 백로그]] · 선행: [[2026-10-19-AviList-단일자료원-수집파일럿-TEST]] · [[2026-10-19-n8n-AviList-워크플로-TEST실행]]
@@ -240,3 +240,11 @@ name catalog fingerprint `a96ed6f8…19f4c1`, 다른 pipeline 상태 SHA-256 `5a
 5. 전체 회귀 테스트 미실행. 관련 단위 테스트는 core 실제 자료원 1건 외 fixture/mock 중심이다.
 6. n8n UI·public API 경로는 사용 가능한 키가 없어 쓰지 않았다. 기존 API key 상태는 정리하지 않았다.
 7. 새 artifact의 도메인 projection은 여전히 범위 밖이다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

@@ -5,6 +5,7 @@ project: Gullinkambi
 type: worklog
 status: completed
 tags:
+  - worklog
   - gullinkambi
   - orca
   - antigravity
@@ -13,7 +14,6 @@ tags:
   - grafana
   - monitoring
 ---
-
 # ORCA Antigravity 사용량 집계와 Hermes 인증 복구
 
 ## 요약

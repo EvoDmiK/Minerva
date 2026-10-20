@@ -5,6 +5,7 @@ project: Gullinkambi
 type: worklog
 status: completed
 tags:
+  - worklog
   - gullinkambi
   - grafana
   - alerting
@@ -12,7 +13,6 @@ tags:
   - prometheus
   - monitoring
 ---
-
 # Grafana 알람과 Discord 연결
 
 ## 요약

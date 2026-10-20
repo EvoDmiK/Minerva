@@ -5,6 +5,7 @@ project: Birds-Nest
 type: worklog
 status: completed
 tags:
+  - worklog
   - birds-nest
   - n8n
   - automation
@@ -14,7 +15,6 @@ tags:
   - homelab
   - production
 ---
-
 # Google Gemini 기반 Carrier Pigeon 워크플로우 개편 및 프로덕션 배포
 
 ## 요약

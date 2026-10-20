@@ -1,17 +1,18 @@
 ---
 created: 2026-10-18
-updated: 2026-10-18
+date: 2026-10-18
 project: RobinGraph
-type: work-log
 category: "7xx 배포·인프라"
+type: worklog
+status: completed
 tags:
+  - worklog
   - robingraph
   - deployment
   - jenkins
   - production
   - ghcr
 ---
-
 # Jenkins 배포 대상을 NAS Production으로 정정 — 2026-10-18
 
 [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그|7xx 배포·인프라 작업 백로그]] · [[Work/RobinGraph/RobinGraph 작업 백로그|전체 작업 백로그]]
@@ -97,3 +98,11 @@ tags:
 3. **DB 검증 범위**: 운영 DB 마이그레이션이나 대량 데이터 쓰기는 수행하지 않았으며, DB 내용 전수 비교는 실행하지 않았다.
 4. **미검증 환경**: 물리 머신 재부팅 후 부팅 시점 자동 복구, Safari/Firefox 및 물리 모바일 기기에서의 브라우저 검증은 수행하지 않았다.
 5. **Git 형상 상태**: 이번 파이프라인 정정은 로컬 파일 수정 및 Jenkins inline script 등록으로 반영되었으며, 신규 commit/push는 수행하지 않았다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

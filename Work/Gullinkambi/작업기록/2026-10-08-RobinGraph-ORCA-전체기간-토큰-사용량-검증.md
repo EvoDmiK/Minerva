@@ -1,9 +1,19 @@
 ---
-title: RobinGraph ORCA 전체 보존 기간 토큰 사용량 검증
+created: 2026-10-08
 date: 2026-10-08
-tags: [orca, grafana, token-usage, robingraph, verification]
+project: Gullinkambi
+type: worklog
+status: completed
+title: RobinGraph ORCA 전체 보존 기간 토큰 사용량 검증
+tags:
+  - worklog
+  - orca
+  - grafana
+  - token-usage
+  - robingraph
+  - verification
+  - gullinkambi
 ---
-
 # RobinGraph ORCA 전체 보존 기간 토큰 사용량 검증
 
 ## 결론
@@ -66,3 +76,11 @@ Codex 캐시 읽기 1,184,624,256토큰은 입력에 포함된다. Claude 캐시
 ### 캐시 읽기 제외 기준의 최대 하루
 
 **2026-10-03: 7,450,363토큰(약 745만)**. 총 토큰 최대 하루인 9월 14일과 다르다. Codex/Claude는 `total_tokens-cache_read_tokens`, Antigravity는 원래 총량에 캐시 읽기가 제외되어 있어 `total_tokens`로 계산했다. 비용·구독 소진 순위가 아니다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Gullinkambi/index|Gullinkambi 프로젝트 인덱스]]
+- [[Work/Gullinkambi/Gullinkambi 작업 백로그|Gullinkambi 작업 백로그]]

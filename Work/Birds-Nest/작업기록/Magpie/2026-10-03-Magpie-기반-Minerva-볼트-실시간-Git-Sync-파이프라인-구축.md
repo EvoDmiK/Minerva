@@ -1,9 +1,13 @@
 ---
-title: Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축 및 검증
+created: 2026-10-03
 date: 2026-10-03
+project: Birds-Nest
+type: worklog
+status: completed
+title: Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축 및 검증
 author: 로빈 (Robin / Antigravity) with 둘기 (Dove), Claude (Opus 5.5), Codex (GPT-6.1)
-category: Infra/Wiki
 tags:
+  - worklog
   - infra
   - birds-nest
   - obsidian
@@ -14,7 +18,6 @@ tags:
   - discord
   - multi-agent
 ---
-
 # 🕊️ Magpie 기반 Minerva 볼트 실시간 Git Sync 파이프라인 구축 및 검증
 
 ## 1. 개요 및 배경
@@ -89,3 +92,11 @@ tags:
   3. Magpie 웹훅 수신 및 n8n 실행(ID: 22154 등) 성공.
   4. Discord `#llm-위키` 채널에 실시간 Embed 카드 알림 정상 발행 확인.
   5. Mac 로컬 옵시디언 볼트(`/Volumes/Dove-Nest-SSD/Minerva`) 동기화 확인.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Birds-Nest/index|Birds-Nest 프로젝트 인덱스]]
+- [[Work/Birds-Nest/Birds-Nest 작업 백로그|Birds-Nest 작업 백로그]]

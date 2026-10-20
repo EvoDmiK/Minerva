@@ -5,6 +5,7 @@ project: Gullinkambi
 type: worklog
 status: in-progress
 tags:
+  - worklog
   - gullinkambi
   - grafana
   - openviking
@@ -12,7 +13,6 @@ tags:
   - mcp
   - monitoring
 ---
-
 # OpenViking 탭 개선과 Hermes Grafana MCP 연결
 
 ## 요약

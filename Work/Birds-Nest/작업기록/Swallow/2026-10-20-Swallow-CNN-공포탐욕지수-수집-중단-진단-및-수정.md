@@ -2,15 +2,14 @@
 created: 2026-10-20
 date: 2026-10-20
 project: Birds-Nest
+task_id: SW-008
 type: worklog
 status: deployed_db_verified_pending_ui
-task_id: SW-008
 tags:
   - worklog
   - birds-nest
   - swallow
 ---
-
 # [SW-008] Swallow CNN 공포·탐욕 지수 수집 중단 진단 및 전용 수집기 구현·운영 배포
 
 ## 요약

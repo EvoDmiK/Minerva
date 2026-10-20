@@ -1,14 +1,18 @@
 ---
 created: 2026-09-29
-updated: 2026-10-05
+date: 2026-09-29
+project: RobinGraph
+category: "3xx 질문 의도·LLM"
+type: worklog
+status: in-progress
 tags:
+  - worklog
   - project/robingraph
   - dev
   - gemini
   - literature
-status: in-progress
+  - robingraph
 ---
-
 # RobinGraph — CI 테스트 수정, Gemini 근거 답변 연동, PMC 문헌 파일럿 (2026-09-29)
 
 ## 오늘 한 일

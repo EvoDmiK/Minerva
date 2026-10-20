@@ -1,11 +1,17 @@
 ---
 created: 2026-10-19
-updated: 2026-10-19
+date: 2026-10-19
 project: Jery
 type: worklog
-tags: [jery, laya, cuda, training, mlflow]
+status: completed
+tags:
+  - worklog
+  - jery
+  - laya
+  - cuda
+  - training
+  - mlflow
 ---
-
 # Jery routing v2 공동 수정과 재학습
 
 사용자 요청에 따라 기존 Mac·CUDA 학습을 중단하고 결과와 가중치를 보존했다. 새 정책의 전체 데이터 CUDA 재학습은 통합 검증 후 시작한다.
@@ -51,3 +57,11 @@ Codex 통합 실행 보강 커밋 `fe805c4`는 `origin/dev-codex`에 푸시하�
 ## 후속 변경 — 낮은 LR·가중치 공동 탐색
 
 성능 저하 및 초기 LR 고정에 대한 사용자 지적에 따라 이 문서의 Parent `bc61fce284ae468e8b7022508f36e819`는 KILLED로 중단했다. 완료한 두 Child는 FINISHED로 보존했고 세 번째는 중단했다. 준비한 LR 단독 Parent도 학습 시작 전에 폐기했다. 현재 실행은 [[Work/Jery/작업기록/2026-10-19-Jery-LR-가중치-공동탐색과-데이터형식검증|LR·가중치 공동 탐색 작업기록]]과 [새 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/afef02bf60dc496e8287ca3dc3057ad7)를 따른다. 기존 시점의 실행 기록을 현재 상태로 해석하지 않는다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Jery/index|Jery 프로젝트 인덱스]]
+- [[Work/Jery/Jery 작업 백로그|Jery 작업 백로그]]

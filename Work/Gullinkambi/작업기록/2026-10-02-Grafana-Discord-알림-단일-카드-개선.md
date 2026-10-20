@@ -5,13 +5,13 @@ project: Gullinkambi
 type: worklog
 status: completed
 tags:
+  - worklog
   - gullinkambi
   - grafana
   - alerting
   - discord
   - monitoring
 ---
-
 # Grafana Discord 알림 단일 카드 개선
 
 ## 요약

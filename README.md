@@ -25,7 +25,8 @@ Minerva/
 │   ├── Birds-Nest/      # 홈랩 인프라·n8n 자동화·에이전트 게이트웨이 (BN-1xx~8xx)
 │   ├── RobinGraph/      # 조류 지식 그래프·RAG·UI·배포 (RG-1xx~9xx)
 │   ├── Gullinkambi/     # 모니터링·수집기·Grafana 대시보드 (GK-1xx~8xx)
-│   └── Itzcuauhtli/     # Minerva 안전 읽기 전용 볼트 MCP 게이트웨이
+│   ├── Jery/            # MCP 도구 선택·Laya 경량 학습 결정 모델 (JR-1xx~8xx)
+│   └── Itzcuauhtli/     # Minerva 안전 읽기 전용 볼트 MCP 게이트웨이 (IZ-1xx~8xx)
 ├── Learning/            # 개인 학습, 독서 및 외부 자료 아카이브
 │   ├── index.md         # Learning MOC
 │   ├── 학습노트/        # 정제된 독서 및 스터디 노트
@@ -51,6 +52,8 @@ Minerva/
 * **RobinGraph**: `RG-1xx` ~ `RG-9xx`
 * **Birds-Nest**: `BN-1xx` ~ `BN-8xx`
 * **Gullinkambi**: `GK-1xx` ~ `GK-8xx`
+* **Jery**: `JR-1xx` ~ `JR-8xx`
+* **Itzcuauhtli**: `IZ-1xx` ~ `IZ-8xx`
 * **Dev 상록수 지식**: `DEV-1xx` (인프라), `DEV-2xx` (자동화), `DEV-3xx` (관측성), `DEV-4xx` (데이터)
 
 ### 3. 인박스(Inbox) 처리 규칙

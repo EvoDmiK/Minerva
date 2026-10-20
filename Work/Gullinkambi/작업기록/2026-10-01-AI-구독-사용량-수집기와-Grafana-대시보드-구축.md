@@ -5,6 +5,7 @@ project: Gullinkambi
 type: worklog
 status: completed
 tags:
+  - worklog
   - gullinkambi
   - grafana
   - prometheus
@@ -12,7 +13,6 @@ tags:
   - claude
   - monitoring
 ---
-
 # AI 구독 사용량 수집기·Grafana 대시보드 구축
 
 ## 요약

@@ -1,9 +1,11 @@
 ---
-updated: 2026-10-10
 created: 2026-10-10
+date: 2026-10-10
 project: Birds-Nest
-type: work-log
+type: worklog
+status: completed
 tags:
+  - worklog
   - birds-nest
   - swallow
   - grafana
@@ -14,7 +16,6 @@ tags:
   - risk-management
   - mlflow
 ---
-
 # 2026-10-10 — [Stock] Swallow 관심종목 시계열 모니터링, 토스·네이버 교차검증, 매크로 지표 및 리스크 관리 구축
 
 ## 1. 개요 및 배경
@@ -160,3 +161,11 @@ NAS PostgreSQL `data` 데이터베이스에 구축된 핵심 스키마:
 
 - [[Work/Birds-Nest/index|Birds-Nest 인덱스]]
 - [[2026-10-09-Stock-Swallow-워크플로우-고도화-단일-체인-개편-및-NAS-n8n-배포|2026-10-09 — [Stock] Swallow 워크플로우 고도화 (단일 체인 개편 및 NAS n8n 배포)]]
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Birds-Nest/index|Birds-Nest 프로젝트 인덱스]]
+- [[Work/Birds-Nest/Birds-Nest 작업 백로그|Birds-Nest 작업 백로그]]

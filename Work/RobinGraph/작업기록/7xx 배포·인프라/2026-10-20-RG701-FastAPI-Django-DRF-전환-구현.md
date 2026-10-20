@@ -1,18 +1,18 @@
 ---
 created: 2026-10-20
-updated: 2026-10-20
+date: 2026-10-20
 project: RobinGraph
-type: work-log
-category: 7xx 배포·인프라
+category: "7xx 배포·인프라"
 task_id: RG-701
+type: worklog
 status: in-progress
 tags:
+  - worklog
   - robingraph
   - django
   - drf
   - migration
 ---
-
 # RG-701 FastAPI → Django + DRF 전환 구현·TEST 배포 — 2026-10-20
 
 [[Work/RobinGraph/RobinGraph 작업 백로그|전체 작업 백로그]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환|7xx RG-701 상세]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-FastAPI-Django-DRF-전환-백로그등록|백로그 등록·담당 배정 기록]]
@@ -155,3 +155,11 @@ dev-codex 미커밋 작업 트리. 이전 작업의 미커밋 변경과 섞여 �
 
 - 초기 단계: 전체 백로그 `진행 중 작업` 구역·목차·현황·대기 표·안내 절·변경 이력, 7xx 백로그, index 7xx 15 확인. RG-406·RG-101·기존 등록·배정 이력 원문 유지.
 - 최종 단계(2026-10-20 저장 후 MCP 재조회): 이 노트 158줄(frontmatter `status: in-progress`, 최종 검증 표·TEST 배포/롤백 표 포함). 전체 백로그 479줄 — 카테고리별 보기 701 `진행 중 (최우선 1 · TEST 배포·검증 완료 · Production 승인 대기)`, 현황표 `진행 중 (TEST 검증 완료 · Production 승인 대기) | 1 (최우선)`, 진행 중 작업 구역·대기 표·안내 절 TEST 결과 문단·변경 이력 최상단 항목 확인, RG-406·RG-101 행 원문 유지. 7xx 백로그 96줄 — 작업 현황 첫 항목·RG-701 상태·작업기록 링크 확인, 담당 배정 표 불변. index 7xx `15`. 링크는 텍스트 대조만, 화면 클릭 검증 없음.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

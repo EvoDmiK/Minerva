@@ -1,15 +1,17 @@
 ---
 created: 2026-10-08
-updated: 2026-10-08
+date: 2026-10-08
 project: RobinGraph
-type: verification
+category: "6xx 관측·평가"
+task_id: RG-015
+type: worklog
 status: completed
 tags:
+  - worklog
   - robingraph
   - RG-405
   - RG-602
 ---
-
 # RG-602 MLflow 응답 구분·RG-405 마우스 드래그 카드 뒤집기
 
 작업일: 2026-10-08 (KST). 브랜치: `dev`.
@@ -172,3 +174,11 @@ Obsidian의 `Work/RobinGraph/2026-10-08-RG015-RG016-MLflow태그-드래그카드
 - 저장소 문서: [RG-405·RG-602 상세 기록](https://github.com/EvoDmiK/RobinGraph/blob/dev/docs/verification/2026-10-08-rg015-rg016-trace-tags-drag.md)
 - [[Work/RobinGraph/RobinGraph 작업 백로그|작업 백로그]]
 - [[Work/RobinGraph/index|프로젝트 index]]
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

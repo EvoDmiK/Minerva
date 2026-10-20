@@ -1,15 +1,16 @@
 ---
+created: 2026-10-08
 date: 2026-10-08
 project: Gullinkambi
-type: troubleshooting
+type: worklog
 status: resolved
 tags:
+  - worklog
   - gullinkambi
   - antigravity
   - monitoring
   - grafana
 ---
-
 # Antigravity 구독 사용량 수집 복구
 
 ## 결과

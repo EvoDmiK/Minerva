@@ -5,14 +5,15 @@ project: Gullinkambi
 type: worklog
 status: completed
 tags:
+  - worklog
   - nginx-proxy-manager
   - cloudflare
   - tailscale
   - dns
   - lets-encrypt
   - homelab
+  - gullinkambi
 ---
-
 # Tailscale Split DNS와 와일드카드 인증서
 
 ## 요약

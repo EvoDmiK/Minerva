@@ -11,6 +11,10 @@ tags:
 
 Obsidian Vault의 노트 목록·읽기·검색을 제공하는 읽기 전용 MCP 프로젝트다. 현재 기록된 MVP의 검증 범위와 남은 제한은 실행 보고서를 따른다.
 
+## 작업 백로그
+
+- [[Work/Itzcuauhtli/Itzcuauhtli 작업 백로그|Itzcuauhtli 작업 백로그]] (`IZ-1xx` ~ `IZ-8xx`)
+
 ## 주요 문서
 
 - [[Work/Itzcuauhtli/ORCA-REPORT-READONLY-MVP|ORCA-REPORT-READONLY-MVP]]

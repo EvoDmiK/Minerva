@@ -2,15 +2,16 @@
 created: 2026-10-12
 date: 2026-10-12
 project: RobinGraph
-type: todo
+category: "8xx 문서·개발환경"
+type: worklog
 status: open
 tags:
+  - worklog
   - robingraph
   - security
   - git
   - todo
 ---
-
 # [RobinGraph] 민감정보 이력 정리 — 집에서 할 일
 
 ## 배경
@@ -117,3 +118,11 @@ tags:
 | 커밋 수 | 319 | 319 |
 | 이미지·영상 파일 | — | 해시 동일(손상 없음) |
 | 테스트 | unittest 실패 31, node 실패 2 | 동일(기존 실패, 새 실패 없음) |
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

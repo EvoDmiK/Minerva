@@ -35,7 +35,10 @@ Dove-Nest의 중심 지식 베이스(MOC, Map of Content)입니다.
   * 📋 [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]] (`RG-1xx` ~ `RG-9xx`)
 * **[[Work/Gullinkambi/index|Gullinkambi]]** — 시스템 모니터링, 메트릭 수집기, Grafana 대시보드 및 AI 사용량 분석
   * 📋 [[Work/Gullinkambi/Gullinkambi 작업 백로그|Gullinkambi 작업 백로그]] (`GK-1xx` ~ `GK-8xx`)
+* **[[Work/Jery/index|Jery]]** — MCP 도구 선택 및 경량 로컬 학습 결정 모델
+  * 📋 [[Work/Jery/Jery 작업 백로그|Jery 작업 백로그]] (`JR-1xx` ~ `JR-8xx`)
 * **[[Work/Itzcuauhtli/index|Itzcuauhtli]]** — Minerva 볼트 안전 읽기 전용 Obsidian MCP 게이트웨이
+  * 📋 [[Work/Itzcuauhtli/Itzcuauhtli 작업 백로그|Itzcuauhtli 작업 백로그]] (`IZ-1xx` ~ `IZ-8xx`)
 
 ---
 

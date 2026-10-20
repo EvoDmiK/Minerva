@@ -1,18 +1,18 @@
 ---
 created: 2026-10-19
-updated: 2026-10-19
+date: 2026-10-19
 project: RobinGraph
-type: work-log
 category: "1xx DB·저장소"
+type: worklog
 status: test-workflow-done
 tags:
+  - worklog
   - robingraph
   - n8n
   - avilist
   - ingest
   - test
 ---
-
 # n8n AviList 검토 파이프라인 워크플로 TEST 실행 — 2026-10-19
 
 [[Work/RobinGraph/작업기록/1xx DB·저장소/작업 백로그|1xx DB·저장소 작업 백로그]] · [[Work/RobinGraph/RobinGraph 작업 백로그|전체 작업 백로그]] · 선행: [[2026-10-19-AviList-단일자료원-수집파일럿-TEST]]
@@ -195,3 +195,11 @@ name catalog fingerprint `a96ed6f8…19f4c1`, 다른 pipeline 상태 SHA-256 `5a
 5. 전체 회귀 테스트 미실행. 새 artifact의 도메인 projection은 여전히 범위 밖이다.
 6. 기존 n8n API key 상태(만료 1, 서명 불일치 2)는 정리하지 않았다.
 7. dev-codex 신규 5개 파일은 미커밋이며 commit/push와 Production 반영은 수행하지 않았다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

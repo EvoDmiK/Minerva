@@ -1,9 +1,13 @@
 ---
-title: Kestrel MCP 도구화와 Hermes 연결
+created: 2026-10-05
 date: 2026-10-05
+project: Birds-Nest
+type: worklog
+status: completed
+title: Kestrel MCP 도구화와 Hermes 연결
 author: Claude (Opus 5.5) with 둘기 (Dove)
-category: Infra/Automation
 tags:
+  - worklog
   - birds-nest
   - n8n
   - kestrel
@@ -11,7 +15,6 @@ tags:
   - hermes
   - codex
 ---
-
 # 🦅 Kestrel MCP 도구화와 Hermes 연결
 
 > [[2026-10-03-Codex-사용량-리셋-모니터링-워크플로우-구축|Kestrel 구축]]의 후속 작업. 알림만 보내던 Kestrel을 에이전트가 질문할 수 있는 MCP 도구로 확장.
@@ -53,3 +56,11 @@ tags:
 - [ ] Discord에서 Dovie에게 실제 질의해 E2E 확인
 - [ ] 필요하면 Claude Code / Codex에도 kestrel MCP 등록
 - [ ] 메인 체크아웃을 `dev-mac`으로 정리
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/Birds-Nest/index|Birds-Nest 프로젝트 인덱스]]
+- [[Work/Birds-Nest/Birds-Nest 작업 백로그|Birds-Nest 작업 백로그]]

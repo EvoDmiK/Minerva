@@ -1,3 +1,14 @@
+---
+created: 2026-10-10
+date: 2026-10-10
+project: RobinGraph
+category: "8xx 문서·개발환경"
+type: worklog
+status: completed
+tags:
+  - worklog
+  - robingraph
+---
 # dev-codex → main UI 변경 병합
 
 ## 요청·배경·목표
@@ -27,3 +38,11 @@ main은 `/Volumes/Dove-Nest-SSD/projects/RobinGraph`의 기존 작업 트리에�
 이번 작업에서 NAS 배포·운영 재시작·DB 마이그레이션은 하지 않았다. 직전 사용자 승인 배포의 운영 이미지 prod-approved-ui-0681747 상태에 새 변경 작업을 실행하지 않았다. 상세 작업 기록은 저장소와 Obsidian 작업기록에 동일 본문으로 기록한다. 기존 dev·dev-claude 브랜치 내용은 변경하지 않는다.
 
 전체 backend 테스트·새 브라우저 실행·물리 모바일 검증·GitHub CI 결과 확인은 이번 병합 검증 범위에 포함하지 않았다. 최근 UI의 실제 TEST/운영 검증은 이전 기록에서 확인할 수 있다. main에 추가 개발이 생기면 이후 병합에서는 fast-forward가 가능하지 않을 수 있어 다시 최신 원격과 충돌 여부를 확인해야 한다.
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

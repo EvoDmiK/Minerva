@@ -2,9 +2,11 @@
 created: 2026-10-09
 date: 2026-10-09
 project: RobinGraph
-type: work-log
+category: "7xx 배포·인프라"
+type: worklog
 status: completed
 tags:
+  - worklog
   - robingraph
   - neo4j
   - postgresql
@@ -14,7 +16,6 @@ tags:
   - ui
   - ponytail
 ---
-
 # [RobinGraph] TEST → PROD 데이터 이관·PROD 배포와 도감 카드 UX 개선 (카드 스크롤, 프레임 두께, 차트 목록, 파비콘)
 
 ## 요약
@@ -141,3 +142,11 @@ TEST 서버에만 올라가 있던 Neo4j·PostgreSQL 데이터를 **PROD로 전�
 - [[Work/RobinGraph/작업기록/8xx 문서·개발환경/2026-10-09-README-IUCN-등급별-카드색-매핑|README IUCN 등급별 카드 색]]
 - [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-09-NAS-임시파일-volume3-이동|NAS 임시 파일 이동]]
 - [[Work/RobinGraph/검토자료/2026-10-09-DB-저장소-분담-논의|DB 저장소 분담 논의]]
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]

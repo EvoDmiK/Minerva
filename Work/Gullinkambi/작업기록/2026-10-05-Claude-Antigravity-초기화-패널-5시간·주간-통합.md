@@ -5,13 +5,13 @@ project: Gullinkambi
 type: worklog
 status: completed
 tags:
+  - worklog
   - gullinkambi
   - grafana
   - claude
   - antigravity
   - monitoring
 ---
-
 # Claude·Antigravity 초기화 패널 5시간·주간 통합
 
 ## 요약

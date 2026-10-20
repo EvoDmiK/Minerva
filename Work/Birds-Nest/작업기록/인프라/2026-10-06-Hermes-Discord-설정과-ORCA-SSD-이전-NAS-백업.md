@@ -1,11 +1,17 @@
 ---
 created: 2026-10-06
+date: 2026-10-06
 project: Birds-Nest
-type: work-log
-tags: [birds-nest, hermes, discord, orca, backup]
+type: worklog
 status: completed
+tags:
+  - worklog
+  - birds-nest
+  - hermes
+  - discord
+  - orca
+  - backup
 ---
-
 # 2026-10-06 Hermes Discord 설정과 ORCA SSD 이전·NAS 백업
 
 ## 오늘 완료한 작업

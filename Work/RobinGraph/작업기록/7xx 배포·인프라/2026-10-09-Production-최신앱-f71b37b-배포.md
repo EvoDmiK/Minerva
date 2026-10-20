@@ -1,3 +1,14 @@
+---
+created: 2026-10-09
+date: 2026-10-09
+project: RobinGraph
+category: "7xx 배포·인프라"
+type: worklog
+status: completed
+tags:
+  - worklog
+  - robingraph
+---
 # Production 앱 배포 — f71b37b
 
 ## 요청과 목표
@@ -84,3 +95,11 @@ DB 백업과 양쪽 DB 복구 절차는 [직전 DB 재이관 기록](https://git
 
 - [[Work/RobinGraph/작업기록/index|작업기록 목록]]
 - [[Work/RobinGraph/작업기록/1xx DB·저장소/2026-10-09-TEST-PROD-DB-재이관-통칭수정반영|직전 TEST → Production DB 재이관]]
+
+---
+
+## 관련 문서
+
+- [[Home|🏠 홈으로]]
+- [[Work/RobinGraph/index|RobinGraph 프로젝트 인덱스]]
+- [[Work/RobinGraph/RobinGraph 작업 백로그|RobinGraph 작업 백로그]]
