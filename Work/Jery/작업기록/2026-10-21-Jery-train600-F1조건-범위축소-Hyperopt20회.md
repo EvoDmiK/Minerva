@@ -39,3 +39,5 @@ TORCHINDUCTOR_COMPILE_THREADS=4 PYTHONPATH=src /home/persona-ai/envs/jery-cuda/b
 ## 실행 기록
 
 새 [MLflow Parent 6e2c92b081534cc8a8e3b1271e3c0e9c](https://mlflow.dove-nest.com/#/experiments/47/runs/6e2c92b081534cc8a8e3b1271e3c0e9c)에 20회 순차 실행을 준비하고 데이터·설정 Artifact SHA를 검증했다. 실행 코드/설정 기준은 dev-codex f9b9ebc이며 서버에 fast-forward 반영했다. 이 문서는 시작 시점 기록이고 완료를 의미하지 않는다.
+
+실행 검증: 첫 Child d82d17ed8deb48f396a19cf5af941af7에서 CUDA optimizer step619, epoch4 완료와 로컬 validation accuracy0.75를 확인했다. MLflow에는 epoch3 accuracy0.70/F1 0.6233까지 동기화된 시점이다. Supervisor running/error null이며 epoch 지표를 계속 전송한다. 참고 JSON14개 업로드·SHA검증 완료. dev-codex cfacd09까지 push했다. 전체20회 완료 기록은 아니다.
