@@ -128,7 +128,7 @@ RG-301·RG-602·RG-405는 완료 상세로 이동했다. 2026-10-15 RG-202는 �
 
 | 순위 | 작업 | 배정 이유 | 주 담당 | 협업·독립 검증 |
 |---|---|---|---|---|
-| 1 (최우선) | RG-701 FastAPI → Django + DRF 백엔드 전환 | 2026-10-20 사용자 요청으로 최우선 등록. 계획 상태·미착수 | 미지정 (착수 시 Codex 배정) | 계약 기준선·서비스 추출·단계별 이전 검증, TEST 통합·n8n 호환·롤백 계획 후 별도 승인 Production |
+| 1 (최우선) | RG-701 FastAPI → Django + DRF 백엔드 전환 | 2026-10-20 사용자 요청으로 최우선 등록. 계획 상태·미착수 | 총괄 Codex (`gpt-6.1-sol`, dev-codex) · 구현 Claude (`claude-opus-5-5`, dev-claude) — 2026-10-20 사전 배정(계획) | UI 호환 Codex (`gpt-6.1-sol`, main/dev-agy) · 문서 Claude (`claude-opus-5-5`, main-2) · Codex↔Claude 교차 검토. 계약 기준선·서비스 추출·단계별 이전 검증, TEST 통합·n8n 호환·롤백 계획 후 별도 승인 Production |
 | 후속 대기 | RG-406 한국 서식 토글·이름 정책 | 검토 국외 6종 영어/학명 검색 및 1-Edit 철자 보완 TEST 배포 완료 (자료 확장 및 운영 배포 승인 대기) | Codex | Claude: 자료 확장 / Antigravity: UI 검증 / Codex: 통합·운영 승인 대기 |
 | 보류 | RG-101 문헌 Chunk 검색 저장소 분리 | 첫 단계 기준선 실측 완료. 사용자 지시로 보류 전환하고 실제 문헌 코퍼스 축적 후 재개 | 미지정 | 대표 문헌 코퍼스 및 품질 목표 확정 후 격리 환경에서 규모 시험 |
 
@@ -137,6 +137,8 @@ RG-301·RG-602·RG-405는 완료 상세로 이동했다. 2026-10-15 RG-202는 �
 ### RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환
 
 **2026-10-20 등록: 계획 (미착수) · 우선순위 1 (최우선, 다음 착수 1순위).** 현재 FastAPI/Pydantic API와 retrieval·ingest 모듈을 기준으로 한 예비 분석이며 전체 전환 설계를 검증한 결과가 아니다. 기존 API URL·응답·오류 계약 보존, `app.py` 채팅 오케스트레이션·응답 매핑의 프레임워크 독립 서비스 추출, Django+DRF URL·View·Serializer 추가, Neo4j 드라이버·검색·벡터 코드와 조류 근거·데이터 유지, 기존 PG SQL·스키마 초기 유지 및 Django auth/admin 마이그레이션과 명시 분리, query → chat → ingest 순 이전, 정적 UI 재사용, 테스트·Docker·CLI·Jenkins·런타임 갱신, TEST 통합·브라우저·n8n 호환·롤백 계획 후 별도 승인된 Production. 성능 향상은 약속하지 않는다. 이번 등록에 구현·서비스 재시작·DB 변경·배포·commit/push는 포함하지 않는다. [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-FastAPI-Django-DRF-전환-백로그등록|RG-701 백로그 등록 기록]].
+
+**2026-10-20 담당 사전 배정 (계획, 상태·순위 불변):** 총괄 책임 Codex·`gpt-6.1-sol`·dev-codex(계약 기준선·아키텍처·Django 설정/ASGI·PG 마이그레이션 분리·Docker/CLI/Jenkins·TEST 통합·검토), 구현 책임 Claude·`claude-opus-5-5`·dev-claude(서비스 추출, query → chat → ingest DRF 어댑터·계약 테스트), UI 호환 Codex·`gpt-6.1-sol`·main(dev-agy)(UI 역할 범위 유지, RG-701 한정 에이전트 선택), 문서 담당 Claude·`claude-opus-5-5`·main-2. 모델은 향후 계획 선택이며 실행 중 모델 검증이 아니다. 단계별 표는 [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그#RG-701 담당 사전 배정 (2026-10-20 · 계획)|RG-701 담당 사전 배정]]. 최초 등록 시 "미지정"은 이력으로 대체되었다.
 
 상세는 [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환|7xx 배포·인프라 작업 백로그]]에서 관리한다.
 
@@ -261,6 +263,10 @@ RG-301·RG-602·RG-405는 완료 상세로 이동했다. 2026-10-15 RG-202는 �
 ```
 
 ## 백로그 변경 이력
+
+### 2026-10-20 RG-701 담당 에이전트·모델 사전 배정
+
+사용자 요청으로 코디네이터가 승인한 RG-701 담당을 계획으로 기록했다: 총괄 Codex(`gpt-6.1-sol`), 구현 Claude(`claude-opus-5-5`), UI 호환 Codex(`gpt-6.1-sol`, main/dev-agy, RG-701 한정), 문서 Claude(`claude-opus-5-5`). 신규 착수 대기 표 담당 칸과 RG-701 안내 절, 7xx 상세 표를 갱신했다. RG-701 우선순위 1·계획(미착수), RG-101 보류·RG-406과 다른 항목은 변경하지 않았다. 설정·구현·서비스·DB·배포·commit/push 없음. [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-FastAPI-Django-DRF-전환-백로그등록|RG-701 작업기록]]
 
 ### 2026-10-20 RG-701 FastAPI → Django + DRF 전환 최우선 등록
 
