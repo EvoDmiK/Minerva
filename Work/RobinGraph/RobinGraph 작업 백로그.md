@@ -33,7 +33,7 @@ tags:
 | 4xx 채팅 UI·카드 | [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/작업 백로그\|작업 백로그]] | 7 | 44 |
 | 5xx 데이터·분류·이름 | [[Work/RobinGraph/작업기록/5xx 데이터·분류·이름/작업 백로그\|작업 백로그]] | 5 | 17 |
 | 6xx 관측·평가 | [[Work/RobinGraph/작업기록/6xx 관측·평가/작업 백로그\|작업 백로그]] | 2 | 1 |
-| 7xx 배포·인프라 | [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그\|작업 백로그]] | 1 | 16 |
+| 7xx 배포·인프라 | [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그\|작업 백로그]] | 1 | 17 |
 | 8xx 문서·개발환경 | [[Work/RobinGraph/작업기록/8xx 문서·개발환경/작업 백로그\|작업 백로그]] | 0 | 5 |
 | 9xx 기타·실험 | [[Work/RobinGraph/작업기록/9xx 기타·실험/작업 백로그\|작업 백로그]] | 0 | 0 |
 
@@ -79,7 +79,7 @@ tags:
 | **505** | RG-012 | [[#RG-505 — 분류·이름·번역 자료 변경 감지와 검토 가능한 갱신 절차\|자료 변경 감지·갱신]] | 보류 |
 | **601** | RG-001 | [[#RG-601 — MLflow 자동 로깅 연동\|MLflow 자동 로깅]] | 완료 |
 | **602** | RG-016 | [[#RG-602 — MLflow에서 답변 결과와 미응답 사유 구분\|MLflow 결과·미응답 사유 태그]] | 완료 |
-| **701** | — | [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|FastAPI → Django + DRF 백엔드 전환]] | 진행 중 (최우선 1 · Django 단독 전환 TEST 배포·검증 완료 · Production 승인 대기) |
+| **701** | — | [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|FastAPI → Django + DRF 백엔드 전환]] | 완료 (2026-10-20 main 병합·Production 배포·실제 검증 — Jenkins PROD #3 SUCCESS · 미검증 범위는 상세 참조) |
 
 7xx는 2026-10-20 RG-701이 첫 등록 작업이다. 8xx·9xx는 현재 등록된 작업이 없다. 각 카테고리의 다음 번호는 마지막 등록 번호 + 1이다(예: 다음 DB 작업은 103). 새 작업의 상세는 지금처럼 `### RG-NNN — 제목` 형식으로 쓰되 번호는 카테고리 번호를 쓴다. 한 작업이 여러 카테고리에 걸치면 가장 큰 변경이 일어나는 쪽으로 정하고 상세에 관련 카테고리를 적는다.
 
@@ -101,7 +101,7 @@ tags:
 
 | 작업 | 상태 | 우선순위 | 현재 요약 |
 |---|---|---|---|
-| [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|RG-701]] | 진행 중 (Django 단독 전환 TEST 검증 완료 · Production 승인 대기) | 1 (최우선) | 후속: legacy FastAPI 어댑터·독립 AviList runner까지 Django 단독 전환, FastAPI·Starlette 제거 · Python 1,029/991 통과/38 건너뜀/0 실패 · golden 273+10 · TEST `test-rg701-django-only-0e15293544bb` 앱·runner, 실제 API 5/5·Chromium 6·runner 바인딩 갱신·보호 장치 4·n8n 7노드·DB 불변 · 롤백 mock만 · 1차(이력): 네이티브 Django 5.2.18 + DRF 3.16.1 전환 · Python 1,262 실행/1,223 통과/39 건너뜀/0 실패(오프라인) · HTTP 동등성 95/95(fixture) · TEST `test-rg701-django-34f84c494c6a` healthy, 실제 API 5/5·공개 Chromium 6요청·n8n·DB 불변 통과 · 롤백 미실행·Production 미반영 |
+| [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|RG-701]] | 완료 (2026-10-20 Production 배포·실제 검증) | 1 (최우선) | **Production(2026-10-20):** 사용자 명시 승인으로 main fast-forward `770495a`(커밋 `e3a8bda`·`770495a`), Jenkins `RobinGraph-PROD` #3 SUCCESS(checkout main, Python 1,029/991/38 건너뜀·Node 317·AMD64 smoke), 이미지 `ghcr.io/evodmik/robingraph@sha256:336ace79…2f005d`, NAS `robingraph-api` healthy·네이티브 Django·FastAPI/Starlette 없음, 공개 Chromium 6/6, 운영 DB 감시 범위 전후 동일(Taxon 33,694·이름 벡터 0 — DB 전체 체크섬 아님), TEST DB 복사·backfill 없음, 실제 롤백 미실행 · 미검증: 건너뜀 38·물리 모바일·Safari/Firefox·재부팅·운영 DB 쓰기 · 이하 TEST 이력 — 후속: legacy FastAPI 어댑터·독립 AviList runner까지 Django 단독 전환, FastAPI·Starlette 제거 · Python 1,029/991 통과/38 건너뜀/0 실패 · golden 273+10 · TEST `test-rg701-django-only-0e15293544bb` 앱·runner, 실제 API 5/5·Chromium 6·runner 바인딩 갱신·보호 장치 4·n8n 7노드·DB 불변 · 롤백 mock만 · 1차(이력): 네이티브 Django 5.2.18 + DRF 3.16.1 전환 · Python 1,262 실행/1,223 통과/39 건너뜀/0 실패(오프라인) · HTTP 동등성 95/95(fixture) · TEST `test-rg701-django-34f84c494c6a` healthy, 실제 API 5/5·공개 Chromium 6요청·n8n·DB 불변 통과 · 롤백 미실행·Production 미반영 |
 | [[#RG-301 — Jev System One API를 이용한 질문 의도 분석\|RG-301]] | 완료 | — | Jev·첫 설명·국명 우선 TOP3·점수 기준 UI · 완료 이력은 상세 참조 |
 | [[#RG-602 — MLflow에서 답변 결과와 미응답 사유 구분\|RG-602]] | 완료 | — | MLflow 결과·미응답 사유 태그 및 필터 · NAS TEST 75377ca |
 | [[#RG-405 — 마우스 드래그로 조류 카드 뒤집기\|RG-405]] | 완료 | — | 완료 · 토글 배율·소재 안정화 · TEST/PROD 3ac07e2 |
@@ -126,7 +126,7 @@ tags:
 
 운영 규칙 3에 따라 2026-10-20 진행 중 구역을 만들었다. 기존 제목 앵커와 링크 호환을 위해 RG-701 안내 절은 아래 신규 착수 대기 구역에 그대로 두고 여기서 안내한다.
 
-- [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환|RG-701 FastAPI → Django + DRF 백엔드 전환]] — 진행 중 · 우선순위 1 · 2026-10-20 사용자 승인으로 구현 착수, 같은 날 TEST 배포·검증 완료. Production은 사용자 별도 승인 대기. 이후 같은 날 사용자 요청으로 후속 범위(FastAPI 완전 제거·Django 단독 전환)를 TEST 배포·검증까지 마쳤다(Production 승인 대기) — [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-Django-단독-전환|후속 작업기록]].
+- [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환|RG-701 FastAPI → Django + DRF 백엔드 전환]] — 진행 중 · 우선순위 1 · 2026-10-20 사용자 승인으로 구현 착수, 같은 날 TEST 배포·검증 완료. Production은 사용자 별도 승인 대기. 이후 같은 날 사용자 요청으로 후속 범위(FastAPI 완전 제거·Django 단독 전환)를 TEST 배포·검증까지 마쳤다(Production 승인 대기) — [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-Django-단독-전환|후속 작업기록]]. 같은 날 사용자 명시 승인으로 main 병합·Production 배포(Jenkins PROD #3 SUCCESS)와 실제 검증까지 마쳐 **완료**로 바꿨다. 기존 앵커 호환을 위해 이 안내 절의 위치는 유지한다 — [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-main-Production-Django-배포|Production 배포 작업기록]].
 
 ## 신규 착수 대기 작업
 
@@ -134,7 +134,7 @@ RG-301·RG-602·RG-405는 완료 상세로 이동했다. 2026-10-15 RG-202는 �
 
 | 순위 | 작업 | 배정 이유 | 주 담당 | 협업·독립 검증 |
 |---|---|---|---|---|
-| 1 (최우선) | RG-701 FastAPI → Django + DRF 백엔드 전환 | 2026-10-20 사용자 요청으로 최우선 등록. 같은 날 사용자 승인으로 구현 착수·TEST 검증 완료(진행 중, Production 승인 대기) | 총괄 Codex (`gpt-6.1-sol`, dev-codex) · 구현 Claude (`claude-opus-5-5`, dev-claude) — 2026-10-20 사전 배정(계획) | UI 호환 Codex (`gpt-6.1-sol`, main/dev-agy) · 문서 Claude (`claude-opus-5-5`, main-2) · Codex↔Claude 교차 검토. 계약 기준선·서비스 추출·단계별 이전 검증, TEST 통합·n8n 호환·롤백 계획 후 별도 승인 Production |
+| 1 (최우선) | RG-701 FastAPI → Django + DRF 백엔드 전환 | 2026-10-20 사용자 요청으로 최우선 등록. 같은 날 사용자 승인으로 구현 착수·TEST 검증 완료, 이어 사용자 명시 승인으로 Production 배포·실제 검증 완료(2026-10-20 완료) | 총괄 Codex (`gpt-6.1-sol`, dev-codex) · 구현 Claude (`claude-opus-5-5`, dev-claude) — 2026-10-20 사전 배정(계획) | UI 호환 Codex (`gpt-6.1-sol`, main/dev-agy) · 문서 Claude (`claude-opus-5-5`, main-2) · Codex↔Claude 교차 검토. 계약 기준선·서비스 추출·단계별 이전 검증, TEST 통합·n8n 호환·롤백 계획 후 별도 승인 Production |
 | 후속 대기 | RG-406 한국 서식 토글·이름 정책 | 검토 국외 6종 영어/학명 검색 및 1-Edit 철자 보완 TEST 배포 완료 (자료 확장 및 운영 배포 승인 대기) | Codex | Claude: 자료 확장 / Antigravity: UI 검증 / Codex: 통합·운영 승인 대기 |
 | 보류 | RG-101 문헌 Chunk 검색 저장소 분리 | 첫 단계 기준선 실측 완료. 사용자 지시로 보류 전환하고 실제 문헌 코퍼스 축적 후 재개 | 미지정 | 대표 문헌 코퍼스 및 품질 목표 확정 후 격리 환경에서 규모 시험 |
 
