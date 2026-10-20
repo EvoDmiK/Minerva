@@ -87,7 +87,7 @@ tags:
 | Jenkins 설정 | Production job을 일시 비활성한 뒤 inline 파이프라인 checkout을 저장소 `main`으로 변경, Declarative lint 후 실행 | `jenkins-start.json` (`checkout: main`, `pipeline_validated: true`), Root 전달 |
 
 - preflight 로그의 `Name relationship lookup failed (RuntimeError)`는 테스트가 일부러 유도한 오류 경로의 로그다. 결과는 `OK`다.
-- preflight 29개의 구성(테스트 모듈 이름)은 로그에 없어 문서 담당이 확인하지 못했다.
+- preflight 29개의 모듈 구성은 로그에 이름이 없다. 아래 명령 기록(Root 전달)에 따르면 네 모듈이다.
 
 ## Jenkins 빌드와 승인 gate (실제)
 
@@ -161,6 +161,31 @@ tags:
 
 - 문서 담당은 테스트·배포를 다시 실행하지 않았다. `cmp`·`git rev-parse`·파일 읽기로만 대조했다.
 
+### 실제 사용한 명령 기록 (Root 전달)
+
+아래는 이번 증거를 만든 **당시 명령의 기록**이며 다시 실행하라는 지시가 아니다. `/tmp/rg701-complete/*.py`는 Jenkins 설치·실행과 운영 확인용 일회성 운영 스크립트이므로 그대로 재실행하지 않는다. 인증 값은 기록하지 않는다. 문서 담당은 이 명령들을 실행하지 않았다.
+
+```sh
+# preflight (29 tests)
+PYTHONPATH=tests .venv/bin/python -m unittest test_registry_prod_deployment test_registry_test_deployment test_django_runtime test_drf_parity -q
+# 커밋·push·main fast-forward
+git add -A; git commit; git push origin dev-codex
+git -C /Users/kimdove/Desktop/RobinGraph merge --ff-only dev-codex
+git -C /Users/kimdove/Desktop/RobinGraph push origin main
+# Jenkins 파이프라인 lint·설치·실행 (일회성 운영 스크립트)
+python3 /tmp/rg701-complete/start-production.py
+# Jenkins #3 빌드 안 CI
+uv run --locked --extra test --extra tracing python -m unittest discover -s tests
+node --test tests/frontend/chat_ui.test.js tests/frontend/birds_ui.test.js
+# Production 확인
+python3 /tmp/rg701-complete/prod-runtime.py
+python3 /tmp/rg701-complete/nas-readonly.py docs/verification/assets/2026-10-20-production-django/db-after.json
+node docs/verification/assets/2026-10-20-production-django/browser.cjs
+```
+
+- preflight 29개는 `test_registry_prod_deployment`·`test_registry_test_deployment`·`test_django_runtime`·`test_drf_parity` 네 모듈이다(Root 전달 명령 기준).
+- 내부 API 결과(`internal-api-verification.json`)는 별도 명령이 아니라 Jenkins #3 Deployment 단계 출력에서 추출했다(Root 전달).
+
 ## 롤백 기준
 
 - 이전 운영 이미지 digest `sha256:100e4aa30fd8981ebb631ced8c4bfecd95e71fcdb6d90cc5026e42f11b333ead`와 백업 환경 파일을 보존했다(Root 전달). **실제 롤백은 실행하지 않았다.** 롤백도 운영 변경이므로 별도 승인이 필요하다.
@@ -169,6 +194,7 @@ tags:
 
 - 커밋: `e3a8bda`, `770495a` (dev-codex). main fast-forward, `origin/main` = `origin/dev-codex` = `770495a13fe7c7431c2d66cbf41a1080272d42f0` (릴리스 문서 커밋 전 시점).
 - Production: Jenkins `RobinGraph-PROD` #3 SUCCESS, NAS `robingraph-api` 교체·실제 검증 완료.
+- 공통 AGENTS.md: Root가 Jenkins 상태 단락(과거 dev-codex·#2 → main polling·#3 Django SUCCESS·DB 복사 없음)을 고쳐 네 워크트리(dev-codex·dev-claude·main·main-2)에 같은 단락을 전파했다. Root의 인프라 문서 변경이며 Root 최종 문서 커밋에 포함한다. 문서 담당은 AGENTS.md를 수정하지 않았다.
 - 배포 후 처리(Root 전달, 이 기록 작성 시점에 진행 중): 성공 **후** Jenkins를 잠시 멈추고 최종 릴리스 문서를 commit/push한 뒤 main polling을 복원하고 `CHECK_ONLY`로 실행해 문서 커밋이 두 번째 배포를 일으키지 않게 한다. 이 처리의 결과는 이 기록에서 확인하지 않았다.
 - 같은 최종 릴리스 문서 커밋에 Root가 README(현재 기술 스택·TEST+Production 범위)와 `docs/jenkins-deployment.md`(현재 main 절: #3 SUCCESS, 이 기록 링크) 수정을 포함한다(Root 전달). 문서 변경이며 배포된 runtime `770495a`는 바뀌지 않는다. 이 커밋의 해시는 이 기록 작성 시점에 확인하지 않았다.
 - main-2 문서는 미커밋이다. Root가 검토한 뒤 dev-codex에 반영한다.
