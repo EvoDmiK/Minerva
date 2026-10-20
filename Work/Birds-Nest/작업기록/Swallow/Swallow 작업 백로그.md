@@ -35,7 +35,7 @@ tags:
 | [[#SW-005 — 뉴스 영향도 평가 기준과 결측 표시 정정|SW-005]] | P2 | 뉴스 영향도 평가 기준과 결측 표시 정정 | 완료·운영 배포 및 첫 실행 확인 |
 | [[#SW-006 — 정상 모의투자 반환 상태 검증 수정|SW-006]] | P2 | 정상 모의투자 반환 상태 검증 수정 | 완료·운영 배포 및 첫 실행 확인 |
 | [[#SW-007 — 모의투자 기록에 원문 URL 전달|SW-007]] | P2 | 모의투자 기록에 원문 URL 전달 | 완료·운영 배포 및 첫 실행 확인 |
-| [[#SW-008 — CNN·비트코인 공포탐욕 지수 분리|SW-008]] | P2 | CNN·비트코인 공포탐욕 지수 분리 | 구현·개발 검증 완료 (2026-10-20 `b9c7440`, 운영 배포 대기) |
+| [[#SW-008 — CNN·비트코인 공포탐욕 지수 분리|SW-008]] | P2 | CNN·비트코인 공포탐욕 지수 분리 | 운영 수집 배포·첫 실행(`44008`)·DB 적재(`23`) 완료 (Grafana UI 확인 대기) |
 | [[#SW-009 — 뉴스·시세 적재 경로 확인 및 통합 검증|SW-009]] | P1 | 뉴스·시세 적재 경로 확인 및 통합 검증 | 완료·운영 배포 및 첫 실행 확인 |
 | [[#SW-010 — 관심종목 정기 시세 수집|SW-010]] | P1 | 관심종목 정기 시세 수집 | 완료·운영 활성 |
 | [[#SW-011 — 장중 1분·장외 5분 수집주기 조정|SW-011]] | P2 | 장중 1분·장외 5분 수집주기 조정 | 완료·운영 활성 |
@@ -129,7 +129,7 @@ tags:
 - **근거:** `scripts/sync-macro-indicators.js:114`
 - **확인 내용:** CNN 실패 시 Alternative.me 비트코인 지수를 같은 FEAR_GREED 코드와 CNN 소스로 취급한다.
 - **완료 기준:** 서로 다른 지수는 별도 코드·출처로 저장하거나 CNN 실패를 명시한다. CNN 실패 샘플에서 비트코인 값이 CNN 값으로 표시되지 않아야 한다.
-- **검증·커밋·결과 기록:** 2026-10-20 백엔드 `84c6457` / 통합 `b9c7440`에서 `Alternative.me` 폴백을 완전 제거하고 공식 CNN 데이터비즈 API(`graphdata`, 브라우저 헤더, 15s timeout, 0~100·RFC3339·96h 동일 검증 규칙, 원천 `providerTs` 보존) 단독 수집으로 수정 및 전용 6노드 워크플로우(`n8n/Swallow/fear-greed.json`, `active: false`, 매일 08:30 `Asia/Seoul`) 구현 완료. 계약·격리 PG 테스트 66 pass (`CNN_LIVE` 포함 67 pass), 일회용 PG `syncMacroIndicators()` E2E PASS(418 시 기존 보존+`exitCode=1`, 트리거 오류 시 `ROLLBACK`), `n8n-test` 최종 실행 `18161` (`score=23`, `extreme_fear`, `providerTs=2026-10-20T00:00:00.000Z`) 확인. 운영 배포·활성화·DB 적재·Grafana 확인은 별도 요청 대기(운영 DB `45` / `2026-10-10 18:58:43 KST` 유지). [[Work/Birds-Nest/작업기록/Swallow/2026-10-20-Swallow-CNN-공포탐욕지수-수집-중단-진단-및-수정|상세 기록]]
+- **검증·커밋·결과 기록:** 2026-10-20 백엔드 `84c6457` / 통합 `b9c7440` (`b5e518a`)에서 `Alternative.me` 폴백을 완전 제거하고 공식 CNN 데이터비즈 API(`graphdata`, 브라우저 헤더, 15s timeout, 0~100·RFC3339·96h 동일 검증 규칙, 원천 `providerTs` 보존) 단독 수집으로 수정 및 전용 6노드 워크플로우(`n8n/Swallow/fear-greed.json`, 매일 08:30 `Asia/Seoul`) 구현·검증 완료(계약·격리 PG 66 pass / `CNN_LIVE` 포함 67 pass, 일회용 PG `syncMacroIndicators()` E2E PASS, `n8n-test` `18161` PASS). 사용자 승인 후 운영 n8n에 워크플로우 `5mkkZfHRh1zFGuZZ` (6노드, `active: true`, 최종 `versionId = activeVersionId = 2d535038-5bf9-403b-9109-e9039227f343`, cron `30 8 * * *` 확정, repo JSON과 `nodes`/`connections` 완전 일치) 배포 및 첫 예약 실행 `44008` (`2026-10-20 14:07 KST`, `status: success`)로 운영 DB `FEAR_GREED`가 `23` (`extreme_fear`, `updated_at = 2026-10-20T00:00:00Z`)으로 갱신되고 이력 신규 1행(`10/20` `23`) + 기존 `10/10` `45` 2행 보존, 타 지표(`KOSPI 5512.03`, `KOSDAQ 781.79`, `USDKRW 1328`) 정상 수집 확인(과거 진단 `45`는 당시 기록으로 보존). Grafana `/api/health` 200이나 API 401/로그인 페이지로 실제 UI·소스 쿼리 확인은 사용자 로그인 대기 중이므로 완료 체크박스는 유지. [[Work/Birds-Nest/작업기록/Swallow/2026-10-20-Swallow-CNN-공포탐욕지수-수집-중단-진단-및-수정|상세 기록]]
 
 ### SW-009 — 뉴스·시세 적재 경로 확인 및 통합 검증
 
