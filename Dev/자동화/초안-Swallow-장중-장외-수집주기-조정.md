@@ -1,0 +1,78 @@
+---
+created: 2026-10-20
+updated: 2026-10-20
+type: reference
+category: "자동화"
+status: draft
+source_project: "Birds-Nest"
+source_work_log: "[[Work/Birds-Nest/작업기록/Swallow/2026-10-12-Swallow-장중-장외-수집주기-조정]]"
+tags:
+  - dev
+  - draft
+  - "birds-nest"
+---
+
+# Swallow 장중·장외 수집주기 조정
+
+> 자동 증류 초안 · 원천 [[Work/Birds-Nest/작업기록/Swallow/2026-10-12-Swallow-장중-장외-수집주기-조정]] · 분류 근거 {"인프라":0,"자동화":8,"관측성":0,"데이터":0}
+
+## 1. 개요 및 목적
+
+작업 ID: SW-011. 사용자가 장중 1분·장외 5분 수집을 승인했다.
+
+- 같은 가격 전용 workflow `Kt26XhwQEO2SuRtt`를 수정 배포하고 활성 상태를 확인했다.
+- 정규장 기준은 토스 공식 국내 장 운영 달력의 `integrated.regularMarket`이다. 오늘은 KST 09:00 이상, 15:30 미만.
+- 정규장 가격 조회·적재: 매 1분.
+- 장외·주말·휴장일: KST 분이 5의 배수일 때만 가격 조회·적재. NXT 프리·애프터는 장외로 분류한다.
+- n8n은 매분 깨어나 판단하지만 수집하지 않는 분에는 가격 HTTP와 DB 노드를 실행하지 않는다.
+- 당일 달력을 `workflowStaticData.global`에 저장하고 재사용한다. KST 날짜 변경 시 조회한다.
+- 달력 조회 실패·날짜 불일치·형식 오류는 휴장과 구분하고, 실패를 표시하며 보수적으로 5분 간격을 적용한다.
+- 수동 실행은 시간과 무관하게 직접 가격 수집한다.
+- 동적 관심종목, 토스 일괄 조회, 네이버 종목별 조회, 스냅샷 시각과 upsert는 유지했다.
+
+## 2. 핵심 아키텍처 및 원칙
+
+- 적용한 정책
+- 구현과 배포
+- 직접 확인한 검증
+- 운영 기록과 복구
+
+## 3. 재사용 가능한 코드 스니펫 / 설정
+
+_원천 문서에 코드 블록 없음_
+
+## 4. 검증 근거 및 트러블슈팅
+
+- 같은 가격 전용 workflow `Kt26XhwQEO2SuRtt`를 수정 배포하고 활성 상태를 확인했다.
+- 정규장 기준은 토스 공식 국내 장 운영 달력의 `integrated.regularMarket`이다. 오늘은 KST 09:00 이상, 15:30 미만.
+- 정규장 가격 조회·적재: 매 1분.
+- 장외·주말·휴장일: KST 분이 5의 배수일 때만 가격 조회·적재. NXT 프리·애프터는 장외로 분류한다.
+- n8n은 매분 깨어나 판단하지만 수집하지 않는 분에는 가격 HTTP와 DB 노드를 실행하지 않는다.
+- 당일 달력을 `workflowStaticData.global`에 저장하고 재사용한다. KST 날짜 변경 시 조회한다.
+- 달력 조회 실패·날짜 불일치·형식 오류는 휴장과 구분하고, 실패를 표시하며 보수적으로 5분 간격을 적용한다.
+- 수동 실행은 시간과 무관하게 직접 가격 수집한다.
+- 동적 관심종목, 토스 일괄 조회, 네이버 종목별 조회, 스냅샷 시각과 upsert는 유지했다.
+
+- 구현·dev-codex 통합: `a829de69c2910ffbf7965b4b22b8173f475cc0c4`.
+- workflow는 16개 노드, `Asia/Seoul`, wake-up cron `* * * * *`.
+- 같은 ID에 Deactivate → PUT → Activate → GET으로 배포·설정을 확인했다.
+- 새 비밀·의존성·DB 스키마·서버 재시작은 추가하지 않았다.
+
+- Codex 직접 `node --test n8n/Swallow/tests/watchlist-prices.test.mjs`: 30개 통과, 실패·skip 0개.
+- 예약 실행 `28301`(10:54), `28304`(10:55), `28307`(10:56 KST): 모두 success, `regular_market`, `priceIntervalMinutes=1`, 각 실행 토스 2행·네이버 2행 적재, failures/error 없음.
+- NAS data DB 직접 조회에서 10:54·10:55·10:56·10:57 각 분마다 두 종목×두 소스의 4행을 확인했다.
+- 첫 실행의 장운영 HTTP는 1회, 다음 두 실행은 0회였다.
+- n8n API GET의 영속 staticData에서 `date=2026-10-12`, `holiday=false`, 정규장 09:00~15:30, `fetchedAt=2026-10-12T01:54:00.216Z`가 유지됨을 확인했다.
+- 장외·주말·휴장일 스킵, 개장·마감 경계, KST 자정 무효화, 비표준 개장시간, 달력 실패의 5분 수집, 수동 실행은 실제 Code 노드 fixture 테스트로 검증했다. 현재 장중이므로 이 경우들의 실운영 시간대 검증은 미실행이다.
+
+- 기존 5분 수집 구축 이력은 [[Work/Birds-Nest/작업기록/Swallow/2026-10-12-Swallow-관심종목-지속-수집|초기 지속 수집 기록]]에 보존했다.
+- [Draft PR #5](https://github.com/EvoDmiK/Birds-Nest/pull/5)에 코드·문서를 반영했고 최종 dev-codex `3294221`을 push했다.
+- 장애 시 같은 workflow를 이전 `b010e3a`/`ce682d2` 가격 JSON으로 되돌리면 5분 수집으로 복구된다. 데이터는 보존한다.
+- 매분 판단으로 n8n 실행 수는 늘어난다. 서버 전체 실행 보관 정책은 이번에 변경하지 않았다.
+- [토스 공식 장 운영 API](https://openapi.tossinvest.com/openapi-docs/latest/openapi.json)
+- [[Work/Birds-Nest/작업기록/Swallow/Swallow 작업 백로그|Swallow 작업 백로그]]
+
+## 5. 관련 Dev 가이드
+
+- 원천 작업기록 [[Work/Birds-Nest/작업기록/Swallow/2026-10-12-Swallow-장중-장외-수집주기-조정]]
+- [[Dev/index|Dev 인덱스]]
