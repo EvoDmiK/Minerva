@@ -92,6 +92,12 @@ Root 보고 값이며 문서 담당은 재실행하지 않았다.
 - 발견 3: Root 런타임 테스트의 `DATABASES == {}` 순서 문제 → dummy backend 단언으로 수정.
 - 재검증·TEST 배포는 증거 대기.
 
+### HTTP 동등성 비교 (2026-10-20 06:53 UTC · 중간)
+
+- 자산 `docs/verification/assets/2026-10-20-rg701/http-parity-overlay.json`. 기존 FastAPI(18011) vs 새 네이티브 Django(18012), 같은 fixture, 로컬 실제 소켓 95사례.
+- 전체 JSON(`error: null` 포함)·바이트·MIME·cache·location·traversal 비교 → Root 보고 **95/95 일치**.
+- 한계: 로컬 fixture HTTP, 실제 DB·브라우저·최종 통합 이미지 아님. 소스 수정 시 최종 통합 후 재실행.
+
 ## 계약과 변경 전후
 
 - 유지 대상: `POST /v1/answers`, `/v1/chat`, `/v1/search`, `GET /v1/observations`, `/v1/taxa/lineage`, `/v1/taxa/{name-relations,related,similar,ecological-related,subspecies,profile}`, `/health`, 정적 `/`·`/chat`·`/birds`·`/favicon.ico`·`/static/...`, 내부 `/internal/v1/ingest/*`(내부 Bearer).
@@ -112,7 +118,8 @@ Root 보고 값이며 문서 담당은 재실행하지 않았다.
 | 전환 후 전체 단위/모의/fixture | 증거 대기 |
 | DRF 계약 테스트 | 증거 대기 |
 | 실제 DB/API 통합 | 증거 대기 |
-| UI HTTP 호환 (main) | 증거 대기 |
+| HTTP 동등성 95사례 (중간) | 95/95 일치 (로컬 fixture, 실제 DB·브라우저 아님) |
+| UI 호환 (main) 최종 | 증거 대기 |
 | n8n ingest 호환 | 증거 대기 |
 | TEST 배포 (M4 16GB Mac) | 증거 대기 |
 | 롤백 계획·확인 | 증거 대기 |
