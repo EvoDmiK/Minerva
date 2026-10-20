@@ -64,7 +64,7 @@ tags:
 동작·통과를 뜻하지 않으며 최종 diff와 다를 수 있다.
 
 - `src/robingraph/django_api/settings.py`(신규): stateless 설정 — `INSTALLED_APPS=['rest_framework']`, `MIDDLEWARE=[]`, `DATABASES={}`, `APPEND_SLASH=False`, DRF 인증 없음·`AllowAny`·JSON 렌더러/파서. 주석에 기존 ingest SQL이 스키마 소유권을 유지하고 auth/admin/session 테이블을 설치하지 않는다고 명시. 비밀값은 환경 변수(`ROBINGRAPH_DJANGO_SECRET_KEY`)에서 읽음.
-- `src/robingraph/django_api/asgi.py`(신규): `create_django_app()`을 `.application`에서 가져온다. 관찰 시점에 `application.py`는 없었다(후속 추가 예정으로 보이나 미확인, 결함으로 단정하지 않음).
+- `src/robingraph/django_api/asgi.py`(신규): `robingraph.api.drf`의 `create_django_app()`을 가져온다. 네이티브 DRF factory는 구현 담당의 `api/drf`에 속하고 `django_api`에는 설정·ASGI 진입점만 둔다.
 - `src/robingraph/cli.py`: `serve-fixture`·`serve-ingest`·`serve-neo4j`가 Django ASGI 앱을 uvicorn으로 실행하도록 변경.
 - `Dockerfile`: 빌드 시 `python -m django check --settings=robingraph.django_api.settings` 추가.
 - `Jenkinsfile`·`ci/Jenkinsfile.production` 수정 상태는 RG-701 관련 여부 미확인.
@@ -79,7 +79,8 @@ Root 보고 값이며 문서 담당은 재실행하지 않았다.
 - 기존 FastAPI는 차등 비교 기준으로만 유지, 런타임 FastAPI 프록시 없음. Docker·Jenkins에 `django check` 단계.
 - 테스트: 기준선 999/961/38/0(오프라인). Root 런타임 설정/CLI 2개 통과(0.025초). UI Node 317개 통과. UI HTTP 95사례 비교 도우미 준비, Django 대상 미실행.
 - TEST 배포 없음. 변경 전 공개 OpenAPI 스냅샷 `docs/verification/assets/2026-10-20-rg701/openapi-before.json` 존재.
-- 정정: `asgi.py`는 재관찰 시 `robingraph.api.drf`를 가져오며, 그 시점 dev-codex에 `api/drf`는 아직 없었다(통합 전, 결함 단정 안 함).
+- TEST 배포 전 읽기 전용 DB 스냅샷 `db-before.json`: 실제 이름 벡터 855개, 파일럿 수집 실행 1건(succeeded), 이름 카탈로그 fingerprint·기타 파이프라인 상태 해시. 전환 후 비교 결과는 증거 대기.
+- 문서 범위: README 현재 런타임 문장은 Root 담당. `deployment-profile.md`의 과거 FastAPI 제안은 유지하고 검증된 배포 후 날짜 붙인 전환 메모를 추가한다.
 
 ## 계약과 변경 전후
 
