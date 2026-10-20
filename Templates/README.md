@@ -19,9 +19,11 @@
 ## 🤖 에이전트 작업 지침
 
 ### 1. 작업 문서 작성 시
+* 모든 에이전트(Antigravity, Claude, Codex, Cursor 등)는 **[`AGENTS.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/AGENTS.md)** 규격을 필수 준수합니다.
 * 새 작업 기록 파일은 반드시 **`YYYY-MM-DD-설명적인-제목.md`** 형식으로 생성합니다.
 * `Templates/worklog.md`를 기반으로 작성하며, 가정이 아닌 **실제 테스트 명령어 결과 및 서버 배포 증거**를 상세히 기록합니다.
 * 작업 완료 후 원천 프로젝트의 `index.md` 및 백로그 문서의 완료 섹션에 링크(`[[...]]`)를 연결합니다.
+* 저장소 커밋 전 Git Pre-commit Hook이 `scripts/normalize_worklogs.py`를 통해 규격을 자동 검증/보정합니다.
 
 ### 2. 백로그 등록 시
 * 새 작업은 `Templates/backlog-item.md` 형식을 준수하여 해당 프로젝트의 백로그 문서에 추가합니다.

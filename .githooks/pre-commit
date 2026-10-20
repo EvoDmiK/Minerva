@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Minerva Vault Git Pre-commit Hook
+# 1. Author email check (prevent GH007 push rejection)
+# 2. Automatically normalize worklogs before committing
+
+set -e
+
+# GH007 Author Check
+CURRENT_EMAIL=$(git config user.email || true)
+if [ "$CURRENT_EMAIL" = "kimhippowork@gmail.com" ]; then
+    echo "=================================================================" >&2
+    echo "[HOOK BLOCKED] git user.email is set to kimhippowork@gmail.com" >&2
+    echo "GitHub will reject push with GH007 (private email address)." >&2
+    echo "Please set author to: EvoDmiK <93193661+EvoDmiK@users.noreply.github.com>" >&2
+    echo "Run:" >&2
+    echo "  git config user.name 'EvoDmiK'" >&2
+    echo "  git config user.email '93193661+EvoDmiK@users.noreply.github.com'" >&2
+    echo "=================================================================" >&2
+    exit 1
+fi
+
+# Detect staged worklog files
+STAGED_FILES=$(git -c core.quotepath=false diff --cached --name-only --diff-filter=ACM | grep -E '^Work/.*/작업기록/.*\.md$' || true)
+
+if [ -n "$STAGED_FILES" ]; then
+    echo "[HOOK] Staged worklogs detected. Applying normalization standards..."
+    REPO_ROOT=$(git rev-parse --show-toplevel)
+    
+    while IFS= read -r file; do
+        if [ -n "$file" ] && [ -f "$REPO_ROOT/$file" ]; then
+            python3 "$REPO_ROOT/scripts/normalize_worklogs.py" --apply "$REPO_ROOT/$file" > /dev/null
+            git add "$REPO_ROOT/$file"
+        fi
+    done <<< "$STAGED_FILES"
+    
+    echo "[HOOK] All staged worklogs verified & normalized to template standards."
+fi
+
+exit 0

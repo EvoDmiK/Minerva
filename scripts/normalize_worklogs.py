@@ -125,10 +125,14 @@ def main():
     parser = argparse.ArgumentParser(description="Minerva Work Document & Backlog Normalizer")
     parser.add_argument("--dry-run", action="store_true", help="Print stats and sample diffs without saving")
     parser.add_argument("--apply", action="store_true", help="Apply changes to all worklogs")
+    parser.add_argument("files", nargs="*", help="Optional specific file paths to normalize")
     args = parser.parse_args()
     
-    work_dir = VAULT_ROOT / "Work"
-    worklogs = sorted([p for p in work_dir.rglob("*.md") if "작업기록" in p.parts and "백로그" not in p.name and p.name != "index.md"])
+    if args.files:
+        worklogs = [Path(f).resolve() for f in args.files if Path(f).is_file() and Path(f).suffix == ".md"]
+    else:
+        work_dir = VAULT_ROOT / "Work"
+        worklogs = sorted([p for p in work_dir.rglob("*.md") if "작업기록" in p.parts and "백로그" not in p.name and p.name != "index.md"])
     
     modified_count = 0
     sample_diffs = []
