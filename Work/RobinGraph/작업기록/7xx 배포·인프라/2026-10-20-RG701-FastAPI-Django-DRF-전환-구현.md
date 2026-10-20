@@ -85,7 +85,7 @@ tags:
 dev-codex 미커밋 작업 트리. 이전 작업의 미커밋 변경과 섞여 있어 RG-701 관련으로 확인한 파일만 적는다. 이미지 소스 전체는 `test-release.json` 파일별 SHA-256으로 고정.
 
 - 신규: `src/robingraph/django_api/{settings,asgi,__init__}.py`; `src/robingraph/api/drf/`(`application.py`·`views.py`·`serializers.py`·`urls.py`·`validation.py`, 고정 OpenAPI·문서 HTML); `src/robingraph/api/{schemas,services,ingest_service}.py`; `tests/test_django_runtime.py`·`test_drf_legacy_suite.py`·`test_drf_parity.py`.
-- 수정: `api/app.py`·`api/ingest_router.py`(서비스 이전 후 얇은 legacy 어댑터), `cli.py`, `pyproject.toml`·`uv.lock`(django·djangorestframework 추가, fastapi는 legacy·AviList용으로 유지), `Dockerfile`·`Jenkinsfile`·`ci/Jenkinsfile.production`(`django check` 단계), `scripts/verify_api_deployment.py`, `README.md`(Root 담당).
+- 수정: `api/app.py`·`api/ingest_router.py`(서비스 이전 후 얇은 legacy 어댑터), `cli.py`, `pyproject.toml`·`uv.lock`(django·djangorestframework 추가, 공유 DTO 직접 의존 `pydantic>=2.12,<3` 명시(설치 2.13.5), fastapi는 legacy·AviList용으로 유지), `Dockerfile`·`Jenkinsfile`·`ci/Jenkinsfile.production`·`ci/Jenkinsfile.test`(`django check` 단계), `scripts/verify_api_deployment.py`, `README.md`(Root 담당).
 - 문서 담당: 저장소 이 작업 기록(신규), Obsidian 아래 4개. 선행 등록 기록·`docs/deployment-profile.md`는 수정하지 않음.
 
 ## 검증 결과 (최종 · `summary.json`)
@@ -109,7 +109,7 @@ dev-codex 미커밋 작업 트리. 이전 작업의 미커밋 변경과 섞여 �
 | graphify | rc 0, 6,576 nodes · 13,829 edges · 389 communities | — |
 
 - health `fixture-avlist-2025`와 lineage `v2025b` 차이는 서로 다른 데이터 영역이라 정상(검증기 기록).
-- 실행 수 증가(999 → 1,262)는 새 테스트 추가로 보이나 테스트별 증감은 미확인.
+- 실행 수 증가 999 → 1,262 = 정확히 263개: Django 런타임 4 + DRF 동등성 17 + legacy 스위트 네이티브 재실행 242 (Root 전달).
 
 ### 중간 실패·건너뛰기
 
