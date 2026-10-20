@@ -1,6 +1,6 @@
 ---
 created: 2026-10-14
-updated: 2026-10-19
+updated: 2026-10-20
 project: Jery
 type: index
 tags: [jery, mcp, dataset, training, hyperopt]
