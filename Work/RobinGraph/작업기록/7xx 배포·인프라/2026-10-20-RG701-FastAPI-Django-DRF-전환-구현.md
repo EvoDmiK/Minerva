@@ -98,6 +98,25 @@ Root 보고 값이며 문서 담당은 재실행하지 않았다.
 - 전체 JSON(`error: null` 포함)·바이트·MIME·cache·location·traversal 비교 → Root 보고 **95/95 일치**.
 - 한계: 로컬 fixture HTTP, 실제 DB·브라우저·최종 통합 이미지 아님. 소스 수정 시 최종 통합 후 재실행.
 
+### Root 통합 회귀 (2026-10-20 06:58 UTC · 이미지 빌드·배포 전)
+
+Root 실제 실행 보고(오프라인/모의/fixture, 실제 DB opt-in은 건너뜀).
+
+| 검사 | 결과 |
+|---|---|
+| Python 전체 | 1,260 실행 · 1,221 통과 · 39 건너뜀 · 0 실패 (27.024초) |
+| 프런트엔드 Node | 317 통과 · 0 실패 · 0 건너뜀 |
+| `django check` | 문제 없음 |
+| 런타임·API 배포·CLI smoke | 41 통과 (0.700초) |
+| 네이티브 FastAPI 미import | 통과 |
+| HTTP 동등성(통합) | 95/95 |
+
+- 남은 수정: Host 검증·대용량 payload 신규 테스트는 후속 dispatch `ctx_7a2306379727`에서 구현 중. 2.5MiB 상한 해제는 반영됨.
+- 이미지 빌드·TEST 배포 없음.
+- 기존 동작: 공개 서버의 끝 슬래시 `307` → `http` 리다이렉트는 전환 전부터 있던 동작이며 새 문제 아님.
+- 범위: 별도 AviList TEST runner는 설계상 FastAPI 유지. 공개 API는 Django, FastAPI 런타임 없음. legacy 어댑터는 비교 기준으로 당분간 유지.
+- 최종 증거 후 예상 상태: "TEST 완료 · 운영 승인 대기"(백로그 전체 완료 아님).
+
 ## 계약과 변경 전후
 
 - 유지 대상: `POST /v1/answers`, `/v1/chat`, `/v1/search`, `GET /v1/observations`, `/v1/taxa/lineage`, `/v1/taxa/{name-relations,related,similar,ecological-related,subspecies,profile}`, `/health`, 정적 `/`·`/chat`·`/birds`·`/favicon.ico`·`/static/...`, 내부 `/internal/v1/ingest/*`(내부 Bearer).
@@ -115,7 +134,7 @@ Root 보고 값이며 문서 담당은 재실행하지 않았다.
 | 기준선 단위/모의/fixture (변경 전) | 999 실행·961 통과·38 건너뜀·0 실패 |
 | Root 런타임 설정/CLI (중간) | 2개 통과 (0.025초) |
 | UI Node (중간) | 317개 통과 |
-| 전환 후 전체 단위/모의/fixture | 증거 대기 |
+| 전환 후 전체 Python (통합, 중간) | 1,260/1,221/39/0 — 후속 수정 후 최종값 증거 대기 |
 | DRF 계약 테스트 | 증거 대기 |
 | 실제 DB/API 통합 | 증거 대기 |
 | HTTP 동등성 95사례 (중간) | 95/95 일치 (로컬 fixture, 실제 DB·브라우저 아님) |
