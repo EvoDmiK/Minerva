@@ -82,6 +82,16 @@ Root 보고 값이며 문서 담당은 재실행하지 않았다.
 - TEST 배포 전 읽기 전용 DB 스냅샷 `db-before.json`: 실제 이름 벡터 855개, 파일럿 수집 실행 1건(succeeded), 이름 카탈로그 fingerprint·기타 파이프라인 상태 해시. 전환 후 비교 결과는 증거 대기.
 - 문서 범위: README 현재 런타임 문장은 Root 담당. `deployment-profile.md`의 과거 FastAPI 제안은 유지하고 검증된 배포 후 날짜 붙인 전환 메모를 추가한다.
 
+### 배포 전 독립 검토 (2026-10-20 06:52 UTC · 최종 아님)
+
+검토자 `gpt-6.1-sol` 보고(문서 담당 재실행 없음, mock/fake 기반, 공유 DB 문제 아님).
+
+- 네이티브 legacy 스위트 242 실행·1 건너뜀·0 실패. DTO 33개 AST 동일. 네이티브 import에 FastAPI 없음. 150ms 모의 호출 4건 164ms(병렬), 앱 2개 handler 격리.
+- 발견 1: Django 기본 2.5MiB 상한으로 정상 3MB ingest가 기존 200 → 새 400. 조치: `DATA_UPLOAD_MAX_MEMORY_SIZE=None`(Root), mock 회귀 테스트(Claude) 진행 중.
+- 발견 2: 허용되지 않은 Host 응답 200/500 불일치. 조치: 초기 `get_host()` 검증 → 400과 테스트(Claude) 진행 중.
+- 발견 3: Root 런타임 테스트의 `DATABASES == {}` 순서 문제 → dummy backend 단언으로 수정.
+- 재검증·TEST 배포는 증거 대기.
+
 ## 계약과 변경 전후
 
 - 유지 대상: `POST /v1/answers`, `/v1/chat`, `/v1/search`, `GET /v1/observations`, `/v1/taxa/lineage`, `/v1/taxa/{name-relations,related,similar,ecological-related,subspecies,profile}`, `/health`, 정적 `/`·`/chat`·`/birds`·`/favicon.ico`·`/static/...`, 내부 `/internal/v1/ingest/*`(내부 Bearer).
