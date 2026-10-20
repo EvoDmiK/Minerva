@@ -12,6 +12,7 @@ MCP 도구 선택을 위한 경량 로컬 학습 결정 모델 프로젝트.
 
 ## 작업기록
 
+- [[Work/Jery/작업기록/2026-10-20-Jery-배치-시드-10회-비교|2026-10-20 — 배치 4·8 × 학습 시드 5개, 10회 비교]]
 - [[Work/Jery/작업기록/2026-10-20-Jery-10개-도구-정규화-재학습|2026-10-20 — LR·정규화·콜백 조정 후 Hyperopt 재학습]]
 - [[Work/Jery/작업기록/2026-10-20-Jery-10개-도구-단일선택-학습진단|2026-10-20 — 10개 고정 도구, 암기 진단 통과와 CUDA Hyperopt]]
 - [[Work/Jery/작업기록/2026-10-19-Jery-LR-가중치-공동탐색과-데이터형식검증|2026-10-19 — 낮은 LR·가중치 Hyperopt 공동 탐색, Laya native 데이터 형식 검증]]
@@ -27,7 +28,7 @@ MCP 도구 선택을 위한 경량 로컬 학습 결정 모델 프로젝트.
 
 등록 MCP 5개·도구 96개의 합성 데이터셋 v2(1,162개)와 학습·예측 가능한 선형 기준 모델을 구현하고 Mac mini M4에서 학습을 완료했다. MLflow에 학습 모델 Jery-LinearRouter v1, 데이터셋, 평가 결과와 코드를 등록했다. Gemma 4 E4B 4비트의 로컬 실행도 확인했지만 미세조정하지 않았으며, 6건의 탐색 결과는 기존 모델 대체를 뒷받침하지 못했다.
 
-Laya multilingual은 인코더를 고정하고 결정 head를 학습한다. 기존 96개 도구 탐색과 고정 10개 도구 첫 Hyperopt 5회(c328674e)는 모델·결과 업로드까지 완료됐다. 10개 과제의 이전 최고 검증은 65%, 해당 head의 평가는 60%였으며 실제 성능 개선은 확인되지 않았다. 사용자 요청으로 정규화 설정을 바꿔 새 Hyperopt 5회를 회사 RTX 5070 Ti에서 시작했다. LR 1e-4~4e-4, weight decay 0.01/0.05/0.1, label smoothing 0.05/0.1, warmup 10 step, 최대 32·최소 16에폭·patience 6이다. 동일 도구 10개·train 60/validation 20/test 20과 seed를 유지하고 원 base부터 학습한다. 필수 Child params 5개·metrics 7개, 그 외 JSON artifact이며 Child val 표 값은 마지막 에폭이다. 기존 전체 테스트 145개에 더해 이번 설정 계약·계획 테스트 4개와 CUDA 모델 테스트 15개가 통과했다. Mac 학습은 중단 상태다. [현재 MLflow Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/75c5cfd07701439d88f29f0cf1158a46)
+Laya multilingual은 인코더를 고정하고 결정 head를 학습한다. 고정 10개 도구 정규화 Hyperopt 5회는 업로드까지 완료됐고 검증 기준 최우수는 validation 65%·해당 head test 70%였다. 사용자 요청으로 이 모델의 LR 0.0003538647078409709·weight decay 0.05·label smoothing 0.05를 고정하고 배치 4·8 × 학습 시드 3407~3411의 10회 비교를 회사 RTX 5070 Ti에서 시작했다. 같은 원 base에서 시작하며 도구 10개·train 60/validation 20/test 20·선택지 순서는 유지한다. 최대 32·최소 16에폭·patience 6·warmup 10 step이다. 필수 Child params 5개·metrics 7개를 유지하고 seed와 effective_batch_size를 실제 trial override로 기록한다. 관련 통합 테스트 16개와 설정·데이터 검증을 통과했다. 작은 미검토 합성 데이터의 탐색이며 실제 성능 개선은 별도 검증이 필요하다. Mac 학습은 중단 상태다. [현재 MLflow Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/a29741cab715401ea4ae3fa25cbe3ea4)
 
 읽기 전용 Hermes 로그 수집기·검토 후보 API와 독립 데이터 감사 도구는 구현했다. 이번 학습에는 실제 대화 로그를 사용하지 않았고 합성 정답은 모두 미검토 상태다. 정답 검토와 실제 요청 평가, action·비선택 사례 보강이 남아 있다.
 
