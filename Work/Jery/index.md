@@ -15,6 +15,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 작업기록
 
 
+- [[Work/Jery/작업기록/2026-10-21-Jery-다음20회-LR상한1e-3|2026-10-21 — 다음20회 LR 상한1e-3, 현재 학습 완료 뒤 자동 실행]]
+
+
+
 - [[Work/Jery/작업기록/2026-10-21-Jery-train600-F1조건-범위축소-Hyperopt20회|2026-10-21 — test F1≥0.7·val F1≥0.75 실행6개 기반 범위 축소와 Hyperopt20회]]
 
 
