@@ -28,7 +28,7 @@ tags:
 - 결과(실제 Production):
   - 이름 벡터 **0 → 855**, 카탈로그 1개(fingerprint `a96ed6f8…1919f4c1`). 이름 전용 인덱스(512차원, cosine, ONLINE)와 entry key 유일성 constraint를 새로 만들었다. `state: verified`.
   - 벡터는 TEST에서 **복사**했다. 복사용 외부 임베딩 호출은 0회다. 원시 export 대비 성분별 최대 차이는 2.78e-17이다(허용 1e-12).
-  - 모델 호출은 호환성 검증용 텍스트 6개(plan 3 + apply 3)뿐이다. 카탈로그를 재생성하지 않았다.
+  - 운영 스크립트의 모델 호출은 호환성 probe 텍스트 6개(plan 3 + apply 3)다. 실제 API·브라우저 오타 검사도 일반 질의 임베딩을 호출했고, 전체 요청 수는 계측하지 않았다. 카탈로그는 재생성하지 않았다.
   - 실제 벡터 인덱스 질의 6/6, 실제 Production API 4/4, 공개 URL 브라우저 2/2(1280·390px) 통과.
   - Taxon 33,694와 속성 해시, PostgreSQL ingest 상태 해시는 반영 전후가 같다. 다만 **감시 범위 비교이며 DB 전체 체크섬은 아니다.**
   - 앱 배포·재시작, PostgreSQL 쓰기, TEST DB 전체 복사, commit/push, 자동 롤백 **없음**.
@@ -144,7 +144,8 @@ tags:
 
 ## 모델 호출: 검증 vs 재생성
 
-- 실제 모델 호출은 호환성 probe 텍스트 6개뿐이다(plan 3 + apply 3, `summary.json` `validation_model_probe_texts: 6`). Production 앱 컨테이너의 자체 호스팅 모델로 임베딩해 복사 대상 TEST 벡터와 비교했고 cosine은 0.9999990853756634 / 0.99999879160047 / 0.9999992185122778이다.
+- 운영 스크립트의 호환성 probe 텍스트는 6개다(plan 3 + apply 3, `summary.json` `validation_model_probe_texts: 6`). Production 앱 컨테이너에서 사용자 자체 호스팅 임베딩 API를 **호출**해 임베딩했고, 복사 대상 TEST 벡터와 비교한 cosine은 0.9999990853756634 / 0.99999879160047 / 0.9999992185122778이다. 모델이 앱 컨테이너나 NAS 안에서 물리적으로 실행되는지는 확인하지 않았다. 같은 프로필 ID 메타데이터와 엔드포인트 해시 일치만 확인했으며, 가중치의 독립 검증도 하지 않았다.
+- 실제 API·브라우저 오타 검사(천둥오리·Keaa 등)도 앱이 질의 이름 임베딩을 요청하므로 일반 질의 임베딩 호출이 추가로 있었다. 전체 네트워크 요청 수는 계측하지 않았다.
 - 목적은 같은 모델·프로필인지 확인하는 것이다. 카탈로그를 재생성하지 않았다(`regenerated_catalog: false`, `purpose: compatibility validation only`).
 
 ## 실제 벡터·API·브라우저 회귀
