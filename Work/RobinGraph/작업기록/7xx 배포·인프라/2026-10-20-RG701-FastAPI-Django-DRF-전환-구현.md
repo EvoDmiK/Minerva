@@ -117,6 +117,21 @@ Root 실제 실행 보고(오프라인/모의/fixture, 실제 DB opt-in은 건�
 - 범위: 별도 AviList TEST runner는 설계상 FastAPI 유지. 공개 API는 Django, FastAPI 런타임 없음. legacy 어댑터는 비교 기준으로 당분간 유지.
 - 최종 증거 후 예상 상태: "TEST 완료 · 운영 승인 대기"(백로그 전체 완료 아님).
 
+### 최종 코드·테스트 (2026-10-20 07:00 UTC · TEST 배포 전)
+
+| 검사 | 결과 |
+|---|---|
+| Python 전체 (최종) | 1,262 실행 · 1,223 통과 · 39 건너뜀 · 0 실패 (27.690초, 오프라인) |
+| HTTP 동등성 (최종) | 95/95 (로컬 fixture) |
+| `django check` / `git diff --check` | 문제 없음 / 0 |
+| 프런트엔드 Node | 317 통과 (이전 결과, UI 변경 없음) |
+| `graphify update` | rc 0, 6,576 nodes · 13,829 edges · 389 communities |
+
+- 잘못된 Host → 일치·없는·끝 슬래시·정적·ingest 경로 모두 일반 JSON `400`. 정상 3MB·50레코드 ingest → 기존·새 모두 `200`(mock).
+- 변이 검증: Host 검증 제거 시 하위 테스트 7개 실패, 메모리 상한 해제 제거 시 3MB 테스트 실패.
+- legacy 보조 함수 보존, AviList TEST wrapper 미전환.
+- TEST: 전체 소스 Docker 빌드 → 격리 네트워크 fixture → 전환·health·검증 진행 중. **결과 증거 대기.** Production·commit·push 없음.
+
 ## 계약과 변경 전후
 
 - 유지 대상: `POST /v1/answers`, `/v1/chat`, `/v1/search`, `GET /v1/observations`, `/v1/taxa/lineage`, `/v1/taxa/{name-relations,related,similar,ecological-related,subspecies,profile}`, `/health`, 정적 `/`·`/chat`·`/birds`·`/favicon.ico`·`/static/...`, 내부 `/internal/v1/ingest/*`(내부 Bearer).
@@ -135,7 +150,8 @@ Root 실제 실행 보고(오프라인/모의/fixture, 실제 DB opt-in은 건�
 | Root 런타임 설정/CLI (중간) | 2개 통과 (0.025초) |
 | UI Node (중간) | 317개 통과 |
 | 전환 후 전체 Python (통합, 중간) | 1,260/1,221/39/0 — 후속 수정 후 최종값 증거 대기 |
-| DRF 계약 테스트 | 증거 대기 |
+| 전환 후 전체 Python (최종) | 1,262/1,223/39/0 (오프라인) |
+| Host·대용량 payload 회귀 + 변이 검증 | 통과 (mock) |
 | 실제 DB/API 통합 | 증거 대기 |
 | HTTP 동등성 95사례 (중간) | 95/95 일치 (로컬 fixture, 실제 DB·브라우저 아님) |
 | UI 호환 (main) 최종 | 증거 대기 |
