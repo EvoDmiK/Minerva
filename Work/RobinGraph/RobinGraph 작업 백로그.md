@@ -33,7 +33,7 @@ tags:
 | 4xx 채팅 UI·카드 | [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/작업 백로그\|작업 백로그]] | 7 | 44 |
 | 5xx 데이터·분류·이름 | [[Work/RobinGraph/작업기록/5xx 데이터·분류·이름/작업 백로그\|작업 백로그]] | 5 | 17 |
 | 6xx 관측·평가 | [[Work/RobinGraph/작업기록/6xx 관측·평가/작업 백로그\|작업 백로그]] | 2 | 1 |
-| 7xx 배포·인프라 | [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그\|작업 백로그]] | 1 | 15 |
+| 7xx 배포·인프라 | [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그\|작업 백로그]] | 1 | 16 |
 | 8xx 문서·개발환경 | [[Work/RobinGraph/작업기록/8xx 문서·개발환경/작업 백로그\|작업 백로그]] | 0 | 5 |
 | 9xx 기타·실험 | [[Work/RobinGraph/작업기록/9xx 기타·실험/작업 백로그\|작업 백로그]] | 0 | 0 |
 
@@ -79,7 +79,7 @@ tags:
 | **505** | RG-012 | [[#RG-505 — 분류·이름·번역 자료 변경 감지와 검토 가능한 갱신 절차\|자료 변경 감지·갱신]] | 보류 |
 | **601** | RG-001 | [[#RG-601 — MLflow 자동 로깅 연동\|MLflow 자동 로깅]] | 완료 |
 | **602** | RG-016 | [[#RG-602 — MLflow에서 답변 결과와 미응답 사유 구분\|MLflow 결과·미응답 사유 태그]] | 완료 |
-| **701** | — | [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|FastAPI → Django + DRF 백엔드 전환]] | 진행 중 (최우선 1 · TEST 배포·검증 완료 · Production 승인 대기) |
+| **701** | — | [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|FastAPI → Django + DRF 백엔드 전환]] | 진행 중 (최우선 1 · 1차 TEST 배포·검증 완료 · 후속 FastAPI 완전 제거 TEST 증거 대기 · Production 승인 대기) |
 
 7xx는 2026-10-20 RG-701이 첫 등록 작업이다. 8xx·9xx는 현재 등록된 작업이 없다. 각 카테고리의 다음 번호는 마지막 등록 번호 + 1이다(예: 다음 DB 작업은 103). 새 작업의 상세는 지금처럼 `### RG-NNN — 제목` 형식으로 쓰되 번호는 카테고리 번호를 쓴다. 한 작업이 여러 카테고리에 걸치면 가장 큰 변경이 일어나는 쪽으로 정하고 상세에 관련 카테고리를 적는다.
 
@@ -101,7 +101,7 @@ tags:
 
 | 작업 | 상태 | 우선순위 | 현재 요약 |
 |---|---|---|---|
-| [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|RG-701]] | 진행 중 (TEST 검증 완료 · Production 승인 대기) | 1 (최우선) | 네이티브 Django 5.2.18 + DRF 3.16.1 전환 · Python 1,262 실행/1,223 통과/39 건너뜀/0 실패(오프라인) · HTTP 동등성 95/95(fixture) · TEST `test-rg701-django-34f84c494c6a` healthy, 실제 API 5/5·공개 Chromium 6요청·n8n·DB 불변 통과 · 롤백 미실행·Production 미반영 |
+| [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|RG-701]] | 진행 중 (1차 TEST 검증 완료 · 후속 Django 단독 전환 TEST 증거 대기 · Production 승인 대기) | 1 (최우선) | 후속: legacy FastAPI 어댑터·독립 AviList runner까지 Django 단독 전환, FastAPI·Starlette 의존성 제거 진행 중(runner mock 33/33, TEST 미배포) · 1차: 네이티브 Django 5.2.18 + DRF 3.16.1 전환 · Python 1,262 실행/1,223 통과/39 건너뜀/0 실패(오프라인) · HTTP 동등성 95/95(fixture) · TEST `test-rg701-django-34f84c494c6a` healthy, 실제 API 5/5·공개 Chromium 6요청·n8n·DB 불변 통과 · 롤백 미실행·Production 미반영 |
 | [[#RG-301 — Jev System One API를 이용한 질문 의도 분석\|RG-301]] | 완료 | — | Jev·첫 설명·국명 우선 TOP3·점수 기준 UI · 완료 이력은 상세 참조 |
 | [[#RG-602 — MLflow에서 답변 결과와 미응답 사유 구분\|RG-602]] | 완료 | — | MLflow 결과·미응답 사유 태그 및 필터 · NAS TEST 75377ca |
 | [[#RG-405 — 마우스 드래그로 조류 카드 뒤집기\|RG-405]] | 완료 | — | 완료 · 토글 배율·소재 안정화 · TEST/PROD 3ac07e2 |
@@ -126,7 +126,7 @@ tags:
 
 운영 규칙 3에 따라 2026-10-20 진행 중 구역을 만들었다. 기존 제목 앵커와 링크 호환을 위해 RG-701 안내 절은 아래 신규 착수 대기 구역에 그대로 두고 여기서 안내한다.
 
-- [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환|RG-701 FastAPI → Django + DRF 백엔드 전환]] — 진행 중 · 우선순위 1 · 2026-10-20 사용자 승인으로 구현 착수, 같은 날 TEST 배포·검증 완료. Production은 사용자 별도 승인 대기.
+- [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환|RG-701 FastAPI → Django + DRF 백엔드 전환]] — 진행 중 · 우선순위 1 · 2026-10-20 사용자 승인으로 구현 착수, 같은 날 TEST 배포·검증 완료. Production은 사용자 별도 승인 대기. 이후 같은 날 사용자 요청으로 후속 범위(FastAPI 완전 제거·Django 단독 전환)를 진행 중이며 TEST 최종 증거 대기 — [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-Django-단독-전환|후속 작업기록]].
 
 ## 신규 착수 대기 작업
 
@@ -147,6 +147,8 @@ RG-301·RG-602·RG-405는 완료 상세로 이동했다. 2026-10-15 RG-202는 �
 **2026-10-20 담당 사전 배정 (계획, 상태·순위 불변):** 총괄 책임 Codex·`gpt-6.1-sol`·dev-codex(계약 기준선·아키텍처·Django 설정/ASGI·PG 마이그레이션 분리·Docker/CLI/Jenkins·TEST 통합·검토), 구현 책임 Claude·`claude-opus-5-5`·dev-claude(서비스 추출, query → chat → ingest DRF 어댑터·계약 테스트), UI 호환 Codex·`gpt-6.1-sol`·main(dev-agy)(UI 역할 범위 유지, RG-701 한정 에이전트 선택), 문서 담당 Claude·`claude-opus-5-5`·main-2. 모델은 향후 계획 선택이며 실행 중 모델 검증이 아니다. 단계별 표는 [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그#RG-701 담당 사전 배정 (2026-10-20 · 계획)|RG-701 담당 사전 배정]]. 최초 등록 시 "미지정"은 이력으로 대체되었다.
 
 **2026-10-20 구현 착수 (진행 중 · 순위 1 유지):** 사용자 승인("그렇게 진행해줘")으로 계획 → 진행 중으로 전환했다. Root(Codex, dev-codex)가 Django `django_api/settings.py`·`asgi.py`·CLI·의존성·인프라, Claude(dev-claude)가 네이티브 DRF·서비스 추출, UI Codex(main)가 HTTP 호환 검사를 맡는다. 착수 전 기준선: `uv run --locked --extra test python -m unittest discover -s tests -q` 999 실행·961 통과·38 건너뜀·0 실패(23.058초, 오프라인/모의/fixture, 실제 DB opt-in 건너뜀). 설치 Django 5.2.18·DRF 3.16.1. **같은 날 TEST 배포·검증 완료(Root 실제 증거):** Python 1,262 실행·1,223 통과·39 건너뜀·0 실패(27.690초, 오프라인), Node 317 통과, 기존 FastAPI 대비 로컬 fixture HTTP 95/95 일치, 독립 검토 발견 3건(3MB 상한·Host 400·테스트 순서) 수정·변이 검증. TEST 이미지 `robingraph-api:test-rg701-django-34f84c494c6a` healthy, 런타임 `DjangoApiApplication`·FastAPI 미import, 실제 TEST API 5/5·계약 검사·공개 Chromium 1280/390/320 6요청·n8n `rgAvilistTest01` 7노드·DB 전후 동일(벡터 855) 통과. 롤백 기준 이전 이미지 `test-rg406-outside-spelling-1c7cbbdaf1c7` 보존(롤백 미실행). Production·commit/push 없음, 항목 전체 완료 아님(Production 승인 대기). [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-FastAPI-Django-DRF-전환-구현|RG-701 구현 작업기록]].
+
+**2026-10-20 후속: FastAPI 완전 제거(Django 단독 전환) — 진행 중 · TEST 최종 증거 대기:** 사용자 요청(설계 감사·테스트·완전 교체)으로 legacy FastAPI 어댑터(`api/app.py`·`ingest_router.py`) 삭제, 테스트 네이티브 ASGI 클라이언트 전환·중복 replay 제거, 삭제 전 캡처한 FastAPI 응답 golden·ingest store-call oracle로 비교 대체(Claude, dev-claude), 독립 AviList runner Django ASGI 이전·FastAPI/Starlette 의존성 제거(Root). 현재까지 clean venv(FastAPI·Starlette 미설치) runner mock 33/33, 검토자 발견 사전 스풀링 본문 상한 회귀(413 전 12,288바이트 읽기) 수정 후 raw 8건·targeted 15건 통과, 설계 차단 없음(Root 보고). TEST DB 변경 전 기준선 저장(벡터 855). TEST 배포·코드 바인딩 갱신·n8n·브라우저·DB 전후는 **증거 대기**, 두 서비스 미업그레이드. 위 1차 TEST 결과는 FastAPI 의존성이 설치된 이미지 기준 이력이다. Production·commit/push 없음. 이 요청의 "교체"는 Production 승인이 아니다. [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-Django-단독-전환|Django 단독 전환 작업기록]].
 
 상세는 [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환|7xx 배포·인프라 작업 백로그]]에서 관리한다.
 
@@ -271,6 +273,10 @@ RG-301·RG-602·RG-405는 완료 상세로 이동했다. 2026-10-15 RG-202는 �
 ```
 
 ## 백로그 변경 이력
+
+### 2026-10-20 RG-701 후속 Django 단독 전환 착수 기록 (진행 중 유지 · 초안)
+
+사용자 요청으로 RG-701에 FastAPI 완전 제거(legacy 어댑터·독립 AviList runner·FastAPI/Starlette 의존성) 후속 범위가 추가되어 진행 중임을 기록했다. 상태는 진행 중, 우선순위 1, 담당 배정은 그대로다. 카테고리별 보기·현황표 상태 문구에 "후속 TEST 증거 대기"를 덧붙이고 7xx 작업기록 수를 15 → 16으로 갱신했다. 1차 TEST 결과와 기존 이력 항목은 다시 쓰지 않았고 다른 작업 상태는 바꾸지 않았다. 현재까지 mock·로컬 검사만 확인됐으며 TEST 배포·실제 검증은 증거 대기다. [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-20-RG701-Django-단독-전환|Django 단독 전환 작업기록]]
 
 ### 2026-10-20 RG-701 TEST 배포·검증 완료 (진행 중 유지 · Production 승인 대기)
 
