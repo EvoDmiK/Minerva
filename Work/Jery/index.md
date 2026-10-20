@@ -14,6 +14,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 ## 작업기록
 
+
+- [[Work/Jery/작업기록/2026-10-20-Jery-train600-참고모델기반-Hyperopt20회|2026-10-20 — validation F1·과거 seed3407 성공 모델 참고, train600 Hyperopt20회 시작]]
+
+
 - [[Work/Jery/작업기록/2026-10-20-Jery-train600-CUDA-Hyperopt-시작|2026-10-20 — train600 CUDA Hyperopt5회 시작, Parent–Child와 네트워크 복구]]
 
 
@@ -37,6 +41,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 - [[Work/Jery/작업기록/2026-10-14-Jery-데이터셋-구축과-Hermes-MLflow-수집-방향|2026-10-14 — 초기 데이터셋 구축, 에이전트 역할, n8n 초안과 MLflow 수집 방향]]
 
 ## 현재 상태
+
+
+2026-10-20 최신 상태: 기존 train600 Hyperopt5회는 모두 완료됐다. Validation F1 표기0.8567 실행(선택 checkpoint F1 0.90) 및 seed3407·test acc/F1 모두0.7 초과인 과거2개 실행의 설정을 참고해 [새 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/dca0889273a641eaae6e4a92bfa9efc9) 아래 Hyperopt20회를 시작했다. Train600/validation20/test20, LR8e-5~5e-4, WD/smoothing각[0,0.05,0.1], batch4·seed3407, 최대32epoch·최소8·patience6. 선택/TPE는 validation accuracy만 사용하고 과거 test에 근거한 범위 설정은 탐색 실험으로 명시했다. 코드/설정 fc1989d 푸시 및 서버 반영, supervisor209691, 첫 Child87e3fbaf6f3848b898e02a3ecf089551 실행 중이다. 아래 진행/미학습 표기는 각 과거 시점 기록이다.
+
 
 사용자 요청으로 train600 CUDA Hyperopt 학습을 시작했다. [새 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/88a5250cd54048d8a9593bab7e59d753) 아래 Child5회 순차 실행, LR1e-5~2e-4, batch4, 최대16에폭이다. PC 네트워크 복구 후 기존 Parent로 이어서 실행했다. 첫 Child의 실제 CUDA step·에폭 지표 동기화를 확인했으며 첫 조건은9에폭 후 초기 head보다 개선되지 않아 serving 초기 head를 유지했다. 첫 조건은 모델·상세결과27개 Artifact 업로드 검증까지 완료했고 두 번째 Child가 자동 실행됐다. 전체5회 탐색은 진행 중이며 detached supervisor가 이어 수행한다. 과거 '미학습' 표기는 데이터 준비 당시 기록이다.
 
