@@ -69,6 +69,18 @@ tags:
 - `Dockerfile`: 빌드 시 `python -m django check --settings=robingraph.django_api.settings` 추가.
 - `Jenkinsfile`·`ci/Jenkinsfile.production` 수정 상태는 RG-701 관련 여부 미확인.
 
+### Root 중간 증거 (2026-10-20 06:40 UTC · 최종 아님)
+
+Root 보고 값이며 문서 담당은 재실행하지 않았다.
+
+- Django 5.2.18·DRF 3.16.1을 `pyproject.toml`·`uv.lock`에 추가. stateless `settings`·`asgi`, auth/admin/session 미설치, `DATABASES={}`, Django 마이그레이션 없음(기존 PG SQL과 분리).
+- CLI `serve-fixture`·`serve-neo4j`·`serve-ingest` → 네이티브 `robingraph.api.drf.create_django_app`.
+- Claude: `schemas.py`·`services.py`·`ingest_service.py` 추출·얇은 legacy 어댑터, 네이티브 `api/drf` View·factory 작성 중.
+- 기존 FastAPI는 차등 비교 기준으로만 유지, 런타임 FastAPI 프록시 없음. Docker·Jenkins에 `django check` 단계.
+- 테스트: 기준선 999/961/38/0(오프라인). Root 런타임 설정/CLI 2개 통과(0.025초). UI Node 317개 통과. UI HTTP 95사례 비교 도우미 준비, Django 대상 미실행.
+- TEST 배포 없음. 변경 전 공개 OpenAPI 스냅샷 `docs/verification/assets/2026-10-20-rg701/openapi-before.json` 존재.
+- 정정: `asgi.py`는 재관찰 시 `robingraph.api.drf`를 가져오며, 그 시점 dev-codex에 `api/drf`는 아직 없었다(통합 전, 결함 단정 안 함).
+
 ## 계약과 변경 전후
 
 - 유지 대상: `POST /v1/answers`, `/v1/chat`, `/v1/search`, `GET /v1/observations`, `/v1/taxa/lineage`, `/v1/taxa/{name-relations,related,similar,ecological-related,subspecies,profile}`, `/health`, 정적 `/`·`/chat`·`/birds`·`/favicon.ico`·`/static/...`, 내부 `/internal/v1/ingest/*`(내부 Bearer).
@@ -84,7 +96,9 @@ tags:
 | 구분 | 상태 |
 |---|---|
 | 기준선 단위/모의/fixture (변경 전) | 999 실행·961 통과·38 건너뜀·0 실패 |
-| 전환 후 단위/모의/fixture | 증거 대기 |
+| Root 런타임 설정/CLI (중간) | 2개 통과 (0.025초) |
+| UI Node (중간) | 317개 통과 |
+| 전환 후 전체 단위/모의/fixture | 증거 대기 |
 | DRF 계약 테스트 | 증거 대기 |
 | 실제 DB/API 통합 | 증거 대기 |
 | UI HTTP 호환 (main) | 증거 대기 |
