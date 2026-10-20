@@ -14,6 +14,9 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 ## 작업기록
 
+- [[Work/Jery/작업기록/2026-10-20-Jery-실제요청-고정평가셋-준비와-협업|2026-10-20 — 실제 요청 수집·공동 검토·평가 게이트와 데이터 부족 확인]]
+
+
 - [[Work/Jery/작업기록/2026-10-20-Jery-반복오류-검토와-데이터보강|2026-10-20 — 반복 오류·정답 대조, 기능 설명 보완과 train 240개]]
 - [[Work/Jery/작업기록/2026-10-20-Jery-배치-시드-10회-비교|2026-10-20 — 배치 4·8 × 학습 시드 5개, 10회 비교]]
 - [[Work/Jery/작업기록/2026-10-20-Jery-10개-도구-정규화-재학습|2026-10-20 — LR·정규화·콜백 조정 후 Hyperopt 재학습]]
@@ -31,7 +34,7 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 등록 MCP 5개·도구 96개의 합성 데이터셋 v2(1,162개)와 학습·예측 가능한 선형 기준 모델을 구현하고 Mac mini M4에서 학습을 완료했다. MLflow에 학습 모델 Jery-LinearRouter v1, 데이터셋, 평가 결과와 코드를 등록했다. Gemma 4 E4B 4비트의 로컬 실행도 확인했지만 미세조정하지 않았으며, 6건의 탐색 결과는 기존 모델 대체를 뒷받침하지 못했다.
 
-Laya multilingual은 인코더를 고정하고 결정 head를 학습한다. 배치·시드 10회와 반복 오류 감사, 기능 설명 보완·train 60→240개(도구당 24) 보강을 완료했다. Native 옵션당 24token 한도에 맞춘 명세를 사용하고 잘림·특징/target 불일치 0건, 전체 테스트 151개 통과를 확인했다. 설명만 보완한 모델의 검증은 60%, 데이터 보강 모델은 65%로 이전 최고 65%를 넘지 못했다. 같은 검증 20개를 반복 관찰한 회귀 결과이며 실제 성능 개선으로 단정하지 않는다. 같은 비교를 Parent 둘로 나눴던 구성을 정정해 [통합 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/5f64008a2b974b7f87fab5088bafcf8a) 아래 description-only-train60과 augmented-train240 Child 두 개를 직접 배치했다. 모두 FINISHED이며 모델 업로드도 완료됐다. Params·metrics·모델을 보존하고 재학습하지 않았다. 빈 중복 Parent는 metadata/artifact를 남기는 soft-delete로 보관했다. 데이터와 설정은 통합 Parent의 conditions/{condition}/, 현재 관계는 summary.json·comparison-plan.json을 따른다. 다음 권장 과제는 새로운 실제 요청 약 100개의 검토된 고정 평가셋이며 아직 구축하지 않았다. Human review와 독립 평가가 남아 있다.
+Laya multilingual은 인코더를 고정하고 결정 head를 학습한다. 배치·시드 10회와 반복 오류 감사, 기능 설명 보완·train 60→240개(도구당 24) 보강을 완료했다. Native 옵션당 24token 한도에 맞춘 명세를 사용하고 잘림·특징/target 불일치 0건, 전체 테스트 151개 통과를 확인했다. 설명만 보완한 모델의 검증은 60%, 데이터 보강 모델은 65%로 이전 최고 65%를 넘지 못했다. 같은 검증 20개를 반복 관찰한 회귀 결과이며 실제 성능 개선으로 단정하지 않는다. 같은 비교를 Parent 둘로 나눴던 구성을 정정해 [통합 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/5f64008a2b974b7f87fab5088bafcf8a) 아래 description-only-train60과 augmented-train240 Child 두 개를 직접 배치했다. 모두 FINISHED이며 모델 업로드도 완료됐다. Params·metrics·모델을 보존하고 재학습하지 않았다. 빈 중복 Parent는 metadata/artifact를 남기는 soft-delete로 보관했다. 데이터와 설정은 통합 Parent의 conditions/{condition}/, 현재 관계는 summary.json·comparison-plan.json을 따른다. 새 실제 요청 고정 평가셋 준비를 Claude·Antigravity와 함께 진행했다. 읽기 전용 수집·정제·동결 평가 게이트·독립 감사 구현과 전체 테스트 168개를 통과했다. 실제 후보 13개 중 두 AI가 단일 도구로 합의한 것은 1개이며 사람 검토 완료는 0개다. 추가 과거 출처가 없어 목표 100개 대비 AI 적격 기준 99개가 부족하다. 평가셋은 candidate 상태이며 동결·실제 모델 평가·추가 학습은 실행하지 않았다. 앞으로 실제 요청 누적과 정답 검토가 필요하다.
 
 읽기 전용 Hermes 로그 수집기·검토 후보 API와 독립 데이터 감사 도구는 구현했다. 이번 학습에는 실제 대화 로그를 사용하지 않았고 합성 정답은 모두 미검토 상태다. 정답 검토와 실제 요청 평가, action·비선택 사례 보강이 남아 있다.
 
