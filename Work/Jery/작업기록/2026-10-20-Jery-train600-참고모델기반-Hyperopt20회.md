@@ -44,3 +44,5 @@ TORCHINDUCTOR_COMPILE_THREADS=4 PYTHONPATH=src /home/persona-ai/envs/jery-cuda/b
 ## 실행 상태
 
 MLflow Jery(47) Parent: [dca0889273a641eaae6e4a92bfa9efc9](https://mlflow.dove-nest.com/#/experiments/47/runs/dca0889273a641eaae6e4a92bfa9efc9). 준비 단계의 데이터·설정 업로드를 검증했고 실행 코드/설정 기준은 fc1989d다. Detached supervisor PID209691로 시작했다. 이 문서는 시작 시점 기록이며 20회 완료를 뜻하지 않는다. 참고 모델 원본 configuration/report/run metadata 9개 JSON은 reference-runs/에 SHA read-back 검증 후 보관한다.
+
+첫 Child `87e3fbaf6f3848b898e02a3ecf089551`에서 CUDA 학습 및 MLflow epoch1 동기화를 확인했다. LR0.0001503248604273792, WD0.05, smoothing0. 초기 validation accuracy0.60, epoch1 accuracy0.60/F1 0.48. 참고 JSON9개는 업로드·SHA read-back 검증 완료다. 전체20회 중 첫 조건 진행 상태이며 성능 결론은 아직 없다.
