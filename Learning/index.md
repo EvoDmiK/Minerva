@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-18
+updated: 2026-10-21
 type: learning-index
 document_role: index
 ---
@@ -21,9 +21,9 @@ document_role: index
 
 | 구분 | 폴더·인덱스 | 용도 | 현재 문서 수 |
 |---|---|---|---|
-| 원문 보관본 | [[Learning/원문/index\|원문]] | 외부 자료 본문·출처 보존 | 3 |
-| 변환 검증 | [[Learning/변환검증/index\|변환검증]] | Markdown 변환·저장 결과와 한계 | 4 |
-| 학습노트 | [[Learning/학습노트/index\|학습노트]] | 요약·번역·해설·비교·실험 | 9 |
+| 원문 보관본 | [[Learning/원문/index|원문]] | 외부 자료 본문·출처 보존 | 7 |
+| 변환 검증 | [[Learning/변환검증/index|변환검증]] | Markdown 변환·저장 결과와 한계 | 4 |
+| 학습노트 | [[Learning/학습노트/index|학습노트]] | 요약·번역·해설·비교·실험 | 13 |
 
 문서 수는 각 인덱스를 제외한 수치입니다. 변환 검증 완료는 원문 주장에 대한 사실 검증 완료를 뜻하지 않습니다.
 
@@ -31,9 +31,9 @@ document_role: index
 
 | 주제 | 원문 보관본 | 변환 검증 |
 |---|---|---|
-| Jev·LangGraph 프로덕션 에이전트 | [[Learning/원문/2026-10-06-Jev-LangGraph-프로덕션-에이전트-원문\|원문]] | [[Learning/변환검증/2026-10-06-Jev-LangGraph-Markdown-변환-검증\|검증 기록]] |
-| Jev 추천 재순위화 게시글 | [[Learning/원문/2026-10-06-Jev-추천-재순위화-실증-연구-원문\|원문]] | [[Learning/변환검증/2026-10-06-Jev-재순위화-게시글-Markdown-변환-검증\|검증 기록]] |
-| Unsloth 결정 모델 학습·로컬 서빙 | [[Learning/원문/2026-10-13-Unsloth-Jev식-결정-모델-학습과-로컬-서빙-원문\|Unsloth Jev식 결정 모델 학습과 로컬 서빙]] | [[Learning/변환검증/2026-10-13-Unsloth-결정-모델-Markdown-변환-검증\|변환 검증 기록]] |
+| Jev·LangGraph 프로덕션 에이전트 | [[Learning/원문/2026-10-06-Jev-LangGraph-프로덕션-에이전트-원문|원문]] | [[Learning/변환검증/2026-10-06-Jev-LangGraph-Markdown-변환-검증|검증 기록]] |
+| Jev 추천 재순위화 게시글 | [[Learning/원문/2026-10-06-Jev-추천-재순위화-실증-연구-원문|원문]] | [[Learning/변환검증/2026-10-06-Jev-재순위화-게시글-Markdown-변환-검증|검증 기록]] |
+| Unsloth 결정 모델 학습·로컬 서빙 | [[Learning/원문/2026-10-13-Unsloth-Jev식-결정-모델-학습과-로컬-서빙-원문|Unsloth Jev식 결정 모델 학습과 로컬 서빙]] | [[Learning/변환검증/2026-10-13-Unsloth-결정-모델-Markdown-변환-검증|변환 검증 기록]] |
 
 ## 학습노트와 작성 예정
 
@@ -42,6 +42,13 @@ document_role: index
 - [[Learning/학습노트/2026-10-17-pi05-논문-핵심-내용-한국어-정리|π0.5 논문 핵심 내용 — 한국어 정리]] — 대화에서 제공한 한국어 요약·해설 보관본.
 - [[Learning/학습노트/2026-10-18-pi05-관련-논문-연결지도|π0.5 관련 논문 연결지도]] — 관련 논문 6편의 요약 노트, 비교 축과 읽기 순서.
 - [[Learning/학습노트/2026-10-18-VLA-관련-논문-비교-pi05-중심|VLA 관련 논문 비교 — π0.5 중심]] — 모델·행동 표현·데이터·계획·평가 조건의 상세 비교.
+
+### GCD 및 New Intent Discovery (오픈월드 범주 발견)
+
+- [[Learning/학습노트/2026-10-21-GCD-일반화-카테고리-발견-논문-노트|GCD (CVPR 2022)]] — 비전 GCD 문제 정의 및 Semi-Supervised k-Means.
+- [[Learning/학습노트/2026-10-21-SimGCD-파라메트릭-분류-GCD-논문-노트|SimGCD (ICCV 2023)]] — 파라메트릭 분류 및 엔트로피 정규화.
+- [[Learning/학습노트/2026-10-21-DeepAligned-신규-인텐트-발견-논문-노트|DeepAligned (AAAI 2021)]] — 헝가리안 정렬 기반 텍스트 신규 의도 발굴.
+- [[Learning/학습노트/2026-10-21-MTP-CLNN-사전학습-대조학습-인텐트발견-논문-노트|MTP-CLNN (ACL 2022)]] — 사전학습 및 최근접 이웃 대조학습.
 
 현재 등록된 예정 주제는 없습니다.
 
