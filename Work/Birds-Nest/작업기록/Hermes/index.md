@@ -1,6 +1,6 @@
 ---
 created: 2026-10-11
-updated: 2026-10-11
+updated: 2026-10-21
 project: Birds-Nest
 type: component-index
 component: Hermes
@@ -12,6 +12,8 @@ tags: [birds-nest, worklog]
 Dovie 게이트웨이·모델·CLI 운영.
 
 ## 기록
+
+- [[Work/Birds-Nest/작업기록/Hermes/2026-10-21-Hermes-프로필-Discord-MCP-메모리-논문스킬-구성|2026-10-21 Hermes 프로필·Discord·MCP·메모리·논문 스킬 구성]]
 
 - [[Work/Birds-Nest/작업기록/Hermes/2026-10-11-Orca-프로젝트명-오기록-수정|2026-10-11 Orca 프로젝트명 오기록 수정 및 통합]]
 
