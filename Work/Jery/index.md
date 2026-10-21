@@ -15,6 +15,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 작업기록
 
 
+- [[Work/Jery/작업기록/2026-10-21-Jery-MLflow-비교파라미터-복원과-실시간동기화|2026-10-21 — Warmup·Clipping·Scheduler·WD·Smoothing params, 105개 Child에525개 복원]]
+
+
+
 - [[Work/Jery/작업기록/2026-10-21-Jery-Warmup배치ClippingScheduler-공동탐색20회|2026-10-21 — LR·warmup·배치·clipping·scheduler 공동 Hyperopt20회, 실행기 확장과 전체171개 테스트]]
 
 
