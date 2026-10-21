@@ -15,6 +15,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 작업기록
 
 
+- [[Work/Jery/작업기록/2026-10-21-Jery-Warmup배치ClippingScheduler-공동탐색20회|2026-10-21 — LR·warmup·배치·clipping·scheduler 공동 Hyperopt20회, 실행기 확장과 전체171개 테스트]]
+
+
+
 - [[Work/Jery/작업기록/2026-10-21-Jery-LR1e-3부터5e-3와-추가탐색후보|2026-10-21 — 다음20회 LR1e-3~5e-3, warmup·batch·clipping·scheduler 후보]]
 
 
