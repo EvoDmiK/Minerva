@@ -42,7 +42,7 @@
 
 [Fold builder](https://github.com/EvoDmiK/Jery/blob/dev-codex/scripts/build_laya_stratified_folds.py)와 [CV 실행기](https://github.com/EvoDmiK/Jery/blob/dev-codex/scripts/run_laya_cv_experiment.py)를 추가하고 기존 학습·업로드·복구 흐름을 재사용했다. 구현 당시 전체 테스트 181개, 실제 Hyperopt 후보 8개의 비-LR 불변식 검사, 기존 데이터 검증을 통과했다.
 
-Fold 배정 SHA: `5e823b9408bf8c410005042315c362b8291aed9efd3e461cec7cc79fbac33e9b`  
+Fold 배정 SHA: `5e823b9408bf8c410005042315c362b8291aed9efd3e461cec7cc79fbac33e9b`
 이전 Parent: `790b62ac777c43098b47cadd134d3a4e`
 
 ## 당시 실행 명령

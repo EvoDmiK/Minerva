@@ -42,6 +42,6 @@ TORCHINDUCTOR_COMPILE_THREADS=4 PYTHONPATH=src /home/persona-ai/envs/jery-cuda/b
  --state-dir outputs/laya-ten-tools-train600-joint20-20261021/tracking --detach
 ```
 
-Parent: `3b7fd13fe2f74146a520fa64d0c2305d`  
-복구한 Child: `f599948302284d26ab2a7a66173d2379`  
+Parent: `3b7fd13fe2f74146a520fa64d0c2305d`
+복구한 Child: `f599948302284d26ab2a7a66173d2379`
 증거 파일: `tracking/recovery-param-keys-before.json`, `tracking/recovery-param-keys-after.json`
