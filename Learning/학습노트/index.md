@@ -1,6 +1,6 @@
 ---
 created: 2026-10-07
-updated: 2026-10-18
+updated: 2026-10-21
 type: learning-category-index
 document_role: index
 ---
@@ -31,6 +31,13 @@ document_role: index
 - [[Learning/학습노트/2026-10-18-OpenVLA-오픈-VLA-논문-노트|OpenVLA]] — 공개 VLA와 환경 적응.
 - [[Learning/학습노트/2026-10-18-Octo-다중로봇-정책-논문-노트|Octo]] — 다중 로봇 정책과 새로운 인터페이스 적응.
 - [[Learning/학습노트/2026-10-18-Hi-Robot-계층형-지시수행-논문-노트|Hi Robot]] — 계층형 지시 이해·실행.
+
+### GCD 및 New Intent Discovery (오픈월드 범주 발견)
+
+- [[Learning/학습노트/2026-10-21-GCD-일반화-카테고리-발견-논문-노트|GCD (Vaze et al., CVPR 2022)]] — 비전 GCD 문제 공식 정의와 Semi-supervised k-Means 기반 원조 알고리즘.
+- [[Learning/학습노트/2026-10-21-SimGCD-파라메트릭-분류-GCD-논문-노트|SimGCD (ICCV 2023)]] — k-Means를 대체한 파라메트릭 분류기 및 엔트로피 정규화 기반 최강 베이스라인.
+- [[Learning/학습노트/2026-10-21-DeepAligned-신규-인텐트-발견-논문-노트|DeepAligned (AAAI 2021)]] — 헝가리안 알고리즘 기반 군집 중심 정렬을 통한 Banking77 신규 인텐트 발굴.
+- [[Learning/학습노트/2026-10-21-MTP-CLNN-사전학습-대조학습-인텐트발견-논문-노트|MTP-CLNN (ACL 2022)]] — 다중작업 사전학습 및 최근접 이웃(KNN) 대조 학습을 통한 Banking77 고성능 인텐트 발견.
 
 ## 작성 예정
 

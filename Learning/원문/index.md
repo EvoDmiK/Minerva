@@ -1,5 +1,6 @@
 ---
 created: 2026-10-07
+updated: 2026-10-21
 type: learning-category-index
 document_role: index
 ---
@@ -10,10 +11,14 @@ document_role: index
 
 - [[Learning/원문/2026-10-06-Jev-LangGraph-프로덕션-에이전트-원문|Jev·LangGraph 프로덕션 에이전트]] — [[Learning/변환검증/2026-10-06-Jev-LangGraph-Markdown-변환-검증|변환 검증 기록]]
 - [[Learning/원문/2026-10-06-Jev-추천-재순위화-실증-연구-원문|Jev 추천 재순위화 게시글]] — [[Learning/변환검증/2026-10-06-Jev-재순위화-게시글-Markdown-변환-검증|변환 검증 기록]]
-
-‘원문’은 보관한 페이지의 원문을 뜻한다. 게시글이 소개한 논문 전체를 함께 보관했다는 뜻은 아니다.
-
 - [[Learning/원문/2026-10-13-Unsloth-Jev식-결정-모델-학습과-로컬-서빙-원문|Unsloth Jev식 결정 모델 학습과 로컬 서빙]] — [[Learning/변환검증/2026-10-13-Unsloth-결정-모델-Markdown-변환-검증|변환 검증 기록]]
+
+### Generalized Category Discovery & New Intent Discovery
+
+- [[Learning/원문/2026-10-21-GCD-Vaze-원문|Generalized Category Discovery (CVPR 2022)]] — Sagar Vaze et al.
+- [[Learning/원문/2026-10-21-SimGCD-원문|SimGCD: Parametric Classification for GCD (ICCV 2023)]] — Xin Wen et al.
+- [[Learning/원문/2026-10-21-DeepAligned-원문|Discovering New Intents with Deep Aligned Clustering (AAAI 2021)]] — Hanlei Zhang et al.
+- [[Learning/원문/2026-10-21-MTP-CLNN-원문|New Intent Discovery with Pre-training and Contrastive Learning (ACL 2022)]] — Yuwei Zhang et al.
 
 ## 관리
 
