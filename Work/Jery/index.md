@@ -15,6 +15,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 작업기록
 
 
+- [[Work/Jery/작업기록/2026-10-21-Jery-MLflow비교params-완료검증오류-복구|2026-10-21 — 비교 params backfill과 완료 key 검증 충돌 수정, 동일 Parent 재개]]
+
+
+
 - [[Work/Jery/작업기록/2026-10-21-Jery-MLflow-비교파라미터-복원과-실시간동기화|2026-10-21 — Warmup·Clipping·Scheduler·WD·Smoothing params, 105개 Child에525개 복원]]
 
 
