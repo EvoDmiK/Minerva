@@ -40,6 +40,7 @@ tags:
 | [[#SW-010 — 관심종목 정기 시세 수집|SW-010]] | P1 | 관심종목 정기 시세 수집 | 완료·운영 활성 |
 | [[#SW-011 — 장중 1분·장외 5분 수집주기 조정|SW-011]] | P2 | 장중 1분·장외 5분 수집주기 조정 | 완료·운영 활성 |
 | [[#SW-012 — 시장 지표 수집 및 정확한 가격 표시|SW-012]] | P1 | KOSPI·KOSDAQ·환율 지속 수집 및 쉼표 가격 표시 | 완료·운영 검증 |
+| [[#SW-014 — 모의투자 보유 종목 평가가격 갱신|SW-014]] | P1 | 모의투자 보유 종목 평가가격 갱신 | 구현·자동 테스트 통과 (n8n 개발 노드 검증 진행 중, 운영 미배포) |
 
 ## 검토 범위와 확인 수준
 
@@ -234,3 +235,34 @@ SW-003 자격증명 노출 대응과 SW-001·SW-002 오체결 방지를 우선�
 - **SW-013 결과:** 백엔드0cccd53/Grafana8cb1d16/통합5e4eb26, Node52pass, root실제격리n8n18141/18142 success(거래량오류시가격유지/기존volume보존), SQL5queries pass, 임시테스트자원정리완료. 최초18140은Toss fixture의1종목반환으로error, mock정정후성공. 원격dev-codex/Draft [PR #7](https://github.com/EvoDmiK/Birds-Nest/pull/7), main/Grafana/운영수집기는아직기존상태. [[Work/Birds-Nest/작업기록/Swallow/2026-10-13-Swallow-거래량-수집-및-표시-수정|구현·검증 기록]]
 
 - **SW-013 운영 완료:** 사용자 별도배포 요청으로24노드 active, credential/staticData/AsiaSeoul보존. 10:30/10:31KST 예약30393/30398 success, 각가격6행/네이버거래량3행·volumeErrors없음. DB→Grafana API200 및 실제한화오션누적선그래프/기업명범례/쉼표전체정수축 확인. 기존운영대기기록은당시상태로보존. [[Work/Birds-Nest/작업기록/Swallow/2026-10-13-Swallow-거래량-수집-및-표시-수정|배포·검증 기록]]
+
+
+### SW-014 — 모의투자 보유 종목 평가가격 갱신
+
+- **상태**: 진행 중 — 구현과 root 자동 테스트는 통과했다. 실제 n8n 개발 노드 검증은 진행 중이며 운영에는 배포하지 않았다.
+- **우선순위**: P1
+- **권장 담당**: dev-claude 구현(완료), dev-codex 통합·검증, dev-docs 문서(대체 담당 Claude Code)
+- **목적**:
+  - 모의투자 포트폴리오의 보유 종목 `현재가`가 매수가에 고정되어 평가손익이 왜곡되는 문제를 해소한다.
+  - 2026-10-21 12:44 KST 운영 DB를 읽어 확인한 결과, 보유 6종목 전부가 10/15~10/20 매수가로 고정되어 있었다. 삼성전자는 이력 최신가 222,750(toss)인데 포트폴리오에는 219,500이 표시되었다. 나머지 5종목은 관심목록 밖이라 시세 이력이 없었다.
+- **범위 및 변경 목표**:
+  - `watchlist-prices`(24노드)의 수집 대상을 활성 관심종목 ∪ 관심목록 밖 보유 종목(`quantity > 0`)으로 넓히고, 같은 티커는 한 번만 수집한다. 관심목록은 변경하지 않는다.
+  - 시세 적재와 같은 SQL 문장에서 `paper_positions.last_price`·`updated_at`만 갱신한다. 가격은 naver 우선·toss 대체로 고르고, `updated_at <= snapshotTs`일 때만 갱신한다.
+  - 현금·수량·평단·원가·거래 이력·주문 키·자동매매 함수 호출은 변경하지 않는다. 요약에 `positionsUpdated`를 추가한다.
+- **예상 대상 파일 / 모듈**:
+  - `n8n/Swallow/watchlist-prices.json`, `n8n/Swallow/tests/watchlist-prices.test.mjs`
+- **완료 기준 (Acceptance Criteria)**:
+  - [x] 수집 대상 확장·중복 제거·원자적 평가가격 갱신 구현 (`9fb5df3`, 통합 `850da6a`)
+  - [x] root 자동 테스트: 72건 중 71 pass / 0 fail / 1 skip(`CNN_LIVE` 미설정), 격리 PG 실제 SQL 시나리오 통과
+  - [ ] 실제 n8n 개발 노드 검증 (root 진행 중)
+  - [ ] 사용자 승인 후 운영 배포, 예약 실행에서 `positionsUpdated`·DB `last_price`·Grafana 보유 종목 패널 확인
+- **실제 검증 계획**:
+  - `SWALLOW_TEST_PG_CONTAINER=swallow-portfolio-review FNG_TEST_PG_CONTAINER=swallow-portfolio-review node --test --test-concurrency=1 n8n/Swallow/tests/*.test.mjs`
+  - 첫 병렬 실행은 실패했다. 두 테스트 파일이 같은 격리 PG의 `public` 스키마를 동시에 초기화해 충돌했기 때문이며, 구현 결함은 아니다. 순차 실행으로 재검증해 통과했다.
+- **선행 조건 / 의존성**:
+  - SW-010/011/013 관심종목 수집기(`Kt26XhwQEO2SuRtt`)
+- **남은 위험**:
+  - `updated_at`이 체결 시각이 아니라 평가 갱신 시각이 되므로, MCP 보유 종목 정렬(`ORDER BY updated_at DESC`)이 바뀐다.
+  - 기존 잔여 문제: chase guard(`CHASE_BUY_GUARDED`)의 `stock_price_history` 최신가 조회는 같은 `ts`의 toss·naver 행 사이에서 소스 정렬이 정해져 있지 않다.
+- **결과 및 작업 기록 링크**:
+  - [[Work/Birds-Nest/작업기록/Swallow/2026-10-21-Swallow-모의투자-보유종목-시세갱신-수정|상세 작업 기록]]
