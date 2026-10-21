@@ -43,3 +43,5 @@ TORCHINDUCTOR_COMPILE_THREADS=4 PYTHONPATH=src /home/persona-ai/envs/jery-cuda/b
 ## 실행 등록
 
 [CV Parent790b62ac777c43098b47cadd134d3a4e](https://mlflow.dove-nest.com/#/experiments/47/runs/790b62ac777c43098b47cadd134d3a4e)를 생성해 supervisor230844로 detached 실행했다. 기준7e57349를 서버에 반영했고 서버에서도 새 데이터/통합 테스트6개 PASS. Fold assignment SHA는 로컬/서버 모두5e823b9408bf8c410005042315c362b8291aed9efd3e461cec7cc79fbac33e9b로 동일하다. 원본600개와 scenario/heldout 보존 검증 후 공통 fold Artifacts를 업로드한다. 실행 시작 시점 기록이며100회 완료를 뜻하지 않는다.
+
+실제 실행 확인: Parent790b62ac777c43098b47cadd134d3a4e → trial16bf49d97697472f958c9b5b47b8ff17 → fold1 ba46a692696444cd8d114a5fdcb8fa27. LR0.0012160733764562271, 실제 CUDA429steps/3epoch 및 MLflow epoch3 동기화를 확인했다. train480/validation120/test20, validation은 tool당12개. params10개가 trial/fold 양쪽에 실제 기록됐다. Fold5개 완료 뒤 trial 평균/std가 나타나며 그전에는 fold 행을 펼쳐 epoch를 확인한다. 전체20×5=100회는 진행 중이다. 서버7e57349·supervisor230844, 추가 의존성 없음.

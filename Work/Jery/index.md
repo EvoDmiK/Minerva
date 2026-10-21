@@ -71,6 +71,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 현재 상태
 
 
+2026-10-21 최신 실행: 공동 탐색20회가 완료돼 validation 최고 run c0635c4c의 비-LR 설정(batch4,seed3407,warmup75,maxnorm2,cosine,WD0.1,smoothing0)을 고정했다. [LR-only CV Parent790b62ac](https://mlflow.dove-nest.com/#/experiments/47/runs/790b62ac777c43098b47cadd134d3a4e)에서 LR1e-3~5e-3만20회 TPE 탐색하고 각 조건을 같은 scenario-group 층화5-fold로 평가한다. Train600 pool→fold마다480/120, validation tool당12, group누수0/OOF coverage600정확히1회, test20고정·tuning배제. Parent→trial20→fold각5 구조이며 trial 평균/std는5fold 완료 후 표시한다. 첫fold CUDA429steps/3epoch와 MLflow 동기화 확인. 전체181테스트 PASS, 서버7e57349/supervisor230844. 총100회 학습 진행 중이며 원래 validation20은 CV에 사용하지 않는다.
+
+
+
 2026-10-21 복구: 비교 params5개 backfill과 기존 exact-key 완료 검증의 충돌로 공동 탐색 supervisor가 Child10 업로드 뒤 종료된 것을 확인했다. 수정3ac42f4에서 승인된 비교 params만 추가 허용하고 필수/unknown/metrics 검증은 유지했다. 서버 테스트14개 PASS 후 같은 Parent3b7fd13f에서 supervisor229433 재개. Child10은 기존모델 SHA/mtime/steps/runner 목록 보존으로 재학습 없이 FINISHED, Child11 실제 CUDA750steps/5epoch를 확인했다. 기존20회가 이어 진행 중이다.
 
 
