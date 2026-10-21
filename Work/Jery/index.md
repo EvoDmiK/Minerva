@@ -15,6 +15,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 작업기록
 
 
+- [[Work/Jery/작업기록/2026-10-21-Jery-LR만20회-Stratified5Fold검증|2026-10-21 — 비-LR 조건 고정, LR20개 × 시나리오 보존 층화5-fold, 100회 학습]]
+
+
+
 - [[Work/Jery/작업기록/2026-10-21-Jery-MLflow비교params-완료검증오류-복구|2026-10-21 — 비교 params backfill과 완료 key 검증 충돌 수정, 동일 Parent 재개]]
 
 
