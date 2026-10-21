@@ -71,6 +71,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 현재 상태
 
 
+사용자 요청으로 LR-only5-fold 학습을 종료했다. 활성 CV 학습 프로세스0개 확인, 추가 trial/fold 시작 없음. 로컬 결과/checkpoint 보존, 서버 state interrupted 및 user-stop-record.json 기록. MLflow 항목은 이미 삭제된 상태여서 상태 갱신만 불가능했으며 복원하지 않았다. 자동 재개하지 않는다. 아래 학습 진행 표시는 과거 기록이다.
+
+
+
 2026-10-21 최신 실행: 공동 탐색20회가 완료돼 validation 최고 run c0635c4c의 비-LR 설정(batch4,seed3407,warmup75,maxnorm2,cosine,WD0.1,smoothing0)을 고정했다. [LR-only CV Parent790b62ac](https://mlflow.dove-nest.com/#/experiments/47/runs/790b62ac777c43098b47cadd134d3a4e)에서 LR1e-3~5e-3만20회 TPE 탐색하고 각 조건을 같은 scenario-group 층화5-fold로 평가한다. Train600 pool→fold마다480/120, validation tool당12, group누수0/OOF coverage600정확히1회, test20고정·tuning배제. Parent→trial20→fold각5 구조이며 trial 평균/std는5fold 완료 후 표시한다. 첫fold CUDA429steps/3epoch와 MLflow 동기화 확인. 전체181테스트 PASS, 서버7e57349/supervisor230844. 총100회 학습 진행 중이며 원래 validation20은 CV에 사용하지 않는다.
 
 
