@@ -44,3 +44,5 @@ TORCHINDUCTOR_COMPILE_THREADS=4 PYTHONPATH=src /home/persona-ai/envs/jery-cuda/b
 ```
 
 Upstream이 FINISHED일 때만 Child를 생성한다. waiting 중에는 새 GPU 학습이 없다. 실패/중단된 upstream이면 오류를 기록하고 자동 학습을 시작하지 않는다. 대기 등록은 실제 학습 시작/완료와 다르다. 기존 state/lock/process를 확인하고 supervisor를 중복 실행하지 않는다.
+
+登録: 새 [Parent3b7fd13fe2f74146a520fa64d0c2305d](https://mlflow.dove-nest.com/#/experiments/47/runs/3b7fd13fe2f74146a520fa64d0c2305d). 서버5a2bc2c 반영, 서버 tracking12개·계획6개 테스트 PASS. Supervisor226349가 기존6261 Parent 성공 완료를 기다린다. 대기 LR-only Parent8e27은 Child0 상태로 KILLED했고 양쪽 supersedes 태그로 새 실행과 연결했다. 실제 Hyperopt 첫 후보/override/필수 batch값을 preflight JSON으로 업로드·SHA 검증했다. 기존 학습을 유지하며 새 공동 탐색은 대기 등록 상태다.

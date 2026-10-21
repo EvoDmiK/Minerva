@@ -59,6 +59,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 현재 상태
 
 
+2026-10-21 최신: LR 외 warmup·effective batch·clipping·scheduler도 함께 탐색하도록 실행기를 확장했다. [공동 탐색 Parent3b7fd13f](https://mlflow.dove-nest.com/#/experiments/47/runs/3b7fd13fe2f74146a520fa64d0c2305d) 아래20회 TPE: LR1e-3~5e-3, WD[0,0.05,0.1], smoothing[0,0.1], warmup[10,75,150], accumulation[1,2,4]/micro4→batch[4,8,16], maxnorm[0.5,1,2], scheduler[linear,cosine]. 전체171개 테스트와 서버 통합18개 PASS. LR-only 대기 Parent8e27은 Child0 상태로 중단하고 공동 탐색으로 대체했다. 기존6261 Parent 학습은 유지하며 완료 뒤 새 탐색을 자동 시작한다. 아래는 각 과거 시점 기록이다.
+
+
+
 2026-10-21 최신 상태: 이전 Parent dca0889273a641eaae6e4a92bfa9efc9의 20회 모두 완료됐다. 표 val F1≥0.75·test F1≥0.70 실행6개를 직접 찾아 report의 선택 head val F1도 확인했다. 이들의 모든 값을 포함하면서 LR을1.4e-4~4.2e-4, smoothing을[0,0.1]로 축소했다. WD[0,0.05,0.1]·seed3407·batch4·최대32epoch·최소8·patience6·train600/val20/test20 유지. [새 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/6e2c92b081534cc8a8e3b1271e3c0e9c) 아래20회를 시작했다. 실행기 변경/추가 의존성 없고 데이터 검증·계획 테스트5개·threshold/범위 계약 PASS. f9b9ebc 푸시·서버 반영, supervisor222834. Test-informed 범위 설계이며 TPE/checkpoint는 validation accuracy만 사용한다. 아래 내용은 각 과거 시점 기록이다.
 
 
