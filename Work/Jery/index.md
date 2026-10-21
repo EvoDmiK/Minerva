@@ -75,6 +75,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 현재 상태
 
 
+후속 학습 요청으로 새 [Parent675bf807](https://mlflow.dove-nest.com/#/experiments/47/runs/675bf807c9674425ba6f9de1ad536b91)에서 LR-only20조건×층화5-fold(총100회)를 시작했다. 기준Child c04cdad…의 비-LR 설정을 그대로 사용한다: warmup10,maxnorm1,linear,WD0.05,smoothing0.1,batch4,seed3407,최대32epoch. LR1e-3~5e-3. 기준4a98932/supervisor232533, 새 state로 시작하고 이전 중단 CV/삭제run은 복원하지 않았다. 아래 학습 중단/미실행 표시는 각 과거 시점 기록이다.
+
+
+
 최신 준비 설정: 사용자 지정 laya-ten-tools-train600-lr1e3-20261021 Parent6261의 최종 선택 Child c04cdad0246b4d6896ef89e5f9032ce2(validation0.95) 기준으로 LR 외 전체 모델 설정을 복사했다. Warmup10/maxnorm1/linear/WD0.05/smoothing0.1, batch4/seed3407/최대32epoch. LR1e-3~5e-3 및 기존5-fold는 유지한다. 새 별도 config에 전체 reference_model_config를 보존하고 LR·결과 저장 경로 외 값이 달라지면 거부한다. 로컬/서버 검증4개와8개 실제 Hyperopt 후보 비-LR 불변식 PASS, 4a98932 push/서버 반영. 학습은 재개하지 않았으며 활성 Jery trainer0개·기존 state interrupted를 확인했다.
 
 

@@ -1,6 +1,6 @@
 # LR 외 전체 설정을 lr1e3 Parent 선택 Child로 통일 — 2026-10-21
 
-사용자 요청으로 `laya-ten-tools-train600-lr1e3-20261021` Parent(6261a1bdca194867a835cbfb2216493f)의 실제 Child 설정을 기준으로 다음 LR-only CV 계획을 준비했다. 학습 중단 지시는 유지하며 새 MLflow run을 만들거나 학습을 재개하지 않았다.
+사용자 요청으로 `laya-ten-tools-train600-lr1e3-20261021` Parent(6261a1bdca194867a835cbfb2216493f)의 실제 Child 설정을 기준으로 다음 LR-only CV 계획을 준비했다. 설정 준비 당시에는 학습 중단 지시를 유지했으며, 이후 사용자의 명시적인 학습 요청으로 아래의 새 실행을 시작했다. 이전 중단 run은 재개하지 않는다.
 
 ## 기준 Child
 
@@ -36,4 +36,8 @@ LR 탐색1e-3~5e-3와 같은5-fold/seed/원본train600 pool은 이전 요청대�
 
 원본 데이터 validator PASS(130examples/10tools/65isolated scenarios), CV 통합4개 PASS. 실제 원본 Child config와 비-LR 전체 값 equality 검증 및8개 실제 Hyperopt/TPE 후보의 불변식 검증 PASS. 회귀 테스트는 LR·새 결과 저장 경로 변경은 허용하되 warmup/smoothing뿐 아니라 eval_batch_size/gradient_checkpointing처럼 탐색 공간 밖 값의 drift도 거부한다. Graphify AST update 수행. 추가 의존성과 모델 코드 변경 없음.
 
-서버4a98932 반영 후 기준 Child 전체 비-LR 값 equality와 CV 통합4개 테스트 PASS. 기존 CV state interrupted 및 활성 Jery 학습 프로세스0개를 확인했다. 새 run 생성·학습 재개는 실행하지 않았다.
+## 후속 요청으로 학습 시작
+
+사용자의 학습 실행 지시를 받아 [새 CV Parent675bf807c9674425ba6f9de1ad536b91](https://mlflow.dove-nest.com/#/experiments/47/runs/675bf807c9674425ba6f9de1ad536b91)을 Jery(47)에 생성했다. 기준4a98932, detached supervisor232533. LR1e-3~5e-3의20개 조건 × 동일5fold =100회 학습이다. 데이터480train/120validation per fold 및 test20, LR 외 모든 model 설정은 기준Child와 동일하다. 기존 중단 CV state와 삭제된 MLflow 항목은 복원/재개하지 않았다.
+
+시작 전 config/plan reference equality와 기존 데이터 validator PASS, 기존 활성 Jery trainer0개·새 state 미생성을 확인했다. 준비시점의 preparation_status/purpose는 당시 기록이며 실제 실행 상태는 새 tracking/state.json과 MLflow를 따른다. 새 state 경로는 outputs/laya-ten-tools-lr-only-cv5-lr1e3ref-20261021/tracking이다.
