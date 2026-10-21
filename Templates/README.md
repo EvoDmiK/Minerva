@@ -13,6 +13,7 @@
 | **[`category-backlog.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/Templates/category-backlog.md)** | **카테고리 서브 백로그**<br>카테고리/모듈별 세부 백로그 생성 시 사용 | `Work/<프로젝트>/작업기록/<카테고리>/작업 백로그.md` | 작업 현황 표, 세부 작업 상세, 작업기록 목록, 상위 전체 백로그 링크 |
 | **[`backlog-item.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/Templates/backlog-item.md)** | **단일 백로그 작업 항목**<br>기존 백로그에 새 작업을 등록할 때 삽입 | 기존 백로그 문서의 `## 1. 신규 착수 대기 작업` 아래 삽입 | 상태, 우선순위, 담당, 목적, 범위, 완료기준(체크리스트), 검증계획 |
 | **[`note.md`](file:///Volumes/Dove-Nest-SSD/knowledge/Minerva/Templates/note.md)** | **범용 일반 노트**<br>아이디어, 빠른 메모, 일반 참고 문서 | `Inbox/`, `Dev/`, `Learning/` 등 | Frontmatter, 요약, 내용, 관련 |
+| [[Templates/paper-notes\|paper-notes.md]] | **논문 원문·학습노트 한 쌍** | `Learning/원문/`, `Learning/학습노트/`<br>`YYYY-MM-DD-<논문-slug>-{원문·논문-노트}.md` | Markdown 변환 원문, 한국어 분석, 범위·출처·상호 링크, 인덱스·재조회 검증 |
 
 ---
 
