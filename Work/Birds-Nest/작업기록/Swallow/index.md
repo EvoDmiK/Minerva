@@ -43,4 +43,4 @@ Swallow 관련 신규 문서는 이 폴더에 `YYYY-MM-DD-Swallow-작업명.md`�
 
 - [[Work/Birds-Nest/작업기록/Swallow/2026-10-20-Swallow-CNN-공포탐욕지수-수집-중단-진단-및-수정|2026-10-20 Swallow CNN 공포·탐욕 지수 수집 중단 진단 및 수정 (SW-008/SW-003, 운영 수집기 `5mkkZfHRh1zFGuZZ` 배포·첫 실행 `44008`·DB `23` 검증 완료, Grafana UI 확인 대기)]]
 
-- [[Work/Birds-Nest/작업기록/Swallow/2026-10-21-Swallow-모의투자-보유종목-시세갱신-수정|2026-10-21 Swallow 모의투자 보유 종목 시세(평가가격) 갱신 수정 (SW-014, 구현 `9fb5df3`·통합 `850da6a`, root 테스트 72건 중 71 pass/0 fail/1 skip, n8n 개발 노드 검증 진행 중·운영 미배포)]]
+- [[Work/Birds-Nest/작업기록/Swallow/2026-10-21-Swallow-모의투자-보유종목-시세갱신-수정|2026-10-21 Swallow 모의투자 보유 종목 시세(평가가격) 갱신 수정 (SW-014, 구현 `9fb5df3`·통합 `850da6a`, root 테스트 72건 중 71 pass/0 fail/1 skip, 격리 n8n-test 노드 검증 PASS(`positionsUpdated = 5`)·운영 미배포)]]

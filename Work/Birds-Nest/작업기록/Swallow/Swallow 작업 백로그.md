@@ -254,7 +254,7 @@ SW-003 자격증명 노출 대응과 SW-001·SW-002 오체결 방지를 우선�
 - **완료 기준 (Acceptance Criteria)**:
   - [x] 수집 대상 확장·중복 제거·원자적 평가가격 갱신 구현 (`9fb5df3`, 통합 `850da6a`)
   - [x] root 자동 테스트: 72건 중 71 pass / 0 fail / 1 skip(`CNN_LIVE` 미설정), 격리 PG 실제 SQL 시나리오 통과
-  - [ ] 실제 n8n 개발 노드 검증 (root 진행 중)
+  - [x] 격리 n8n 노드 검증: `n8n-test:2.15.0` 일회용 컨테이너에서 CLI 실행 `success`(2026-10-21 13:56:43 KST). 원본 4개 노드를 포함한 10노드 workflow에 고정 시세 fixture를 주입했다. 결과는 6종목 수집, 이력 12행, `positionsUpdated = 5`(naver `223,000`), `quantity = 0` 제외, 수량·평단·원가·뉴스·계좌·거래·주문 키·관심목록 실행 전후 불변이다. 운영 데이터와 자격증명은 쓰지 않았다. 첫 시도는 CLI `--file` 옵션 불일치와 `none` 네트워크 재연결 불가로 실행되지 않았고, 네트워크를 다시 만든 뒤 `--id`로 실행해 통과했다. 24노드 전체 실행, 외부 실시간 시세, 운영 예약, Grafana는 이 검증에 포함되지 않는다.
   - [ ] 사용자 승인 후 운영 배포, 예약 실행에서 `positionsUpdated`·DB `last_price`·Grafana 보유 종목 패널 확인
 - **실제 검증 계획**:
   - `SWALLOW_TEST_PG_CONTAINER=swallow-portfolio-review FNG_TEST_PG_CONTAINER=swallow-portfolio-review node --test --test-concurrency=1 n8n/Swallow/tests/*.test.mjs`
