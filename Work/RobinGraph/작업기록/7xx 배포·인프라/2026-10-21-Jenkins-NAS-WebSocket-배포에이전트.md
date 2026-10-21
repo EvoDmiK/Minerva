@@ -10,7 +10,7 @@ tags:
   - robingraph
 ---
 
-# [RG-7xx-NAS-AGENT] SSH 없는 NAS Jenkins WebSocket 배포 에이전트 구성 및 사용자 승인 운영 앱 교체 완료 — 2026-10-21
+# SSH 없는 NAS Jenkins WebSocket 배포 에이전트 구성 및 사용자 승인 운영 앱 교체 완료 — 2026-10-21
 
 > **문서 상태: 완료 — 실제 NAS WebSocket 에이전트 온라인 구성, 사용자 명시 승인에 따른 Production 실제 앱 교체(RobinGraph-PROD #6) 및 배포 후 검증(#2 postcheck, Chromium UI/API) 완료.**  
 > 본 문서는 1단계(사전 읽기 검증, 배포 전 이력)와 2단계(사용자 승인 후 실제 운영 앱 교체 및 사후 검증)를 날짜 및 단계별로 명확히 분리하여 기록한다. 문서 담당(Writer)은 dev-codex 산출물(`docs/verification/assets/2026-10-21-nas-agent-production/`, `docs/verification/assets/2026-10-21-jenkins-nas-agent/`, `docs/jenkins-deployment.md`)을 읽기 전용으로 대조하여 기록했다. 문서 담당은 앱, DB, 운영 컨테이너를 직접 조작하지 않았다.
