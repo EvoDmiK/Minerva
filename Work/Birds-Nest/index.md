@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-11
+updated: 2026-10-21
 created: 2026-10-02
 project: Birds-Nest
 type: project-index
@@ -31,6 +31,8 @@ Birds-Nest는 개인 AI 에이전트(Hermes/Dovie), 자동화 워크플로우(n8
 - [[Dev/인프라/2026-10-02-홈랩-인증서·Cloudflare·접속-경로-비교-정리|홈랩 인증서·Cloudflare·접속 경로 비교 정리]]
 
 ## 작업 기록 (Work Logs)
+
+- [[Work/Birds-Nest/작업기록/Hermes/2026-10-21-Hermes-프로필-Discord-MCP-메모리-논문스킬-구성|2026-10-21 Hermes 프로필·Discord·MCP·메모리·논문 스킬 구성]]
 
 - [[Work/Birds-Nest/작업기록/index|워크플로우·서비스·주제별 작업기록 분류]]
 - [[Work/Birds-Nest/작업기록/Swallow/Swallow 작업 백로그|Swallow 작업 백로그]] — SW-001~SW-009, 착수 대기
