@@ -57,6 +57,9 @@ tags:
 
 ### 카테고리별 보기
 
+<details>
+<summary>📂 카테고리별 작업 ID 대응 목록 보기 (19개 작업 펼치기)</summary>
+
 링크를 누르면 카테고리별 백로그의 상세로 이동한다.
 
 | 새 ID | 기존 ID | 작업 | 상태 |
@@ -81,9 +84,14 @@ tags:
 | **602** | RG-016 | [[#RG-602 — MLflow에서 답변 결과와 미응답 사유 구분\|MLflow 결과·미응답 사유 태그]] | 완료 |
 | **701** | — | [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|FastAPI → Django + DRF 백엔드 전환]] | 완료 (2026-10-20 main 병합·Production 배포·실제 검증 — Jenkins PROD #3 SUCCESS · 미검증 범위는 상세 참조) |
 
+</details>
+
 7xx는 2026-10-20 RG-701이 첫 등록 작업이다. 8xx·9xx는 현재 등록된 작업이 없다. 각 카테고리의 다음 번호는 마지막 등록 번호 + 1이다(예: 다음 DB 작업은 103). 새 작업의 상세는 지금처럼 `### RG-NNN — 제목` 형식으로 쓰되 번호는 카테고리 번호를 쓴다. 한 작업이 여러 카테고리에 걸치면 가장 큰 변경이 일어나는 쪽으로 정하고 상세에 관련 카테고리를 적는다.
 
 ## 작업 현황 대시보드
+
+<details>
+<summary>📌 대시보드 참고 이력 및 이전 상세 (2026-10-15 기준 펼치기)</summary>
 
 2026-10-15 최신 UI 후속: 후보 선택 후 `청둥오리에 대해 알고 싶어`처럼 종 이름으로 말풍선을 표시하도록 수정했다. 실제 확인 요청·대상 필터는 정규 학명으로 유지한다. 일반/먹이 질문·표시 이름 없음 fallback 단위 검사 포함 프런트엔드307개 통과. NAS TEST `robingraph-api:test-name-neo4j-71b1b0f58a62` 배포, 실제 Chromium1280·390·320px 총15회 요청·API 계약 검사 통과. runtime 변경은 chat.js만이며 재색인·DB 쓰기·운영 변경 없음. [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-15-후보선택-질문국명표시-NAS-TEST배포|후보 선택 질문의 국명 표시·실제 검증·NAS TEST 배포]]. 아래 선행 구현·배포 결과는 이력이다.
 
@@ -99,6 +107,8 @@ tags:
 
 데이터 후속 현황: 운영 데이터 이관과 실제 프로필·카드 검증은 완료했다. RG-102의 남은 완료 기준인 운영 관련 새 조회는 이번에 확인한 검증 기록으로 확정할 수 없어 보류를 유지한다. 국명 후보 408종은 모두 조사해 185종을 추가하고 223종을 미확정으로 남겼다. 보전 근거 미연결 296종도 남아 있으므로 전체 종의 정보 검증이 모두 완료된 것으로 보지 않는다.
 
+</details>
+
 | 작업 | 상태 | 우선순위 | 현재 요약 |
 |---|---|---|---|
 | [[#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환\|RG-701]] | 완료 (2026-10-20 Production 배포·실제 검증) | 1 (최우선) | **Production(2026-10-20):** 사용자 명시 승인으로 main fast-forward `770495a`(커밋 `e3a8bda`·`770495a`), Jenkins `RobinGraph-PROD` #3 SUCCESS(checkout main, Python 1,029/991/38 건너뜀·Node 317·AMD64 smoke), 이미지 `ghcr.io/evodmik/robingraph@sha256:336ace79…2f005d`, NAS `robingraph-api` healthy·네이티브 Django·FastAPI/Starlette 없음, 내부 API health·OpenAPI·lineage 200·drift 없음, 공개 Chromium 6/6, 운영 DB 감시 범위 전후 동일(Taxon 33,694·이름 벡터 0 — DB 전체 체크섬 아님), TEST DB 복사·backfill 없음, 실제 롤백 미실행 · 미검증: 건너뜀 38·물리 모바일·Safari/Firefox·재부팅·운영 DB 쓰기 · 이하 TEST 이력 — 후속: legacy FastAPI 어댑터·독립 AviList runner까지 Django 단독 전환, FastAPI·Starlette 제거 · Python 1,029/991 통과/38 건너뜀/0 실패 · golden 273+10 · TEST `test-rg701-django-only-0e15293544bb` 앱·runner, 실제 API 5/5·Chromium 6·runner 바인딩 갱신·보호 장치 4·n8n 7노드·DB 불변 · 롤백 mock만 · 1차(이력): 네이티브 Django 5.2.18 + DRF 3.16.1 전환 · Python 1,262 실행/1,223 통과/39 건너뜀/0 실패(오프라인) · HTTP 동등성 95/95(fixture) · TEST `test-rg701-django-34f84c494c6a` healthy, 실제 API 5/5·공개 Chromium 6요청·n8n·DB 불변 통과 · 롤백 미실행·Production 미반영 |
@@ -107,7 +117,7 @@ tags:
 | [[#RG-405 — 마우스 드래그로 조류 카드 뒤집기\|RG-405]] | 완료 | — | 완료 · 토글 배율·소재 안정화 · TEST/PROD 3ac07e2 |
 | [[#RG-202 — HippoRAG 스타일의 근거 검색 및 그래프 연관 검색 도입\|RG-202]] | 완료 | — | 그래프 우선 이름 해소·벡터 후보 확인·주제 보존 / NAS TEST API·브라우저 검증 완료 |
 | [[#RG-406 — 한국 서식 여부 토글과 범위별 이름 우선 정책\|RG-406]] | 검토 국외 6종 이름 검색 TEST 보완 완료 · 자료 확장 및 운영 배포 대기 | 5 | 한국 서식 토글·검토 국외 6종 영어/학명 검색 및 1-Edit 철자 보완 TEST 배포 |
-| [[#RG-101 — 문헌 Chunk 검색 저장소 분리 (PostgreSQL pgvector + Neo4j 정책 재확인)|RG-101]] | 보류 (소규모 기준선 완료 · 실제 문헌 축적 후 재개) | 보류 | 문헌 Chunk 검색 Neo4j 기준선 실측 완료 · 사용자 지시로 보류 전환 및 RG-406 우선 진행 |
+| [[#RG-101 — 문헌 Chunk 검색 저장소 분리 (PostgreSQL pgvector + Neo4j 정책 재확인)\|RG-101]] | 보류 (소규모 기준선 완료 · 실제 문헌 축적 후 재개) | 보류 | 문헌 Chunk 검색 Neo4j 기준선 실측 완료 · 사용자 지시로 보류 전환 및 RG-406 우선 진행 |
 | [[#RG-102 — PROD 활성 종 데이터 준비\|RG-102]] | 보류 | 최후순위 | 운영 이관·프로필·카드 검증 완료 / 관련 새 조회 확인 대기 |
 | [[#RG-503 — 아종 분포 설명과 설명용 제목 한국어화\|RG-503]] | 보류 | 최후순위 | 1차 TEST 적용 완료 · 한국어 검토 1,109개 / 미검토 18,770개 |
 | [[#RG-504 — 확인된 한국어 이름 확대와 예전 분류명 매핑 검토\|RG-504]] | 보류 | 최후순위 | 국명 후보 408종 조사·185종 추가 / 223종 미확정·분류명 후속 검토 |
@@ -154,15 +164,19 @@ RG-301·RG-602·RG-405는 완료 상세로 이동했다. 2026-10-15 RG-202는 �
 
 상세는 [[Work/RobinGraph/작업기록/7xx 배포·인프라/작업 백로그#RG-701 — FastAPI에서 Django + Django REST Framework로 백엔드 전환|7xx 배포·인프라 작업 백로그]]에서 관리한다.
 
-
-
 ### RG-202 — HippoRAG 스타일의 근거 검색 및 그래프 연관 검색 도입
 
 상세는 [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/작업 백로그#RG-202 — HippoRAG 스타일의 근거 검색 및 그래프 연관 검색 도입|2xx 검색·RAG·그래프 질의 작업 백로그]]에서 관리한다. 기존 제목 앵커는 이전 링크 호환을 위해 유지한다.
 
 ### RG-406 — 한국 서식 여부 토글과 범위별 이름 우선 정책
 
-**2026-10-17 최신 상태: 범위 API·UI 구현·TEST 이전 검증 완료, 분포 자료 확장 후속.** 사용자 지시에 따라 대한민국 기준으로 출처의 Korea·Korean Peninsula도 수용하고 북한만 명시한 근거는 국내 승인하지 않는다. 전체/국내 기록·분포 확인/국외 분포 검토/미확인 네 범위. 국내592·국외 검토6·미확인10,533종이며 전 세계 비서식 전수 분류 완료는 아니다. 이후 범위를 고급 옵션 내부로 이동하고, 사용자 승인으로 TEST 앱을 M4 16GB Mac(192.168.219.97:8000)으로 이전 완료했다. 최신 ARM64 이미지 `robingraph-api:test-mac-8ffeb7734750` healthy, 실제 공개 HTTPS(https://robingraph-test.dove-nest.com) 및 Chromium 1280/390/320 총 9POST와 /birds, API 12사례 통과. 2026-10-18 사용자 지시에 따라 Jenkins 기본 배포 대상을 NAS Production으로 정정하여 `RobinGraph-PROD` #2 SUCCESS로 실제 운영 앱을 교체 배포했다(commit `bc643ee9edef0fc58c605adde70b4808b7622ac5`, digest `sha256:100e4aa30fd8981ebb631ced8c4bfecd95e71fcdb6d90cc5026e42f11b333ead`). admin 승인 gate 통과, NAS 내부 및 공개 운영 GET API 200 통과, 공개 Chromium 3너비 UI 읽기 검사 통과(POST 차단; Cloudflare /cdn-cgi/rum telemetry 필터링 정정 후 통과; 답변 생성/DB 쓰기 검증 아님). 오래된 운영 compose 부재는 running env 47개 값을 보존하여 복원. TEST job은 비활성화·polling 제거 및 TEST 컨테이너 불변, TEST artifact 승격 의존성은 제거됨. 미래 운영 배포 시 명시적 admin 승인 gate 유지, commit/push/병합 없음. 이후 2026-10-18 사용자 요청으로 고급 조회 옵션 내부의 4개 분포 범위를 CSS Grid 2×2(600px 이하 1열)로 균일 정렬하고 라디오를 1rem 정사각형·중앙 정렬로 개선하여 TEST 환경에 배포 완료했다(`robingraph-api:test-scope-layout-733d461cbc61`). Node UI 313개, Chromium 6너비(1440/1024/768/480/390/320px) 정렬·키보드·넘침 검사 통과. 공개 운영 CSS는 변경 전 HEAD와 바이트 동일(미배포 확인). 현재 운영 승인 없음/운영 배포 금지 상태 유지. 이후 2026-10-18 전역 ANN 상위 10개 추출 후 범위 필터링 시 11위 이하 대상 종이 누락되는 문제를 해결하기 위해, 특정 범위 선택 시 최대 1,000개 reviewed 검토 집합의 저장 벡터에서 exact cosine을 계산하여 정렬·limit을 적용하도록 수정했다(`scope=all`은 기존 전역 ANN 유지). fake 회귀 재현 및 실제 TEST DB 통제 집합(limit=1, 전역 2위 회수) 검증 통과, 24개 실측 케이스 Python cosine 오라클 일치. 또한 국외 범위 후보가 한국어로 노출되던 문제를 수정하여 검증 그래프의 `english_name='Kea'`를 정상 표시하도록 개선했다. Python 901개 통과·38 건너뜀, Node UI 317개 통과, 실제 TEST API 5사례 및 공개 Chromium 3너비 9POST 검증 통과. 최신 TEST 이미지 `robingraph-api:test-rg406-recall-f8c64d62bbc8` healthy 배포 완료(기존 CSS 레이아웃 유지, 소스 해시 일치 확인). 현재 운영 승인 없음(운영 반영 금지), 국외 벡터 카탈로그 내 Kea 1종 한계 존재. 이후 2026-10-19 사용자 승인에 따라 기존 검토 국외 6종(Kiwi 3종, Kea, New Zealand Rockwren, North Island Kokako)의 허용 영어 원자료 이름과 학명을 이름 벡터 텍스트에 포함하여 850→855종으로 확장했다(기존 849개 벡터 재임베딩 없음/새 6개 임베딩, dry-run 855 재사용 0 임베딩 확인, private 백업 0600 완료). 기존 849개 중 845개 벡터 바이트 값 동일, 4개는 단위 벡터 정규화 재사용에 따른 최대 2.78e-17 roundoff 차이 확인(849개 바이트 완전 동일이라 쓰지 않음). 자료 추가만으로는 오타 6/12건만 통과하여, 일반 cosine 하한(0.25)을 유지한 채 검토 국외 6종 영어 원명/학명과 Latin 1-edit(삽입/삭제/치환/인접전치, 입력 4자 이상/원명 3자 이상)인 경우 낮은 실제 cosine 점수 그대로 확인 후보로 보완했다(활성 그래프 재검증 필수, 자동 매칭 아님, 임베딩/저장소 불능 시 철자 단독 우회 금지, `scope=all`은 질의 벡터 재사용). 실제 TEST resolver 48/48건(6종 4종류 전체/국외) 및 공개 Chromium 3폭 36POST 전수 통과, 한국어 5사례 유지, Python 906통과·38skip, Node UI 317통과. 최신 TEST 이미지 `robingraph-api:test-rg406-outside-spelling-1c7cbbdaf1c7` healthy 배포 완료(소스 해시 일치, API 계약 통과). 운영 미배포 상태이며, 운영 반영 시 앱 교체뿐 아니라 별도 PROD catalog 백업/6종 갱신/동일 앱 배포/라이브 검증이 필수적이다(현재 Jenkins 앱 job으로 DB 전환 미포함). 전체 지리수 592/6/10533 유지, 이름 벡터 범위 591/6/258(총 855종). [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-17-RG406-국내기록-분포범위-이름정책|정책·자료·실제 검증·배포·남은 한계]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-17-RG406-고급조회옵션-범위선택-NAS-TEST|고급 옵션 이동·NAS TEST 배포]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-17-TEST앱-M4-16GB-이전|TEST 앱 M4 16GB Mac 이전 기록]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-GHCR-배포-구성-사전검증|Jenkins·GHCR 배포 구성·사전 검증]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-Production-배포-대상-정정|Jenkins 배포 대상을 NAS Production으로 정정]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-18-고급조회-분포옵션-레이아웃-TEST배포|고급 조회 옵션 분포 범위 정렬·TEST 배포]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-18-RG406-범위후보재현율-영문명표시-TEST보완|RG-406 범위별 후보 재현율·영문명 표시 TEST 보완]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-19-RG406-검토국외6종-이름검색-TEST보완|검토 국외 6종 이름 검색 TEST 보완]].
+- **2026-10-17 최신 상태: 범위 API·UI 구현·TEST 이전 검증 완료, 분포 자료 확장 후속.** 사용자 지시에 따라 대한민국 기준으로 출처의 Korea·Korean Peninsula도 수용하고 북한만 명시한 근거는 국내 승인하지 않는다. 전체/국내 기록·분포 확인/국외 분포 검토/미확인 네 범위. 국내592·국외 검토6·미확인10,533종이며 전 세계 비서식 전수 분류 완료는 아니다.
+- **2026-10-17 고급 옵션 이동 및 Mac TEST 이전**:이후 범위를 고급 옵션 내부로 이동하고, 사용자 승인으로 TEST 앱을 M4 16GB Mac(192.168.219.97:8000)으로 이전 완료했다. 최신 ARM64 이미지 `robingraph-api:test-mac-8ffeb7734750` healthy, 실제 공개 HTTPS(https://robingraph-test.dove-nest.com) 및 Chromium 1280/390/320 총 9POST와 /birds, API 12사례 통과.
+- **2026-10-18 Jenkins Production 배포 대상 정정**:2026-10-18 사용자 지시에 따라 Jenkins 기본 배포 대상을 NAS Production으로 정정하여 `RobinGraph-PROD` #2 SUCCESS로 실제 운영 앱을 교체 배포했다(commit `bc643ee9edef0fc58c605adde70b4808b7622ac5`, digest `sha256:100e4aa30fd8981ebb631ced8c4bfecd95e71fcdb6d90cc5026e42f11b333ead`). admin 승인 gate 통과, NAS 내부 및 공개 운영 GET API 200 통과, 공개 Chromium 3너비 UI 읽기 검사 통과(POST 차단; Cloudflare /cdn-cgi/rum telemetry 필터링 정정 후 통과; 답변 생성/DB 쓰기 검증 아님). 오래된 운영 compose 부재는 running env 47개 값을 보존하여 복원. TEST job은 비활성화·polling 제거 및 TEST 컨테이너 불변, TEST artifact 승격 의존성은 제거됨. 미래 운영 배포 시 명시적 admin 승인 gate 유지, commit/push/병합 없음.
+- **2026-10-18 고급 조회 옵션 2×2 레이아웃 개선**:이후 2026-10-18 사용자 요청으로 고급 조회 옵션 내부의 4개 분포 범위를 CSS Grid 2×2(600px 이하 1열)로 균일 정렬하고 라디오를 1rem 정사각형·중앙 정렬로 개선하여 TEST 환경에 배포 완료했다(`robingraph-api:test-scope-layout-733d461cbc61`). Node UI 313개, Chromium 6너비(1440/1024/768/480/390/320px) 정렬·키보드·넘침 검사 통과. 공개 운영 CSS는 변경 전 HEAD와 바이트 동일(미배포 확인). 현재 운영 승인 없음/운영 배포 금지 상태 유지.
+- **2026-10-18 범위별 후보 재현율(exact cosine) 보완 및 영문명 표시**:이후 2026-10-18 전역 ANN 상위 10개 추출 후 범위 필터링 시 11위 이하 대상 종이 누락되는 문제를 해결하기 위해, 특정 범위 선택 시 최대 1,000개 reviewed 검토 집합의 저장 벡터에서 exact cosine을 계산하여 정렬·limit을 적용하도록 수정했다(`scope=all`은 기존 전역 ANN 유지). fake 회귀 재현 및 실제 TEST DB 통제 집합(limit=1, 전역 2위 회수) 검증 통과, 24개 실측 케이스 Python cosine 오라클 일치. 또한 국외 범위 후보가 한국어로 노출되던 문제를 수정하여 검증 그래프의 `english_name='Kea'`를 정상 표시하도록 개선했다. Python 901개 통과·38 건너뜀, Node UI 317개 통과, 실제 TEST API 5사례 및 공개 Chromium 3너비 9POST 검증 통과. 최신 TEST 이미지 `robingraph-api:test-rg406-recall-f8c64d62bbc8` healthy 배포 완료(기존 CSS 레이아웃 유지, 소스 해시 일치 확인). 현재 운영 승인 없음(운영 반영 금지), 국외 벡터 카탈로그 내 Kea 1종 한계 존재.
+- **2026-10-19 검토 국외 6종 이름 검색(855종) 및 1-Edit 철자 보완**:이후 2026-10-19 사용자 승인에 따라 기존 검토 국외 6종(Kiwi 3종, Kea, New Zealand Rockwren, North Island Kokako)의 허용 영어 원자료 이름과 학명을 이름 벡터 텍스트에 포함하여 850→855종으로 확장했다(기존 849개 벡터 재임베딩 없음/새 6개 임베딩, dry-run 855 재사용 0 임베딩 확인, private 백업 0600 완료). 기존 849개 중 845개 벡터 바이트 값 동일, 4개는 단위 벡터 정규화 재사용에 따른 최대 2.78e-17 roundoff 차이 확인(849개 바이트 완전 동일이라 쓰지 않음). 자료 추가만으로는 오타 6/12건만 통과하여, 일반 cosine 하한(0.25)을 유지한 채 검토 국외 6종 영어 원명/학명과 Latin 1-edit(삽입/삭제/치환/인접전치, 입력 4자 이상/원명 3자 이상)인 경우 낮은 실제 cosine 점수 그대로 확인 후보로 보완했다(활성 그래프 재검증 필수, 자동 매칭 아님, 임베딩/저장소 불능 시 철자 단독 우회 금지, `scope=all`은 질의 벡터 재사용). 실제 TEST resolver 48/48건(6종 4종류 전체/국외) 및 공개 Chromium 3폭 36POST 전수 통과, 한국어 5사례 유지, Python 906통과·38skip, Node UI 317통과. 최신 TEST 이미지 `robingraph-api:test-rg406-outside-spelling-1c7cbbdaf1c7` healthy 배포 완료(소스 해시 일치, API 계약 통과). 운영 미배포 상태이며, 운영 반영 시 앱 교체뿐 아니라 별도 PROD catalog 백업/6종 갱신/동일 앱 배포/라이브 검증이 필수적이다(현재 Jenkins 앱 job으로 DB 전환 미포함). 전체 지리수 592/6/10533 유지, 이름 벡터 범위 591/6/258(총 855종).
+- **관련 작업기록 링크**: [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-17-RG406-국내기록-분포범위-이름정책|정책·자료·실제 검증·배포·남은 한계]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-17-RG406-고급조회옵션-범위선택-NAS-TEST|고급 옵션 이동·NAS TEST 배포]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-17-TEST앱-M4-16GB-이전|TEST 앱 M4 16GB Mac 이전 기록]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-GHCR-배포-구성-사전검증|Jenkins·GHCR 배포 구성·사전 검증]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-18-Jenkins-Production-배포-대상-정정|Jenkins 배포 대상을 NAS Production으로 정정]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-18-고급조회-분포옵션-레이아웃-TEST배포|고급 조회 옵션 분포 범위 정렬·TEST 배포]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-18-RG406-범위후보재현율-영문명표시-TEST보완|RG-406 범위별 후보 재현율·영문명 표시 TEST 보완]] · [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/2026-10-19-RG406-검토국외6종-이름검색-TEST보완|검토 국외 6종 이름 검색 TEST 보완]].
 
 상세는 [[Work/RobinGraph/작업기록/4xx 채팅 UI·카드/작업 백로그#RG-406 — 한국 서식 여부 토글과 범위별 이름 우선 정책|4xx 채팅 UI·카드 작업 백로그]]에서 관리한다. 기존 제목 앵커는 이전 링크 호환을 위해 유지한다.
 
