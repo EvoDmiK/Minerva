@@ -15,6 +15,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 작업기록
 
 
+- [[Work/Jery/작업기록/2026-10-21-Jery-LR외설정-lr1e3선택Child기준통일|2026-10-21 — 지정 lr1e3 Parent 최종 Child 기준으로 LR 외 전체 설정 통일, 학습 중단 유지]]
+
+
+
 - [[Work/Jery/작업기록/2026-10-21-Jery-LR만20회-Stratified5Fold검증|2026-10-21 — 비-LR 조건 고정, LR20개 × 시나리오 보존 층화5-fold, 100회 학습]]
 
 
@@ -69,6 +73,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 - [[Work/Jery/작업기록/2026-10-14-Jery-데이터셋-구축과-Hermes-MLflow-수집-방향|2026-10-14 — 초기 데이터셋 구축, 에이전트 역할, n8n 초안과 MLflow 수집 방향]]
 
 ## 현재 상태
+
+
+최신 준비 설정: 사용자 지정 laya-ten-tools-train600-lr1e3-20261021 Parent6261의 최종 선택 Child c04cdad0246b4d6896ef89e5f9032ce2(validation0.95) 기준으로 LR 외 전체 모델 설정을 복사했다. Warmup10/maxnorm1/linear/WD0.05/smoothing0.1, batch4/seed3407/최대32epoch. LR1e-3~5e-3 및 기존5-fold는 유지한다. 새 별도 config에 전체 reference_model_config를 보존하고 LR·결과 저장 경로 외 값이 달라지면 거부한다. 로컬/서버 검증4개와8개 실제 Hyperopt 후보 비-LR 불변식 PASS, 4a98932 push/서버 반영. 학습은 재개하지 않았으며 활성 Jery trainer0개·기존 state interrupted를 확인했다.
+
 
 
 사용자 요청으로 LR-only5-fold 학습을 종료했다. 활성 CV 학습 프로세스0개 확인, 추가 trial/fold 시작 없음. 로컬 결과/checkpoint 보존, 서버 state interrupted 및 user-stop-record.json 기록. MLflow 항목은 이미 삭제된 상태여서 상태 갱신만 불가능했으며 복원하지 않았다. 자동 재개하지 않는다. 아래 학습 진행 표시는 과거 기록이다.
