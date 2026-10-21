@@ -41,3 +41,5 @@ LR 탐색1e-3~5e-3와 같은5-fold/seed/원본train600 pool은 이전 요청대�
 사용자의 학습 실행 지시를 받아 [새 CV Parent675bf807c9674425ba6f9de1ad536b91](https://mlflow.dove-nest.com/#/experiments/47/runs/675bf807c9674425ba6f9de1ad536b91)을 Jery(47)에 생성했다. 기준4a98932, detached supervisor232533. LR1e-3~5e-3의20개 조건 × 동일5fold =100회 학습이다. 데이터480train/120validation per fold 및 test20, LR 외 모든 model 설정은 기준Child와 동일하다. 기존 중단 CV state와 삭제된 MLflow 항목은 복원/재개하지 않았다.
 
 시작 전 config/plan reference equality와 기존 데이터 validator PASS, 기존 활성 Jery trainer0개·새 state 미생성을 확인했다. 준비시점의 preparation_status/purpose는 당시 기록이며 실제 실행 상태는 새 tracking/state.json과 MLflow를 따른다. 새 state 경로는 outputs/laya-ten-tools-lr-only-cv5-lr1e3ref-20261021/tracking이다.
+
+첫 trial3333418651b3430492c9a59f3278d813／fold2270554ca18643e78f9aed69c04543c6의 CUDA317steps/2epoch 및 MLflow epoch2를 확인했다. LR0.0012160733764562271, warmup10/maxnorm1/linear/WD0.05/smoothing0.1/batch4/seed3407로 실제 params10개를 기록한다. 총20×5fold=100회 진행 중이고 trial 평균/std는각5fold 종료 뒤 기록된다.
