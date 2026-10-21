@@ -67,6 +67,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 현재 상태
 
 
+2026-10-21 복구: 비교 params5개 backfill과 기존 exact-key 완료 검증의 충돌로 공동 탐색 supervisor가 Child10 업로드 뒤 종료된 것을 확인했다. 수정3ac42f4에서 승인된 비교 params만 추가 허용하고 필수/unknown/metrics 검증은 유지했다. 서버 테스트14개 PASS 후 같은 Parent3b7fd13f에서 supervisor229433 재개. Child10은 기존모델 SHA/mtime/steps/runner 목록 보존으로 재학습 없이 FINISHED, Child11 실제 CUDA750steps/5epoch를 확인했다. 기존20회가 이어 진행 중이다.
+
+
+
 2026-10-21 최신: LR 외 warmup·effective batch·clipping·scheduler도 함께 탐색하도록 실행기를 확장했다. [공동 탐색 Parent3b7fd13f](https://mlflow.dove-nest.com/#/experiments/47/runs/3b7fd13fe2f74146a520fa64d0c2305d) 아래20회 TPE: LR1e-3~5e-3, WD[0,0.05,0.1], smoothing[0,0.1], warmup[10,75,150], accumulation[1,2,4]/micro4→batch[4,8,16], maxnorm[0.5,1,2], scheduler[linear,cosine]. 전체171개 테스트와 서버 통합18개 PASS. LR-only 대기 Parent8e27은 Child0 상태로 중단하고 공동 탐색으로 대체했다. 기존6261 Parent 학습은 유지하며 완료 뒤 새 탐색을 자동 시작한다. 아래는 각 과거 시점 기록이다.
 
 

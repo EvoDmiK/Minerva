@@ -26,3 +26,5 @@ TORCHINDUCTOR_COMPILE_THREADS=4 PYTHONPATH=src /home/persona-ai/envs/jery-cuda/b
 ```
 
 이번 재실행은 이미 FINISHED인 upstream 대기를 다시 지정할 필요가 없다. 현재 Parent/Child의 실제 복구 결과와 supervisor PID는 아래에 추가 기록한다. 자동 params observer는 학습과 독립적이며 유지한다. 추가 의존성·모델·데이터 변경은 없다.
+
+복구 확인: 수정3ac42f4 서버 반영/서버 tracking14개 테스트 PASS. Supervisor229433 재개 뒤 Child10 f599948302284d26ab2a7a66173d2379가 FINISHED, Child11 f273c4e8e8db45cc8accb2a6dd41a9ac가 자동 시작됐다. Child10의 report/steps/metrics/head/config/source6개 SHA·mtime와 runner-1 단일 목록이 동일하여 재학습하지 않았음을 검증했다. Child11 실제 CUDA750steps/5epoch 확인. 증거 before/after JSON은 Parent recovery/ Artifact에 보관한다. 기존 Parent에서20회 중11번째 진행 상태다.
