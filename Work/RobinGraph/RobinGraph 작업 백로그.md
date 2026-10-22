@@ -29,7 +29,7 @@ tags: [robingraph, backlog]
 
 ### RG-101 — 문헌 Chunk 검색 저장소 분리 (PostgreSQL pgvector + Neo4j 정책 재확인)
 
-[[Work/RobinGraph/백로그 상세/RG-101|RG-101 상세]] · 문헌 Chunk 저장소 분리 · 문헌 축적 후 재개
+[[Work/RobinGraph/백로그 상세/RG-101|RG-101 상세]] · 문헌 Chunk 저장소 분리 · 문헌 축적 후 재개 (관련: [[Work/RobinGraph/작업기록/1xx DB·저장소/2026-10-22-TEST-Neo4j-힙감소-성능측정|힙감소 측정]])
 
 - **상태**: 보류 (소규모 기준선 완료 · 실제 문헌 축적 후 재개)
 - **우선순위**: 보류
