@@ -14,9 +14,9 @@ tags: [robingraph, backlog]
 
 | ID | 작업 | 상태 | 담당 | 상세 링크 |
 |---|---|---|---|---|
-| **RG-204** | 의미 기반 그래프 질의 해석 및 안전한 실행 전환 (상위) | 진행 중 (TEST 베이스라인 검증 완료, 전체 분류군×형질 일반화 수정 검증 진행 중; 단, RG-205 사람 검토 미완료) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-204\|상세 백로그]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG208-통합-관측-TEST-비교-단계적-전환\|RG208기록]] |
+| **RG-204** | 의미 기반 그래프 질의 해석 및 안전한 실행 전환 (상위) | 진행 중 (TEST 베이스라인 검증 완료, 전체 분류군×형질 일반화 수정 검증 진행 중; 단, RG-205 사람 검토 미완료) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-204\|상세 백로그]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG208-전체-분류군-형질-일반화-수정-검증\|일반화초안]] |
 | **RG-205** | 구조화 질의 계약·정답 평가셋·현재 기준선 (Phase 1) | 진행 중 (계약·기준선·평가셋 검증 완료; 사람 미검토 분리) | Claude, Codex | [[Work/RobinGraph/백로그 상세/RG-205\|상세 백로그]] |
-| **RG-208** | 통합·관측·TEST 비교·단계적 전환 (Phase 4) | 진행 중 (2026-10-22 수정 검증 착수: 전체 분류군×형질 일반화 요구 반영 중) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-208\|상세 백로그]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG208-통합-관측-TEST-비교-단계적-전환\|RG208기록]] |
+| **RG-208** | 통합·관측·TEST 비교·단계적 전환 (Phase 4) | 진행 중 (2026-10-22 수정 검증: 전체 분류군×형질 일반화 후보 검증 완료, 공개 TEST 배포 대기) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-208\|상세 백로그]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG208-전체-분류군-형질-일반화-수정-검증\|일반화초안]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG208-통합-관측-TEST-비교-단계적-전환\|베이스라인]] |
 
 ## 착수 대기
 
