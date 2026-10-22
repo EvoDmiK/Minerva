@@ -389,22 +389,33 @@ def compute_gcd_metrics(y_true, y_pred, known_classes):
     }
 ```
 
-### 3.5 엔드투엔드 학습 매니저 (Trainer Loop with Validation)
+### 3.5 엔드투엔드 학습 매니저 (Trainer Loop with Validation) (`src/trainer.py`)
 ```python
+import numpy as np
+import torch
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
-from tqdm import tqdm
+from sklearn.cluster import KMeans
+from .clustering import hungarian_align
+from .metrics import compute_gcd_metrics
 
 class DeepAlignedTrainer:
     def __init__(self, model, device, lr=5e-5):
         self.model = model.to(device)
         self.device = device
-        self.optimizer = torch.optim.AdamW(
-            filter(lambda p: p.requires_grad, self.model.parameters()), lr=lr
-        )
+        self.lr = lr
+        self.optimizer = self._build_optimizer(lr)
         self.prev_centroids = None
 
+    def _build_optimizer(self, lr):
+        """동결 레이어를 제외하고 학습 가능한 파라미터만 옵티마이저에 등록"""
+        trainable_params = [p for p in self.model.parameters() if p.requires_grad]
+        return torch.optim.AdamW(trainable_params, lr=lr)
+
     def extract_features(self, dataloader):
+        """데이터로더로부터 잠재 표상 벡터(Feature)와 라벨을 안전하게 추출"""
+        if dataloader is None:
+            return None, None
         self.model.eval()
         all_feats, all_labels = [], []
         with torch.no_grad():
@@ -414,19 +425,21 @@ class DeepAlignedTrainer:
                 feats, _ = self.model(input_ids, attention_mask)
                 all_feats.append(feats.cpu().numpy())
                 if len(batch) > 2:
-                    all_labels.append(batch[2].numpy())
-        all_feats = np.concatenate(all_feats, axis=0)
-        all_labels = np.concatenate(all_labels, axis=0) if all_labels else None
+                    lbl = batch[2]
+                    all_labels.append(lbl.cpu().numpy() if hasattr(lbl, "cpu") else np.array(lbl))
+                    
+        all_feats = np.concatenate(all_feats, axis=0) if all_feats else None
+        all_labels = np.concatenate(all_labels, axis=0) if len(all_labels) > 0 else None
         return all_feats, all_labels
 
-    def pretrain_step(self, train_labeled_loader, val_loader, epochs=5):
+    def pretrain_step(self, train_labeled_loader, val_loader=None, epochs=5):
         """1단계: Known 라벨 데이터로 표현 초기화 및 Known-only 검증"""
         print("\n=== [Stage 1] Supervised Pretraining on Known Labeled Data ===")
         self.model.train()
         for epoch in range(epochs):
             total_loss = 0.0
             for batch in train_labeled_loader:
-                input_ids, attention_mask, labels = [b.to(self.device) for b in batch]
+                input_ids, attention_mask, labels = [b.to(self.device) for b in batch[:3]]
                 self.optimizer.zero_grad()
                 _, logits = self.model(input_ids, attention_mask)
                 loss = F.cross_entropy(logits, labels)
@@ -434,16 +447,22 @@ class DeepAlignedTrainer:
                 self.optimizer.step()
                 total_loss += loss.item()
             
-            # Validation (Known Accuracy 측정)
-            val_acc = self.evaluate_classifier(val_loader)
-            print(f"Epoch {epoch+1}/{epochs} | Train Loss: {total_loss/len(train_labeled_loader):.4f} | Val (Known) ACC: {val_acc:.2f}%")
+            avg_loss = total_loss / len(train_labeled_loader) if len(train_labeled_loader) > 0 else 0.0
+            if val_loader is not None:
+                val_acc = self.evaluate_classifier(val_loader)
+                print(f"Epoch {epoch+1}/{epochs} | Train Loss: {avg_loss:.4f} | Val (Known) ACC: {val_acc:.2f}%")
+            else:
+                print(f"Epoch {epoch+1}/{epochs} | Train Loss: {avg_loss:.4f}")
 
     def evaluate_classifier(self, dataloader):
+        """Known-only Validation 세트 평가"""
+        if dataloader is None:
+            return 0.0
         self.model.eval()
         correct, total = 0, 0
         with torch.no_grad():
             for batch in dataloader:
-                input_ids, attention_mask, labels = [b.to(self.device) for b in batch]
+                input_ids, attention_mask, labels = [b.to(self.device) for b in batch[:3]]
                 _, logits = self.model(input_ids, attention_mask)
                 preds = torch.argmax(logits, dim=-1)
                 correct += (preds == labels).sum().item()
@@ -461,11 +480,27 @@ class DeepAlignedTrainer:
         )
         return aligned_labels
 
-    def train_aligned_clustering(self, train_unlabeled_loader, num_clusters, epochs=15, batch_size=128):
-        """3단계: Deep Aligned Clustering 에포크 루프"""
+    def train_aligned_clustering(self, train_unlabeled_loader, num_clusters, epochs=15, batch_size=128, lr_dac=1e-5):
+        """
+        3단계: Deep Aligned Clustering 에포크 루프
+        - [버그 차단] 분류 헤드 차원이 num_clusters와 다를 경우 자동 재할당 및 옵티마이저 재바인딩
+        - IndexError 및 CUDA/MPS assertion crash 원천 방지
+        """
         print("\n=== [Stage 2] Deep Aligned Clustering on Unlabeled Data ===")
-        input_ids_all = train_unlabeled_loader.dataset.tensors[0]
-        attention_mask_all = train_unlabeled_loader.dataset.tensors[1]
+        
+        # 분류 헤드 차원과 num_clusters 동기화
+        if self.model.classifier is None or self.model.classifier.out_features != num_clusters:
+            print(f"[DAC] Classifier head sync -> {num_clusters} classes")
+            self.model.reinit_classifier(num_clusters)
+            self.optimizer = self._build_optimizer(lr=lr_dac)
+            
+        dataset = train_unlabeled_loader.dataset
+        if hasattr(dataset, "tensors"):
+            input_ids_all = dataset.tensors[0]
+            attention_mask_all = dataset.tensors[1]
+        else:
+            input_ids_all = torch.stack([s[0] for s in dataset])
+            attention_mask_all = torch.stack([s[1] for s in dataset])
         
         for epoch in range(epochs):
             # 1) 전체 특징 추출
@@ -486,7 +521,7 @@ class DeepAlignedTrainer:
             self.model.train()
             total_loss = 0.0
             for batch in train_loader:
-                b_ids, b_mask, b_pseudo = [b.to(self.device) for b in batch]
+                b_ids, b_mask, b_pseudo = [b.to(self.device) for b in batch[:3]]
                 self.optimizer.zero_grad()
                 _, logits = self.model(b_ids, b_mask)
                 loss = F.cross_entropy(logits, b_pseudo)
@@ -494,20 +529,27 @@ class DeepAlignedTrainer:
                 self.optimizer.step()
                 total_loss += loss.item()
                 
-            print(f"[DAC] Epoch {epoch+1}/{epochs} | Clustering Loss: {total_loss/len(train_loader):.4f}")
+            avg_loss = total_loss / len(train_loader) if len(train_loader) > 0 else 0.0
+            print(f"[DAC] Epoch {epoch+1}/{epochs} | Clustering Loss: {avg_loss:.4f}")
 
     def evaluate_test(self, test_loader, num_clusters, known_classes):
-        """최종 테스트 세트 평가 (All / Known / Novel 메트릭 리포트)"""
+        """최종 테스트 세트 평가 (All / Known / Novel 메트릭 리포트 및 시각화 데이터 반환)"""
         print("\n=== [Final Evaluation] Test Set Metrics ===")
+        if test_loader is None:
+            print("Warning: test_loader가 없어 평가를 건너뜁니다.")
+            return None, None, None
+            
         features, y_true = self.extract_features(test_loader)
-        
-        # 테스트 세트 특성에 대해 최종 k-Means 군집화 수행
+        if y_true is None:
+            print("Warning: test_loader에 레이블이 없어 메트릭을 계산할 수 없습니다.")
+            return None, features, None
+            
         kmeans = KMeans(n_clusters=num_clusters, n_init=10, random_state=42).fit(features)
         y_pred = kmeans.labels_
         
         metrics = compute_gcd_metrics(y_true, y_pred, known_classes)
         print("Final Results:", metrics)
-        return metrics
+        return metrics, features, y_true
 ```
 
 ---
