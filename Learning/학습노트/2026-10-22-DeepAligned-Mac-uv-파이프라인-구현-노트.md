@@ -141,7 +141,7 @@ def prepare_gcd_dataset_from_tsv(
     로컬 TSV 파일을 로드하여 GCD 데이터셋(Known/Novel 분할, Known-only Val)으로 구성합니다.
     - Known 클래스는 train 라벨에서만 추출 (test 전용 클래스가 known이 되어 라벨이 0개가 되는 현상 방지)
     - np.random.default_rng(seed) 격리 난수 발생기 사용 (전역 시드 오염 방지)
-    - 불리언 마스크 기반 벡터화 인덱싱 (iterrows 연산 병목 제거)
+    - Known 클래스별 층화 분할 (모든 Known 클래스에 labeled/val 샘플 보장, iterrows 미사용)
     - 빈 validation subset 발생 시 방어 예외 처리
     - 정확한 GCD 용어: train_unlabeled (Known 비라벨 + Novel 전량 병합 풀)
     """
@@ -178,12 +178,20 @@ def prepare_gcd_dataset_from_tsv(
     known_classes = set(shuffled_train_classes[:num_known])
     novel_classes = set(c_id for c_id in label2id.values() if c_id not in known_classes)
     
-    # 3) [성능 개선] 벡터화 마스킹 분할 (iterrows 병목 제거)
-    is_known = train_df["label_id"].isin(known_classes)
-    r = rng.random(len(train_df))
-    
-    train_labeled_idx = train_df.index[is_known & (r < labeled_ratio * 0.8)]
-    val_idx = train_df.index[is_known & (r >= labeled_ratio * 0.8) & (r < labeled_ratio)]
+    # 3) [버그 수정] Known 클래스별 층화 분할
+    #    - 샘플 단위 난수 분할은 소규모 데이터에서 val이 비거나 특정 Known 클래스의 labeled 샘플이 0개가 될 수 있음
+    #    - 클래스마다 labeled_ratio만큼 뽑고, 그중 약 20%를 val로 사용 (클래스당 labeled 최소 2개 → train 1 + val 1 보장)
+    label_ids = train_df["label_id"].to_numpy()
+    train_labeled_idx, val_idx = [], []
+    for c in sorted(known_classes):
+        c_idx = rng.permutation(np.flatnonzero(label_ids == c))
+        n_labeled = min(len(c_idx), max(2, int(round(len(c_idx) * labeled_ratio))))
+        n_val = max(1, int(round(n_labeled * 0.2))) if n_labeled >= 2 else 0
+        val_idx.extend(c_idx[:n_val])
+        train_labeled_idx.extend(c_idx[n_val:n_labeled])
+
+    train_labeled_idx = pd.Index(sorted(train_labeled_idx))
+    val_idx = pd.Index(sorted(val_idx))
     train_unlabeled_idx = train_df.index[~train_df.index.isin(train_labeled_idx.union(val_idx))]
     
     # 4) [방어 코드] 빈 subset 예외 처리
@@ -435,8 +443,9 @@ class DeepAlignedTrainer:
     def pretrain_step(self, train_labeled_loader, val_loader=None, epochs=5):
         """1단계: Known 라벨 데이터로 표현 초기화 및 Known-only 검증"""
         print("\n=== [Stage 1] Supervised Pretraining on Known Labeled Data ===")
-        self.model.train()
         for epoch in range(epochs):
+            # [버그 수정] evaluate_classifier()가 eval 모드로 바꾸므로 매 에포크 train 모드 복귀 (Dropout 활성화)
+            self.model.train()
             total_loss = 0.0
             for batch in train_labeled_loader:
                 input_ids, attention_mask, labels = [b.to(self.device) for b in batch[:3]]
@@ -637,9 +646,17 @@ def test_gcd_data_leakage_and_splits(tmp_path):
 과제 제출물에 t-SNE 시각화가 포함되면 분석의 깊이가 크게 돋보입니다. Known 클래스와 Novel 클래스를 시각적으로 구분하여 표상 분리도를 보여줍니다.
 ```python
 import os
+import random
 import numpy as np
+import torch
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
+
+def set_seed(seed=42):
+    """재현성을 위한 전역 시드 고정 (Python / NumPy / PyTorch CPU·CUDA·MPS)"""
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)  # CUDA, MPS 시드도 함께 설정됨
 
 def plot_tsne(features, labels, known_classes, save_path="outputs/plots/cluster_tsne.png"):
     """
@@ -687,7 +704,7 @@ from transformers import AutoTokenizer
 from src.data import prepare_gcd_dataset_from_tsv
 from src.models import BertForDeepAligned
 from src.trainer import DeepAlignedTrainer
-from src.utils import plot_tsne
+from src.utils import plot_tsne, set_seed
 
 def get_device():
     if torch.cuda.is_available():
@@ -712,6 +729,8 @@ def main():
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
     args = parser.parse_args()
 
+    # 분류 헤드 초기화·DataLoader 셔플 등 PyTorch 난수까지 재현되도록 시드 고정
+    set_seed(args.seed)
     device = get_device()
     print(f"[*] Running on device: {device}")
 
