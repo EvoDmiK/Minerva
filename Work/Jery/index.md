@@ -12,19 +12,20 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 ## 현재 실험
 
-**LR만 변경하는 20개 조건 × 층화 5-fold 검증**
+**기준 설정 1개 + LR 고정 파라미터 탐색 19개 · 동일한 층화 5-fold**
 
 | 항목 | 내용 |
 |---|---|
-| 진행 확인 | 2026-10-22 09:58 KST · 업로드 오류 복구 완료 · 15개 조건 완료, 16번째 조건의 fold 4 시작 |
-| 학습률 | `1e-3 ~ 5e-3` · Hyperopt TPE |
-| 기준 설정 | 지정한 `lr1e3` 실험의 최종 선택 Child · LR 외 설정 고정 |
+| 진행 확인 | 2026-10-22 12:36 KST · 새 Parent 생성, 첫 기준 조건 준비 중 |
+| 고정 학습률 | `0.00028884521694941566` |
+| 기준 run | `laya-ten-tools-train600-refine20-lr0.000288845` |
+| 탐색 대상 | 배치·warmup·clipping·scheduler·weight decay·label smoothing |
 | 데이터 | 합성 600개 · fold별 학습 480 / 검증 120 |
-| 환경 | Linux · RTX 5070 Ti · Laya 인코더 고정, head 학습 |
+| 환경 | Linux · RTX 5070 Ti · 인코더 고정, head 학습 |
 
-[MLflow에서 진행 확인](https://mlflow.dove-nest.com/#/experiments/47/runs/675bf807c9674425ba6f9de1ad536b91) · [[Work/Jery/작업기록/2026-10-21-Jery-LR외설정-lr1e3선택Child기준통일|설정·검증·실행 자료]]
+[MLflow에서 진행 확인](https://mlflow.dove-nest.com/#/experiments/47/runs/d9636e10f0b6449dbf6975e945e07aad) · [[Work/Jery/작업기록/2026-10-22-Jery-LR고정-기준1회-파라미터탐색19회|설정·검증·실행 자료]]
 
-MLflow는 **전체 실험 → LR 조건 → fold** 순서로 펼친다. 조건별 평균·표준편차는 5개 fold 완료 후 표시된다. 위 진행은 확인 시점의 기록이다.
+구조는 **전체 실험 → 조건 20개 → 조건별 fold 5개**다. 실제 학습은 총 100회이며 조건별 평균·표준편차는 5개 fold 완료 후 표시된다. 이전 LR 단독 실험은 20개 조건 모두 완료됐다.
 
 ## 남은 과제
 
@@ -36,6 +37,8 @@ MLflow는 **전체 실험 → LR 조건 → fold** 순서로 펼친다. 조건�
 ## 작업 기록
 
 ### 2026-10-22
+
+- [[Work/Jery/작업기록/2026-10-22-Jery-LR고정-기준1회-파라미터탐색19회|LR 고정 · 기준 1개 + 파라미터 탐색 19개]]
 
 - [[Work/Jery/작업기록/2026-10-22-Jery-MLflow-HTTP520-업로드복구|MLflow HTTP 520 · 업로드 중단 복구]]
 
