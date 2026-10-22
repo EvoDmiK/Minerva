@@ -14,6 +14,10 @@
 
 [전체 학습 실행기](https://github.com/EvoDmiK/Jery/blob/dev-codex/scripts/run_laya_full_experiment.py)와 [CV 실행기](https://github.com/EvoDmiK/Jery/blob/dev-codex/scripts/run_laya_cv_experiment.py)의 재시도 정책을 통일했다. 학습 설정·데이터·LR 후보는 변경하지 않았다.
 
+## 복구 결과
+
+**2026-10-22 09:58 KST 확인:** fold 3의 업로드와 완료 검증을 마쳤고, MLflow에서도 `FINISHED`를 확인했다. 같은 Trial 16의 fold 4가 시작됐다. 기존 결과 파일 48개의 SHA·수정 시각과 기존 Parent·fold run ID가 모두 동일했다.
+
 ## 복구 절차
 
 1. 두 supervisor의 lock이 해제되어 있고 기존 학습 프로세스가 없음을 확인했다.
@@ -27,6 +31,6 @@
 
 - 서버 tracking 테스트 **15개**, CV 테스트 **4개** 모두 통과.
 - 기존 데이터 검증 통과: 130개 사례 · 10개 도구 · 65개 분리된 시나리오.
-- 복구 전 증거: 서버 상태 디렉터리의 `recovery-http520-before.json`.
+- 복구 증거: 서버 상태 디렉터리의 `recovery-http520-before.json`, `recovery-http520-after.json`.
 
 새 의존성은 없다. 실행 재개는 전체 20개 조건의 완료를 의미하지 않는다.
