@@ -1,46 +1,33 @@
 ---
-created: 2026-10-07
-updated: 2026-10-21
-type: learning-category-index
+date: 2026-10-21
+created: 2026-10-21
+updated: 2026-10-22
 document_role: index
+title: "학습노트 인덱스"
+tags: [learning, index]
 ---
+# 학습노트 인덱스
 
-# Learning — 학습노트
+> [!info] 안내
+> [[Learning/원문/index|원문]]을 바탕으로 핵심 구조, 수식, 벤치마크, 실무 적용점을 한국어로 분석·정리한 학습노트 모음입니다.
 
-작성한 요약·번역·해설·주제 비교·실험·적용 아이디어를 모은다. 원문 보관본이나 변환 검증 기록과 구분하는 작성 공간이다.
+```dataview
+TABLE date as "작성일", paper_title as "논문 제목", tags as "태그"
+FROM "Learning/학습노트"
+WHERE document_role = "learning-note"
+SORT file.name DESC
+```
 
-## 작성 기준
+## 최근 학습노트
 
-- `document_role: learning-note`와 `note_kind`(summary / translation / commentary / comparison / experiment)를 기록한다.
-- `source_notes`에 참고한 원문 보관본을 연결한다. 여러 자료를 사용하면 모두 기록한다.
-- 원문에 있는 내용, 자신의 해석, 실험으로 확인한 결과를 구분한다.
-- 작성 예정은 이 인덱스의 ‘작성 예정’ 목록에 적고, 문서가 생긴 뒤 링크로 바꾼다. 빈 문서를 완료 자료처럼 만들지 않는다.
-- 새 글을 작성하면 이 인덱스와 [[Learning/index|Learning 전체 목록]]에 반영한다.
+- [[Learning/학습노트/2026-10-22-DeepAligned-Mac-uv-파이프라인-구현-노트|DeepAligned: Mac uv 파이프라인 구현 및 인터뷰 과제 실행 가이드]]
+- [[Learning/학습노트/2026-10-21-SimGCD-파라메트릭-분류-카테고리-발견-논문-노트|SimGCD: Parametric Classification for Generalized Category Discovery (ICCV 2023)]]
+- [[Learning/학습노트/2026-10-21-MTP-CLNN-사전학습-대조학습-인텐트발견-논문-노트|MTP-CLNN: Multi-Task Pre-training with Contrastive Learning for Novel Intent Discovery (ACL 2022)]]
+- [[Learning/학습노트/2026-10-21-GCD-Vaze-일반화-카테고리-발견-논문-노트|Generalized Category Discovery (Vaze et al., CVPR 2022)]]
+- [[Learning/학습노트/2026-10-21-DeepAligned-신규-인텐트-발견-논문-노트|DeepAligned: Deep Aligned Clustering for New Intent Discovery (AAAI 2021)]]
 
-## 작성된 문서
+## 관련 인덱스
 
-- [[Learning/학습노트/2026-10-17-pi05-논문-핵심-내용-한국어-정리|π0.5 논문 핵심 내용 — 한국어 정리]] — 대화에서 제공한 한국어 요약·해설 보관본.
-
-### π0.5 관련 연구
-
-- [[Learning/학습노트/2026-10-18-pi05-관련-논문-연결지도|π0.5 관련 논문 연결지도]] — 먼저 읽을 비교 허브.
-- [[Learning/학습노트/2026-10-18-VLA-관련-논문-비교-pi05-중심|VLA 관련 논문 비교 — π0.5 중심]] — 구조·데이터·계획·평가 조건의 상세 비교.
-- [[Learning/학습노트/2026-10-18-pi0-범용-로봇-정책-논문-노트|π0]] — 직접 기반인 범용 제어 모델.
-- [[Learning/학습노트/2026-10-18-FAST-행동-토큰화-논문-노트|FAST]] — 행동 토큰화.
-- [[Learning/학습노트/2026-10-18-RT-2-웹지식-로봇제어-논문-노트|RT-2]] — 웹 지식과 로봇 제어.
-- [[Learning/학습노트/2026-10-18-OpenVLA-오픈-VLA-논문-노트|OpenVLA]] — 공개 VLA와 환경 적응.
-- [[Learning/학습노트/2026-10-18-Octo-다중로봇-정책-논문-노트|Octo]] — 다중 로봇 정책과 새로운 인터페이스 적응.
-- [[Learning/학습노트/2026-10-18-Hi-Robot-계층형-지시수행-논문-노트|Hi Robot]] — 계층형 지시 이해·실행.
-
-### GCD 및 New Intent Discovery (오픈월드 범주 발견)
-
-- [[Learning/학습노트/2026-10-21-GCD-일반화-카테고리-발견-논문-노트|GCD (Vaze et al., CVPR 2022)]] — 비전 GCD 문제 공식 정의와 Semi-supervised k-Means 기반 원조 알고리즘.
-- [[Learning/학습노트/2026-10-21-SimGCD-파라메트릭-분류-GCD-논문-노트|SimGCD (ICCV 2023)]] — k-Means를 대체한 파라메트릭 분류기 및 엔트로피 정규화 기반 최강 베이스라인.
-- [[Learning/학습노트/2026-10-21-DeepAligned-신규-인텐트-발견-논문-노트|DeepAligned (AAAI 2021)]] — 헝가리안 알고리즘 기반 군집 중심 정렬을 통한 Banking77 신규 인텐트 발굴.
-- [[Learning/학습노트/2026-10-21-MTP-CLNN-사전학습-대조학습-인텐트발견-논문-노트|MTP-CLNN (ACL 2022)]] — 다중작업 사전학습 및 최근접 이웃(KNN) 대조 학습을 통한 Banking77 고성능 인텐트 발견.
-
-## 작성 예정
-
-현재 등록된 주제 없음. 폴더 구분 요청만으로 새 학습·실험 작업을 자동 등록하지 않는다.
-
-- [[Learning/index|Learning 전체 목록]]
+- [[Learning/원문/index|원문 인덱스]]
+- [[Learning/index|Learning 인덱스]]
+- [[Home]]
