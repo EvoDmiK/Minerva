@@ -582,9 +582,208 @@ deepaligned-nid/
     └── plots/                  # t-SNE 잠재공간 시각화 이미지 (cluster_tsne.png)
 ```
 
-### 4.2 단일 스크립트 실행 (`uv run`)
+### 4.2 데이터 누수 방지 유닛 테스트 (`tests/test_leakage.py`)
+면접관에게 코드 신뢰도를 입증하기 위해, **Validation 세트에 Novel 클래스가 단 1개도 유입되지 않았음**을 검증하는 pytest 코드입니다.
+```python
+import pytest
+from transformers import AutoTokenizer
+from src.data import prepare_gcd_dataset_from_tsv
+
+def test_gcd_data_leakage_and_splits(tmp_path):
+    # 가상의 Banking77 모의 TSV 파일 생성
+    train_tsv = tmp_path / "train.tsv"
+    tsv_content = (
+        "text\tlabel\n"
+        "card arrival inquiry\tcard_arrival\n"
+        "where is my card\tcard_arrival\n"
+        "change card pin\tchange_pin\n"
+        "pin code update\tchange_pin\n"
+        "crypto buy bitcoin\tcrypto_deposit\n"
+        "btc balance check\tcrypto_deposit\n"
+        "loan inquiry\tloan_rates\n"
+        "interest rate inquiry\tloan_rates\n"
+    )
+    train_tsv.write_text(tsv_content, encoding="utf-8")
+    
+    tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+    dataset_dict = prepare_gcd_dataset_from_tsv(
+        tokenizer=tokenizer,
+        train_path=str(train_tsv),
+        known_ratio=0.5,
+        labeled_ratio=0.5,
+        seed=42,
+        output_dir=str(tmp_path)
+    )
+    
+    known_classes = dataset_dict["known_classes"]
+    novel_classes = dataset_dict["novel_classes"]
+    
+    # 1) Known과 Novel의 상호 배타성 검증
+    assert len(known_classes.intersection(novel_classes)) == 0, "Known과 Novel 클래스에 중복이 존재합니다."
+    
+    # 2) [핵심 검증] Validation 세트에 Novel 클래스 라벨이 절대 없어야 함 (Target Leakage 차단)
+    val_set = dataset_dict["val"]
+    val_labels = set(sample[2].item() for sample in val_set)
+    leakage = val_labels.intersection(novel_classes)
+    assert len(leakage) == 0, f"Target Leakage 검출! Validation 세트에 Novel 클래스 포함됨: {leakage}"
+    
+    # 3) Train Labeled 세트에 Novel 클래스 라벨이 없어야 함
+    labeled_set = dataset_dict["train_labeled"]
+    labeled_labels = set(sample[2].item() for sample in labeled_set)
+    assert len(labeled_labels.intersection(novel_classes)) == 0, "Train Labeled에 Novel 클래스 포함됨!"
+```
+
+### 4.3 정성적 분석 및 시각화 (`src/utils.py`)
+과제 제출물에 t-SNE 시각화가 포함되면 분석의 깊이가 크게 돋보입니다. Known 클래스와 Novel 클래스를 시각적으로 구분하여 표상 분리도를 보여줍니다.
+```python
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+
+def plot_tsne(features, labels, known_classes, save_path="outputs/plots/cluster_tsne.png"):
+    """
+    추출된 잠재 표상을 2D t-SNE로 축소하여 Known(원형)/Novel(삼각형) 분리도를 시각화합니다.
+    - [방어 코드] 텐서 입력 시 안전한 CPU 변환 및 자동 디렉터리 생성
+    """
+    if hasattr(features, "cpu"):
+        features = features.cpu().numpy()
+    if hasattr(labels, "cpu"):
+        labels = labels.cpu().numpy()
+
+    dir_name = os.path.dirname(save_path)
+    if dir_name:
+        os.makedirs(dir_name, exist_ok=True)
+
+    tsne = TSNE(n_components=2, random_state=42)
+    embeds_2d = tsne.fit_transform(features)
+    
+    plt.figure(figsize=(10, 8))
+    is_known = np.isin(labels, list(known_classes))
+    
+    # Known 클래스는 원형(o), Novel 클래스는 테두리가 있는 삼각형(^)으로 구분 표시
+    plt.scatter(embeds_2d[is_known, 0], embeds_2d[is_known, 1], c=labels[is_known], 
+                cmap="tab20", marker="o", s=15, alpha=0.6, label="Known")
+    plt.scatter(embeds_2d[~is_known, 0], embeds_2d[~is_known, 1], c=labels[~is_known], 
+                cmap="tab20", marker="^", s=25, alpha=0.8, edgecolor="black", linewidth=0.5, label="Novel")
+    
+    plt.title("DeepAligned Latent Space (Known vs Novel)")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=300)
+    plt.close()
+    print(f"[Visualization] t-SNE plot saved -> {save_path}")
+```
+
+### 4.4 엔드투엔드 단일 실행 진입점 (`deepaligned_pipeline.py`)
+면접관이 단 하나의 명령어로 전체 파이프라인(TSV 로드 -> 50:50 분할 -> 사전학습 -> DAC 군집화 -> All/Known/Novel 평가 -> t-SNE 시각화)을 재현할 수 있는 메인 실행 스크립트입니다.
+```python
+import argparse
+import os
+import torch
+from torch.utils.data import DataLoader
+from transformers import AutoTokenizer
+
+from src.data import prepare_gcd_dataset_from_tsv
+from src.models import BertForDeepAligned
+from src.trainer import DeepAlignedTrainer
+from src.utils import plot_tsne
+
+def get_device():
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    elif torch.backends.mps.is_available():
+        return torch.device("mps")
+    else:
+        return torch.device("cpu")
+
+def main():
+    parser = argparse.ArgumentParser(description="DeepAligned GCD Pipeline on Local TSV")
+    parser.add_argument("--train_path", type=str, default="data/train.tsv", help="Path to train TSV")
+    parser.add_argument("--test_path", type=str, default="data/test.tsv", help="Path to test TSV")
+    parser.add_argument("--known_ratio", type=float, default=0.5, help="Known class ratio")
+    parser.add_argument("--labeled_ratio", type=float, default=0.1, help="Labeled ratio within Known")
+    parser.add_argument("--epochs_pretrain", type=int, default=5, help="Stage 1 Pretrain epochs")
+    parser.add_argument("--epochs_dac", type=int, default=15, help="Stage 2 DAC epochs")
+    parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
+    parser.add_argument("--lr", type=float, default=5e-5, help="Pretraining learning rate")
+    parser.add_argument("--lr_dac", type=float, default=1e-5, help="DAC learning rate")
+    parser.add_argument("--output_dir", type=str, default="outputs", help="Output directory")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed")
+    args = parser.parse_args()
+
+    device = get_device()
+    print(f"[*] Running on device: {device}")
+
+    # 1. 토크나이저 및 로컬 TSV 데이터셋 로드
+    tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+    dataset_dict = prepare_gcd_dataset_from_tsv(
+        tokenizer=tokenizer,
+        train_path=args.train_path,
+        test_path=args.test_path if os.path.exists(args.test_path) else None,
+        known_ratio=args.known_ratio,
+        labeled_ratio=args.labeled_ratio,
+        seed=args.seed,
+        output_dir=args.output_dir
+    )
+
+    num_total_classes = dataset_dict["num_total_classes"]
+    known_classes = dataset_dict["known_classes"]
+    print(f"[*] Total Classes: {num_total_classes} | Known: {len(known_classes)} | Novel: {len(dataset_dict['novel_classes'])}")
+
+    # 2. 데이터로더 구축
+    train_labeled_loader = DataLoader(dataset_dict["train_labeled"], batch_size=args.batch_size, shuffle=True)
+    val_loader = DataLoader(dataset_dict["val"], batch_size=args.batch_size, shuffle=False)
+    train_unlabeled_loader = DataLoader(dataset_dict["train_unlabeled"], batch_size=args.batch_size, shuffle=False)
+    test_loader = DataLoader(dataset_dict["test"], batch_size=args.batch_size, shuffle=False) if dataset_dict["test"] is not None else None
+
+    # 3. 모델 초기화 및 하위 레이어 동결 (Mac MPS 가속 최적화)
+    model = BertForDeepAligned(
+        pretrained_model_name="bert-base-uncased",
+        num_classes=num_total_classes
+    )
+    model.freeze_backbone_except_last_layer()
+
+    # 4. 트레이너 초기화
+    trainer = DeepAlignedTrainer(model=model, device=device, lr=args.lr)
+
+    # 5. [Stage 1] 지도 사전학습 (Known Labeled) & Known-only 검증
+    trainer.pretrain_step(train_labeled_loader, val_loader=val_loader, epochs=args.epochs_pretrain)
+
+    # 6. [Stage 2] Deep Aligned Clustering 루프 (Unlabeled)
+    # 벤치마크 기본: Oracle K (num_total_classes) 설정
+    num_clusters = num_total_classes
+    trainer.train_aligned_clustering(
+        train_unlabeled_loader=train_unlabeled_loader,
+        num_clusters=num_clusters,
+        epochs=args.epochs_dac,
+        batch_size=args.batch_size,
+        lr_dac=args.lr_dac
+    )
+
+    # 7. [최종 평가] Test 세트 All / Known / Novel 성능 평가
+    eval_target_loader = test_loader if test_loader is not None else train_unlabeled_loader
+    metrics, features, y_true = trainer.evaluate_test(
+        test_loader=eval_target_loader,
+        num_clusters=num_clusters,
+        known_classes=known_classes
+    )
+
+    # 8. 잠재 공간 시각화 (t-SNE)
+    if features is not None and y_true is not None:
+        plot_path = os.path.join(args.output_dir, "plots", "cluster_tsne.png")
+        plot_tsne(features, y_true, known_classes, save_path=plot_path)
+
+if __name__ == "__main__":
+    main()
+```
+
+### 4.5 단일 스크립트 실행 명령어 (`uv run`)
 ```bash
-# 로컬 TSV 기반 50% Known 세팅 단일 실행
+# 1) 데이터 누수 방지 유닛 테스트 실행
+uv run pytest tests/test_leakage.py
+
+# 2) 로컬 TSV 기반 단일 엔드투엔드 파이프라인 실행
 uv run python deepaligned_pipeline.py \
   --train_path data/train.tsv \
   --test_path data/test.tsv \
@@ -593,31 +792,6 @@ uv run python deepaligned_pipeline.py \
   --epochs_pretrain 5 \
   --epochs_dac 15 \
   --batch_size 64
-```
-
-### 4.2 정성적 분석 및 시각화 (t-SNE)
-과제 제출물에 t-SNE 시각화가 포함되면 분석의 깊이가 크게 돋보입니다. Known 클래스와 Novel 클래스를 시각적으로 구분하여 표상 분리도를 보여줄 수 있습니다.
-```python
-from sklearn.manifold import TSNE
-import matplotlib.pyplot as plt
-
-def plot_tsne(features, labels, known_classes, save_path="cluster_tsne.png"):
-    tsne = TSNE(n_components=2, random_state=42)
-    embeds_2d = tsne.fit_transform(features)
-    
-    plt.figure(figsize=(10, 8))
-    # Known 클래스는 원형(o), Novel 클래스는 삼각형(^)으로 구분 표시
-    is_known = np.isin(labels, list(known_classes))
-    
-    plt.scatter(embeds_2d[is_known, 0], embeds_2d[is_known, 1], c=labels[is_known], 
-                cmap="tab20", marker="o", s=15, alpha=0.6, label="Known")
-    plt.scatter(embeds_2d[~is_known, 0], embeds_2d[~is_known, 1], c=labels[~is_known], 
-                cmap="tab20", marker="^", s=25, alpha=0.8, edgecolor="black", linewidth=0.5, label="Novel")
-    
-    plt.title("DeepAligned Latent Space (Known vs Novel)")
-    plt.legend()
-    plt.savefig(save_path, dpi=300)
-    plt.close()
 ```
 
 ### 4.3 모델 한계점 및 후속 개선 방향 (보고서/README 필수 항목)
