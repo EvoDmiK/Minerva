@@ -110,3 +110,123 @@ KCL ([Hsu, Lv, and Kira 2018](#bib.bib16)) uses deep neural networks to perform
 | BANKING | 77 (58 + 19) | 9,003 | 1,000 | 3,080 | 5,028 | 79 / 11.91 |
 
 Table 1:  Statistics of CLINC and BANKING datasets. # indicates the total number of sentences. In each run of the experiment, we randomly select 75% intents as known intents. Taking the CLINC dataset as an example, we randomly select 113 known intents and treat the remaining 37 intents as new intents.
+## Our Approach
+
+In this section, we will describe the proposed method in detail. As shown in Figure [2](#Sx1.F2 "Figure 2 ‣ Introduction ‣ Discovering New Intents with Deep Aligned Clustering"), we firstly extract intent representations with BERT. Then, we transfer the knowledge from known intents with limited labeled data. Finally, we propose an alignment strategy to provide self-supervised signals for learning clustering-friendly representations.
+
+### Intent Representation
+
+The pre-trained BERT model demonstrates its remarkable effect in NLP tasks ([Devlin et al. 2019](#bib.bib7)), so we use it to extract deep intent representations. Firstly, we feed the ithi^{th} input sentence 𝒔i\boldsymbol{s}\_{i} to BERT, and take all its token embeddings [CLS,T1,⋯,TM][CLS,T\_{1},\cdots,T\_{M}] ∈\in ℝ(M+1)×H\mathds{R}^{(M+1)\times H} from the last hidden layer. Then, we apply mean-pooling to get the averaged sentence feature representation 𝒛i∈ℝH\boldsymbol{z}\_{i}\in\mathds{R}^{H}:
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+|  | 𝒛i=mean-pooling([CLS,T1,⋯,TM]),\displaystyle\boldsymbol{z}\_{i}=\text{mean-pooling}([CLS,T\_{1},\cdots,T\_{M}]), |  | (1) |
+
+where CLSCLS is the vector for text classification, MM is the sequence length, and HH is the hidden size. To further enhance the feature extraction capability, we add a dense layer hh to get the intent feature representation 𝑰i∈ℝD\boldsymbol{I}\_{i}\in\mathds{R}^{D}:
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+|  | 𝑰i=h(𝒛i)=σ(Wh𝒛i+bh),\displaystyle\boldsymbol{I}\_{i}=h(\boldsymbol{z}\_{i})=\sigma(W\_{h}\boldsymbol{z}\_{i}+b\_{h}), |  | (2) |
+
+where DD is the dimension of the intent representation, σ\sigma is the Tanh activation function, Wh∈ℝH×DW\_{h}\in\mathds{R}^{H\times D} is the weight matrix and bh∈ℝDb\_{h}\in\mathds{R}^{D} is the corresponding bias term.
+
+### Transferring Knowledge from Known Intents
+
+To effectively transfer the knowledge, we use the limited labeled data to pre-train the model and leverage the well-trained intent features to estimate the number of clusters.
+
+#### Pre-training
+
+We hope to incorporate the limited prior knowledge to obtain a good representation initialization for grouping both known and novel intents. As suggested in ([Han, Vedaldi, and Zisserman 2019](#bib.bib14)), we capture such intent feature information by pre-training the model with the labeled data. Specifically, we learn the feature representations under the supervision of the cross-entropy loss. After pre-training, we remove the classifier and use the rest of the network as the feature extractor in the subsequent unsupervised clustering process.
+
+#### Predict KK
+
+In real scenarios, we may not always know the number of new intent categories.
+In this case, we need to determine the number of clusters KK before clustering. Therefore, we propose a simple and effective method to estimate KK with the aid of the well-initialized intent features.
+
+We assign a big K′K^{\prime} as the number of clusters (e.g., two times of the ground truth number of intent classes) at first. As a good feature initialization is helpful for partition-based methods (e.g., k-means) ([Platt et al. 1999](#bib.bib27)), we use the well pre-trained model to extract intent features. Then, we perform k-means with the extracted features. We suppose that real clusters tend to be dense even with K′K^{\prime}, and the size of more confident clusters is larger than some threshold tt. Therefore, we drop the low confidence cluster which size smaller than tt, and calculate KK with:
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+|  | K=∑i=1K′δ(|Si|>=t),\displaystyle K=\sum\_{i=1}^{K^{\prime}}\delta(|S\_{i}|>=t), |  | (3) |
+
+where |Si||S\_{i}| is the size of the ithi^{th} produced cluster, and δ(condition)\delta{(condition)} is an indicator function. It outputs 1 if conditioncondition is satisfied, and outputs 0 if not. Notably, we assign the threshold tt as the expected cluster mean size NK′\frac{N}{K^{\prime}} in this formula.
+
+|  |  |  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  | CLINC | | | BANKING | | |
+|  | Method | NMI | ARI | ACC | NMI | ARI | ACC |
+| Unsupervised. | KM | 70.89 | 26.86 | 45.06 | 54.57 | 12.18 | 29.55 |
+|  | AG | 73.07 | 27.70 | 44.03 | 57.07 | 13.31 | 31.58 |
+|  | SAE-KM | 73.13 | 29.95 | 46.75 | 63.79 | 22.85 | 38.92 |
+|  | DEC | 74.83 | 27.46 | 46.89 | 67.78 | 27.21 | 41.29 |
+|  | DCN | 75.66 | 31.15 | 49.29 | 67.54 | 26.81 | 41.99 |
+|  | DAC | 78.40 | 40.49 | 55.94 | 47.35 | 14.24 | 27.41 |
+|  | DeepCluster | 65.58 | 19.11 | 35.70 | 41.77 | 8.95 | 20.69 |
+| Semi-supervised. | PCK-means | 68.70 | 35.40 | 54.61 | 48.22 | 16.24 | 32.66 |
+|  | BERT-KCL | 86.82 | 58.79 | 68.86 | 75.21 | 46.72 | 60.15 |
+|  | BERT-MCL | 87.72 | 59.92 | 69.66 | 75.68 | 47.43 | 61.14 |
+|  | CDAC+ | 86.65 | 54.33 | 69.89 | 72.25 | 40.97 | 53.83 |
+|  | BERT-DTC | 90.54 | 65.02 | 74.15 | 76.55 | 44.70 | 56.51 |
+|  | DeepAligned | 93.89 | 79.75 | 86.49 | 79.56 | 53.64 | 64.90 |
+
+Table 2:
+The clustering results on two datasets. We evaluate both unsupervised and semi-supervised clustering methods.
+
+|  |  | CLINC | | | BANKING | | |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  | Method | NMI | ARI | ACC | NMI | ARI | ACC |
+| Without Pre-training | Reinitialization | 57.80 | 9.63 | 23.02 | 34.34 | 4.49 | 13.67 |
+|  | Alignment | 62.53 | 14.10 | 28.63 | 36.91 | 5.23 | 15.42 |
+| With Pre-training | Reinitialization | 82.90 | 45.67 | 55.80 | 68.12 | 31.56 | 41.32 |
+|  | Alignment | 93.89 | 79.75 | 86.49 | 79.56 | 53.64 | 64.90 |
+
+Table 3:
+Effectiveness of the pre-training and the alignment strategy on two datasets.
+
+### Deep Aligned Clustering
+
+After transferring knowledge from known intents, we propose an effective clustering method to find unlabeled known classes and discover novel classes. We firstly perform clustering and obtain cluster assignments and centroids. Then, we propose an original strategy to provide aligned targets for self-supervised learning.
+
+#### Unsupervised Learning by Clustering
+
+As most of the training data are unlabeled, it is important to effectively use a mass of unlabeled samples for discovering novel classes.
+
+Inspired by DeepCluster ([Caron et al. 2018](#bib.bib4)), we can benefit from the discriminative power of BERT to produce structured outputs as weak supervised signals. Specifically, we firstly extract intent features of all training data from the pre-trained model. Then, we use a standard clustering algorithm, K-Means, to learn both the optimal cluster centroid matrix 𝑪\boldsymbol{C} and the cluster assignments {yi}i=1N\{y\_{i}\}\_{i=1}^{N}:
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+|  | min𝑪∈ℝK×D1N∑i=1Nminyi∈{1,…,K}‖𝑰i−𝑪yi‖22,\displaystyle\min\_{\boldsymbol{C}\in\mathds{R}^{K\times D}}\frac{1}{N}\sum\_{i=1}^{N}\min\_{y\_{i}\in\{1,\ldots,K\}}\left\|\boldsymbol{I}\_{i}-\boldsymbol{C}\_{y\_{i}}\right\|\_{2}^{2}, |  | (4) |
+
+where NN is the number of training samples and ∥⋅∥22\|\cdot\|\_{2}^{2} denotes the squared Euclidean distance. Then, we leverage the cluster assignments as pseudo-labels for feature learning.
+
+#### Self-supervised Learning with Aligned Pseudo-labels
+
+DeepCluster alternates between clustering and updating network parameters. It performs k-means to produce cluster assignments as pseudo-labels and uses them to train the neural network. However, the indices after k-means are permuted randomly in each training epoch, so the classifier parameters have to be reinitialized before each training epoch ([Zhan et al. 2020](#bib.bib40)). Thus, we propose an alignment strategy to tackle the assignment inconsistency problem.
+
+We notice that DeepCluster lacks the use of the centroid matrix 𝑪\boldsymbol{C} in Eq. [4](#Sx3.E4 "In Unsupervised Learning by Clustering ‣ Deep Aligned Clustering ‣ Our Approach ‣ Discovering New Intents with Deep Aligned Clustering"). However, 𝑪\boldsymbol{C} is a crucial part, which contains the optimal averaged assignment target of clustering. As each embedded sample is assigned to its nearest centroid in Euclidean space, we naturally adopt 𝑪\boldsymbol{C} as the prior knowledge to adjust the inconsistent cluster assignments in different training epochs. That is, we convert this problem into the centroid alignment. Though the intent representations are updated continually, similar intents are distributed in near locations. The centroid synthesizes all similar intent samples in its cluster, so it is more stable and suitable for guiding the alignment process. We suppose the centroids in contiguous training epochs are relatively consistently distributed in Euclidean space, and adopt the Hungarian algorithm ([Kuhn 1955](#bib.bib18)) to obtain the optimal mapping GG:
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+|  | 𝑪c=G(𝑪l),\displaystyle\boldsymbol{C}^{c}=G(\boldsymbol{C}^{l}), |  | (5) |
+
+where 𝑪c\boldsymbol{C}^{c} and 𝑪l\boldsymbol{C}^{l} respectively denote the centroid matrix in the current and last training epoch. Then, we obtain the aligned pseudo-labels yaligny^{align} with G(⋅)G(\cdot):
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+|  | yalign=G−1(yc),\displaystyle y^{align}=G^{-1}(y^{c}), |  | (6) |
+
+where G−1G^{-1} denotes the inverse mapping of GG and ycy^{c} denotes the pseudo-labels in the current training epoch. Finally, we use the aligned pseudo-labels to perform self-supervised learning under the supervision of the softmax loss ℒs\mathcal{L}\_{s}:
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+|  | ℒs=−1N∑i=1Nlogexp(ϕ(𝑰i)yialign)∑j=1Kexp(ϕ(𝑰i)j),\displaystyle\mathcal{L}\_{s}=-\frac{1}{N}\sum\_{i=1}^{N}\log\frac{\exp(\phi(\boldsymbol{I}\_{i})^{y\_{i}^{align}})}{\sum\_{j=1}^{K}\exp(\phi(\boldsymbol{I}\_{i})^{j})}, |  | (7) |
+
+where ϕ(⋅)\phi(\cdot) is the pseudo-classifier for self-supervised learning, and ϕ(⋅)j\phi(\cdot)^{j} denotes the output logits of the jthj^{th} class.
+
+We use the cluster validity index (CVI) to evaluate the quality of clusters obtained during each training epoch after clustering. Specifically, we adopt an unsupervised metric Silhouette Coefficient ([Rousseeuw 1987](#bib.bib30)) for evaluation:
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+|  | SC=1N∑i=1Nb(𝑰i)−a(𝑰i)max{a(𝑰i),b(𝑰i)},\displaystyle SC=\frac{1}{N}\sum\_{i=1}^{N}\frac{b(\boldsymbol{I}\_{i})-a(\boldsymbol{I}\_{i})}{\max\{a(\boldsymbol{I}\_{i}),b(\boldsymbol{I}\_{i})\}}, |  | (8) |
+
+where a(𝑰i)a(\boldsymbol{I}\_{i}) is the average distance between 𝑰i\boldsymbol{I}\_{i} and all other samples in the ithi^{th} cluster, which indicates the intra-class compactness. b(𝑰i)b(\boldsymbol{I}\_{i}) is the smallest distance between 𝑰i\boldsymbol{I}\_{i} and all samples not in the ithi^{th} cluster, which indicates the inter-class separation. The range of SCSC is between -1 and 1, and the higher score means the better clustering results.
