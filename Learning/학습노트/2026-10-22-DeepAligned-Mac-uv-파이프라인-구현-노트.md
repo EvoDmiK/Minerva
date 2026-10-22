@@ -515,5 +515,5 @@ def plot_tsne(features, labels, known_classes, save_path="cluster_tsne.png"):
 - [[Learning/학습노트/2026-10-21-DeepAligned-신규-인텐트-발견-논문-노트|DeepAligned 논문노트]]
 - [[Learning/원문/2026-10-21-DeepAligned-원문|변환 원문 전문]]
 - [[Learning/학습노트/2026-10-21-MTP-CLNN-사전학습-대조학습-인텐트발견-논문-노트|MTP-CLNN (ACL 2022)]]
-- [[Learning/학습노트/2026-10-21-SimGCD-파라메트릭-분류-카테고리-발견-논문-노트|SimGCD (ICCV 2023)]]
+- [[Learning/학습노트/2026-10-21-SimGCD-파라메트릭-분류-GCD-논문-노트|SimGCD (ICCV 2023)]]
 - [[Learning/학습노트/index|학습노트 인덱스]]
