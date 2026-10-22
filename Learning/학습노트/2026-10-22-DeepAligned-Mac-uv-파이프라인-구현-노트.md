@@ -95,6 +95,7 @@ def get_device():
 ### 2.3 로컬 TSV 데이터 로더 및 분할 함수 구현 (`src/data.py`)
 ```python
 import os
+import csv
 import json
 import numpy as np
 import pandas as pd
@@ -104,30 +105,32 @@ from torch.utils.data import TensorDataset
 def load_tsv_file(file_path):
     """
     로컬 TSV 파일을 읽어 text와 label 컬럼을 정규화하여 반환합니다.
-    헤더가 없거나 컬럼명이 다른 경우를 대비해 유연하게 파싱합니다.
+    - quoting=csv.QUOTE_NONE: 발화 내 쌍따옴표(")로 인한 멀티라인 병합 및 컬럼 밀림 방지
+    - dtype=str: 숫자형 라벨 시 .str.strip() AttributeError 방지
+    - dropna(subset=["text", "label"]): 결측치 행 사전 제거로 NaN 텐서 변환 에러 차단
     """
-    df = pd.read_csv(file_path, sep="\t")
+    df = pd.read_csv(file_path, sep="\t", quoting=csv.QUOTE_NONE, dtype=str)
     
-    # 흔히 쓰이는 대체 컬럼명 자동 매핑
     col_mapping = {
         "utterance": "text", "query": "text", "sentence": "text",
         "intent": "label", "category": "label", "class": "label"
     }
     df = df.rename(columns={c: col_mapping[c.lower()] for c in df.columns if c.lower() in col_mapping})
     
-    # 만약 헤더 없이 2열로만 들어온 경우
     if "text" not in df.columns or "label" not in df.columns:
-        df = pd.read_csv(file_path, sep="\t", header=None, names=["text", "label"])
+        df = pd.read_csv(file_path, sep="\t", header=None, names=["text", "label"],
+                         quoting=csv.QUOTE_NONE, dtype=str)
         
     df = df.dropna(subset=["text", "label"])
     df["text"] = df["text"].astype(str).str.strip()
     df["label"] = df["label"].astype(str).str.strip()
+    df = df[(df["text"] != "") & (df["label"] != "")].reset_index(drop=True)
     return df
 
 def prepare_gcd_dataset_from_tsv(
     tokenizer,
-    train_path="data/train.tsv",
-    test_path="data/test.tsv",
+    train_path,
+    test_path=None,
     known_ratio=0.5,
     labeled_ratio=0.1,
     max_length=64,
@@ -136,18 +139,23 @@ def prepare_gcd_dataset_from_tsv(
 ):
     """
     로컬 TSV 파일을 로드하여 GCD 데이터셋(Known/Novel 분할, Known-only Val)으로 구성합니다.
-    - 문자열 라벨 정수 매핑 (label2id.json 저장)
-    - Known / Novel 클래스 무작위 분할 (학계 표준 Seed 고정)
-    - Known 클래스 내 Labeled 10% / Unlabeled 90% 분할
-    - Known-only 검증셋 구축 (Target Leakage 차단)
+    - Known 클래스는 train 라벨에서만 추출 (test 전용 클래스가 known이 되어 라벨이 0개가 되는 현상 방지)
+    - np.random.default_rng(seed) 격리 난수 발생기 사용 (전역 시드 오염 방지)
+    - 불리언 마스크 기반 벡터화 인덱싱 (iterrows 연산 병목 제거)
+    - 빈 validation subset 발생 시 방어 예외 처리
+    - 정확한 GCD 용어: train_unlabeled (Known 비라벨 + Novel 전량 병합 풀)
     """
+    rng = np.random.default_rng(seed)
+    
     train_df = load_tsv_file(train_path)
     test_df = load_tsv_file(test_path) if test_path and os.path.exists(test_path) else None
     
     # 1) 전체 고유 라벨 수집 및 일관된 Label2ID 생성
-    all_labels = sorted(list(train_df["label"].unique()))
+    train_unique_labels = sorted(train_df["label"].unique())
+    all_labels = list(train_unique_labels)
     if test_df is not None:
-        all_labels = sorted(list(set(all_labels).union(set(test_df["label"].unique()))))
+        test_only_labels = sorted(set(test_df["label"].unique()) - set(train_unique_labels))
+        all_labels.extend(test_only_labels)
         
     label2id = {label: i for i, label in enumerate(all_labels)}
     id2label = {i: label for label, i in label2id.items()}
@@ -157,37 +165,37 @@ def prepare_gcd_dataset_from_tsv(
     with open(os.path.join(output_dir, "label2id.json"), "w", encoding="utf-8") as f:
         json.dump(label2id, f, ensure_ascii=False, indent=2)
         
-    train_df["label_id"] = train_df["label"].map(label2id)
+    train_df["label_id"] = train_df["label"].map(label2id).astype(int)
     if test_df is not None:
-        test_df["label_id"] = test_df["label"].map(label2id)
+        test_df["label_id"] = test_df["label"].map(label2id).astype(int)
         
     num_total_classes = len(all_labels)
     
-    # 2) 학계 표준: 시드 고정 무작위 Known / Novel 클래스 분할
-    np.random.seed(seed)
-    num_known = int(num_total_classes * known_ratio)
-    shuffled_classes = np.random.permutation(list(label2id.values()))
-    known_classes = set(shuffled_classes[:num_known])
-    novel_classes = set(shuffled_classes[num_known:])
+    # 2) [버그 수정] Known 클래스는 반드시 train 데이터셋에 실제 존재하는 라벨에서만 추첨
+    train_label_ids = sorted(train_df["label_id"].unique())
+    num_known = int(len(train_label_ids) * known_ratio)
+    shuffled_train_classes = rng.permutation(train_label_ids)
+    known_classes = set(shuffled_train_classes[:num_known])
+    novel_classes = set(c_id for c_id in label2id.values() if c_id not in known_classes)
     
-    # 3) Train 세트 내 Labeled / Unlabeled / Val 분할
-    train_labeled_idx, train_unlabeled_idx, val_idx = [], [], []
+    # 3) [성능 개선] 벡터화 마스킹 분할 (iterrows 병목 제거)
+    is_known = train_df["label_id"].isin(known_classes)
+    r = rng.random(len(train_df))
     
-    for idx, row in train_df.iterrows():
-        c_id = row["label_id"]
-        if c_id in known_classes:
-            rand_val = np.random.rand()
-            if rand_val < labeled_ratio * 0.8: # 8% 학습용 Labeled
-                train_labeled_idx.append(idx)
-            elif rand_val < labeled_ratio:     # 2% Known-only Val (Leakage 차단)
-                val_idx.append(idx)
-            else:                              # 90% Unlabeled
-                train_unlabeled_idx.append(idx)
-        else:
-            # Novel 클래스는 100% Unlabeled 풀로 투입
-            train_unlabeled_idx.append(idx)
-            
-    # 4) 토큰화 및 TensorDataset 변환
+    train_labeled_idx = train_df.index[is_known & (r < labeled_ratio * 0.8)]
+    val_idx = train_df.index[is_known & (r >= labeled_ratio * 0.8) & (r < labeled_ratio)]
+    train_unlabeled_idx = train_df.index[~train_df.index.isin(train_labeled_idx.union(val_idx))]
+    
+    # 4) [방어 코드] 빈 subset 예외 처리
+    if len(val_idx) == 0:
+        raise ValueError(
+            f"Validation set이 비어있습니다. labeled_ratio({labeled_ratio})가 너무 작거나 "
+            f"Known 샘플 수가 부족합니다. labeled_ratio를 높이거나 분할 비율을 조정하세요."
+        )
+    if len(train_labeled_idx) == 0:
+        raise ValueError("Train Labeled set이 비어있습니다. known_ratio 또는 labeled_ratio를 확인하세요.")
+        
+    # 5) 토큰화 및 TensorDataset 변환
     def encode_df(df_subset):
         texts = df_subset["text"].tolist()
         labels = df_subset["label_id"].tolist()
