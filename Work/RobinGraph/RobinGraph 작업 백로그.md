@@ -14,7 +14,8 @@ tags: [robingraph, backlog]
 
 | ID | 작업 | 상태 | 담당 | 상세 링크 |
 |---|---|---|---|---|
-| **RG-203** | 그래프 관계 기반 질의응답 (분류 계통·속 관계·생태 및 먹이 공유 질의) | TEST 검증 완료 · 운영 배포 승인 대기 | Claude, Antigravity, Codex, Writer | [[Work/RobinGraph/백로그 상세/RG-203\|상세 백로그]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG203-그래프-관계-기반-질의응답-착수\|작업기록]] (후속: [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG203-그래프-답변-UI-디자인-정리\|UI 디자인]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG203-열매-질의-라우팅-버그-수정\|라우팅 수정]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG203-나무열매-질의-라우팅-보완\|나무열매]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG203-질의-공통-어미-확장-및-조합-검증\|공통 어미]]) |
+| **RG-204** | 의미 기반 그래프 질의 해석 및 안전한 실행 전환 (상위) | 진행 중 (착수) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-204\|상세 백로그]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG204-의미-기반-그래프-질의-해석-착수\|착수기록]] |
+| **RG-205** | 구조화 질의 계약·정답 평가셋·현재 기준선 (Phase 1) | 진행 중 (착수) | Claude, Codex | [[Work/RobinGraph/백로그 상세/RG-205\|상세 백로그]] |
 
 ## 착수 대기
 
