@@ -224,38 +224,48 @@ def prepare_gcd_dataset_from_tsv(
 
 ## 3. 핵심 파이프라인 구현 코드
 
-### 3.1 모델 아키텍처 (BERT + Mean Pooling + Dense Layer)
+### 3.1 모델 아키텍처 (BERT + Mean Pooling + Dense Layer) (`src/models.py`)
 ```python
 import torch
 import torch.nn as nn
 from transformers import BertModel
 
 class BertForDeepAligned(nn.Module):
-    def __init__(self, pretrained_model_name="bert-base-uncased", num_classes=77, feat_dim=768):
+    def __init__(self, pretrained_model_name="bert-base-uncased", num_classes=None, feat_dim=768):
         super().__init__()
+        self.feat_dim = feat_dim
         self.bert = BertModel.from_pretrained(pretrained_model_name)
         self.dense = nn.Sequential(
             nn.Linear(self.bert.config.hidden_size, feat_dim),
             nn.Tanh()
         )
-        self.classifier = nn.Linear(feat_dim, num_classes)
+        # [개선] num_classes 동적 할당 지원 (로컬 TSV 클래스 수에 유연하게 대응)
+        self.classifier = nn.Linear(feat_dim, num_classes) if num_classes is not None else None
 
     def forward(self, input_ids, attention_mask):
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
-        # Mean Pooling over token embeddings
+        # Mean Pooling over token embeddings (패딩 토큰 제외 평균 풀링)
         token_embeddings = outputs.last_hidden_state  # [B, L, H]
         input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
         sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
         sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
         mean_pooled = sum_embeddings / sum_mask  # [B, H]
         
-        # Intent Representation
+        # Intent Representation 추출
         features = self.dense(mean_pooled)  # [B, feat_dim]
-        logits = self.classifier(features)  # [B, num_classes]
+        logits = self.classifier(features) if self.classifier is not None else None  # [B, num_classes]
         return features, logits
 
+    def reinit_classifier(self, num_classes):
+        """
+        [버그 차단] Stage 2 클러스터링 정렬 학습 시 클러스터 수(K)에 맞추어 분류 헤드 재할당
+        - num_clusters != num_classes 일 때의 IndexError 및 CUDA/MPS assertion crash 원천 방지
+        """
+        device = next(self.parameters()).device
+        self.classifier = nn.Linear(self.feat_dim, num_classes).to(device)
+
     def freeze_backbone_except_last_layer(self):
-        """BERT 하위 레이어를 동결하여 Mac에서의 학습 속도 및 수렴 안정화"""
+        """BERT 하위 레이어 동결 (Mac Apple Silicon에서의 학습 속도 향상 및 사전학습 표상 보존)"""
         for name, param in self.bert.named_parameters():
             if "encoder.layer.11" not in name and "pooler" not in name:
                 param.requires_grad = False
