@@ -5,18 +5,26 @@ updated: 2026-10-22
 document_role: learning-note
 note_kind: technical-deep-dive
 language: ko
-tags: [learning, paper, nid, deepaligned, nlp, clustering, banking77, clinc150]
-paper_title: "Discovering New Intents with Deep Aligned Clustering"
+tags:
+  - learning
+  - paper
+  - nid
+  - deepaligned
+  - nlp
+  - clustering
+  - banking77
+  - clinc150
+paper_title: Discovering New Intents with Deep Aligned Clustering
 paper_date: 2020-12-16
-paper_id: "arXiv:2012.08987v7"
-source_url: "https://arxiv.org/abs/2012.08987"
-primary_text: "https://arxiv.org/html/2012.08987v7"
+paper_id: arXiv:2012.08987v7
+source_url: https://arxiv.org/abs/2012.08987
+primary_text: https://arxiv.org/html/2012.08987v7
 source_role: primary
-capture_scope: "DeepAligned 핵심 수식·헝가리안 정렬 원리·베이스라인 타당성 분석(인터뷰 과제/학술/실무)·벤치마크 정량 지표 심층 분석"
+capture_scope: DeepAligned 핵심 수식·헝가리안 정렬 원리·베이스라인 타당성 분석(인터뷰 과제/학술/실무)·벤치마크 정량 지표 심층 분석
 source_notes:
   - "[[Learning/원문/2026-10-21-DeepAligned-원문]]"
 implementation_notes:
-  - "[[Learning/학습노트/2026-10-22-DeepAligned-Mac-uv-파이프라인-구현-논트]]"
+  - "[[2026-10-22-DeepAligned-Mac-uv-파이프라인-구현-노트]]"
 ---
 # DeepAligned: Deep Aligned Clustering for New Intent Discovery (AAAI 2021) — 기술 심층 분석
 
