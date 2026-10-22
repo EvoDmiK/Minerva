@@ -92,61 +92,113 @@ def get_device():
 4. **Test ($\mathcal{D}_{test}$):**
    - 공식 Test 세트 전체(3,080개)를 사용하며, 사후 평가 시 Known과 Novel 마스크를 적용해 분리 평가합니다.
 
-### 2.3 데이터 전처리 및 분할 함수 구현
+### 2.3 로컬 TSV 데이터 로더 및 분할 함수 구현 (`src/data.py`)
 ```python
+import os
+import json
 import numpy as np
-from datasets import load_dataset
+import pandas as pd
+import torch
 from torch.utils.data import TensorDataset
 
-def prepare_gcd_dataset(tokenizer, dataset_name="banking77", known_ratio=0.5, labeled_ratio=0.1, max_length=64, seed=42):
+def load_tsv_file(file_path):
     """
-    Banking77 데이터셋을 학계 표준 GCD 프로토콜에 따라 분할합니다.
-    - Known / Novel 클래스 무작위 분할
-    - Known 클래스 내 Labeled / Unlabeled 분할 (Labeled Ratio 10%)
+    로컬 TSV 파일을 읽어 text와 label 컬럼을 정규화하여 반환합니다.
+    헤더가 없거나 컬럼명이 다른 경우를 대비해 유연하게 파싱합니다.
+    """
+    df = pd.read_csv(file_path, sep="\t")
+    
+    # 흔히 쓰이는 대체 컬럼명 자동 매핑
+    col_mapping = {
+        "utterance": "text", "query": "text", "sentence": "text",
+        "intent": "label", "category": "label", "class": "label"
+    }
+    df = df.rename(columns={c: col_mapping[c.lower()] for c in df.columns if c.lower() in col_mapping})
+    
+    # 만약 헤더 없이 2열로만 들어온 경우
+    if "text" not in df.columns or "label" not in df.columns:
+        df = pd.read_csv(file_path, sep="\t", header=None, names=["text", "label"])
+        
+    df = df.dropna(subset=["text", "label"])
+    df["text"] = df["text"].astype(str).str.strip()
+    df["label"] = df["label"].astype(str).str.strip()
+    return df
+
+def prepare_gcd_dataset_from_tsv(
+    tokenizer,
+    train_path="data/train.tsv",
+    test_path="data/test.tsv",
+    known_ratio=0.5,
+    labeled_ratio=0.1,
+    max_length=64,
+    seed=42,
+    output_dir="outputs"
+):
+    """
+    로컬 TSV 파일을 로드하여 GCD 데이터셋(Known/Novel 분할, Known-only Val)으로 구성합니다.
+    - 문자열 라벨 정수 매핑 (label2id.json 저장)
+    - Known / Novel 클래스 무작위 분할 (학계 표준 Seed 고정)
+    - Known 클래스 내 Labeled 10% / Unlabeled 90% 분할
     - Known-only 검증셋 구축 (Target Leakage 차단)
     """
-    raw_datasets = load_dataset(dataset_name)
-    train_data = raw_datasets["train"]
-    test_data = raw_datasets["test"]
+    train_df = load_tsv_file(train_path)
+    test_df = load_tsv_file(test_path) if test_path and os.path.exists(test_path) else None
     
-    unique_labels = sorted(list(set(train_data["label"])))
-    num_total_classes = len(unique_labels)
+    # 1) 전체 고유 라벨 수집 및 일관된 Label2ID 생성
+    all_labels = sorted(list(train_df["label"].unique()))
+    if test_df is not None:
+        all_labels = sorted(list(set(all_labels).union(set(test_df["label"].unique()))))
+        
+    label2id = {label: i for i, label in enumerate(all_labels)}
+    id2label = {i: label for label, i in label2id.items()}
     
+    # 사후 분석 및 라벨 복원을 위해 label2id.json 저장
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, "label2id.json"), "w", encoding="utf-8") as f:
+        json.dump(label2id, f, ensure_ascii=False, indent=2)
+        
+    train_df["label_id"] = train_df["label"].map(label2id)
+    if test_df is not None:
+        test_df["label_id"] = test_df["label"].map(label2id)
+        
+    num_total_classes = len(all_labels)
+    
+    # 2) 학계 표준: 시드 고정 무작위 Known / Novel 클래스 분할
     np.random.seed(seed)
     num_known = int(num_total_classes * known_ratio)
-    shuffled_labels = np.random.permutation(unique_labels)
-    known_classes = set(shuffled_labels[:num_known])
-    novel_classes = set(shuffled_labels[num_known:])
+    shuffled_classes = np.random.permutation(list(label2id.values()))
+    known_classes = set(shuffled_classes[:num_known])
+    novel_classes = set(shuffled_classes[num_known:])
     
-    # 1) Train 데이터 분할 인덱스 생성
+    # 3) Train 세트 내 Labeled / Unlabeled / Val 분할
     train_labeled_idx, train_unlabeled_idx, val_idx = [], [], []
     
-    for idx, sample in enumerate(train_data):
-        label = sample["label"]
-        if label in known_classes:
+    for idx, row in train_df.iterrows():
+        c_id = row["label_id"]
+        if c_id in known_classes:
             rand_val = np.random.rand()
-            if rand_val < labeled_ratio * 0.8: # 8%는 학습용 Labeled
+            if rand_val < labeled_ratio * 0.8: # 8% 학습용 Labeled
                 train_labeled_idx.append(idx)
-            elif rand_val < labeled_ratio:     # 2%는 Known-only Validation
+            elif rand_val < labeled_ratio:     # 2% Known-only Val (Leakage 차단)
                 val_idx.append(idx)
-            else:                              # 90%는 Unlabeled 풀
+            else:                              # 90% Unlabeled
                 train_unlabeled_idx.append(idx)
         else:
-            # Novel 클래스는 100% Unlabeled 풀로 진입
+            # Novel 클래스는 100% Unlabeled 풀로 투입
             train_unlabeled_idx.append(idx)
             
-    # 2) 토큰화 헬퍼
-    def encode_samples(indices, dataset_split):
-        texts = [dataset_split[i]["text"] for i in indices]
-        labels = [dataset_split[i]["label"] for i in indices]
+    # 4) 토큰화 및 TensorDataset 변환
+    def encode_df(df_subset):
+        texts = df_subset["text"].tolist()
+        labels = df_subset["label_id"].tolist()
         enc = tokenizer(texts, padding="max_length", truncation=True, max_length=max_length, return_tensors="pt")
         return TensorDataset(enc["input_ids"], enc["attention_mask"], torch.tensor(labels, dtype=torch.long))
 
-    train_labeled_set = encode_samples(train_labeled_idx, train_data)
-    train_unlabeled_set = encode_samples(train_unlabeled_idx, train_data)
-    val_set = encode_samples(val_idx, train_data)
-    test_set = encode_samples(range(len(test_data)), test_data)
-    
+    train_labeled_set = encode_df(train_df.loc[train_labeled_idx])
+    train_unlabeled_set = encode_df(train_df.loc[train_unlabeled_idx])
+    val_set = encode_df(train_df.loc[val_idx])
+    test_set = encode_df(test_df) if test_df is not None else None
+
     return {
         "train_labeled": train_labeled_set,
         "train_unlabeled": train_unlabeled_set,
@@ -154,6 +206,8 @@ def prepare_gcd_dataset(tokenizer, dataset_name="banking77", known_ratio=0.5, la
         "test": test_set,
         "known_classes": known_classes,
         "novel_classes": novel_classes,
+        "label2id": label2id,
+        "id2label": id2label,
         "num_total_classes": num_total_classes
     }
 ```
@@ -440,7 +494,7 @@ deepaligned-nid/
 │   └── default.yaml            # known_ratio(0.5), labeled_ratio(0.1), seed, lr, epochs 등
 ├── src/                        # 핵심 모듈
 │   ├── __init__.py
-│   ├── data.py                 # Banking77 로드, Known/Novel 50:50 분할, Known-only Val 구축
+│   ├── data.py                 # 로컬 TSV 로드, Label Encoding(label2id.json), Known/Novel 50:50 분할, Known-only Val 구축
 │   ├── models.py               # BertForDeepAligned 아키텍처 및 레이어 동결
 │   ├── clustering.py           # k-Means, 헝가리안 정렬(Hungarian Alignment), K 추정
 │   ├── metrics.py              # All / Known / Novel ACC, NMI, ARI 분리 산출
@@ -456,9 +510,10 @@ deepaligned-nid/
 
 ### 4.2 단일 스크립트 실행 (`uv run`)
 ```bash
-# 기본 50% Known 세팅 단일 실행
+# 로컬 TSV 기반 50% Known 세팅 단일 실행
 uv run python deepaligned_pipeline.py \
-  --dataset banking77 \
+  --train_path data/train.tsv \
+  --test_path data/test.tsv \
   --known_ratio 0.5 \
   --labeled_ratio 0.1 \
   --epochs_pretrain 5 \
