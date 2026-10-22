@@ -230,3 +230,94 @@ We use the cluster validity index (CVI) to evaluate the quality of clusters obta
 |  | SC=1N∑i=1Nb(𝑰i)−a(𝑰i)max{a(𝑰i),b(𝑰i)},\displaystyle SC=\frac{1}{N}\sum\_{i=1}^{N}\frac{b(\boldsymbol{I}\_{i})-a(\boldsymbol{I}\_{i})}{\max\{a(\boldsymbol{I}\_{i}),b(\boldsymbol{I}\_{i})\}}, |  | (8) |
 
 where a(𝑰i)a(\boldsymbol{I}\_{i}) is the average distance between 𝑰i\boldsymbol{I}\_{i} and all other samples in the ithi^{th} cluster, which indicates the intra-class compactness. b(𝑰i)b(\boldsymbol{I}\_{i}) is the smallest distance between 𝑰i\boldsymbol{I}\_{i} and all samples not in the ithi^{th} cluster, which indicates the inter-class separation. The range of SCSC is between -1 and 1, and the higher score means the better clustering results.
+## Experiments
+
+### Datasets
+
+We conduct experiments on two challenging benchmark intent datasets. Detailed statistics are shown in Table  [1](#Sx2.T1 "Table 1 ‣ Semi-supervised Clustering ‣ Related Work ‣ Discovering New Intents with Deep Aligned Clustering").
+
+#### CLINC
+
+It is an intent classification dataset ([Larson et al. 2019](#bib.bib19)), which contains 22,500 queries covering 150 intents across 10 domains.
+
+#### BANKING
+
+It is a fine-grained dataset in the banking domain ([Casanueva et al. 2020](#bib.bib5)), which contains 13,083 customer service queries with 77 intents.
+
+### Baselines
+
+#### Unsupervised
+
+We firstly compare with unsupervised clustering methods, including K-means (KM) ([MacQueen et al. 1967](#bib.bib22)), agglomerative clustering (AG) ([Gowda and Krishna 1978](#bib.bib11)), SAE-KM, DEC ([Xie, Girshick, and Farhadi 2016](#bib.bib37)), DCN ([Yang et al. 2017](#bib.bib38)), DAC ([Chang et al. 2017](#bib.bib6)), and DeepCluster ([Caron et al. 2018](#bib.bib4)).
+
+Figure 3:  Influence of the known class ratio on CLINC dataset.
+
+Figure 4:  Influence of the known class ratio on BANKING dataset.
+
+For KM and AG, we represent the sentences with the averaged pre-trained 300-dimensional word embeddings from GloVe ([Pennington, Socher, and Manning 2014](#bib.bib25)). For SAE-KM, DEC, and DCN, we encode the sentences with the stacked autoencoder (SAE), which is helpful to capture meaningful semantics on real-world datasets ([Xie, Girshick, and Farhadi 2016](#bib.bib37)). As DAC and DeepCluster are unsupervised clustering methods in computer vision, we replace the backbone with the BERT model for extracting text features.
+
+|  |  | CLINC (K’=300) | | BANKING (K’=154) | |
+| --- | --- | --- | --- | --- | --- |
+|  | Methods | K (Pred) | Error | K (Pred) | Error |
+| 25% | BERT-MCL | 38 | 75.00 | 19 | 75.32 |
+|  | BERT-DTC | 94 | 37.33 | 37 | 51.95 |
+|  | DeepAligned | 122 | 18.67 | 66 | 14.29 |
+| 50% | BERT-MCL | 75 | 50.00 | 38 | 50.65 |
+|  | BERT-DTC | 131 | 12.67 | 71 | 7.79 |
+|  | DeepAligned | 130 | 13.33 | 64 | 16.88 |
+| 75% | BERT-MCL | 112 | 25.33 | 58 | 24.68 |
+|  | BERT-DTC | 195 | 30.00 | 110 | 42.86 |
+|  | DeepAligned | 129 | 14.00 | 67 | 12.99 |
+
+Table 4:
+The results of predicting KK with an unknown number of clusters. We vary the known class ratio in the range of 25%, 50% and 75%, and set K′K^{\prime} as two times of the ground truth number of clusters during clustering.
+
+#### Semi-supervised
+
+We also compare our method with semi-supervised clustering methods, including PCK-means ([Basu, Banerjee, and Mooney 2004](#bib.bib1)), BERT-KCL ([Hsu, Lv, and Kira 2018](#bib.bib16)), BERT-MCL ([Hsu et al. 2019](#bib.bib17)), BERT-DTC ([Han, Vedaldi, and Zisserman 2019](#bib.bib14)) and CDAC+ ([Lin, Xu, and Zhang 2020](#bib.bib21)). For a fairness comparison, we replace the backbone of these methods with the same BERT model as ours.
+
+### Evaluation Metrics
+
+We adopt three widely used metrics to evaluate the clustering results: Normalized Mutual Information (NMI), Adjusted Rand Index (ARI), and Accuracy (ACC). To calculate ACC, we use the Hungarian algorithm to obtain the mapping between the predicted classes and ground-truth classes.
+
+### Evaluation Settings
+
+Following the same settings as in ([Lin, Xu, and Zhang 2020](#bib.bib21)), we randomly select 10% of training data as labeled and choose 75% of all intents as known. We split datasets into the training, validation, and test sets. The number of intent categories is set as ground-truth. We first use the little labeled data of known intents for pre-training, and tune with the validation set. Then, we use all training data for self-supervised learning and evaluate the cluster performance with Silhouette Coefficient (as mentioned in Eq. [8](#Sx3.E8 "In Self-supervised Learning with Aligned Pseudo-labels ‣ Deep Aligned Clustering ‣ Our Approach ‣ Discovering New Intents with Deep Aligned Clustering")). Finally, we evaluate the performance on the test set and report the averaged results over ten runs of experiments with different random seeds.
+
+### Implementation Details
+
+We use the pre-trained BERT model (bert-uncased, with 12-layer transformer) implemented in PyTorch ([Wolf et al. 2019](#bib.bib36)) as our network backbone, and adopt most of its suggested hyper-parameters for optimization. The training batch size is 128, the learning rate is 5e−55e^{-5}, and the dimension of intent features DD is 768. Moreover, as suggested in ([Lin, Xu, and Zhang 2020](#bib.bib21)), we freeze all but the last transformer layer parameters to speed up the training procedure and improve the training efficiency with the backbone of BERT.
+
+## Results and Discussion
+
+Table [2](#Sx3.T2 "Table 2 ‣ Predict 𝐾 ‣ Transferring Knowledge from Known Intents ‣ Our Approach ‣ Discovering New Intents with Deep Aligned Clustering") shows the results of all compared methods. We highlight the best results in bold. Compared with baselines, our method consistently achieves the best results and outperforms other baselines by a large margin on all metrics and datasets. It demonstrates the effectiveness of our method to discover new intents with limited known intent data. We also find most semi-supervised methods perform better than unsupervised methods. It indicates that even with limited labeled data as prior knowledge, it is also helpful to improve the performance of unsupervised clustering.
+
+Figure 5:  Influence of the number of clusters on BANKING dataset.
+
+Figure 6:  Influence of the number of clusters on CLINC dataset.
+
+### Effect of the Alignment Strategy
+
+To investigate the contribution of the alignment strategy, we compare our method with the reinitialization strategy ([Caron et al. 2018](#bib.bib4)). As shown in Table [3](#Sx3.T3 "Table 3 ‣ Predict 𝐾 ‣ Transferring Knowledge from Known Intents ‣ Our Approach ‣ Discovering New Intents with Deep Aligned Clustering"), our method has significant improvements over the reinitialization strategy on both semi-supervised and unsupervised settings. We suppose the reason is that random initialization drops out the well-trained parameters in the classifier in the former epochs. By contrast, our method saves the history embedding information by finding the mapping of produced pseudo-labels between contiguous epochs, which provides stronger supervised signals for representation learning.
+
+### Estimate KK
+
+To investigate the effectiveness to predict KK, we assign K′K^{\prime} as two times of the ground truth number of intent classes and compare with another two state-of-the-art methods (BERT-MCL and BERT-DTC). We vary the ratio of known classes in the range of 25%, 50%, and 75%, and calculate the error rate (the lower is better) for evaluation. As shown in Table [4](#Sx4.T4 "Table 4 ‣ Unsupervised ‣ Baselines ‣ Experiments ‣ Discovering New Intents with Deep Aligned Clustering"), our method achieves the alomost the lowest error rates with different known class ratios. It shows the reasonability to estimate the cluster number by removing low-confidence clusters with well-initialized intent features. We notice that BERT-DTC is a strong baseline, especially with 50% known classes. The reason is that BERT-DTC also relies the labeled samples to generate the probe set for determining the optimal number of classes. Nevertheless, the performance is unstable. We also find the predicted KK of BERT-MCL is close to the number of known classes. The reason is that BERT-MCL jointly performs clustering and classification. However, the classification part dominates in training under the supervision of labeled data, so it tends to misclassifies new intents into known intents during testing.
+
+### Effect of the Known Class Ratio
+
+To investigate the influence of the number of known intents, we vary the known class ratio in the range of 25%, 50% and 75% during training. As shown in Figure [3](#Sx4.F3 "Figure 3 ‣ Unsupervised ‣ Baselines ‣ Experiments ‣ Discovering New Intents with Deep Aligned Clustering") and Figure [4](#Sx4.F4 "Figure 4 ‣ Unsupervised ‣ Baselines ‣ Experiments ‣ Discovering New Intents with Deep Aligned Clustering"), our method achieves the best results with different number of known intents. All semi-supervised methods are sensitive to the number of known intents. Particularly, though BERT-MCL and BERT-DTC achieve competitive results with 75% known intents, their performances drop dramatically as the known class ratio decreases. We suppose the reason is that they largely depend on the prior knowledge of known intents to construct supervised signals (e.g., the pairwise similarities in BERT-MCL and the initialized centroids in BERT-DTC) for clustering. Therefore, the learned features of these methods are much more biased towards the labeled data.
+
+By contrast, our method only needs labeled intent data for learning feature representations. Thus, it is free from the bias towards labeled data during self-supervised learning process. Moreover, our method achieves more robust results with fewer known intents.
+
+### Effect of the Number of Clusters
+
+To investigate the sensitiveness of the assigned cluster number K′K^{\prime}, we vary K′K^{\prime} from the ground-truth number to four times of it. The known class ratio is assigned as 75%. As shown in Figure [5](#Sx5.F5 "Figure 5 ‣ Results and Discussion ‣ Discovering New Intents with Deep Aligned Clustering") and Figure [6](#Sx5.F6 "Figure 6 ‣ Results and Discussion ‣ Discovering New Intents with Deep Aligned Clustering"), our method achieves the best results with different number of assigned clusters. We notice that most semi-supervised clustering methods are vulnerable to the number of clusters, and their performances drop to some extent with large K′K^{\prime}. It is because many redundant classes may result in splitting fine-grained clusters of originally one cluster with the same intent-label. Compared with all these methods, our method benefits from a more accurate estimated cluster number for clustering. Therefore, it achieves better results even with a large K′K^{\prime}.
+
+## Conclusion and Future Work
+
+In this work, we have introduced an effective method for discovering new intents. Our method successfully transfers the prior knowledge of limited known intents and estimates the number of intents by eliminating low-confidence clusters. Moreover, it provides more stable and concrete supervised signals to guide the clustering process. We conduct extensive experiments on two challenging benchmark datasets to evaluate the performance. Our method achieves significant improvements over the compared methods and obtains more accurate estimated cluster numbers with limited prior knowledge. In the future, we will try different clustering methods to produce supervised signals and explore more self-supervised methods for representation learning.
+
+## Acknowledgments
+
+This work is supported by seed fund of Tsinghua University (Department of Computer Science and Technology)-Siemens Ltd., China Joint Research Center for Industrial Intelligence and Internet of Things.
