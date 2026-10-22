@@ -428,7 +428,33 @@ class DeepAlignedTrainer:
 
 ## 4. 인터뷰 사전 과제 실행 및 제출 팁
 
-### 4.1 단일 스크립트 실행 (`uv run`)
+### 4.1 권장 프로젝트 폴더 구조 (모듈러 & 단일 실행 지원)
+면접관이 코드를 클론받아 바로 파악하고 재현할 수 있도록, **모듈화된 표준 구조**와 **원클릭 실행 스크립트**를 함께 구성하는 것이 가장 이상적입니다.
+
+```text
+deepaligned-nid/
+├── pyproject.toml              # uv 기반 의존성 및 프로젝트 메타데이터 (PEP 621)
+├── README.md                   # 환경 구축, 문제 정의, 실행법, All/Known/Novel 실험 결과표, 한계 분석
+├── deepaligned_pipeline.py     # 면접관의 빠른 재현을 위한 엔드투엔드 단일 스크립트
+├── configs/                    # 하이퍼파라미터 및 실행 설정
+│   └── default.yaml            # known_ratio(0.5), labeled_ratio(0.1), seed, lr, epochs 등
+├── src/                        # 핵심 모듈
+│   ├── __init__.py
+│   ├── data.py                 # Banking77 로드, Known/Novel 50:50 분할, Known-only Val 구축
+│   ├── models.py               # BertForDeepAligned 아키텍처 및 레이어 동결
+│   ├── clustering.py           # k-Means, 헝가리안 정렬(Hungarian Alignment), K 추정
+│   ├── metrics.py              # All / Known / Novel ACC, NMI, ARI 분리 산출
+│   ├── trainer.py              # Supervised Pretraining -> Deep Aligned Clustering 루프
+│   └── utils.py                # 디바이스 설정(MPS/CUDA), 시드 고정, 로깅
+├── tests/                      # [가산점] 데이터 무결성 및 누수 방지 테스트
+│   └── test_leakage.py         # Val에 Novel 클래스가 없는지, Unlabeled/Labeled 분할 검증
+└── outputs/                    # 실행 결과 저장 디렉터리 (.gitignore 대상)
+    ├── checkpoints/            # 학습된 모델 가중치 (.pt)
+    ├── logs/                   # 에포크별 Loss 및 성능 로그
+    └── plots/                  # t-SNE 잠재공간 시각화 이미지 (cluster_tsne.png)
+```
+
+### 4.2 단일 스크립트 실행 (`uv run`)
 ```bash
 # 기본 50% Known 세팅 단일 실행
 uv run python deepaligned_pipeline.py \
