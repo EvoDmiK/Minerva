@@ -1,6 +1,6 @@
 ---
 created: 2026-10-14
-updated: 2026-10-21
+updated: 2026-10-22
 project: Jery
 type: index
 tags: [jery, mcp, dataset, training, hyperopt]
@@ -16,7 +16,7 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 | 항목 | 내용 |
 |---|---|
-| 진행 확인 | 2026-10-21 17:41 KST · 5개 조건 완료, 6번째 조건의 fold 2 학습 중 |
+| 진행 확인 | 2026-10-22 09:57 KST · 15개 조건 완료 · 16번째 조건의 fold 3 업로드 복구 중 |
 | 학습률 | `1e-3 ~ 5e-3` · Hyperopt TPE |
 | 기준 설정 | 지정한 `lr1e3` 실험의 최종 선택 Child · LR 외 설정 고정 |
 | 데이터 | 합성 600개 · fold별 학습 480 / 검증 120 |
@@ -34,6 +34,10 @@ MLflow는 **전체 실험 → LR 조건 → fold** 순서로 펼친다. 조건�
 [[Work/Jery/Jery 작업 백로그|전체 작업 백로그]]
 
 ## 작업 기록
+
+### 2026-10-22
+
+- [[Work/Jery/작업기록/2026-10-22-Jery-MLflow-HTTP520-업로드복구|MLflow HTTP 520 · 업로드 중단 복구]]
 
 ### 2026-10-21
 
