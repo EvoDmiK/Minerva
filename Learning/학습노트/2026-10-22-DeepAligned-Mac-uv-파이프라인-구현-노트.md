@@ -271,7 +271,7 @@ class BertForDeepAligned(nn.Module):
                 param.requires_grad = False
 ```
 
-### 3.2 헝가리안 정렬 (Hungarian Alignment) 모듈
+### 3.2 헝가리안 정렬 (Hungarian Alignment) 모듈 (`src/clustering.py`)
 ```python
 import numpy as np
 from scipy.optimize import linear_sum_assignment
@@ -281,9 +281,15 @@ def hungarian_align(current_centroids, prev_centroids, current_labels):
     이전 에포크의 클러스터 중심점(prev_centroids)과 
     현재 에포크의 클러스터 중심점(current_centroids) 간의 1:1 최적 매핑을 찾아
     현재 의사 라벨(current_labels)을 정렬합니다.
+    - [성능 개선] numpy 인덱싱 기반 벡터화 매핑 (Python 순수 loop 제거)
+    - 중심점 및 라벨 일관성 보장
     """
     if prev_centroids is None:
         return current_labels, current_centroids
+
+    assert current_centroids.shape == prev_centroids.shape, (
+        f"Centroid shape mismatch: {current_centroids.shape} vs {prev_centroids.shape}"
+    )
 
     # 1) 유클리디안 비용 행렬 M_ij = ||c_i_curr - c_j_prev||_2
     cost_matrix = np.linalg.norm(
@@ -292,53 +298,61 @@ def hungarian_align(current_centroids, prev_centroids, current_labels):
 
     # 2) 헝가리안 이분 매칭 최적화 (O(K^3))
     row_ind, col_ind = linear_sum_assignment(cost_matrix)
-    mapping = {curr_idx: prev_idx for curr_idx, prev_idx in zip(row_ind, col_ind)}
     
-    # 3) 현재 라벨 및 중심점 재정렬
-    aligned_labels = np.array([mapping[l] for l in current_labels])
+    # 3) [최적화] 벡터화 매핑 적용 (수천 개 샘플에 대한 속도 향상)
+    mapping_array = np.empty(len(current_centroids), dtype=int)
+    mapping_array[row_ind] = col_ind
+    aligned_labels = mapping_array[current_labels]
+    
+    # 중심점 재정렬
     aligned_centroids = np.zeros_like(current_centroids)
-    for curr_idx, prev_idx in mapping.items():
-        aligned_centroids[prev_idx] = current_centroids[curr_idx]
+    aligned_centroids[col_ind] = current_centroids[row_ind]
         
     return aligned_labels, aligned_centroids
 ```
 
-### 3.3 클래스 개수 ($K$) 자동 추정기
+### 3.3 클래스 개수 ($K$) 자동 추정기 (`src/clustering.py`)
 ```python
 from sklearn.cluster import KMeans
+import numpy as np
 
-def estimate_cluster_num(features, max_k_factor=2, true_k=77, random_state=42):
+def estimate_cluster_num(features, expected_k, max_k_factor=2, random_state=42):
     """
-    K' = 2 * K 로 설정하여 k-Means를 수행한 뒤, 
-    평균 군집 크기 (N / K') 미만의 저신뢰도 군집을 제거하여 유효 K를 추정
+    K' = max_k_factor * expected_k 로 설정하여 k-Means를 수행한 뒤, 
+    평균 군집 크기 (N / K') 미만의 저신뢰도 군집을 제거하여 유효 K를 추정합니다.
+    - [개선] expected_k를 동적으로 전달받아 하드코딩 제거 (로컬 데이터셋 호환)
     """
-    k_prime = int(true_k * max_k_factor)
+    k_prime = int(expected_k * max_k_factor)
     kmeans = KMeans(n_clusters=k_prime, n_init=10, random_state=random_state).fit(features)
     cluster_sizes = np.bincount(kmeans.labels_, minlength=k_prime)
     
-    threshold = len(features) / k_prime  # 평균 군집 크기
+    threshold = len(features) / k_prime  # 평균 군집 크기 임계값
     estimated_k = int(np.sum(cluster_sizes >= threshold))
     return max(estimated_k, 2)
 ```
 
-### 3.4 세분화 평가 메트릭 (All / Known / Novel ACC, NMI, ARI)
+### 3.4 세분화 평가 메트릭 (All / Known / Novel ACC, NMI, ARI) (`src/metrics.py`)
 면접관이 가장 집중해서 보는 **All ACC, Known ACC, Novel ACC 분리 산출** 로직입니다.
 ```python
+import numpy as np
+from scipy.optimize import linear_sum_assignment
 from sklearn.metrics import normalized_mutual_info_score as NMI
 from sklearn.metrics import adjusted_rand_score as ARI
 
 def compute_gcd_metrics(y_true, y_pred, known_classes):
     """
     헝가리안 최적 할당 후 All / Known / Novel ACC 및 NMI, ARI를 산출합니다.
-    
-    Args:
-        y_true: Ground Truth 정답 레이블 (np.ndarray, [N])
-        y_pred: 모델이 예측한 군집 클러스터 ID (np.ndarray, [N])
-        known_classes: Known 클래스 ID들의 set 혹은 list
+    - [방어 코드] PyTorch Tensor(MPS/CUDA) 입력 시 자동 .cpu().numpy() 변환
+    - 예측 클러스터 수(K_pred)와 실제 클래스 수(K_true)가 달라도 정사각 패딩으로 안전 매칭
     """
+    if hasattr(y_true, "cpu"):
+        y_true = y_true.cpu().numpy()
+    if hasattr(y_pred, "cpu"):
+        y_pred = y_pred.cpu().numpy()
+        
     y_true = np.array(y_true, dtype=np.int64)
     y_pred = np.array(y_pred, dtype=np.int64)
-    assert y_pred.size == y_true.size
+    assert y_pred.size == y_true.size, f"Size mismatch: pred ({y_pred.size}) vs true ({y_true.size})"
     
     # 1) 전체 샘플에 대한 혼동 행렬(Cost Matrix) 구축 및 헝가리안 최적 매칭
     D = max(y_pred.max(), y_true.max()) + 1
