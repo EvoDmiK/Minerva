@@ -1364,10 +1364,29 @@ caffeinate -i uv run python baseline.py --method deepaligned --n_folds 5 --outpu
 
 | 방법 | All ACC | Known ACC | Novel ACC | NMI | ARI | 비고 |
 |---|---|---|---|---|---|---|
-| BERT + k-Means (학습 없음) | 27.44 | 29.67 | 25.26 | 50.16 | 14.69 | 하한선, MLflow 기록 완료 |
-| DeepAligned (단일 실행) | — | — | — | — | — | 실행 중 (2026-10-22) |
-| DeepAligned (5-fold, mean ± std) | — | — | — | — | — | 단일 실행 후 자동 시작 예정 |
+| BERT + k-Means (학습 없음) | 27.44 | 29.67 | 25.26 | 50.16 | 14.69 | 하한선 |
+| **DeepAligned (5-fold, mean ± std)** | **52.11 ± 2.53** | **59.83 ± 2.21** | **44.59 ± 4.13** | **72.23 ± 0.90** | **40.72 ± 1.96** | MLflow `deepaligned_cv5` |
 | 에이전트 | — | — | — | — | — | 같은 `known_novel_split.json`으로 평가 |
+
+- 단일 실행(`deepaligned`)은 중단하고 5-fold 교차검증으로 대체했습니다 (MLflow 상태 KILLED, 태그로 사유 기록).
+- 실행 시간: 2026-10-22 18:10 ~ 20:30 (약 2시간 20분, M4 MPS)
+- MLflow: https://mlflow.dove-nest.com/#/experiments/48/runs/bfe0abd8d64844ce84cc47aa8ddac0b9
+
+**fold별 결과**
+
+| fold | Stage 1 조기 종료 | best valid ACC (epoch) | All ACC | Known ACC | Novel ACC | NMI | ARI |
+|---|---|---|---|---|---|---|---|
+| 0 | 56 | 85.14 (46) | 54.64 | 60.00 | 49.42 | 73.24 | 43.30 |
+| 1 | 63 | 86.75 (53) | 49.48 | 60.72 | 38.53 | 71.36 | 39.13 |
+| 2 | 45 | 86.55 (35) | 49.42 | 56.25 | 42.76 | 71.33 | 38.43 |
+| 3 | 70 | 86.14 (60) | 54.25 | 62.24 | 46.47 | 73.04 | 41.64 |
+| 4 | 62 | 86.75 (52) | 52.76 | 59.93 | 45.77 | 72.20 | 41.11 |
+
+**해석**
+- 학습 없는 k-Means 대비 All ACC **+24.7%p**, NMI **+22.1%p**로 DeepAligned 학습의 기여가 뚜렷합니다.
+- Stage 1은 모든 fold에서 35~60 에포크에 valid 최고점(85~87%)에 도달했습니다. 기존 고정 5에포크로는 크게 부족했음을 확인했습니다.
+- labeled 셋 선택에 따른 편차는 Novel ACC(±4.13)가 가장 크고, NMI(±0.90)는 안정적입니다.
+- Known ACC(약 60%)가 Stage 1 valid ACC(약 86%)보다 낮은 이유: valid는 분류 헤드로 Known 클래스만 맞히는 문제이고, test는 77개 전체를 k-Means로 군집화한 뒤 헝가리안 매칭하는 문제라 난이도가 다릅니다.
 
 > [!note] 동작 확인용 짧은 실행은 성능 결과가 아님
 > 각 단계 1에포크 실행(All ACC 25.97)은 동작 확인용입니다. 당시 Stage 1 loss가 4.29로 77개 클래스 무작위 추측 값(약 4.34)과 거의 같아 학습이 거의 되지 않은 상태였고, 이 때문에 조기 종료(최대 100에포크)를 도입했습니다.
