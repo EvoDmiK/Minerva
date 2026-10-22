@@ -321,3 +321,230 @@ In this work, we have introduced an effective method for discovering new intents
 ## Acknowledgments
 
 This work is supported by seed fund of Tsinghua University (Department of Computer Science and Technology)-Siemens Ltd., China Joint Research Center for Industrial Intelligence and Internet of Things.
+## References
+
+* Basu, Banerjee, and Mooney (2004)
+
+  Basu, S.; Banerjee, A.; and Mooney, R. J. 2004.
+  Active semi-supervision for pairwise constrained clustering.
+  In *Proceedings of SIAM ICDM*, 333–344.
+* Bilenko, Basu, and Mooney (2004)
+
+  Bilenko, M.; Basu, S.; and Mooney, R. J. 2004.
+  Integrating constraints and metric learning in semi-supervised
+  clustering.
+  In *Proceedings of ICML*.
+* Brychcin and Král (2017)
+
+  Brychcin, T.; and Král, P. 2017.
+  Unsupervised Dialogue Act Induction using Gaussian Mixtures.
+  In *Proceedings of EACL*, 485–490.
+* Caron et al. (2018)
+
+  Caron, M.; Bojanowski, P.; Joulin, A.; and Douze, M. 2018.
+  Deep clustering for unsupervised learning of visual features.
+  In *Proceedings of ECCV*, 132–149.
+* Casanueva et al. (2020)
+
+  Casanueva, I.; Temcinas, T.; Gerz, D.; Henderson, M.; and Vulic, I. 2020.
+  Efficient Intent Detection with Dual Sentence Encoders.
+  In *Proceedings of ACL Workshop*, 38–45.
+* Chang et al. (2017)
+
+  Chang, J.; Wang, L.; Meng, G.; Xiang, S.; and Pan, C. 2017.
+  Deep adaptive image clustering.
+  In *Proceedings of ICCV*, 5879–5887.
+* Devlin et al. (2019)
+
+  Devlin, J.; Chang, M.-W.; Lee, K.; and Toutanova, K. 2019.
+  BERT: Pre-training of Deep Bidirectional Transformers for Language
+  Understanding.
+  In *Proceedings of NAACL-HLT*, 4171–4186.
+* Ester et al. (1996)
+
+  Ester, M.; Kriegel, H.-P.; Sander, J.; Xu, X.; et al. 1996.
+  A density-based algorithm for discovering clusters in large spatial
+  databases with noise.
+  In *Proceedings of Kdd*, 226–231.
+* Goo et al. (2018)
+
+  Goo, C.-W.; Gao, G.; Hsu, Y.-K.; Huo, C.-L.; Chen, T.-C.; Hsu, K.-W.; and Chen,
+  Y.-N. 2018.
+  Slot-Gated Modeling for Joint Slot Filling and Intent Prediction.
+  In *Proceedings of NAACL*, 753–757.
+* Gowda (1984)
+
+  Gowda, K. C. 1984.
+  A feature reduction and unsupervised classification algorithm for
+  multispectral data.
+  *Pattern Recognition* 667–676.
+* Gowda and Krishna (1978)
+
+  Gowda, K. C.; and Krishna, G. 1978.
+  Agglomerative clustering using the concept of mutual nearest
+  neighbourhood.
+  *Pattern recognition* 105–112.
+* Hakkani-Tür et al. (2015)
+
+  Hakkani-Tür, D.; Ju, Y.-C.; Zweig, G.; and Tur, G. 2015.
+  Clustering novel intents in a conversational interaction system with
+  semantic parsing.
+  In *Proceedings of INTERSPEECH*, 1854–1858.
+* Hakkani-Tür et al. (2013)
+
+  Hakkani-Tür, D.; Celikyilmaz, A.; Heck, L.; and Tur, G. 2013.
+  A Weakly-Supervised Approach for Discovering New User Intents from
+  Search Query Logs.
+  In *Proceedings of INTERSPEECH*, 3780–3784.
+* Han, Vedaldi, and Zisserman (2019)
+
+  Han, K.; Vedaldi, A.; and Zisserman, A. 2019.
+  Learning to Discover Novel Visual Categories via Deep Transfer
+  Clustering.
+  In *Proceedings of ICCV*.
+* Haponchyk et al. (2018)
+
+  Haponchyk, I.; Uva, A.; Yu, S.; Uryupina, O.; and Moschitti, A. 2018.
+  Supervised Clustering of Questions into Intents for Dialog System
+  Applications.
+  In *Proceedings of EMNLP*, 2310–2321.
+* Hsu, Lv, and Kira (2018)
+
+  Hsu, Y.-C.; Lv, Z.; and Kira, Z. 2018.
+  Learning to cluster in order to transfer across domains and tasks.
+  In *Proceedings of ICLR*.
+* Hsu et al. (2019)
+
+  Hsu, Y.-C.; Lv, Z.; Schlosser, J.; Odom, P.; and Kira, Z. 2019.
+  Multi-class classification without multi-class labels.
+  In *Proceedings of ICLR*.
+* Kuhn (1955)
+
+  Kuhn, H. W. 1955.
+  The Hungarian method for the assignment problem.
+  *Naval research logistics* 2(1-2): 83–97.
+* Larson et al. (2019)
+
+  Larson, S.; Mahendran, A.; Peper, J. J.; Clarke, C.; Lee, A.; Hill, P.;
+  Kummerfeld, J. K.; Leach, K.; Laurenzano, M. A.; Tang, L.; and Mars, J. 2019.
+  An Evaluation Dataset for Intent Classification and Out-of-Scope
+  Prediction.
+  In *Proceedings of EMNLP-IJCNLP*, 1311–1316.
+* Lin and Xu (2019)
+
+  Lin, T. E.; and Xu, H. 2019.
+  Deep Unknown Intent Detection with Margin Loss.
+  In *Proceedings of ACL*, 5491–5496.
+* Lin, Xu, and Zhang (2020)
+
+  Lin, T.-E.; Xu, H.; and Zhang, H. 2020.
+  Discovering New Intents via Constrained Deep Adaptive Clustering with
+  Cluster Refinement.
+  In *Proceedings of AAAI*, 8360–8367.
+* MacQueen et al. (1967)
+
+  MacQueen, J.; et al. 1967.
+  Some methods for classification and analysis of multivariate
+  observations.
+  In *Proceedings of the fifth Berkeley symposium on mathematical
+  statistics and probability*, 281–297.
+* Min et al. (2020)
+
+  Min, Q.; Qin, L.; Teng, Z.; Liu, X.; and Zhang, Y. 2020.
+  Dialogue State Induction Using Neural Latent Variable Models.
+  In *Proceedings of IJCAI*, 3845–3852.
+* Padmasundari and Bangalore (2018)
+
+  Padmasundari; and Bangalore, S. 2018.
+  Intent Discovery Through Unsupervised Semantic Text Clustering.
+  In *Proceedings of INTERSPEECH*, 606–610.
+* Pennington, Socher, and Manning (2014)
+
+  Pennington, J.; Socher, R.; and Manning, C. D. 2014.
+  Glove: Global Vectors for Word Representation.
+  In *Proceedings of EMNLP*, 1532–1543.
+* Perkins and Yang (2019)
+
+  Perkins, H.; and Yang, Y. 2019.
+  Dialog Intent Induction with Deep Multi-View Clustering.
+  In *Proceedings of EMNLP-IJCNLP*, 4016–4025.
+* Platt et al. (1999)
+
+  Platt, J.; et al. 1999.
+  Probabilistic outputs for support vector machines and comparisons to
+  regularized likelihood methods.
+  *Advances in large margin classifiers* 10(3): 61–74.
+* Qin et al. (2020)
+
+  Qin, L.; Che, W.; Li, Y.; Ni, M.; and Liu, T. 2020.
+  DCR-Net: A Deep Co-Interactive Relation Network for Joint Dialog Act
+  Recognition and Sentiment Classification.
+  In *Proceedings of AAAI*, 8665–8672.
+* Qin et al. (2019)
+
+  Qin, L.; Che, W.; Li, Y.; Wen, H.; and Liu, T. 2019.
+  A Stack-Propagation Framework with Token-Level Intent Detection for
+  Spoken Language Understanding.
+  In *Proceedings of EMNLP*, 2078–2087.
+* Rousseeuw (1987)
+
+  Rousseeuw, P. J. 1987.
+  Silhouettes: A graphical aid to the interpretation and validation of
+  cluster analysis.
+  *Journal of Computational and Applied Mathematics* 20: 53 – 65.
+* Shi et al. (2018)
+
+  Shi, C.; Chen, Q.; Sha, L.; Li, S.; Sun, X.; Wang, H.; and Zhang, L. 2018.
+  Auto-Dialabel: Labeling Dialogue Data with Unsupervised Learning.
+  In *Proceedings of EMNLP*, 684–689.
+* Vedula et al. (2020)
+
+  Vedula, N.; Lipka, N.; Maneriker, P.; and Parthasarathy, S. 2020.
+  Open Intent Extraction from Natural Language Interactions.
+  In *Proceedings of WWW*, 2009–2020.
+* Wagstaff et al. (2001)
+
+  Wagstaff, K.; Cardie, C.; Rogers, S.; and Schrödl, S. 2001.
+  Constrained K-means Clustering with Background Knowledge.
+  In *Proceedings of ICML*, 577–584.
+* Wang, Shen, and Jin (2018)
+
+  Wang, Y.; Shen, Y.; and Jin, H. 2018.
+  A Bi-Model Based RNN Semantic Frame Parsing Model for Intent
+  Detection and Slot Filling.
+  In *Proceedings of NAACL*, 309–314.
+* Wold, Esbensen, and Geladi (1987)
+
+  Wold, S.; Esbensen, K.; and Geladi, P. 1987.
+  Principal component analysis.
+  *Chemometrics and intelligent laboratory systems* 2(1-3):
+  37–52.
+* Wolf et al. (2019)
+
+  Wolf, T.; Debut, L.; Sanh, V.; Chaumond, J.; Delangue, C.; Moi, A.; Cistac, P.;
+  Rault, T.; Louf, R.; Funtowicz, M.; and Brew, J. 2019.
+  HuggingFace’s Transformers: State-of-the-art Natural Language
+  Processing.
+  *arXiv preprint arXiv:1910.03771* .
+* Xie, Girshick, and Farhadi (2016)
+
+  Xie, J.; Girshick, R.; and Farhadi, A. 2016.
+  Unsupervised deep embedding for clustering analysis.
+  In *Proceedings of ICML*, 478–487.
+* Yang et al. (2017)
+
+  Yang, B.; Fu, X.; Sidiropoulos, N. D.; and Hong, M. 2017.
+  Towards k-means-friendly spaces: Simultaneous deep learning and
+  clustering.
+  In *Proceedings of ICML*, 3861–3870.
+* Yang, Parikh, and Batra (2016)
+
+  Yang, J.; Parikh, D.; and Batra, D. 2016.
+  Joint unsupervised learning of deep representations and image
+  clusters.
+  In *Proceedings of CVPR*, 5147–5156.
+* Zhan et al. (2020)
+
+  Zhan, X.; Xie, J.; Liu, Z.; Ong, Y.-S.; and Loy, C. C. 2020.
+  Online Deep Clustering for Unsupervised Representation Learning.
+  In *Proceedings of CVPR*, 6688–6697.
