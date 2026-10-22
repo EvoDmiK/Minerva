@@ -18,6 +18,14 @@ tags: [robingraph, backlog]
 
 ## 착수 대기
 
+| 작업 ID | 제목 | 상태 | 우선순위 | 권장 담당 | 상세 링크 |
+|---|---|---|---|---|---|
+| **RG-204** | 의미 기반 그래프 질의 해석 및 안전한 실행 전환 (상위) | 착수 대기 | P1 (높음) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-204\|상세 백로그]] |
+| **RG-205** | 구조화 질의 계약·정답 평가셋·현재 기준선 | 착수 대기 | P1 (높음) | Claude, Codex | [[Work/RobinGraph/백로그 상세/RG-205\|상세 백로그]] |
+| **RG-206** | 질문 임베딩 기반 질의 유형 후보 검색 | 착수 대기 | P1 (높음) | Claude, Codex | [[Work/RobinGraph/백로그 상세/RG-206\|상세 백로그]] |
+| **RG-207** | 원문 조건 추출·엔티티 연결·안전 검증 | 착수 대기 | P1 (높음) | Claude, Codex | [[Work/RobinGraph/백로그 상세/RG-207\|상세 백로그]] |
+| **RG-208** | 통합·관측·TEST 비교·단계적 전환 | 착수 대기 | P1 (높음) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-208\|상세 백로그]] |
+
 ### RG-506 — 출처 기반 국외 분포 검토종 확대 및 미확인 종 검토
 
 [[Work/RobinGraph/백로그 상세/RG-506|RG-506 상세]] · 국외 분포 검토종 확대·미확인 종 검토 · RG-406에서 분리된 후속 데이터 과제
