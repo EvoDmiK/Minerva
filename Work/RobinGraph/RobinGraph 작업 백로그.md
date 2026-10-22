@@ -1,6 +1,14 @@
+# File: RobinGraph 작업 백로그.md
+
+Path: Work/RobinGraph/RobinGraph 작업 백로그.md
+Lines: 130
+Tags: #robingraph, #backlog
+
+## Content
+
 ---
 created: 2026-10-01
-updated: 2026-10-21
+updated: 2026-10-22
 project: RobinGraph
 type: backlog
 tags: [robingraph, backlog]
@@ -9,6 +17,15 @@ tags: [robingraph, backlog]
 # RobinGraph 작업 백로그
 
 작업 목록과 상태만 간단히 관리합니다. 상세 설명·검증·배포 이력은 각 작업 링크에서 확인합니다. 등록만으로 작업을 시작하거나 운영 배포를 승인하지 않습니다.
+
+## 진행 중
+
+### RG-203 — 그래프 관계 기반 질의응답 (분류 계통·속 관계·생태 및 먹이 공유 질의)
+
+[[Work/RobinGraph/백로그 상세/RG-203|RG-203 상세]] · 그래프 관계 질의응답 (분류 계통·속·국내기록·먹이 공유) · 착수 및 현황 점검 단계 (구현·TEST배포·DB검증 미완료)
+
+- **상태**: 진행 중 (착수 및 현황 점검)
+- **우선순위**: 보통
 
 ## 착수 대기
 
@@ -127,3 +144,9 @@ tags: [robingraph, backlog]
 - [[Work/RobinGraph/백로그 상세/2026-10-21 정리 전 백로그#백로그 변경 이력|과거 변경 이력]]
 
 현재 등록 항목 기준입니다. 새 검증이나 상태 재평가는 이번 문서 분리에 포함하지 않았습니다.
+
+
+---
+Tip: Use `view.file(path)` for full content or `view.window(path, lineNumber)` for a section
+
+_Metadata fields are abbreviated; use `raw: true` for the full structured payload._
