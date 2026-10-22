@@ -14,13 +14,14 @@ tags:
   - clustering
   - banking77
   - clinc150
-paper_title: Discovering New Intents with Deep Aligned Clustering
+  - evaluation-metrics
+paper_title: "Discovering New Intents with Deep Aligned Clustering"
 paper_date: 2020-12-16
-paper_id: arXiv:2012.08987v7
-source_url: https://arxiv.org/abs/2012.08987
-primary_text: https://arxiv.org/html/2012.08987v7
+paper_id: "arXiv:2012.08987v7"
+source_url: "https://arxiv.org/abs/2012.08987"
+primary_text: "https://arxiv.org/html/2012.08987v7"
 source_role: primary
-capture_scope: DeepAligned 핵심 수식·헝가리안 정렬 원리·베이스라인 타당성 분석(인터뷰 과제/학술/실무)·벤치마크 정량 지표 심층 분석
+capture_scope: "DeepAligned 핵심 수식·Stage 1/Stage 2 2단계 학습 파이프라인·헝가리안 정렬 원리·외부 평가 지표(ACC/NMI/ARI) 원리 및 수학적 정식화·베이스라인 타당성 분석·벤치마크 정량 지표"
 source_notes:
   - "[[Learning/원문/2026-10-21-DeepAligned-원문]]"
 implementation_notes:
@@ -29,7 +30,7 @@ implementation_notes:
 # DeepAligned: Deep Aligned Clustering for New Intent Discovery (AAAI 2021) — 기술 심층 분석
 
 > [!abstract] 핵심 요약
-> DeepAligned(AAAI 2021)는 대화 시스템의 신규 의도 발굴(New Intent Discovery, NID)을 위해 **소량의 기지(Known) 라벨 데이터 지식을 사전 전이(Pre-training)**하고, 딥 클러스터링 학습 중 에포크마다 클러스터 ID가 무작위로 치환되는 라벨 불일치 문제를 **헝가리안 알고리즘 기반 중심점 정렬(Centroid Alignment)**로 해결한 기념비적 텍스트 NID 표준 베이스라인 논문입니다.
+> DeepAligned(AAAI 2021)는 대화 시스템의 신규 의도 발굴(New Intent Discovery, NID)을 위해 **소량의 기지(Known) 라벨 데이터 지식을 사전 전이(Pre-training, Stage 1)**하고, 딥 클러스터링 학습 중 에포크마다 클러스터 ID가 무작위로 치환되는 라벨 불일치 문제를 **헝가리안 알고리즘 기반 중심점 정렬(Centroid Alignment, Stage 2)**로 해결한 기념비적 텍스트 NID 표준 베이스라인 논문입니다. 군집 품질 평가는 라벨 치환에 불변한 외부 지표인 **ACC, NMI, ARI**를 상호보완적으로 활용하여 검증합니다.
 
 ---
 
@@ -54,42 +55,60 @@ implementation_notes:
 
 ---
 
-## 2. 핵심 방법론 및 수학적 정식화
+## 2. 핵심 방법론 및 2단계 학습 파이프라인 (Stage 1 & Stage 2)
 
 ```
-[전체 파이프라인 흐름]
-  1단계: BERT Mean-pooling + Known 데이터 교차 엔트로피 사전학습 (Pre-training)
-       │
-       ▼
-  2단계: 사전학습 특징 기반 K' = 2K 군집화 후 희소 군집 필터링 → 클래스 수 K 추정
-       │
-       ▼
-  3단계: [에포크 반복] BERT 특징 추출 → k-Means 군집화 → 중심점 획득
-       │
-       ▼
-  4단계: 이전 에포크 중심점(C^{l})과 현재 중심점(C^{c}) 간 헝가리안 최적 이분 매칭
-       │
-       ▼
-  5단계: 정렬된 의사 라벨(y^{align})을 타깃으로 분류 헤드 & 백본 교차 엔트로피 재학습
+[전체 파이프라인 구조]
+┌────────────────────────────────────────────────────────────────────────┐
+│ Stage 1: 기지(Known) 라벨 데이터 기반 지도 사전학습 (Supervised Pretraining) │
+│  - BERT Mean-pooling 문장 표상 ($z_i \in \mathbb{R}^{768}$) 도출       │
+│  - 소량의 Known 데이터 교차 엔트로피 손실 ($\mathcal{L}_{pre}$) 학습      │
+│  - 타깃 누수 방지: Known-only Validation 세트 기반 조기 종료(Early Stopping)│
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ 사전학습 가중치 전이
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ [사전 준비]: 클러스터 수 ($K$) 자동 추정 알고리즘                         │
+│  - 상한값 $K' = 2K$ 설정 후 k-Means 수행                                │
+│  - 평균 크기 미만 희소 군집 필터링 → $\hat{K}$ 결정                      │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ $K$개 클래스 분류 헤드 초기화
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ Stage 2: 헝가리안 정렬 딥 클러스터링 (Deep Aligned Clustering, DAC)       │
+│  [에포크 반복 루프]                                                    │
+│   1) 언라벨 데이터 문장 특징 추출 ($I_i$)                               │
+│   2) k-Means 군집화 → 현재 중심점 행렬 $C^c$ 및 의사 라벨 $y^c$ 획득      │
+│   3) 헝가리안 알고리즘 최적 이분 매칭 ($O(K^3)$) → 중심점 정렬          │
+│   4) 정렬된 의사 라벨 $y^{align} = G^{-1}(y^c)$ 도출                     │
+│   5) 분류기 헤드 유지 상태로 전체 데이터 교차 엔트로피 손실($\mathcal{L}_{dac}$) 역전파│
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 2.1 문장 표현 및 사전학습 (Pre-training)
-* 입력 문장 $s_i$를 BERT-uncased에 입력하여 마지막 레이어 은닉 상태 $[CLS, T_1, \dots, T_M]$를 얻고 Mean-pooling을 적용합니다:
+### 2.1 Stage 1: 문장 표현 및 기지 클래스 지도 사전학습 (Supervised Pre-training)
+* **목표:** 소량의 기지(Known) 인텐트 라벨 데이터를 활용하여 언어 모델의 사전 지식을 텍스트 분류 및 의미 공간 정렬에 적응시킵니다.
+* **특징 추출:** 입력 문장 $s_i$를 BERT-uncased에 입력하여 마지막 레이어 은닉 상태 $[CLS, T_1, \dots, T_M]$를 얻고 Mean-pooling을 적용합니다:
   $$z_i = \text{mean-pooling}([CLS, T_1, \dots, T_M]) \in \mathbb{R}^H \quad (H=768)$$
-* 비선형 투영 레이어 $h$를 거쳐 인텐트 표현 벡터 $I_i \in \mathbb{R}^D$ ($D=768$)를 도출합니다:
+* **투영 레이어:** 비선형 투영 레이어 $h$를 거쳐 인텐트 표현 벡터 $I_i \in \mathbb{R}^D$ ($D=768$)를 도출합니다:
   $$I_i = h(z_i) = \sigma(W_h z_i + b_h)$$
-* 소량의 Known 라벨 데이터 $\mathcal{D}_l$에 대해 Softmax Cross-Entropy 손실 $\mathcal{L}_{pre}$로 백본과 분류기를 사전학습합니다:
+* **손실 함수:** 소량의 Known 라벨 데이터 $\mathcal{D}_l$에 대해 Softmax Cross-Entropy 손실 $\mathcal{L}_{pre}$로 백본과 분류기를 사전학습합니다:
   $$\mathcal{L}_{pre} = -\frac{1}{N_l} \sum_{i=1}^{N_l} \log \frac{\exp(\phi(I_i)^{y_i^l})}{\sum_{j=1}^{K_{known}} \exp(\phi(I_i)^j)}$$
+* **타깃 누수 방지 및 조기 종료 (Validation & Early Stopping):**
+  - 과적합을 방지하고 일반화 성능을 극대화하기 위해 검증(Validation)을 수행합니다.
+  - Novel 클래스 정보가 사전학습 단계에 유출되는 것을 차단하기 위해 검증 데이터셋 역시 **Known 클래스로만 구성된 세트(`known-only dev`)**로 평가합니다.
+  - 검증 정확도가 정해진 patience(예: 10 에포크) 동안 개선되지 않으면 학습을 즉시 조기 종료하고 최고 정확도 시점의 모델 파라미터를 복원합니다.
 
 ### 2.2 클러스터 수 ($K$) 자동 추정 알고리즘
-* 실제 인텐트 수 $K$를 모를 때, 상한값 $K' = 2 \times K$로 넉넉하게 설정합니다.
+* 실제 인텐트 수 $K$를 사전에 알 수 없을 때, 상한값 $K' = 2 \times K$로 넉넉하게 설정합니다.
 * 사전학습된 모델로 전체 데이터의 특징 벡터를 추출한 뒤 k-Means를 실행하여 군집 $S_1, S_2, \dots, S_{K'}$을 얻습니다.
 * 임계값 $t = \frac{N}{K'}$ (평균 군집 크기) 미만의 희소 군집을 노이즈로 간주하여 탈락시키고, 유효 클러스터 수를 결정합니다:
   $$\hat{K} = \sum_{i=1}^{K'} \mathbb{I}(|S_i| \ge t)$$
 
-### 2.3 헝가리안 정렬 (Hungarian Alignment) 원리
+### 2.3 Stage 2: 헝가리안 정렬 딥 클러스터링 (Deep Aligned Clustering, DAC)
+* **목표:** Novel 인텐트를 포함한 비라벨 데이터에 대해 군집화를 수행하며, 에포크 간 라벨 불일치 문제를 해결하여 분류 모델을 안정적으로 수렴시킵니다.
+* **분류 헤드 재구성:** 전체 클러스터 수($K = K_{known} + K_{novel}$)에 맞춰 선형 분류 헤드를 재초기화합니다.
 
-#### 왜 헝가리안 알고리즘인가?
+#### 헝가리안 중심점 정렬 (Hungarian Centroid Alignment) 원리
 * k-Means에 의해 출력되는 군집 중심점 행렬 $C \in \mathbb{R}^{K \times D}$은 각 군집의 평균적 의미 표상을 집약하고 있으므로, 개별 데이터 포인트보다 훨씬 안정적인 기준점이 됩니다.
 * 현재 에포크 $c$의 중심점 집합 $\{c_i^c\}_{i=1}^K$과 직전 에포크 $l$의 중심점 집합 $\{c_j^l\}_{j=1}^K$ 사이의 유클리드 거리 비용 행렬 $M \in \mathbb{R}^{K \times K}$을 구성합니다:
   $$M_{i, j} = \|c_i^c - c_j^l\|_2$$
@@ -99,14 +118,14 @@ implementation_notes:
 * 현재 의사 라벨 $y^c$에 역사상 $G^{-1}$을 적용하여 직전 에포크와 일치하도록 가상 라벨을 정렬합니다:
   $$y^{align} = G^{-1}(y^c)$$
 
-### 2.4 자기지도 정렬 클러스터링 학습 손실 ($\mathcal{L}_{dac}$)
+#### 자기지도 정렬 클러스터링 학습 손실 ($\mathcal{L}_{dac}$)
 * 정렬된 가상 라벨 $y_i^{align}$을 의사 정답으로 삼아 전체 데이터셋 $N$개에 대해 분류기를 학습시킵니다:
   $$\mathcal{L}_{dac} = -\frac{1}{N} \sum_{i=1}^N \log \frac{\exp(\phi(I_i)^{y_i^{align}})}{\sum_{j=1}^K \exp(\phi(I_i)^j)}$$
 * 분류기 가중치를 재초기화하지 않고 직전 에포크의 파라미터를 그대로 유지하므로, 신경망의 의미적 특징 공간이 에포크를 거듭할수록 부드럽고 안정적으로 군집 친화적(Clustering-friendly)으로 응집됩니다.
 
 ---
 
-## 3. 정량적 벤치마크 결과 및 절제 실험
+## 3. 정량적 벤치마크 및 군집 평가 지표 심층 분석
 
 ### 3.1 주요 벤치마크 정량 성능 (ACC / NMI / ARI %)
 
@@ -121,7 +140,54 @@ implementation_notes:
 | | | ARI | 12.18 | 40.97 | 44.70 | **53.64** |
 | | 75% | ACC | 41.99 | 65.74 | 68.20 | **74.87** |
 
-### 3.2 핵심 절제 실험 (Ablation Findings)
+### 3.2 군집 및 NID 3대 핵심 평가 지표 (ACC / NMI / ARI) 원리
+
+군집화 및 신규 인텐트 발굴 과제에서는 모델이 출력하는 군집 번호(0번, 1번...)가 임의로 부여되므로, 표준 분류 정확도(Standard Accuracy)를 직접 계산할 수 없습니다. 따라서 **라벨의 순서 치환에 영향을 받지 않는 외부 평가 지표(External Cluster Validity Indices)**를 상호보완적으로 사용하여 평가합니다.
+
+#### 1. ACC (Clustering Accuracy, 군집 정확도)
+* **개념:** 예측된 클러스터 ID와 실제 정답 라벨 사이의 최적 1:1 매칭 사상($m$)을 찾은 후 계산한 분류 정확도입니다.
+* **수식:**
+  $$\text{ACC} = \max_{m \in \mathcal{M}} \frac{\sum_{i=1}^N \mathbb{I}(y_i = m(c_i))}{N}$$
+  여기서 $\mathcal{M}$은 클러스터 레이블과 정답 클래스 레이블 간의 가능한 모든 일대일 매핑 집합입니다. 최적 매핑 $m$은 **헝가리안 알고리즘($O(K^3)$)**을 통해 계산됩니다.
+* **특징 및 한계:**
+  - 매우 직관적이며 분류 성능과 직접 연결됩니다.
+  - 클러스터 수와 클래스 수가 정확히 1:1로 대응된다는 가정이 전제되어야 하며, 군집 내의 분포 형상이나 쌍별 응집도는 평가하지 못합니다.
+
+#### 2. NMI (Normalized Mutual Information, 정규화 상호정보량)
+* **개념:** 정보이론(Information Theory)에 기반하여, 실제 라벨 분포 $Y$와 예측 클러스터 분포 $C$가 서로 공유하는 **상호정보량(Mutual Information, $I(Y; C)$)**을 각 분포의 엔트로피로 정규화한 지표입니다.
+* **수식:**
+  $$\text{NMI}(Y, C) = \frac{2 \cdot I(Y; C)}{H(Y) + H(C)}$$
+  - 상호정보량: $I(Y; C) = \sum_{y \in Y} \sum_{c \in C} p(y, c) \log \frac{p(y, c)}{p(y) p(c)}$
+  - 정보 엔트로피: $H(Y) = -\sum_{y \in Y} p(y) \log p(y), \quad H(C) = -\sum_{c \in C} p(c) \log p(c)$
+* **값의 범위:** **[0, 1]** (1이면 완벽한 군집 일치, 0이면 무작위/독립)
+* **특징 및 한계:**
+  - 클러스터 번호의 치환에 영향을 받지 않으며, 각 클러스터의 순도(Purity)를 잘 반영합니다.
+  - **편향(Bias):** 클러스터 개수 $K$가 극단적으로 많아질수록(극단적으로 데이터당 1클러스터) 상호정보량이 과대평가(Overestimate)되는 경향이 있습니다.
+
+#### 3. ARI (Adjusted Rand Index, 수정 랜드 지수)
+* **개념:** 모든 가능한 데이터 쌍(Pairwise)에 대해 군집 할당과 실제 라벨 간의 일치 여부를 평가하는 랜드 지수(Rand Index, RI)에서, **무작위 군집 할당 시 기대되는 우연성(Chance)을 차감하여 정규화한 지표**입니다.
+* **데이터 쌍의 4가지 경우의 수 ($N$개 표본 중 $\binom{N}{2}$개 쌍):**
+  - $a$: 실제 같은 클래스 & 같은 클러스터로 할당 (True Positive)
+  - $b$: 실제 다른 클래스 & 같은 클러스터로 할당 (False Positive)
+  - $c$: 실제 같은 클래스 & 다른 클러스터로 할당 (False Negative)
+  - $d$: 실제 다른 클래스 & 다른 클러스터로 할당 (True Negative)
+  - 단순 랜드 지수: $\text{RI} = \frac{a + d}{a + b + c + d} = \frac{a + d}{\binom{N}{2}}$
+* **보정 수식 (우연성 배제):**
+  $$\text{ARI} = \frac{\text{RI} - \mathbb{E}[\text{RI}]}{\max(\text{RI}) - \mathbb{E}[\text{RI}]} = \frac{\sum_{ij} \binom{n_{ij}}{2} - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{N}{2}}{\frac{1}{2} \left[\sum_i \binom{a_i}{2} + \sum_j \binom{b_j}{2}\right] - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{N}{2}}$$
+* **값의 범위:** **[-1, 1]** (일반적으로 0~1 범위. 무작위 분할 시 0에 수렴, 완벽 일치 시 1, 무작위보다 못할 경우 음수)
+* **특징 및 장점:**
+  - 무작위 기대값을 빼주므로 클러스터 개수나 데이터 크기에 따른 왜곡에 매우 강건(Robust)합니다.
+  - NMI보다 훨씬 엄격한 기준을 제공하므로, 벤치마크 모델 간의 군집 분별력 차이를 가장 정밀하게 드러냅니다.
+
+#### 4. 3대 지표 비교 요약
+
+| 지표 | 측정 관점 | 수학적 기반 | 값의 범위 | 주요 장점 및 한계 |
+| :--- | :--- | :--- | :--- | :--- |
+| **ACC** | 1:1 최적 매칭 정확도 | 조합 최적화 (이분 매칭) | [0, 1] (0~100%) | 직관적 분류 해석 가능 / 1:1 대응 강제 필요 |
+| **NMI** | 정보 엔트로피 감소량 | 정보이론 (Mutual Info) | [0, 1] | 클러스터 순도 정밀 측정 / 군집 수 증가 시 과대평가 편향 |
+| **ARI** | 쌍별 동질성/이질성 일치도 | 조합론 (Pairwise Matching) | [-1, 1] | 무작위 확률 보정, 엄격하고 신뢰도 높음 / 음수 발생 가능 |
+
+### 3.3 핵심 절제 실험 (Ablation Findings)
 1. **정렬 전략(Alignment)의 필수성:**
    - 정렬을 끄고 매 에포크 무작위 재초기화(Re-initialization)를 적용하면 CLINC 기준 ACC가 **86.49% $\rightarrow$ 55.80% (-30.69%p)**로 폭락합니다.
    - 라벨 일관성 유지가 심층 표현 학습의 발산을 막는 결정적 요인임을 수학적/실험적으로 증명했습니다.
