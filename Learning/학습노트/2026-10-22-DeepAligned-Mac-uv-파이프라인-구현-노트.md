@@ -794,7 +794,7 @@ uv run python deepaligned_pipeline.py \
   --batch_size 64
 ```
 
-### 4.3 모델 한계점 및 후속 개선 방향 (보고서/README 필수 항목)
+### 4.6 모델 한계점 및 후속 개선 방향 (보고서/README 필수 항목)
 보고서나 README에 아래 한계점과 극복 방안을 명시하면 높은 가산점을 받을 수 있습니다.
 1. **k-Means의 등방성(Spherical) 군집 가정의 한계:**
    - Banking77과 같은 자연어 발화는 의도에 따라 분산과 밀도가 매우 불균일합니다. 유클리디안 거리 기반 k-Means는 동일한 분산의 구형 군집을 가정하므로, 롱테일 인텐트나 복합 의도에서 군집이 쪼개지거나 왜곡됩니다.
@@ -803,7 +803,7 @@ uv run python deepaligned_pipeline.py \
    - 매 에포크 k-Means를 거쳐 이산적인(discrete) 의사 레이블을 생성하고 다시 분류기를 학습시키는 과정에서 오분류된 레이블의 확증 편향(Confirmation Bias)이 누적됩니다.
    - *개선안:* SimGCD처럼 파라메트릭 분류기(Softmax 프로토타입)를 도입하여 종단간(End-to-End) 학습으로 전환하거나, MTP-CLNN처럼 대조 학습으로 인코더를 정밀하게 사전 정렬.
 
-### 4.4 면접 예상 질문 & 방어 논리 요약
+### 4.7 면접 예상 질문 & 방어 논리 요약
 1. **Q. Validation Set에 Novel 클래스를 넣지 않은 이유는 무엇인가요?**
    - *답변 논리:* GCD 문제의 기본 전제는 운영/배포 전까지 미지의 클래스를 모른다는 점입니다. Validation Set에 Novel 클래스를 포함시키면 하이퍼파라미터 튜닝 시 정답 Novel 분포에 오버피팅되는 **타깃 누수(Target Leakage/Cheating)**가 발생합니다. 따라서 실제 운영 환경과 동일하게 **Known 클래스로만 검증셋을 구성**하고, 기존 지식의 보존력(Known ACC)을 모니터링하여 체크포인트를 선정했습니다.
 2. **Q. Known과 Novel의 비율은 왜 50:50으로 두었나요?**
