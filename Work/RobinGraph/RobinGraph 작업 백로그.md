@@ -1,11 +1,3 @@
-# File: RobinGraph 작업 백로그.md
-
-Path: Work/RobinGraph/RobinGraph 작업 백로그.md
-Lines: 130
-Tags: #robingraph, #backlog
-
-## Content
-
 ---
 created: 2026-10-01
 updated: 2026-10-22
