@@ -16,7 +16,7 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 | 항목 | 내용 |
 |---|---|
-| 진행 확인 | 2026-10-22 12:36 KST · 새 Parent 생성, 첫 기준 조건 준비 중 |
+| 진행 확인 | 2026-10-22 12:37 KST · 첫 기준 조건의 fold 1 CUDA 학습 중 · 에폭 동기화 확인 |
 | 고정 학습률 | `0.00028884521694941566` |
 | 기준 run | `laya-ten-tools-train600-refine20-lr0.000288845` |
 | 탐색 대상 | 배치·warmup·clipping·scheduler·weight decay·label smoothing |
