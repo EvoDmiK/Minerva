@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-10
+updated: 2026-10-22
 created: 2026-10-01
 project: Gullinkambi
 type: project-index
@@ -29,6 +29,7 @@ Grafana와 Prometheus를 중심으로 홈랩 서비스·인프라·AI 사용량�
 
 ## 작업 기록 (Work Logs)
 
+- [[Work/Gullinkambi/작업기록/2026-10-22-Mac-mini-본체-지표-전환과-앱별-메모리|2026-10-22 — Mac mini 본체 지표 전환과 앱별 메모리]]
 - [[Work/Gullinkambi/작업기록/2026-10-10-Loki-중앙-로그-수집-도입|2026-10-10 — Loki 중앙 로그 수집 도입]]
 - [[Work/Gullinkambi/작업기록/2026-10-10-Hermes-모니터링-전면-개편|2026-10-10 — Hermes 모니터링 전면 개편]]
 - [[Work/Gullinkambi/작업기록/2026-10-10-ORCA-호출별-관측-구현과-운영-반영|2026-10-10 — ORCA 호출별 관측 구현과 운영 반영]]
