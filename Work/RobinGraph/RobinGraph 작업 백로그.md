@@ -14,7 +14,7 @@ tags: [robingraph, backlog]
 
 | ID | 작업 | 상태 | 담당 | 상세 링크 |
 |---|---|---|---|---|
-| **RG-212** | 시맨틱 그래프 인터프리터 | 진행 중 (TEST 실험; 일반화 완료 아님) | Codex, Claude, Writer | [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-23-시맨틱-그래프-인터프리터-실험-구현\|작업기록]] · 피드백 노출 28건 API 회귀: 지원 9 pass / 6 false hold / 3 unverifiable, hold 6/6, preserve 3/4 |
+| **RG-212** | 시맨틱 그래프 인터프리터 | 진행 중 (TEST 실험; 일반화 완료 아님) | Codex, Claude, Writer | [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-23-시맨틱-그래프-인터프리터-실험-구현\|작업기록]] · 피드백 노출 28건 API 회귀: 지원 9 pass / 6 false hold / 3 unverifiable, hold 6/6, preserve 3/4 · 후속 확인 흐름: 실제 브라우저 8시나리오 최종 answer·관계 범주 일치 (API 16문항·44요청, 피드백 노출 회귀; 전부 정답 아님) · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-23-오타와-의미-확인-후-관계-조회\|오타·의미 확인 후 관계 조회]] |
 | **RG-204** | 의미 기반 그래프 질의 해석 및 안전한 실행 전환 (상위) | 진행 중 (TEST 배포 및 전체 분류군 일반화·커버리지 검증 완료; 단, RG-205 사람 검토 미완료) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-204\|상세 백로그]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG208-전계급-432건-분류학적-커버리지-검증\|커버리지검증]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG208-전체-분류군-형질-일반화-수정-검증\|일반화검증]] |
 | **RG-205** | 구조화 질의 계약·정답 평가셋·현재 기준선 (Phase 1) | 진행 중 (계약·기준선·평가셋 검증 완료; 사람 미검토 분리) | Claude, Codex | [[Work/RobinGraph/백로그 상세/RG-205\|상세 백로그]] |
 
