@@ -26,6 +26,16 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 다음 우선순위는 공통 오답 검토, 혼동 도구 쌍의 대조 데이터, 후보 설명 개선이다. 독립 실제 test 목표 200개 중 현재 후보는 13개·사람 검토 완료는 0개다.
 
+## 새 학습 데이터 v4
+
+**학습800개 · 도구당80개 · 개선 도구 설명 · MLflow 저장 완료**
+
+기존/설명만/데이터만/둘 다 적용한 네 구성을 별도 Child에 보관했다. 각 Child에 실제 train·validation·test JSON, 재현용 JSONL ZIP, 카탈로그·감사 자료가 있으며 Dataset 입력12개를 등록했다. 추가200개는 합성·사람 검토 대기다. 이 데이터로 새 학습은 실행하지 않았다.
+
+[MLflow 데이터 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/ff162f7af7d64c05bd2a9fde44d9d8bd) · [[Work/Jery/작업기록/2026-10-24-Jery-도구경계-데이터v4와-MLflow저장|구성·검증·재현 자료]]
+
+대조 문장 쌍은 같은 scenario로 묶였다. 다음 CV에서는 혼합 라벨 group을 보존하는 분할 계획이 필요하다.
+
 ## 남은 과제
 
 - 합성 데이터의 사람 검토와 실제 요청 평가셋 확보.
@@ -37,6 +47,7 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 ### 2026-10-24
 
+- [[Work/Jery/작업기록/2026-10-24-Jery-도구경계-데이터v4와-MLflow저장|데이터800개·도구 설명 개선 · MLflow 저장]]
 - [[Work/Jery/작업기록/2026-10-24-Jery-seed30회-완료와-성능개선제안|seed 30회 완료 · 검증 코드 정리와 성능 개선 순서]]
 - [[Work/Jery/작업기록/2026-10-24-Jery-OOF오류분석과-seed재검증|OOF 오류 분석 · 3개 seed 재검증 시작]]
 - [[Work/Jery/작업기록/2026-10-24-Jery-Ponytail-리팩토링과-후속제안|Ponytail 리팩토링 · 탐색 중복 방지와 다음 작업]]
