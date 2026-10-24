@@ -1,6 +1,6 @@
 ---
 created: 2026-10-14
-updated: 2026-10-22
+updated: 2026-10-24
 project: Jery
 type: index
 tags: [jery, mcp, dataset, training, hyperopt]
@@ -16,7 +16,7 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 | 항목 | 내용 |
 |---|---|
-| 진행 확인 | 2026-10-22 12:37 KST · 첫 기준 조건의 fold 1 CUDA 학습 중 · 에폭 동기화 확인 |
+| 진행 확인 | 2026-10-24 확인 · 조건 20개 / fold 100개 모두 완료 |
 | 고정 학습률 | `0.00028884521694941566` |
 | 기준 run | `laya-ten-tools-train600-refine20-lr0.000288845` |
 | 탐색 대상 | 배치·warmup·clipping·scheduler·weight decay·label smoothing |
@@ -27,6 +27,8 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 구조는 **전체 실험 → 조건 20개 → 조건별 fold 5개**다. 실제 학습은 총 100회이며 조건별 평균·표준편차는 5개 fold 완료 후 표시된다. 이전 LR 단독 실험은 20개 조건 모두 완료됐다.
 
+최고 조건의 validation 정확도는 76.83%, Macro F1은 0.7643이다. 기준은 74.83% / 0.7449였다. 기존 탐색은 같은 조합을 반복해 고유 조건이 14개였으며, 이후 후보부터 중복 방지를 적용했다.
+
 ## 남은 과제
 
 - 합성 데이터의 사람 검토와 실제 요청 평가셋 확보.
@@ -35,6 +37,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 [[Work/Jery/Jery 작업 백로그|전체 작업 백로그]]
 
 ## 작업 기록
+
+### 2026-10-24
+
+- [[Work/Jery/작업기록/2026-10-24-Jery-Ponytail-리팩토링과-후속제안|Ponytail 리팩토링 · 탐색 중복 방지와 다음 작업]]
 
 ### 2026-10-22
 
