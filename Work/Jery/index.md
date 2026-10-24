@@ -12,22 +12,24 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 ## 현재 실험
 
-**기준 설정 1개 + LR 고정 파라미터 탐색 19개 · 동일한 층화 5-fold**
+**기준·최고 설정 × seed 3개 · 동일한 층화 5-fold**
 
 | 항목 | 내용 |
 |---|---|
-| 진행 확인 | 2026-10-24 확인 · 조건 20개 / fold 100개 모두 완료 |
+| 진행 확인 | 2026-10-24 14:06 KST · 첫 fold CUDA 학습, epoch 3 MLflow 기록 확인 |
+| 계획 | 6개 조건 · 총 30회 학습, 순차 실행 |
 | 고정 학습률 | `0.00028884521694941566` |
-| 기준 run | `laya-ten-tools-train600-refine20-lr0.000288845` |
-| 탐색 대상 | 배치·warmup·clipping·scheduler·weight decay·label smoothing |
+| Seed | 3407, 3408, 3409 |
 | 데이터 | 합성 600개 · fold별 학습 480 / 검증 120 |
 | 환경 | Linux · RTX 5070 Ti · 인코더 고정, head 학습 |
 
-[MLflow에서 진행 확인](https://mlflow.dove-nest.com/#/experiments/47/runs/d9636e10f0b6449dbf6975e945e07aad) · [[Work/Jery/작업기록/2026-10-22-Jery-LR고정-기준1회-파라미터탐색19회|설정·검증·실행 자료]]
+[MLflow 진행 확인](https://mlflow.dove-nest.com/#/experiments/47/runs/af613b715d804393b17872be8d5ad671) · [[Work/Jery/작업기록/2026-10-24-Jery-OOF오류분석과-seed재검증|OOF 분석·설정·검증 자료]]
 
-구조는 **전체 실험 → 조건 20개 → 조건별 fold 5개**다. 실제 학습은 총 100회이며 조건별 평균·표준편차는 5개 fold 완료 후 표시된다. 이전 LR 단독 실험은 20개 조건 모두 완료됐다.
+구조는 **전체 Parent → 설정·seed 6개 → fold 5개**다. 이번에는 미리 선언한 두 설정을 반복하며 파라미터를 추가 탐색하지 않는다. 조건별 평균은 5개 fold가 끝난 뒤 기록된다.
 
-최고 조건의 validation 정확도는 76.83%, Macro F1은 0.7643이다. 기준은 74.83% / 0.7449였다. 기존 탐색은 같은 조합을 반복해 고유 조건이 14개였으며, 이후 후보부터 중복 방지를 적용했다.
+이전 20개 조건·100개 fold는 완료됐다. 기준 대비 최고 설정의 OOF 정확도는 74.83%→76.83%였다. 개선 47개·퇴보 35개·공통 오답 104개로, 순개선은 12개다. 새 실험은 이 개선이 seed에 따라 얼마나 달라지는지 확인한다.
+
+독립 실제 test 목표는 200개다. 새 메시지 78개를 조사했지만 추가 후보는 0개였고, 기존 후보 13개·사람 검토 완료 0개다. 동결·모델 평가는 진행하지 않았다.
 
 ## 남은 과제
 
@@ -40,6 +42,7 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 ### 2026-10-24
 
+- [[Work/Jery/작업기록/2026-10-24-Jery-OOF오류분석과-seed재검증|OOF 오류 분석 · 3개 seed 재검증 시작]]
 - [[Work/Jery/작업기록/2026-10-24-Jery-Ponytail-리팩토링과-후속제안|Ponytail 리팩토링 · 탐색 중복 방지와 다음 작업]]
 
 ### 2026-10-22
