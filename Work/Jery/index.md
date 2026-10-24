@@ -20,7 +20,7 @@ tags: [jery, mcp, dataset, training, hyperopt]
 | 평균 validation Macro F1 | 0.7342 | 0.7582 |
 | 기존 test20 평균 Macro F1 | 0.6378 | 0.6306 |
 
-모든 seed에서 validation F1이 개선됐지만 기존 test20에서는 일관된 개선이 없었다. 실제 요청 성능으로 해석하지 않는다. 현재 추가 학습은 시작하지 않았다.
+모든 seed에서 validation F1이 개선됐지만 기존 test20에서는 일관된 개선이 없었다. 실제 요청 성능으로 해석하지 않는다. v4 데이터 재학습은 아래 별도 실행에서 진행 중이다.
 
 [MLflow 완료 결과](https://mlflow.dove-nest.com/#/experiments/47/runs/af613b715d804393b17872be8d5ad671) · [[Work/Jery/작업기록/2026-10-24-Jery-seed30회-완료와-성능개선제안|결과·리팩토링·다음 실험 제안]]
 
@@ -30,11 +30,13 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 **학습800개 · 도구당80개 · 개선 도구 설명 · MLflow 저장 완료**
 
-기존/설명만/데이터만/둘 다 적용한 네 구성을 별도 Child에 보관했다. 각 Child에 실제 train·validation·test JSON, 재현용 JSONL ZIP, 카탈로그·감사 자료가 있으며 Dataset 입력12개를 등록했다. 추가200개는 합성·사람 검토 대기다. 이 데이터로 새 학습은 실행하지 않았다.
+기존/설명만/데이터만/둘 다 적용한 네 구성을 별도 Child에 보관했다. 각 Child에 실제 train·validation·test JSON, 재현용 JSONL ZIP, 카탈로그·감사 자료가 있으며 Dataset 입력12개를 등록했다. 추가200개는 합성·사람 검토 대기다. 데이터와 설명을 함께 적용한 v4 재학습을 2026-10-24 시작했다.
 
 [MLflow 데이터 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/ff162f7af7d64c05bd2a9fde44d9d8bd) · [[Work/Jery/작업기록/2026-10-24-Jery-도구경계-데이터v4와-MLflow저장|구성·검증·재현 자료]]
 
-대조 문장 쌍은 같은 scenario로 묶였다. 다음 CV에서는 혼합 라벨 group을 보존하는 분할 계획이 필요하다.
+대조 문장 쌍을 같은 scenario로 보존하는 층화 5-fold를 적용했다. fold당 학습640·검증160, 기존 최고 설정 고정, RTX 5070 Ti에서 순차 실행 중이다.
+
+[MLflow 재학습 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/79480c4a3be84189906f4bc2924757fb) · [[Work/Jery/작업기록/2026-10-24-Jery-v4-층화5fold-재학습|실행 설정·검증·평가 기준]]
 
 ## 남은 과제
 
@@ -46,6 +48,8 @@ tags: [jery, mcp, dataset, training, hyperopt]
 ## 작업 기록
 
 ### 2026-10-24
+
+- [[Work/Jery/작업기록/2026-10-24-Jery-v4-층화5fold-재학습|v4 800개 · 최고 설정 고정 · CUDA 재학습 시작]]
 
 - [[Work/Jery/작업기록/2026-10-24-Jery-도구경계-데이터v4와-MLflow저장|데이터800개·도구 설명 개선 · MLflow 저장]]
 - [[Work/Jery/작업기록/2026-10-24-Jery-seed30회-완료와-성능개선제안|seed 30회 완료 · 검증 코드 정리와 성능 개선 순서]]
