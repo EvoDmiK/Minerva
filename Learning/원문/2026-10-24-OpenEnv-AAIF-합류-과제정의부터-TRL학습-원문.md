@@ -249,3 +249,120 @@ Pelican SVG 환경도 같은 원칙을 따릅니다. 판정 모델이 설정됐�
 `GRPOTrainer`의 `environment_factory`로 Wordle 환경 클래스를 넘기는 코드는 [지난 소개 글의 TRL 절](https://discuss.pytorch.kr/t/openenv-feat-meta-hugging-face/11812)에 있습니다. 여기서는 그 글 이후 튜토리얼에서 확인한 학습 조건과 결과를 덧붙입니다. 튜토리얼은 `Qwen/Qwen3-1.7B`를 `chat_template_kwargs={"enable_thinking": False}`로 학습합니다. 사고(thinking) 모드를 꺼서 모델이 추론 토큰 없이 바로 도구를 호출하게 하는 설정입니다. 주요 설정값은 프롬프트 3,000개 데이터셋, 학습률 `1e-6`, `gradient_accumulation_steps=64`, `num_generations=2`, vLLM colocate 모드입니다. 튜토리얼은 호스팅된 [openenv/wordle Space](https://huggingface.co/spaces/openenv/wordle)의 동시 실행 수가 제한되어 있으므로, 실제 학습에서는 Space를 복제하거나 Docker로 로컬에서 실행하라고 권합니다.
 
 결과에 대한 기대치도 TRL 가이드에 적혀 있습니다. 학습 후 같은 단어를 반복하는 추측은 줄고 맞힌 추측은 늘어납니다. 그래도 사고 모드를 끈 Qwen3-1.7B는 게임을 꾸준히 이기지 못합니다. 가이드는 더 나은 결과를 원하면 더 큰 모델을 쓰거나 사고 모드를 켜라고 안내합니다. 팀은 [gpt-oss-20b](https://huggingface.co/openai/gpt-oss-20b)가 꾸준히 이겼지만 연산이 훨씬 많이 들었다고 적었습니다. 필자가 보기에, 원문이 모델과 평가 방법은 개발자가 골라야 한다고 한 이유를 이 결과가 보여 줍니다.
+
+## AAIF에 합류하는 이유: 환경 인터페이스를 중립 재단에서 함께 관리하기
+
+메인테이너들은 이 워크플로우를 재사용 가능하게 만들려면 과제, 학습 프레임워크, 에이전트를 만드는 사람들 사이의 조율이 필요하다고 씁니다. 환경 인터페이스가 바뀌면 그 인터페이스를 쓰는 시스템이 모두 영향을 받습니다. 그래서 이 기여자들에게는 호환성과 프로젝트 방향을 논의할 공동의 장소가 필요합니다.
+
+OpenEnv에는 이미 [여러 회사가 참여하는 기술 위원회(Technical Committee)](https://github.com/openenv/OpenEnv/blob/main/GOVERNANCE.md)가 있습니다. [공개된 AAIF 합류 제안서](https://github.com/aaif/project-proposals/issues/50)는 이 협업을 바탕으로, 공동 환경 명세를 특정 기업에 속하지 않는 곳에 두고 MCP와 나란히 발전시키려 합니다. 원문은 AAIF 합류가 기존 작업에 재단이라는 집을 마련해 준다고 정리합니다.
+
+> *"AAIF에 합류하면 이미 진행 중인 작업에 재단이라는 집이 생깁니다."*
+>
+> > *"Joining AAIF gives that existing work a foundation home."*
+
+### 제안서와 발표문에서 확인한 합류 과정
+
+원문에는 합류 절차와 날짜가 없어서, 제안서 이슈와 AAIF 발표문을 함께 읽었습니다:
+
+| 날짜 (2026년) | 내용 |
+| --- | --- |
+| 9월 28일 | Ben Burtenshaw(Hugging Face)가 AAIF 저장소에 OpenEnv 프로젝트 제안서 이슈 #50을 올림. Growth 단계로 신청 |
+| 10월 6일 | AAIF 기술 위원회가 OpenEnv를 Growth 단계 프로젝트로 승인. 이슈에는 계약서 작성 뒤 이사회(Governing Board)의 최종 검토와 표결이 남았다고 기록 |
+| 10월 22일 | AAIF가 AGNTCon + MCPCon North America(산호세)에서 Agent Skills, Open Responses, OpenEnv, OpenSandbox 합류 발표. 같은 날 이 글과 v0.10.0 공개 |
+
+제안서는 OpenEnv가 AAIF의 기존 프로젝트와 어떻게 이어지는지도 설명합니다. 제안서는 모델과 환경 사이의 인터페이스가 MCP이므로, 강화학습용으로 만든 환경이 배포 후 에이전트가 호출할 도구 인터페이스를 그대로 노출한다고 씁니다. 앞서 본 대로 지금 MCP 기반 환경은 일부이므로, 이것은 현재 상태라기보다 프로젝트가 지향하는 구조입니다. 제안서는 이를 에이전트를 학습시키는 방식과 실제로 실행하는 방식을 일치시키는 장점으로 듭니다.
+
+OpenEnv는 MCP 위에 학습에 필요한 에피소드 수명 주기(`reset`, `step`), 보상과 Rubric, 격리, 패키징을 더합니다. AAIF의 또 다른 프로젝트인 [goose](https://discuss.pytorch.kr/t/goose-rust-mcp-ai-feat-block-linux-foundation/9777)는 OpenEnv가 지원하려는 에이전트 하네스 중 하나입니다. [RFC 005](https://github.com/openenv/OpenEnv/blob/main/rfcs/005-agentic-harnesses.md)는 하네스가 자기 실행 루프를 유지한 채 OpenEnv 환경에서 학습되고 평가받는 감싸기 방식을 정의합니다.
+
+제안서에 적힌 운영 방식과 현황은 다음과 같습니다. 수치는 제안서 작성 시점(9월 28일)에 프로젝트가 스스로 밝힌 값입니다.
+
+* **기술 위원회**: Meta-PyTorch, Reflection, NVIDIA, Microsoft, Prime Intellect, Mercor, Fleet AI, Modal, Unsloth, Hugging Face의 10개 조직이 한 명씩 대표를 두고 2주마다 회의합니다. GOVERNANCE.md도 같은 10곳을 적습니다. 지난 소개 글은 6월 발표를 따라 RadixArk까지 11곳으로 적었고, AAIF 발표문의 Ben Burtenshaw 인용에도 RadixArk가 나옵니다. Ben Burtenshaw(Hugging Face)가 기술 리드, Emre Guven(Reflection)이 사업(GTM) 리드입니다. 결정은 GitHub와 정기 회의에서 합의로 하고, 큰 기술 변경에는 승인된 RFC가 필요합니다.
+* **후원자**: 제안서의 기술 위원회 후원자(Technical Committee Sponsor) 항목에는 Caitie McCaffrey(Microsoft)가 적혀 있습니다. 제안서는 승인되면 프로젝트의 상표와 계정을 모두 AAIF에 기증한다는 항목에 동의했습니다.
+* **재정**: 직접적인 재정 후원은 없습니다. Hugging Face와 Meta가 엔지니어 시간을 대고, 기술 위원회 회원사가 엔지니어 시간과 연산 자원을 기여합니다.
+* **채택 현황**: GitHub 스타 2,300개 이상, Hugging Face Hub의 환경 4,200개 이상, Discord 회원 21,000명 이상이라고 밝혔습니다. 이 글을 쓰는 10월 22일 기준 GitHub 스타는 2,744개입니다.
+* **연동**: TRL, Unsloth, SkyRL(UC Berkeley), Axolotl, Lightning AI, vLLM, SGLang이 OpenEnv를 연동하거나 지원하고, Modal, Daytona, Azure Container Apps, Novita를 샌드박스 백엔드로 쓸 수 있습니다.
+
+저장소 주소도 바뀌었습니다. GOVERNANCE.md에 따르면 OpenEnv 저장소는 2026년 6월 `huggingface/OpenEnv`로 옮겨졌습니다. 그 전 주소는 [지난 소개 글](https://discuss.pytorch.kr/t/openenv-feat-meta-hugging-face/11812)에 적은 대로 `meta-pytorch/OpenEnv`였습니다. `openenv/OpenEnv` 조직으로 옮긴 날짜는 확인한 자료에 나오지 않습니다. 지금은 `github.com/openenv/OpenEnv`가 정식 주소이고, `huggingface/OpenEnv`와 `meta-pytorch/OpenEnv` 주소는 모두 새 주소로 리다이렉트됩니다. 원문과 v0.9.0 릴리스 노트의 링크는 아직 `huggingface/OpenEnv`를 가리키지만, 리다이렉트 덕분에 그대로 열립니다.
+
+AAIF가 같은 날 발표한 다른 세 프로젝트와 AAIF 전체 구성은 [AAIF 4개 신규 프로젝트 정리 글](https://discuss.pytorch.kr/t/aaif-agent-skills-open-responses-openenv-opensandbox-10/12275)에 있습니다. 발표문에서 Ben Burtenshaw는 강화학습 환경이 에이전트가 실제 세계에서 쓸 능력을 가르치므로 완전히 개방된 AI 스택의 기본 요소라고 말했습니다.
+
+## 다음 단계: 환경을 쉽게 게시하는 단계에서 학습에 쓸모 있는지 검증하는 단계로
+
+원문은 [로드맵](https://github.com/aaif/project-proposals/issues/50)이 같은 작업을 환경 게시에서 환경이 학습에 쓸모 있는지 확인하는 쪽으로 넓힌다고 씁니다. 제안된 우선순위는 에이전트 하네스와 학습 시스템 연결, 환경 검증, 학습 레시피 제공, 학습 중 과제 샘플링, 커리큘럼, 평가 지원입니다. 메인테이너들은 RFC마다 검토와 구현 단계가 다르므로, 이 우선순위는 다가올 한 릴리스가 아니라 작업의 방향이라고 밝힙니다.
+
+제안서의 12개월 로드맵 표는 다음과 같습니다. 상태는 제안서 작성 시점(9월 28일) 기준입니다:
+
+| RFC | 주제 | 분야 | 상태 |
+| --- | --- | --- | --- |
+| 005 | 에이전트 하네스 연동 | 하네스 | In review |
+| 006 | 블랙박스 하네스의 토큰 캡처 계약 (캡처 프록시는 #1036으로 병합) | 하네스 | In review |
+| 008 | 환경 자동 검증(`openenv validate`)과 학습 가능성 기준 | 보상과 검증 | In review |
+| 009 | `openenvd`: 에이전트, 채점기, 원격 측정 영역을 나눈 권한 사이드카 | 보상과 검증 | Draft |
+| 011 | 프레임워크별 GRPO 하네스 학습 레시피 | 학습 | Draft |
+| 012 | Harbor 캡처 목적, 제공자 충실도, 라이브 세션 소유권 | 하네스 | In review |
+| 013 | 과제 샘플링, 커리큘럼, 학습 중 평가 | 학습 | In review |
+
+지난 소개 글은 9월 3일 기준으로 RFC 000~006, 008, 010의 상태를 정리했습니다. 이 표에서 그 글에 없던 번호는 009, 011, 012, 013입니다. 006은 번호가 같아도 주제가 바뀌었습니다. 지난 글의 006은 외부 환경 가져오기와 데이터셋 기반 환경 두 제안이었고, 지금 006은 블랙박스 하네스의 토큰 캡처 계약입니다. GOVERNANCE.md가 환경 데이터셋으로 적은 007은 제안서 로드맵에 없습니다.
+
+10월 22일 기준 저장소 main을 보면 번호가 제안서와 일부 다릅니다. main의 `rfcs/011-ard-catalog-discovery.md`는 [ARD(Agentic Resource Discovery)](https://github.com/ards-project/ard-spec) 명세로 환경 카탈로그를 탐색하는 방법을 다루는 Draft 문서입니다. 제안서가 011로 적은 GRPO 레시피 RFC는 [PR #924](https://github.com/openenv/OpenEnv/pull/924)에 `011-recipes.md`로 열려 있습니다. RFC 013은 [PR #1256](https://github.com/openenv/OpenEnv/pull/1256)으로 열려 있고, RFC 009의 `openenvd` 구현은 PR #1354, #1355로 열려 있습니다. main에 문서가 있는 RFC 005, 006, 008, 012의 상태는 모두 In Review입니다. v0.10.0에는 환경 검증에 공개 정책과 네트워크 차단 정책을 강제하는 기능(#1358)이 들어갔지만, RFC 008 문서의 상태는 여전히 In Review입니다.
+
+## OpenEnv 시작하기
+
+원문은 [시작 가이드](https://huggingface.co/docs/openenv/getting-started)로 시작해 동작을 직접 확인할 수 있는 환경 하나를 실행해 보라고 권합니다. 큰 변경을 제안하기 전에는 [기여 절차](https://huggingface.co/docs/openenv/contributing)를 먼저 읽으라고 합니다. 시작 가이드의 첫 단계는 다음과 같습니다. 이 코드는 `AutoEnv`가 Echo 환경 패키지를 설치하기 전에 확인을 요청한 뒤, 이미 실행 중인 Hugging Face Space에 연결합니다:
+
+```
+pip install openenv
+```
+
+```
+from openenv import AutoEnv
+
+env = AutoEnv.from_env(
+    "openenv/echo_env",
+    base_url="https://openenv-echo-env.hf.space",
+)
+
+with env.sync() as client:
+    result = client.reset()
+    print(result.observation.metadata["message"])  # "Echo environment ready!"
+    message = client.call_tool("echo_message", message="Hello, OpenEnv!")
+    print(message)  # "Hello, OpenEnv!"
+```
+
+`base_url` 없이 `AutoEnv.from_env("echo")`처럼 부르면 로컬 Docker 컨테이너를 띄우므로 Docker와 환경 이미지가 필요합니다. 위 시작 가이드 예제는 v0.9.0, v0.10.0, main 문서에서 같습니다. 원문이 v0.9.0 태그로 링크한 Echo 데모와 FinQA 코드를 원문과 같은 결과로 확인하려면, 저장소를 v0.9.0 태그로 받아 실행합니다. 그 밖의 문서는 문서 사이트에서 v0.10.0 버전을 골라 읽을 수 있습니다.
+
+## OpenEnv의 라이선스
+
+OpenEnv는 [BSD 3-Clause License](https://github.com/openenv/OpenEnv/blob/main/LICENSE)로 배포됩니다. 저작권 표시와 면책 조항을 유지하면 연구 목적은 물론 상업적 용도로도 자유롭게 사용 및 수정이 가능합니다. 다만 저작권자나 기여자의 이름을 파생 제품의 홍보에 허락 없이 쓸 수 없습니다. 각 환경이 쓰는 데이터셋과 외부 모델(예: Pelican SVG의 판정 모델)에는 별도 라이선스가 적용될 수 있습니다.
+
+## ![:scroll:](https://discuss.pytorch.kr/images/emoji/fluentui/scroll.png?v=15 ":scroll:") Training agents for real-world tasks with OpenEnv 원문 블로그
+
+![](https://discuss.pytorch.kr/uploads/default/original/3X/3/0/30cb306603178a12c559fc08ba03d2d6e93fa6b7.png)
+[Agentic AI Foundation (AAIF)](https://aaif.io/blog/training-agents-for-real-world-tasks-with-openenv)
+
+![](https://discuss.pytorch.kr/uploads/default/original/3X/1/c/1c02d740b38f97472e23d0b9a37fd5cc13b515b2.jpeg)
+
+### [Training Agents for Real-World Tasks with OpenEnv - Agentic AI Foundation (AAIF)](https://aaif.io/blog/training-agents-for-real-world-tasks-with-openenv)
+
+Learn how OpenEnv provides a common interface for defining tasks, rewards, and environments to train AI agents on real-world challenges like calendar scheduling and more.
+
+## ![:scroll:](https://discuss.pytorch.kr/images/emoji/fluentui/scroll.png?v=15 ":scroll:") Agentic AI Foundation 4개 신규 프로젝트 발표문
+
+![](https://discuss.pytorch.kr/uploads/default/original/3X/3/0/30cb306603178a12c559fc08ba03d2d6e93fa6b7.png)
+[Agentic AI Foundation (AAIF)](https://aaif.io/news/agentic-ai-foundation-announces-four-new-projects)
+
+![](https://discuss.pytorch.kr/uploads/default/optimized/3X/4/6/46ca4e178ed7b0c89a36f856efb39f4e821d04cb_2_1028x539.png)
+
+### [Agentic AI Foundation Announces Four New Projects: Agent Skills, Open...](https://aaif.io/news/agentic-ai-foundation-announces-four-new-projects)
+
+AAIF reaches 10 projects in its first year, with new contributions from Alibaba, Anthropic, Hugging Face, and OpenAI
+
+## ![:github:](https://discuss.pytorch.kr/uploads/default/original/2X/7/70a6220c603eed42089b4f67366225849e119e20.svg?v=15 ":github:") OpenEnv GitHub 저장소
+
+[github.com](https://github.com/openenv/OpenEnv)
+
+![](https://discuss.pytorch.kr/uploads/default/optimized/3X/b/2/b2cf1cbb5ec9d3b7b7f5008b20dad73e0a4b2538_2_695x347.png)
+
+### [GitHub - openenv/OpenEnv: An interface library for RL post training with...](https://github.com/openenv/OpenEnv)
+
+An interface library for RL post training with environments.
