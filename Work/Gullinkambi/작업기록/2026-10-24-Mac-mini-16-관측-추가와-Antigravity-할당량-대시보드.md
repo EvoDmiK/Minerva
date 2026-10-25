@@ -59,6 +59,11 @@ ORCA에 Antigravity 사용량이 안 들어온다는 문제에서 출발했다. 
   - `~/.gemini/antigravity-cli/log`에서 `agent executor error` + `RESOURCE_EXHAUSTED` 줄을 센다.
   - 첫 스캔에서는 기준 offset만 잡고, 그 뒤에 새로 생긴 줄만 센다.
 
+### Claude 5시간 패널 공백 (10/25 추가)
+- 키체인에 `Claude Code-credentials` 항목이 여러 개 있다. exporter가 계정을 지정하지 않고 읽어서 10/8에 만료된 항목을 가져왔다. 그 뒤로 사용량 API는 한 번도 쓰이지 않았고 상태줄 캐시로만 동작했다.
+- 상태줄 캐시는 Claude 세션 사이에 5시간 값이 빠질 수 있다. 그래서 "초기화됨 · 갱신 대기"가 나왔고, 주간 값도 낮게 보였다(8% vs 실제 10%).
+- `security find-generic-password -a <현재 사용자>`로 Claude Code가 실제로 쓰는 `kimdove` 항목을 읽게 고쳤다(Birds-Nest `f69bf30`).
+
 ## 배포
 | 대상 | 커밋 / 방법 |
 |---|---|
