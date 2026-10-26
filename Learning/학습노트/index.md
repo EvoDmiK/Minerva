@@ -1,7 +1,7 @@
 ---
 date: 2026-10-21
 created: 2026-10-21
-updated: 2026-10-22
+updated: 2026-10-26
 document_role: index
 title: "학습노트 인덱스"
 tags: [learning, index]
@@ -20,6 +20,7 @@ SORT file.name DESC
 
 ## 최근 학습노트
 
+- [[Learning/학습노트/2026-10-24-OpenEnv-AAIF-에이전트-학습-환경과-TRL-GRPO-실무-적용-노트|OpenEnv와 TRL을 활용한 에이전트 강화학습 환경 구축 및 실무 적용 가이드]]
 - [[Learning/학습노트/2026-10-22-DeepAligned-Mac-uv-파이프라인-구현-노트|DeepAligned: Mac uv 파이프라인 구현 및 인터뷰 과제 실행 가이드]]
 - [[Learning/학습노트/2026-10-21-SimGCD-파라메트릭-분류-카테고리-발견-논문-노트|SimGCD: Parametric Classification for Generalized Category Discovery (ICCV 2023)]]
 - [[Learning/학습노트/2026-10-21-MTP-CLNN-사전학습-대조학습-인텐트발견-논문-노트|MTP-CLNN: Multi-Task Pre-training with Contrastive Learning for Novel Intent Discovery (ACL 2022)]]
