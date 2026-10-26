@@ -57,8 +57,15 @@ tags:
 - 수집기 stdout이 버퍼링돼서 `docker logs` 줄이 몰려서 찍힌다. 시각만 보고 수집이 멈췄다고 판단하면 안 된다.
 - Mac mini 16 Antigravity는 일별 합계(10/22 1,455만)와 호출 이벤트 합계(10/22 1.97억)의 차이가 크다. 이번 범위 밖의 기존 문제로, 집계 기준 차이로 추정하며 확인하지 않았다.
 
+## Antigravity 일별 합계 차이 (같은 날 후속)
+- 원인: Antigravity 일별 `totalTokens`만 입력 + 출력이었다. 호출 이벤트와 Claude·Codex 일별 합계는 입력 + 캐시 읽기 + 출력이다. Antigravity 입력에는 캐시 읽기가 빠져 있고, 캐시 읽기가 대부분이라 약 13배 작게 나왔다(10/22: 1,455만 vs 1.97억).
+- 집계 스크립트 `antigravity_orca_usage.py`의 총합에 캐시 읽기를 포함했다(Birds-Nest `0b98d92`). Mac mini 32와 16에 설치하고 다시 돌렸다(백업 `.bak-20261026`).
+- 원본에 더 이상 없는 10/1~10/17 행은 DB에서 직접 고쳤다(`orca_usage_daily` 20행, `orca_thread_usage_daily` 27행).
+- AI 구독 탭 "Antigravity 출처별 토큰" 패널의 Hermes 값도 입력 + 캐시 + 출력 기준으로 맞췄다(Gullinkambi `63155f5`).
+- 이제 ORCA 탭에서 Antigravity 수치가 이전보다 크게 보인다.
+
 ## 남은 일
-- Mac mini 16 Antigravity 일별 합계와 호출 이벤트 합계의 차이 확인.
+- 없음.
 
 ## 관련
 - [[Work/Gullinkambi/작업기록/2026-10-24-Mac-mini-16-관측-추가와-Antigravity-할당량-대시보드|Mac mini 16 관측 추가와 Antigravity 할당량 대시보드]]
