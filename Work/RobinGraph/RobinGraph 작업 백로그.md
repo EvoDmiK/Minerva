@@ -14,7 +14,7 @@ tags: [robingraph, backlog]
 
 | ID | 작업 | 상태 | 담당 | 상세 링크 |
 |---|---|---|---|---|
-| **RG-212** | 시맨틱 그래프 인터프리터 | 진행 중 (운영 반영; 일반화 미완료) | Codex, Claude, Writer | 10/26 PROD #9: active/semantic·trace 실험 50, 실제 3/3 확인. 기존 노출 회귀 82/84·잔여 2건; 신규 8 최초 5/8→노출 8/8·gold 문제 2건 유지. snapshot 운영 유지·main 병합/push 완료(cf52e1d), Jenkins inline 정의 동기화 별도. [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-26-시맨틱-질의-원인trace-운영배포\|운영 배포·검증·한계]] · [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-26-Git정리-main병합-원격동기화\|Git 후속]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-26-Ponytail-이름해소-중복정리\|이름 해소 정리(미배포)]] |
+| **RG-212** | 시맨틱 그래프 인터프리터 | 진행 중 (운영 반영; 일반화 미완료) | Codex, Claude, Writer | 10/26 이름 해소 정리 main/push·PROD #11 완료(9df92886). 실제 inline 동기화·active/semantic·실험 50 trace 4/4. 기존 회귀 82/84·잔여 2건, 신규 8 최초 5/8→노출 8/8·gold 문제 2건 유지. [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-26-이름해소-리팩토링-main반영-운영배포\|최신 배포·검증]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-26-RG212-기록질의-공통보완-독립평가\|최초 평가·한계]] |
 | **RG-204** | 의미 기반 그래프 질의 해석 및 안전한 실행 전환 (상위) | 진행 중 (TEST 배포 및 전체 분류군 일반화·커버리지 검증 완료; 단, RG-205 사람 검토 미완료) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-204\|상세 백로그]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG208-전계급-432건-분류학적-커버리지-검증\|커버리지검증]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-22-RG208-전체-분류군-형질-일반화-수정-검증\|일반화검증]] |
 | **RG-205** | 구조화 질의 계약·정답 평가셋·현재 기준선 (Phase 1) | 진행 중 (계약·기준선·평가셋 검증 완료; 사람 미검토 분리) | Claude, Codex | [[Work/RobinGraph/백로그 상세/RG-205\|상세 백로그]] |
 
