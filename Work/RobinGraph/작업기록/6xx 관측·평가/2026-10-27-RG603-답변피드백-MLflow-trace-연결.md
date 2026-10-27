@@ -126,6 +126,10 @@ partial trace·first flush 회귀를 포함한 최종 API 13 methods와 전체 1
 
 첫 TEST 배포 preflight는 기존 환경이 ID 없이 NAME만 지정된 상태에서 하네스가 ID 키를 기대해 KeyError로 실패했다. 환경을 바꾸기 전 발생한 하네스 오류이며, 서버에서 TEST 실험 이름과 ID 33 대응을 확인한 뒤 ID를 명시해 해결했다.
 
+### 독립 후검
+
+`independent-review.json`은 PASS였다. 리뷰어는 release 파일 해시 234개, 첫 제출 4건과 assessment 대응 4건을 재확인했다. 신규 API 호출·DB/Git 쓰기는 0이며 별도의 실제 질문 재실행으로 합산하지 않는다. 단일 process lock·분산 exactly-once 미보장·물리 모바일 미검증·운영 미배포 한계도 유지했다.
+
 ### 피드백 검토 사용법
 
 1. 답변 아래에서 세 평가 중 하나를 선택한다. 저장 실패 안내가 재시도를 허용할 때만 같은 답변에서 다시 제출한다.
