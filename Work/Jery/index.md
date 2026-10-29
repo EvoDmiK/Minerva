@@ -1,6 +1,6 @@
 ---
 created: 2026-10-14
-updated: 2026-10-24
+updated: 2026-10-29
 project: Jery
 type: index
 tags: [jery, mcp, dataset, training, hyperopt]
@@ -20,7 +20,7 @@ tags: [jery, mcp, dataset, training, hyperopt]
 | 평균 validation Macro F1 | 0.7342 | 0.7582 |
 | 기존 test20 평균 Macro F1 | 0.6378 | 0.6306 |
 
-모든 seed에서 validation F1이 개선됐지만 기존 test20에서는 일관된 개선이 없었다. 실제 요청 성능으로 해석하지 않는다. v4 데이터 재학습은 아래 별도 실행에서 진행 중이다.
+모든 seed에서 validation F1이 개선됐지만 기존 test20에서는 일관된 개선이 없었다. 실제 요청 성능으로 해석하지 않는다. v4 데이터 재학습은 완료됐으며 아래에 결과를 기록했다.
 
 [MLflow 완료 결과](https://mlflow.dove-nest.com/#/experiments/47/runs/af613b715d804393b17872be8d5ad671) · [[Work/Jery/작업기록/2026-10-24-Jery-seed30회-완료와-성능개선제안|결과·리팩토링·다음 실험 제안]]
 
@@ -34,9 +34,15 @@ tags: [jery, mcp, dataset, training, hyperopt]
 
 [MLflow 데이터 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/ff162f7af7d64c05bd2a9fde44d9d8bd) · [[Work/Jery/작업기록/2026-10-24-Jery-도구경계-데이터v4와-MLflow저장|구성·검증·재현 자료]]
 
-대조 문장 쌍을 같은 scenario로 보존하는 층화 5-fold를 적용했다. fold당 학습640·검증160, 기존 최고 설정 고정, RTX 5070 Ti에서 순차 실행 중이다.
+대조 문장 쌍을 같은 scenario로 보존하는 층화 5-fold를 적용했다. fold당 학습640·검증160, 기존 최고 설정 고정. 5개 fold 모두 완료했으며 validation 정확도 평균 72.75%, Macro F1 평균 0.7224다.
 
 [MLflow 재학습 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/79480c4a3be84189906f4bc2924757fb) · [[Work/Jery/작업기록/2026-10-24-Jery-v4-층화5fold-재학습|실행 설정·검증·평가 기준]]
+
+## 데이터·설명 비교 실험
+
+동일 검증 사례로 기존, 데이터만 변경, 설명만 변경, 둘 다 변경한 네 조건을 비교한다. 5-fold씩 20회이며, 회사 GPU가 다른 작업을 수행 중이라 유휴 상태가 되면 자동 시작하도록 대기 중이다. 아직 학습은 시작되지 않았다.
+
+[MLflow 비교 Parent](https://mlflow.dove-nest.com/#/experiments/47/runs/317db7cae6e946ada0eeab618820f03a) · [[Work/Jery/작업기록/2026-10-29-Jery-데이터와-도구설명-비교실험|실험 설계와 대기 상태]]
 
 ## 남은 과제
 
@@ -46,6 +52,10 @@ tags: [jery, mcp, dataset, training, hyperopt]
 [[Work/Jery/Jery 작업 백로그|전체 작업 백로그]]
 
 ## 작업 기록
+
+### 2026-10-29
+
+- [[Work/Jery/작업기록/2026-10-29-Jery-데이터와-도구설명-비교실험|데이터·도구 설명 비교 · GPU 대기]]
 
 ### 2026-10-24
 
