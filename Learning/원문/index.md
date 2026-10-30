@@ -1,6 +1,6 @@
 ---
 created: 2026-10-07
-updated: 2026-10-24
+updated: 2026-10-30
 type: learning-category-index
 document_role: index
 ---
@@ -13,6 +13,7 @@ document_role: index
 - [[Learning/원문/2026-10-06-Jev-추천-재순위화-실증-연구-원문|Jev 추천 재순위화 게시글]] — [[Learning/변환검증/2026-10-06-Jev-재순위화-게시글-Markdown-변환-검증|변환 검증 기록]]
 - [[Learning/원문/2026-10-13-Unsloth-Jev식-결정-모델-학습과-로컬-서빙-원문|Unsloth Jev식 결정 모델 학습과 로컬 서빙]] — [[Learning/변환검증/2026-10-13-Unsloth-결정-모델-Markdown-변환-검증|변환 검증 기록]]
 - [[Learning/원문/2026-10-24-OpenEnv-AAIF-합류-과제정의부터-TRL학습-원문|OpenEnv AAIF 프로젝트 합류 및 TRL 학습]] — [[Learning/학습노트/2026-10-24-OpenEnv-AAIF-에이전트-학습-환경과-TRL-GRPO-실무-적용-노트|학습노트]]
+- [[Learning/원문/2026-10-30-Harness2-정답-라벨-없이-에이전트-하네스-개선-원문|Harness²: 에이전트 하네스 자동 개선 프레임워크 (PyTorch KR)]]
 
 ### Generalized Category Discovery & New Intent Discovery
 
