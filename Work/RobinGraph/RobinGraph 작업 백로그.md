@@ -14,6 +14,7 @@ tags: [robingraph, backlog]
 
 | ID | 작업 | 상태 | 담당 | 상세 링크 |
 |---|---|---|---|---|
+| **RG-409** | 출처 기반 도감 새소리 듣기 | 진행 중 (TEST 구현·검증 진행 · 운영 미승인) | Codex, Claude, Antigravity, Writer | [[Work/RobinGraph/백로그 상세/RG-409\|범위·완료 기준]] |
 | **RG-213** | 조건 유지 후속 질문 1단계 | 1단계 TEST 검증 완료 (운영 미반영) | Codex, Claude, Antigravity, Writer | 단일 조건 추가, 무상태 서명 토큰(1h), v2 plan/retained 분리, TEST 배포(69b19f6f), 실API 29HTTP요청/30판정(29pass 1no_data), MLflow 29건 토큰마스킹, Chromium 390/1280 4단계 통과. [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-28-조건-유지-후속-질문-1단계|상세 작업 기록]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-28-그래프-질의-안내-UI-정리|후속 UI 정리]] |
 | **RG-603** | 답변별 사용자 피드백·MLflow trace 연결 | 진행 중 (TEST 검증 완료·운영 승인 대기) | Codex, UI, 독립 검증, Writer | 세 rating·키보드 첫 제출 4/4, 실험 33 assessment 각 1개 재조회. [[Work/RobinGraph/백로그 상세/RG-603\|완료 기준]] · [[Work/RobinGraph/작업기록/6xx 관측·평가/2026-10-27-RG603-답변피드백-MLflow-trace-연결\|실제 검증·한계]] |
 | **RG-212** | 시맨틱 그래프 인터프리터 | 진행 중 (운영 반영; 일반화 미완료) | Codex, Claude, Writer | 10/26 이름 해소 정리 main/push·PROD #11 완료(9df92886). 실제 inline 동기화·active/semantic·실험 50 trace 4/4. 기존 회귀 82/84·잔여 2건, 신규 8 최초 5/8→노출 8/8·gold 문제 2건 유지. [[Work/RobinGraph/작업기록/7xx 배포·인프라/2026-10-26-이름해소-리팩토링-main반영-운영배포\|최신 배포·검증]] · [[Work/RobinGraph/작업기록/2xx 검색·RAG·그래프 질의/2026-10-26-RG212-기록질의-공통보완-독립평가\|최초 평가·한계]] |
