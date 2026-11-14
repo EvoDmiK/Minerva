@@ -73,6 +73,9 @@ RG-202의 문헌 PPR 미구현, RG-212의 신규 8문항 최초 5/8과 노출 �
 | 기존 5카드 재조회 | RG-101 프로젝트·지원 담당, RG-202 PPR 미구현, RG-212 최초/노출 평가, RG-213 실제 만료·다중 탭 미실행, RG-507 TEST/운영 경계 확인 |
 | Notion 프로젝트·허브·Itz 문서 재조회 | RobinGraph 28/39, Itz 1/3 집계와 RG-101 위치 정정·기존 child DB 유지. 다른 동시 작업의 최신 원문 보존 |
 | root 독립 메타데이터 샘플 재조회 | RG-101의 task_id/category/priority, RG-202·507의 현재 메타데이터, 카드-3D의 RG-CARD·legacy alias, 5xx 문서의 MCP frontmatter category 인식·현행 H1을 실제 재조회해 5문서 통과 |
+| 최종 저장소 검사 | root가 백로그 9문서·이 작업기록의 로컬 Markdown 링크 24개 존재·누락 0, 상세 8개 task_id=파일명/category=허브/notion_url 존재 8/8, README 39행 ID 유일·ID/category/state 일치 39/39, `git diff --check` 통과를 확인 |
+
+Writer도 저장소 상세 8개와 실제 저장 후 재조회한 Obsidian 상세 8개의 task_id/category/notion_url을 대조해 차이 0을 확인했다. 신규 작업로그는 로컬 전체 본문을 Obsidian에 저장하고 정확히 재조회했다. 기존 46문서와 신규 작업로그 1개, 총 47개 Obsidian 문서를 변경했으며 root 최종 검증 수치를 기록한 후 같은 본문으로 다시 저장·재조회했다.
 
 RobinGraph 카테고리별 실제 카드 수는 1xx 2·2xx 15·3xx 1·4xx 10·5xx 7·6xx 3·7xx 1·8xx 0으로 총 39다. 완료율은 28/39=71.8%, 미완료 11개는 진행 5+대기 1+보류 5다. Itzcuauhtli 고유 3카드(완료 1·대기 2)는 수정하지 않았고 잘못 붙은 RG-101 요약 행만 옮겼다. 전체 Notion 카드 136행은 보존하며 신규·삭제 0, 다른 고유 프로젝트 카드 변경 0이다. RG-101의 지원 담당만 Claude Code·Codex로 보완하고 다른 담당 속성은 바꾸지 않았다.
 
