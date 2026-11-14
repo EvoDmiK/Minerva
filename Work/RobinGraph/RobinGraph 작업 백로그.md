@@ -1,6 +1,6 @@
 ---
 created: 2026-10-01
-updated: 2026-11-14
+updated: 2026-11-15
 project: RobinGraph
 type: backlog
 tags: [robingraph, backlog]
@@ -9,6 +9,56 @@ tags: [robingraph, backlog]
 # RobinGraph 작업 백로그
 
 작업 목록과 상태만 간단히 관리합니다. 상세 설명·검증·배포 이력은 각 작업 링크에서 확인합니다. 등록만으로 작업을 시작하거나 운영 배포를 승인하지 않습니다.
+
+## 프로젝트 작업 허브 기준 (2026-11-15 동기화)
+
+작업 ID와 현재 카테고리는 [Notion 프로젝트 작업 허브](https://www.notion.so/4181c8daeb6a8080ab45c8000b657551)를 기준으로 관리한다. [RobinGraph 칸반](https://www.notion.so/4181c8daeb6a81c6b4c3e88f404b103b)과 아래 39개 행은 동일한 작업을 가리킨다. 완료 28 · 진행 중 5 · 착수 대기 1 · 보류 5이며, 상태의 세부 범위·사람 검토·운영 승인 한계는 아래 기존 본문과 상세 기록을 따른다.
+
+현재 분류는 1xx 인프라 · DB · 보안 / 2xx 코어 · 검색 · API / 3xx AI · 모델 · 프롬프트 / 4xx UI · 화면 · MCP / 5xx 데이터 · 리소스 · 정제 / 6xx 관측 · 평가 · 검증 / 7xx 배포 · 자동화 · 빌드 / 8xx 문서 · 기획 · 가이드이다. 작업기록의 폴더·파일명·기존 링크·옛 앵커는 역사적 보관 경로로 유지한다. 보관 경로의 옛 분류명은 현재 분류를 덮어쓰지 않으며, 9xx 기타·실험은 허브에 없는 과거 보관 분류다. RG-CARD는 허브의 정식 ID, 카드-3D는 같은 작업의 legacy alias다. 새 작업·중복 카드를 만들지 않는다.
+
+허브 우선순위가 지정된 7개는 그 값을 적용한다. 미지정(null)은 기존 우선순위·이력을 삭제하거나 미지정으로 덮어쓰라는 뜻이 아니다. Writer의 문서 역할은 기존 기록에 보존하고 허브에 없는 담당 옵션은 추가하지 않았다.
+
+| 작업 ID | 작업 | 카테고리 | 상태 | 허브 우선순위 | Notion |
+|---|---|---|---|---|---|
+| RG-101 | 문헌 Chunk 검색 저장소 분리 (PostgreSQL pgvector + Neo4j 정책 재확인) | 1xx 인프라 · DB · 보안 | 보류 | 최후순위 | [카드](https://app.notion.com/p/4181c8daeb6a8187ab12da5d5e2a9927) |
+| RG-102 | PROD 활성 종 데이터 준비 | 1xx 인프라 · DB · 보안 | 보류 | 최후순위 | [카드](https://app.notion.com/4181c8daeb6a8196a52ad166b3378b03) |
+| RG-201 | 그래프 관계 탐색 기능 확장 | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a818bb612d53f245b109e) |
+| RG-202 | 그래프 우선 이름 해소·벡터 후보 확인 | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81708ec5dbc142a0f785) |
+| RG-203 | 그래프 관계 기반 질의응답 (분류 계통·속 관계·생태 및 먹이 공유 질의) | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a813bbc75e9e390e2aef9) |
+| RG-204 | 의미 기반 그래프 질의 해석 및 안전한 실행 전환 (상위) | 2xx 코어 · 검색 · API | 진행 중 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a8143b924d15e1c07b1e4) |
+| RG-205 | 구조화 질의 계약·정답 평가셋·현재 기준선 (Phase 1) | 2xx 코어 · 검색 · API | 진행 중 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81109427e315b548cb01) |
+| RG-206 | 질문 임베딩 기반 질의 유형 후보 검색 (Phase 2) | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a815ca360f5cd67e5b03f) |
+| RG-207 | 원문 조건 추출·엔티티 연결·안전 검증 (Phase 3) | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a819c8756d628dc6b1906) |
+| RG-208 | 통합·관측·TEST 비교·단계적 전환 (Phase 4) | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a810ea909d9ad952a9cd8) |
+| RG-209 | 먹이 자료 한계 안내 | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a816fa5fbe5b549b67a57) |
+| RG-210 | 먹이 대표 표시명·질의 매핑 | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81e089bfce8727be0f1c) |
+| RG-211 | 먹이 생태 공유 어순 지원 | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81e69937c1d311d97648) |
+| RG-212 | 시맨틱 그래프 인터프리터 | 2xx 코어 · 검색 · API | 진행 중 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81e69bd5eab193bc5774) |
+| RG-213 | 조건 유지 후속 질문 1단계 | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a814eb7f4eb11f552276c) |
+| RG-214 | 먹이 조건 비율 합산 내림차순 정렬 | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a814cb7fbda0144dc2f18) |
+| RG-215 | 조건으로 새 찾기(새 탐색기) | 2xx 코어 · 검색 · API | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a8198af54fc70a27a5f06) |
+| RG-301 | Jev System One API를 이용한 질문 의도 분석 | 3xx AI · 모델 · 프롬프트 | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81a39f10fdf8de6dcfec) |
+| RG-401 | 비슷한 새 비교 결과를 별도 말풍선으로 표시 | 4xx UI · 화면 · MCP | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a811f8e79e0e54cac5f6d) |
+| RG-402 | 사용자 화면에 남은 영어 생태 용어 한국어 번역 | 4xx UI · 화면 · MCP | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81eca968c2308483b200) |
+| RG-403 | 먹이 생태별 다중 아이콘 추가 | 4xx UI · 화면 · MCP | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a815e8b7cde666aead8c9) |
+| RG-404 | 사용 가능한 사진이 없는 조류의 처리 방안 마련 | 4xx UI · 화면 · MCP | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81b2bd79dd8c56929c1b) |
+| RG-405 | 마우스 드래그로 조류 카드 뒤집기 | 4xx UI · 화면 · MCP | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81e286a9de3e66fc393c) |
+| RG-406 | 한국 서식 여부 토글과 범위별 이름 우선 정책 | 4xx UI · 화면 · MCP | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a818ba8c4c96ec30e7111) |
+| RG-407 | 도감 먹이 표시명 간결화 | 4xx UI · 화면 · MCP | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81b98576f2e37de059f0) |
+| RG-408 | 도감 팝업 재열기 배율 복구 | 4xx UI · 화면 · MCP | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81f29eb5e5ac8299e546) |
+| RG-409 | 출처 기반 도감 새소리 듣기 | 4xx UI · 화면 · MCP | 진행 중 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a819c96d2d1771dcb96b9) |
+| RG-501 | 통칭과 가축화된 아종·가축형 조사 및 그래프 연결 | 5xx 데이터 · 리소스 · 정제 | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a813d9f1edc088652a908) |
+| RG-502 | 잘못된 생태·설명 정보의 원인 조사 및 수정 | 5xx 데이터 · 리소스 · 정제 | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a816b8321f3dc1d87881f) |
+| RG-503 | 아종 분포 설명과 설명용 제목 한국어화 | 5xx 데이터 · 리소스 · 정제 | 보류 | 최후순위 | [카드](https://app.notion.com/4181c8daeb6a815e8ed4ec23129326ec) |
+| RG-504 | 확인된 한국어 이름 확대와 예전 분류명 매핑 검토 | 5xx 데이터 · 리소스 · 정제 | 보류 | 최후순위 | [카드](https://app.notion.com/4181c8daeb6a81669323db2e4c7a7f55) |
+| RG-505 | 분류·이름·번역 자료 변경 감지와 검토 가능한 갱신 절차 | 5xx 데이터 · 리소스 · 정제 | 보류 | 최후순위 | [카드](https://app.notion.com/4181c8daeb6a81c9b1fdc418a4289dc6) |
+| RG-506 | 출처 기반 국외 분포 검토종 확대 및 미확인 종 검토 | 5xx 데이터 · 리소스 · 정제 | 착수 대기 | P2 (보통) | [카드](https://app.notion.com/4181c8daeb6a8115a85cd17b2b9b5815) |
+| RG-507 | n8n 새소리 수집·검토·허용 음원 저장 | 5xx 데이터 · 리소스 · 정제 | 진행 중 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81a9bf4ac7d1dea230fb) |
+| RG-601 | MLflow 자동 로깅 연동 | 6xx 관측 · 평가 · 검증 | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a815b9f2ec5201d859a1c) |
+| RG-602 | MLflow에서 답변 결과와 미응답 사유 구분 | 6xx 관측 · 평가 · 검증 | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81d892ccdd160e860d7b) |
+| RG-603 | 답변별 사용자 피드백·MLflow trace 연결 | 6xx 관측 · 평가 · 검증 | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a813e9b9ef5aa2cecc6b4) |
+| RG-701 | FastAPI에서 Django + Django REST Framework로 백엔드 전환 | 7xx 배포 · 자동화 · 빌드 | 완료 | P1 (높음) | [카드](https://app.notion.com/4181c8daeb6a812e831cee838eeaa7b8) |
+| RG-CARD | 카드 3D 뒤집기 효과 | 4xx UI · 화면 · MCP | 완료 | 미지정 (기존 기록 보존) | [카드](https://app.notion.com/4181c8daeb6a81d48bc0d86a915a5ef2) |
 
 ## 다음 작업의 조건
 
@@ -40,7 +90,7 @@ tags: [robingraph, backlog]
 [[Work/RobinGraph/백로그 상세/RG-506|RG-506 상세]] · 국외 분포 검토종 확대·미확인 종 검토 · RG-406에서 분리된 후속 데이터 과제
 
 - **상태**: 착수 대기
-- **우선순위**: 보통
+- **우선순위**: P2 (보통)
 
 ## 보류
 
@@ -49,7 +99,7 @@ tags: [robingraph, backlog]
 [[Work/RobinGraph/백로그 상세/RG-101|RG-101 상세]] · 문헌 Chunk 저장소 분리 · 문헌 축적 후 재개 (관련: [[Work/RobinGraph/작업기록/1xx DB·저장소/2026-10-22-TEST-Neo4j-힙감소-성능측정|힙감소 측정]])
 
 - **상태**: 보류 (소규모 기준선 완료 · 실제 문헌 축적 후 재개)
-- **우선순위**: 보류
+- **우선순위**: 최후순위 (프로젝트 작업 허브 기준; 이전 ‘보류’ 표기는 당시 기록)
 
 ### RG-102 — PROD 활성 종 데이터 준비
 
@@ -175,7 +225,9 @@ tags: [robingraph, backlog]
 
 [[Work/RobinGraph/백로그 상세/RG-404|RG-404 상세]] · 사용 가능한 사진이 없는 조류의 처리 방안 마련
 
-### 카드 3D 뒤집기 효과 — 2026-10-01
+### RG-CARD — 카드 3D 뒤집기 효과 (legacy alias: 카드-3D)
+
+이전 제목·앵커 `카드 3D 뒤집기 효과 — 2026-10-01`과 기존 파일 경로는 이력으로 보존한다.
 
 [[Work/RobinGraph/백로그 상세/카드-3D|카드-3D 상세]] · 카드 3D 뒤집기 효과 — 2026-10-01
 
