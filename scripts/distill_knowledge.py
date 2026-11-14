@@ -87,6 +87,7 @@ def extract_distill_candidates(file_path: Path):
     return {
         "file": file_path.relative_to(VAULT_ROOT),
         "title": first_heading or file_path.stem,
+        "type": fm.get("type", "").lower(),
         "project": fm.get("project", file_path.parts[file_path.parts.index("Work") + 1] if "Work" in file_path.parts else "Unknown"),
         "domains": matched_domains,
         "code_block_count": len(code_blocks),
@@ -179,6 +180,12 @@ def main():
         print(f"• 포함된 코드 블록 수: {info['code_block_count']}개 ({', '.join(info['code_languages']) or 'plain'})")
         
         if args.create_draft:
+            if info["type"] in ("backlog", "category-backlog", "index", "moc"):
+                print(f"\n[건너뜀] 비작업기록 타입(type={info['type']})은 Dev/로 증류하지 않습니다.")
+                return
+            if info["code_block_count"] == 0 and not info["domains"]:
+                print("\n[건너뜀] 코드 블록과 기술 영역 매칭이 없어 상록수 지식 초안을 생성하지 않습니다.")
+                return
             draft_path, draft_content = generate_dev_draft(info)
             draft_path.write_text(draft_content, encoding="utf-8")
             print(f"\n[성공] 초안 노트가 생성되었습니다: {draft_path.relative_to(VAULT_ROOT)}")
